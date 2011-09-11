@@ -725,7 +725,7 @@ void WorldSession::HandleCharCreateCallback(PreparedQueryResult result, Characte
             }
 
             Player* pNewChar = new Player(this);
-            if (!pNewChar->Create(sObjectMgr->GenerateLowGuid(HIGHGUID_PLAYER), createInfo))
+            if (!pNewChar->Create(sObjectMgr->GenerateLowGuid(HIGHGUID_PLAYER), createInfo, GetAccountId()))
             {
                 // Player not create (race/class/etc problem?)
                 pNewChar->CleanupsBeforeDelete();
@@ -786,15 +786,11 @@ void WorldSession::HandleCharCreateCallback(PreparedQueryResult result, Characte
 void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
 {
     uint64 guid = 0;
-    uint64 playerGuid;
     uint8 packetGuid, byte;
 
     sLog->outStaticDebug("WORLD: Received Player Delete Message");
-    WorldPacket  new_recv_data = recv_data;
-    /*recv_data >> playerGuid;
-    recv_data.clear();*/
-    new_recv_data >> packetGuid;
-    new_recv_data >> byte;
+    recv_data >> packetGuid;
+    recv_data >> byte;
 
     uint32 realguids[1000]; // Max 1000 characters for an account
     uint32 guids[1000]; // Max 1000 characters for an account
@@ -830,9 +826,9 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
 
         if (i == 0)
         {
-            if (byte == 0 && (packetGuid > 0 && packetGuid < 512))
+            if (byte == 0 && packetGuid != 0)
             {
-                QueryResult charresult = CharacterDatabase.PQuery("SELECT guid, name FROM characters WHERE account='%u'", GetAccountIdForCharDeletion());
+                QueryResult charresult = CharacterDatabase.PQuery("SELECT guid FROM characters WHERE account='%u'", GetAccountIdForCharDeletion());
                 if (!charresult)
                     return;
 
@@ -847,7 +843,7 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
                 }
                 while (charresult->NextRow());
 
-                for (int i = 0; i < LastCharacter+1; ++i)
+                for (int i = 0; i < LastCharacter; ++i)
                     if (guids[i] == packetGuid)
                     {
                         PairNumber = i;
