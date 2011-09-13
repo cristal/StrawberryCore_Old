@@ -979,10 +979,10 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo, uint32 acco
     if (accountId)
         if (guidlow > 0 && guidlow < 512)
         {
-            for (int i = 0; i < 1000; ++i)
+            for (int i = 0; i < 1000; ++i) // Max 1000 characters for an account
                 if (guids[i])
                     if (guids[i] != 0)
-                        guids[i] = 0; // Max 1000 characters for an account
+                        guids[i] = 0;
 
             LastCharacter = 0;
             bool Pair = false;
@@ -1014,6 +1014,9 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo, uint32 acco
                 }
             }
         }
+
+    if (guidlow == 1 || guidlow == 254 || guidlow == 256 || guidlow == 257) // There will be no packet sending for these guids!
+        ++guidlow;
 
     Object::_Create(guidlow, 0, HIGHGUID_PLAYER);
 
