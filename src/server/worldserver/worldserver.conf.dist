@@ -27,7 +27,7 @@
 # CUSTOM SERVER OPTIONS
 # WINTERGRASP OPTIONS
 # MOVEMENT ANTICHEAT
-# SPELL STAT SYSTEM
+# OPTIONAL SYSTEMS
 #
 ###################################################################################################
 
@@ -3062,18 +3062,14 @@ Anticheat.Movement.GmLevel = 0
 ###################################################################################################
 
 ###################################################################################################
-#					SPELL STAT SYSTEM					  #
-###################################################################################################
+# OPTIONAL SYSTEMS
 #
-# Spell Stat System 
-# Usage: On/Off
-# Description: Enable or disable Spell Stat System
-# Default:	1 (Enable)
-# 		0 (Disable)
-#
+# SpellStatSystem
+# Description: Enable or disable the spell stat system.
+# Default:  1 (Enable)
+#           0 (Disable)
 
 SpellStatSystem.Enable = 1
 
-#
 #
 ###################################################################################################
