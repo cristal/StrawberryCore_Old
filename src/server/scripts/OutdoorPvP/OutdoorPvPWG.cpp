@@ -2278,7 +2278,7 @@ void OutdoorPvPWG::SendWarningToPlayer(Player* plr,int32 entry, ...)
         plr->GetSession()->SendPacket(&data);
 }
 
-void OutdoorPvPWG::SendWarningToAllInZone(int32 entry, const char *text)
+void OutdoorPvPWG::SendWarningToAllInZone(int32 entry, const char *text, ...)
 {
     const char *format = fmtstring(sObjectMgr->GetVoragineStringForDBCLocale(entry), text);
     va_list ap;

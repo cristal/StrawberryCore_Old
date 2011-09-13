@@ -302,7 +302,7 @@ class OutdoorPvPWG : public OutdoorPvP
         virtual void OnPlayerJoinWar(Player* /*plr*/){};
         WorldPacket BuildWarningAnnPacket(std::string msg);
         void ChangeFlags(Creature* creature);
-        void SendWarningToAllInZone(int32 entry, const char *text);
+        void SendWarningToAllInZone(int32 entry, const char *text, ...);
         void SendWarningToAllInWar(int32 entry, ...);
         void SendWarningToPlayer(Player* plr,int32 entry, ...);
         void SendWarningToAll(int32 entry, ...);
