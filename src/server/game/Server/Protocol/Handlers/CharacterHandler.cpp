@@ -718,11 +718,7 @@ void WorldSession::HandleCharCreateCallback(PreparedQueryResult result, Characte
             }
 
             if (createInfo->Data.rpos() < createInfo->Data.wpos())
-            {
-                uint8 unk;
-                createInfo->Data >> unk;
-                sLog->outDebug("Character creation %s (account %u) has unhandled tail data: [%u]", createInfo->Name.c_str(), GetAccountId(), unk);
-            }
+                sLog->outDebug("Character creation %s (account %u) has unhandled tail data.", createInfo->Name.c_str(), GetAccountId());
 
             Player* pNewChar = new Player(this);
             if (!pNewChar->Create(sObjectMgr->GenerateLowGuid(HIGHGUID_PLAYER), createInfo, GetAccountId()))
