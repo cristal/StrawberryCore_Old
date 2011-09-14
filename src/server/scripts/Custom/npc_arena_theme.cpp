@@ -107,12 +107,12 @@ class npc_arena_theme : public CreatureScript
             char msg[100];
             int time2 = GetLastThemeTime() + 600 - (int)time (NULL);
             if (time2 < 60)
-                sprintf(msg, "Próximo cambio posible en menos de un minuto.");
+                sprintf(msg, "Next possible change in less than a minute.");
             else
-                sprintf(msg, "Proximo cambio posible en %u minuto/s.", time2 / 60);
+                sprintf(msg, "Next possible change in %u minute/s.", time2 / 60);
             pPlayer->ADD_GOSSIP_ITEM(0, msg, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
         }
-        pPlayer->ADD_GOSSIP_ITEM(0, "Hasta Luego", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+        pPlayer->ADD_GOSSIP_ITEM(0, "Good bye", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
         pPlayer->SEND_GOSSIP_MENU(1,pCreature->GetGUID());
         return true;
     }

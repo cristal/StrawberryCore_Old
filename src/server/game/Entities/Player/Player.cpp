@@ -2637,7 +2637,7 @@ void Player::Regenerate(Powers power)
     float addvalue = 0.0f;
 
     //powers now benefit from haste.
-    //float haste = (2 - GetFloatValue(UNIT_MOD_CAST_SPEED));
+    float haste = (2 - GetFloatValue(UNIT_MOD_CAST_SPEED));
     
     switch (power)
     {
@@ -2650,16 +2650,16 @@ void Player::Regenerate(Powers power)
                 ManaIncreaseRate = sWorld->getRate(RATE_POWER_MANA) * (2.066f - (getLevel() * 0.066f));
 
             if (recentCast) // Voragine Updates Mana in intervals of 2s, which is correct
-                addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER) *  ManaIncreaseRate * 0.001f * m_regenTimer;
+                addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER) *  ManaIncreaseRate * 0.001f * m_regenTimer * haste;
             else
-                addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER) * ManaIncreaseRate * 0.001f * m_regenTimer;
+                addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER) * ManaIncreaseRate * 0.001f * m_regenTimer * haste;
         }   break;
         case POWER_RAGE:                                    // Regenerate rage
         {
             if (!isInCombat() && !HasAuraType(SPELL_AURA_INTERRUPT_REGEN))
             {
                 float RageDecreaseRate = sWorld->getRate(RATE_POWER_RAGE_LOSS);
-                addvalue += -20 * RageDecreaseRate;               // 2 rage by tick (= 2 seconds => 1 rage/sec)
+                addvalue += -20 * RageDecreaseRate * haste;               // 2 rage by tick (= 2 seconds => 1 rage/sec)
             }
         }   break;
         case POWER_ENERGY:                                  // Regenerate energy (rogue)
@@ -8207,7 +8207,7 @@ void Player::_ApplyAuraBonuses(Player* player, uint32 spellid, uint32 TypeOfStat
             // NOTE: The values of 57 and 58 must be same.
             break;
         case SPELL_MOD_RANGED_ATTACK_POWER:
-            AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 8, UNIT_MOD_MANA, BASE_VALUE, CR_WEAPON_SKILL, STAT_AGILITY, row, apply); // CR_WEAPON_SKILL, STAT_AGILITY, UNIT_MOD_MANA, BASE_VALUE  will not use(like NULL), because state is 13..
+            AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 8, UNIT_MOD_MANA, BASE_VALUE, CR_WEAPON_SKILL, STAT_AGILITY, row, apply); // CR_WEAPON_SKILL, STAT_AGILITY, UNIT_MOD_MANA, BASE_VALUE  will not use(like NULL), because state is 8..
             break;
 //      case SPELL_MOD_FERAL_ATTACK_POWER:
 //          ApplyFeralAPBonus(int32(value), apply);
@@ -8426,7 +8426,7 @@ void Player::_ApplyItemBonuses(ItemTemplate const *proto, uint8 slot, bool apply
                 if (float(val) > 0)
                     HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED_POS, TOTAL_VALUE, float(val), apply);
                 else
-                    HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED_POS, TOTAL_VALUE, -float(val), apply);
+                    HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED_NEG, TOTAL_VALUE, -float(val), apply);
                 break;
 //            case ITEM_MOD_FERAL_ATTACK_POWER:
 //                ApplyFeralAPBonus(int32(val), apply);
