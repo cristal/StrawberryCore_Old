@@ -924,6 +924,7 @@ void WorldSession::HandleWorldLoginOpcode(WorldPacket& recv_data)
     uint32 unk;
     uint8 unk1;
     recv_data >> unk >> unk1;
+    sLog->outDebug("Receiving of the Login Message is done.");
 }
 
 void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)

@@ -2718,7 +2718,7 @@ void WorldObject::DestroyForNearbyPlayers()
         return;
 
     std::list<Player*> targets;
-    Voragine::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange());
+    Voragine::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange(), false);
     Voragine::PlayerListSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(this, targets, check);
     VisitNearbyWorldObject(GetVisibilityRange(), searcher);
     for (std::list<Player*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
