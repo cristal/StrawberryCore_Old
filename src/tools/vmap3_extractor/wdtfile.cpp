@@ -133,6 +133,6 @@ ADTFile* WDTFile::GetMap(int x, int z)
 
     char name[512];
 
-    sLog.Write(name,"World\\Maps\\%s\\%s_%d_%d_obj0.adt", filename.c_str(), filename.c_str(), x, z);
+    sprintf(name,"World\\Maps\\%s\\%s_%d_%d_obj0.adt", filename.c_str(), filename.c_str(), x, z);
     return new ADTFile(name);
 }
