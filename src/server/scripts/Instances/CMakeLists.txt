@@ -145,7 +145,8 @@ set(scripts_STAT_SRCS
   Instances/Icecrown_Citadel/Halls_of_Reflection/boss_marwyn.cpp
   Instances/Icecrown_Citadel/Halls_of_Reflection/halls_of_reflection.cpp
   Instances/Icecrown_Citadel/Halls_of_Reflection/halls_of_reflection.h
-  Instances/Icecrown_Citadel/Halls_of_Reflection/instance_halls_of_reflection
+  Instances/Icecrown_Citadel/Halls_of_Reflection/instance_halls_of_reflection   
+  Instances/Icecrown_Citadel/Halls_of_Reflection/boss_the_lich_king_hor.cpp
   Instances/Icecrown_Citadel/Pit_of_Saron/boss_forgemaster_garfrost.cpp
   Instances/Icecrown_Citadel/Pit_of_Saron/boss_krickandick.cpp
   Instances/Icecrown_Citadel/Pit_of_Saron/boss_scourgelord_tyrannus.cpp
