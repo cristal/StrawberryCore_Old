@@ -28,7 +28,7 @@ set(scripts_STAT_SRCS
 )
 
 if(SCRIPTS)
-  include(Custom/CMakeLists.txt)
+  include(Optional/CMakeLists.txt)
   include(World/CMakeLists.txt)
   include(OutdoorPvP/CMakeLists.txt)
   include(Instances/CMakeLists.txt)
