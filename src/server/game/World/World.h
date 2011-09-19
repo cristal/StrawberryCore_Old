@@ -171,7 +171,7 @@ enum WorldBoolConfigs
     CONFIG_CONFIG_OUTDOORPVP_WINTERGRASP_ANTIFARM_ENABLE,
     CONFIG_ANTICHEAT_ENABLE,
     CONFIG_SHOW_BAN,
-	CONFIG_SPELL_STAT_SYSTEM,
+    CONFIG_SPELL_STAT_SYSTEM,
     BOOL_CONFIG_VALUE_COUNT
 };
 
@@ -483,8 +483,8 @@ enum RealmZone
 enum WorldStates
 {
     WS_WEEKLY_QUEST_RESET_TIME = 20002,                      // Next weekly reset time
-    WS_BG_DAILY_RESET_TIME     = 20003,                       // Next daily BG reset time
-	WS_CURRENCY_RESET_TIME     = 20004                       // Next currency week cap reset time
+    WS_BG_DAILY_RESET_TIME     = 20003,                      // Next daily BG reset time
+    WS_CURRENCY_RESET_TIME     = 20004                       // Next currency week cap reset time
 };
 
 // DB scripting commands
@@ -550,7 +550,6 @@ typedef UNORDERED_MAP<uint32, WorldSession*> SessionMap;
 struct GCharacters
 {
     uint32 guid;
-    uint32 accountId;
 };
 
 typedef UNORDERED_MAP<uint32, GCharacters> CharactersMap;
@@ -814,6 +813,13 @@ class World
             if (itr != mCharacters.end())
                 return &itr->second;
             return NULL;
+        }
+        bool ExistGUID(uint32 guid) const
+        {
+            for (CharactersMap::const_iterator itr = mCharacters.begin(); itr != mCharacters.end(); ++itr)
+                if (itr->second.guid == guid)
+                    return true;
+            return false;
         }
     protected:
         void _UpdateGameTime();

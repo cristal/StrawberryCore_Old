@@ -332,7 +332,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                                 GetAccountId(), m_GUIDLow, _player ? _player->GetName() : "<none>",
                                 LookupOpcodeName(packet->GetOpcode()), packet->GetOpcode());
                         break;
-                    case STATUS_UNHANDLED:    
+                    case STATUS_UNHANDLED:
                         sLog->outDebug("SESSION (account: %u, guidlow: %u, char: %s): received not handled opcode %s (0x%.4X)",
                             GetAccountId(), m_GUIDLow, _player ? _player->GetName() : "<none>",
                             LookupOpcodeName(packet->GetOpcode()), packet->GetOpcode());  

@@ -1322,7 +1322,7 @@ void World::SetInitialWorldSettings()
     LoadDATAStores();
     DetectDBCLang();
 
-    sLog->outString("Loading Current Characters To Guid Check...");
+    sLog->outString("Loading Current Characters To Guid Check, Please Wait(This can take a few secs just once(Avrg: 0-20 secs))...");
     LoadCharacterCheck();
 
     sLog->outString("Loading Script Names...");
@@ -1335,7 +1335,7 @@ void World::SetInitialWorldSettings()
     sSpellMgr->LoadSkillLineAbilityMap();
 
      // Must be called before `creature_respawn`/`gameobject_respawn` tables
-    sLog->outString("Loading instances...");
+    sLog->outString("Loading Instances...");
     sInstanceSaveMgr->LoadInstances();
 
     sLog->outString("Loading Localization strings...");
@@ -1937,117 +1937,73 @@ void World::LoadCharacterCheck()
 
     uint32 oldMSTime = getMSTime();
 
-    // Don't try to understand whole system because the system works very complex.
     // How it works ?
-    // First it will search whole exist characters in the database. If an account has both guid which are
-    // 1 and 257, 2 and 258 (... to 255 ad 511) then the system will make a new guid for high guid.
-    // For example:
-    // AccountId = 5 and it has 2 characters. The guids of the characters are 6 and 262.
-    // 262 - 0x100(256) = 6. That means 262 and 6 are same ids. (6 = 6(262)).
+    // First it will search whole exist characters in the database. If there is a guid which is higher than
+    // 256 and lower than 512(also if it is 1, 254, 256 or 257, 512 or 513, 768 or 769 ...)
+    // then the system will make a new guid for it.
 
-    uint32 CurrentAccountId = 0;
-    uint32 CurrentNumber[10000];
+    // How long It will take ?
+    // If you have characters more than 255 then generally it can took 1-20 secs but its just for once. 
+    // In the future it will be 1-30 ms.
+
     uint32 LastGUID;
+    int Number = 0;
+    int PairList[1000];
 
     uint32 count = 0;
     do
     {
         Field *fields = result->Fetch();
-
-        if (fields[1].GetInt32() == CurrentAccountId)
-            ++CurrentNumber[CurrentAccountId];
-        else
-            CurrentNumber[fields[1].GetInt32()] = count+1;
         GCharacters gcharacters;
 
         LastGUID = fields[0].GetInt32();
         gcharacters.guid = LastGUID;
-        CurrentAccountId = fields[1].GetInt32();
-        gcharacters.accountId = CurrentAccountId;
 
         mCharacters[count] = gcharacters;
         ++count;
     }
     while (result->NextRow());
 
-    uint32 LastCharacter = 0;
-    uint32 guids[1000];
-    uint32 applied[1000];
     for (int i = 0; i < signed(count); ++i)
-    {
-        const GCharacters* CharsForCount = GetCharactersForCheck(i);
-        uint32 start = i;
-        if (i != 0)
-            --start;
-
-        for (int ii = start; ii < signed(CurrentNumber[CharsForCount->accountId]); ++ii)
-            if (const GCharacters* Chars = GetCharactersForCheck(ii))
-                if (Chars->guid < 512)
+        if (const GCharacters* CharsForCount = GetCharactersForCheck(i))
+            if (CharsForCount->guid > 257 && CharsForCount->guid < 512)
+            {
+                PairList[Number] = CharsForCount->guid-256; // It will be +256...
+                ++Number;
+            }
+            else
+            {
+                if (CharsForCount->guid == 1 || CharsForCount->guid == 254)
                 {
-                    if (Chars->guid > 255)
-                        guids[LastCharacter] = Chars->guid-256;
-                    else
-                        guids[LastCharacter] = Chars->guid;
-                    applied[LastCharacter] = Chars->accountId;
-                    ++LastCharacter;
+                    PairList[Number] = CharsForCount->guid-256; // It will be +256...
+                    ++Number;
                 }
+            }
 
-        i = CurrentNumber[CharsForCount->accountId];
-    }
-
-    int Number = 0;
-    int PairList[1000];
-    for (int i = 0; i < signed(LastCharacter); ++i)
-    {
-        for (int ii = 0; ii < signed(LastCharacter); ++ii)
-            if (i != ii)
-                if (applied[i] == applied[ii])
-                    if (guids[i] == guids[ii])
-                    {
-                        bool Exist = false;
-                        if (Number != 0)
-                            for(int iii = 0; iii < Number; ++iii)
-                                if (Exist == false)
-                                    for(int iiii = 0; iiii < Number; ++iiii)
-                                        if (iii != iiii)
-                                            if (guids[ii] == PairList[iiii])
-                                                Exist = true;
-
-                        if (Exist == false)
-                        {
-                            PairList[Number] = guids[i];
-                            ++Number;
-                        }
-                    }
-    }
+    int coef = LastGUID/256;
+    if (coef > 0)
+        for (int i = 1; i < coef+1; ++i)
+        {
+            int First = (i*256);
+            if (ExistGUID(First) == true)
+            {
+                PairList[Number] = First-256;
+                ++Number;
+            }
+            int Second = 0;
+            if (First+1 < signed(LastGUID) || First+1 == signed(LastGUID))
+                Second = First+1;
+            if (Second != 0)
+                if (ExistGUID(Second) == true)
+                {
+                    PairList[Number] = Second-256;
+                    ++Number;
+                }
+        }
 
     int oldguid = 0;
     int newguid = LastGUID;
-    int Ignore;
-    for (int i = 0; i < 4; ++i)
-    {
-        switch (i)
-        {
-        case 0:
-            Ignore = 1;
-            break;
-        case 1:
-            Ignore = 254;
-            break;
-        case 2:
-            Ignore = 256;
-            break;
-        case 3:
-            Ignore = 257;
-            break;
-        }
-        QueryResult result = CharacterDatabase.PQuery("SELECT `guid` FROM `characters` WHERE `guid`=%u", Ignore);
-        if (result)
-        {
-            PairList[Number] = Ignore-256; // It will be +256...
-            ++Number;
-        }
-    }
+
     if (Number != 0)
         for (int i = 0; i < Number; ++i)
         {
@@ -2062,70 +2018,70 @@ void World::LoadCharacterCheck()
                 bool Multiple = false;
                 switch (ii) // Convert if oldguid is exist in these tables.
                 {
-                case  0: tablename = "arena_team";                      columnname = "captainGuid"; break;
-                case  1: tablename = "arena_team_member";               columnname = "guid"; break;
-                case  2: tablename = "auctionhouse";                    columnname = "itemguid"; break;
-                case  3: tablename = "auctionhouse";                    columnname = "buyguid"; break;
-                case  4: tablename = "character_account_data";          columnname = "guid"; break;
-                case  5: tablename = "character_achievement";           columnname = "guid"; break;
-                case  6: tablename = "character_achievement_progress";  columnname = "guid"; break;
-                case  7: tablename = "character_action";                columnname = "guid"; break;
-                case  8: tablename = "character_arena_stats";           columnname = "guid"; break;
-                case  9: tablename = "character_aura";                  columnname = "guid"; break;
-                case 10: tablename = "character_aura";                  columnname = "caster_guid"; break;
-                case 11: tablename = "character_banned";                columnname = "guid"; break;
-                case 12: tablename = "character_battleground_data";     columnname = "guid"; break;
-                case 13: tablename = "character_battleground_random";   columnname = "guid"; break;
-                case 14: tablename = "character_branchspec";            columnname = "guid"; break;
-                case 15: tablename = "character_cp_weekcap";            columnname = "guid"; break;
-                case 16: tablename = "character_currency";              columnname = "guid"; break;
-                case 17: tablename = "character_declinedname";          columnname = "guid"; break;
-                case 18: tablename = "character_equipmentsets";         columnname = "guid"; break;
-                case 19: tablename = "character_gifts";                 columnname = "guid"; break;
-                case 20: tablename = "character_glyphs";                columnname = "guid"; break;
-                case 21: tablename = "character_homebind";              columnname = "guid"; break;
-                case 22: tablename = "character_instance";              columnname = "guid"; break;
-                case 23: tablename = "character_inventory";             columnname = "guid"; break;
-                case 24: tablename = "character_pet";                   columnname = "owner"; break;
-                case 25: tablename = "character_pet_declinedname";      columnname = "owner"; break;
-                case 26: tablename = "character_queststatus";           columnname = "guid"; break;
-                case 27: tablename = "character_queststatus_daily";     columnname = "guid"; break;
-                case 28: tablename = "character_queststatus_rewarded";  columnname = "guid"; break;
-                case 29: tablename = "character_queststatus_weekly";    columnname = "guid"; break;
-                case 30: tablename = "character_reputation";            columnname = "guid"; break;
-                case 31: tablename = "character_skills";                columnname = "guid"; break;
-                case 32: tablename = "character_social";                columnname = "guid"; break;
-                case 33: tablename = "character_social";                columnname = "friend"; break;
-                case 34: tablename = "character_spell";                 columnname = "guid"; break;
-                case 35: tablename = "character_spell_cooldown";        columnname = "guid"; break;
-                case 36: tablename = "character_stats";                 columnname = "guid"; break;
-                case 37: tablename = "character_talent";                columnname = "guid"; break;
-                case 38: tablename = "characters";                      columnname = "guid"; break;
-                case 39: tablename = "corpse";                          columnname = "guid"; break;
-                case 40: tablename = "gm_surveys";                      columnname = "player"; break;
-                case 41: tablename = "gm_tickets";                      columnname = "playerGuid"; break;
-                case 42: tablename = "group_member";                    columnname = "memberGuid"; break;
-                case 43: tablename = "groups";                          columnname = "leaderGuid"; break;
-                case 44: tablename = "groups";                          columnname = "looterGuid"; break;
-                case 45: tablename = "guild";                           columnname = "leaderguid"; break;
-                case 46: tablename = "guild_bank_eventlog";             columnname = "PlayerGuid"; break;
-                case 47: tablename = "guild_eventlog";                  columnname = "PlayerGuid1"; break;
-                case 48: tablename = "guild_eventlog";                  columnname = "PlayerGuid2"; break;
-                case 49: tablename = "guild_member";                    columnname = "guid"; break;
-                case 50: tablename = "item_instance";                   columnname = "owner_guid"; break;
-                case 51: tablename = "item_instance";                   columnname = "creatorGuid"; break;
-                case 52: tablename = "item_instance";                   columnname = "giftCreatorGuid"; break;
-                case 53: tablename = "item_refund_instance";            columnname = "player_guid"; break;
+                case  0: tablename = "arena_team";                      columnname = "captainGuid";                     break;
+                case  1: tablename = "arena_team_member";               columnname = "guid";                            break;
+                case  2: tablename = "auctionhouse";                    columnname = "itemguid";                        break;
+                case  3: tablename = "auctionhouse";                    columnname = "buyguid";                         break;
+                case  4: tablename = "character_account_data";          columnname = "guid";                            break;
+                case  5: tablename = "character_achievement";           columnname = "guid";                            break;
+                case  6: tablename = "character_achievement_progress";  columnname = "guid";                            break;
+                case  7: tablename = "character_action";                columnname = "guid";                            break;
+                case  8: tablename = "character_arena_stats";           columnname = "guid";                            break;
+                case  9: tablename = "character_aura";                  columnname = "guid";                            break;
+                case 10: tablename = "character_aura";                  columnname = "caster_guid";                     break;
+                case 11: tablename = "character_banned";                columnname = "guid";                            break;
+                case 12: tablename = "character_battleground_data";     columnname = "guid";                            break;
+                case 13: tablename = "character_battleground_random";   columnname = "guid";                            break;
+                case 14: tablename = "character_branchspec";            columnname = "guid";                            break;
+                case 15: tablename = "character_cp_weekcap";            columnname = "guid";                            break;
+                case 16: tablename = "character_currency";              columnname = "guid";                            break;
+                case 17: tablename = "character_declinedname";          columnname = "guid";                            break;
+                case 18: tablename = "character_equipmentsets";         columnname = "guid";                            break;
+                case 19: tablename = "character_gifts";                 columnname = "guid";                            break;
+                case 20: tablename = "character_glyphs";                columnname = "guid";                            break;
+                case 21: tablename = "character_homebind";              columnname = "guid";                            break;
+                case 22: tablename = "character_instance";              columnname = "guid";                            break;
+                case 23: tablename = "character_inventory";             columnname = "guid";                            break;
+                case 24: tablename = "character_pet";                   columnname = "owner";                           break;
+                case 25: tablename = "character_pet_declinedname";      columnname = "owner";                           break;
+                case 26: tablename = "character_queststatus";           columnname = "guid";                            break;
+                case 27: tablename = "character_queststatus_daily";     columnname = "guid";                            break;
+                case 28: tablename = "character_queststatus_rewarded";  columnname = "guid";                            break;
+                case 29: tablename = "character_queststatus_weekly";    columnname = "guid";                            break;
+                case 30: tablename = "character_reputation";            columnname = "guid";                            break;
+                case 31: tablename = "character_skills";                columnname = "guid";                            break;
+                case 32: tablename = "character_social";                columnname = "guid";                            break;
+                case 33: tablename = "character_social";                columnname = "friend";                          break;
+                case 34: tablename = "character_spell";                 columnname = "guid";                            break;
+                case 35: tablename = "character_spell_cooldown";        columnname = "guid";                            break;
+                case 36: tablename = "character_stats";                 columnname = "guid";                            break;
+                case 37: tablename = "character_talent";                columnname = "guid";                            break;
+                case 38: tablename = "characters";                      columnname = "guid";                            break;
+                case 39: tablename = "corpse";                          columnname = "guid";                            break;
+                case 40: tablename = "gm_surveys";                      columnname = "player";                          break;
+                case 41: tablename = "gm_tickets";                      columnname = "playerGuid";                      break;
+                case 42: tablename = "group_member";                    columnname = "memberGuid";                      break;
+                case 43: tablename = "groups";                          columnname = "leaderGuid";                      break;
+                case 44: tablename = "groups";                          columnname = "looterGuid";                      break;
+                case 45: tablename = "guild";                           columnname = "leaderguid";                      break;
+                case 46: tablename = "guild_bank_eventlog";             columnname = "PlayerGuid";                      break;
+                case 47: tablename = "guild_eventlog";                  columnname = "PlayerGuid1";                     break;
+                case 48: tablename = "guild_eventlog";                  columnname = "PlayerGuid2";                     break;
+                case 49: tablename = "guild_member";                    columnname = "guid";                            break;
+                case 50: tablename = "item_instance";                   columnname = "owner_guid";                      break;
+                case 51: tablename = "item_instance";                   columnname = "creatorGuid";                     break;
+                case 52: tablename = "item_instance";                   columnname = "giftCreatorGuid";                 break;
+                case 53: tablename = "item_refund_instance";            columnname = "player_guid";                     break;
                 case 54: tablename = "item_soulbound_trade_data";       columnname = "allowedPlayers"; Multiple = true; break;
-                case 55: tablename = "lag_reports";                     columnname = "player"; break;
-                case 56: tablename = "mail";                            columnname = "sender"; break;
-                case 57: tablename = "mail";                            columnname = "receiver"; break;
-                case 58: tablename = "mail_items";                      columnname = "receiver"; break;
-                case 59: tablename = "pet_aura";                        columnname = "caster_guid"; break;
-                case 60: tablename = "pet_spell";                       columnname = "guid"; break;
-                case 61: tablename = "petition";                        columnname = "ownerguid"; break;
-                case 62: tablename = "petition_sign";                   columnname = "ownerguid"; break;
-                case 63: tablename = "petition_sign";                   columnname = "playerguid"; break;
+                case 55: tablename = "lag_reports";                     columnname = "player";                          break;
+                case 56: tablename = "mail";                            columnname = "sender";                          break;
+                case 57: tablename = "mail";                            columnname = "receiver";                        break;
+                case 58: tablename = "mail_items";                      columnname = "receiver";                        break;
+                case 59: tablename = "pet_aura";                        columnname = "caster_guid";                     break;
+                case 60: tablename = "pet_spell";                       columnname = "guid";                            break;
+                case 61: tablename = "petition";                        columnname = "ownerguid";                       break;
+                case 62: tablename = "petition_sign";                   columnname = "ownerguid";                       break;
+                case 63: tablename = "petition_sign";                   columnname = "playerguid";                      break;
                 }
 
                 if (Multiple == false)
