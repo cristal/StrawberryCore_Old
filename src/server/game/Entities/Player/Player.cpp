@@ -2236,6 +2236,11 @@ bool Player::TeleportTo(uint32 mapid, float x, float y, float z, float orientati
 
         return false;                                       // normal client can't teleport to this map...
     }
+    else if((mEntry->Expansion() == 2 && mEntry->MapID != 609) &&  getLevel() < 68)
+    {
+        GetSession()->SendAreaTriggerMessage(GetSession()->GetVoragineString(LANG_LEVEL_MINREQUIRED), 68);
+        return false;
+    }
     else
         sLog->outDebug("Player %s is being teleported to map %u", GetName(), mapid);
 
@@ -14909,6 +14914,13 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
             if (menuItemData->GossipActionPoi)
                 PlayerTalkClass->SendPointOfInterest(menuItemData->GossipActionPoi);
 
+            if (menuItemData->GossipActionScriptId)
+            {
+                if (source->GetTypeId() == TYPEID_UNIT)
+                    GetMap()->ScriptsStart(sGossipScripts, menuItemData->GossipActionScriptId, this, source);
+                else if (source->GetTypeId() == TYPEID_GAMEOBJECT)
+                    GetMap()->ScriptsStart(sGossipScripts, menuItemData->GossipActionScriptId, source, this);
+            }
             break;
         }
         case GOSSIP_OPTION_OUTDOORPVP:
@@ -17450,7 +17462,8 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     // client without expansion support
     if (mapEntry)
     {
-        if (GetSession()->Expansion() < mapEntry->Expansion())
+        if (GetSession()->Expansion() < mapEntry->Expansion() ||
+            ((mapEntry->Expansion() == 2 && mapEntry->MapID != 609) &&  getLevel() < 68))
         {
             sLog->outDebug("Player %s using client without required expansion tried login at non accessible map %u", GetName(), mapId);
             RelocateToHomebind();
@@ -17620,6 +17633,9 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     m_specsCount = fields[57].GetUInt8(); // speccount
     m_activeSpec = fields[58].GetUInt8(); // activespec
 
+    if (m_specsCount > 2) // Somehow patched client manages to bump this up.
+        m_specsCount = 1;
+
     // sanity check
     if (m_specsCount > MAX_TALENT_SPECS || m_activeSpec > MAX_TALENT_SPEC || m_specsCount < MIN_TALENT_SPECS)
     {
@@ -17775,6 +17791,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 
     _LoadDeclinedNames(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADDECLINEDNAMES));
 
+    m_achievementMgr.GetAchievementPoints();
     m_achievementMgr.CheckAllAchievementCriteria();
 
     _LoadEquipmentSets(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADEQUIPMENTSETS));
@@ -22294,6 +22311,7 @@ void Player::SendInitialPacketsBeforeAddToMap()
 
     SendInitialActionButtons();
     m_reputationMgr.SendInitialReputations();
+    m_achievementMgr.GetAchievementPoints();
     m_achievementMgr.SendAllAchievementData();
 
     SendEquipmentSetList();

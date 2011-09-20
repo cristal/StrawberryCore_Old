@@ -429,6 +429,9 @@ bool ChatHandler::HandleSummonCommand(const char* args)
 
         Map* pMap = m_session->GetPlayer()->GetMap();
 
+        if (target->GetVehicle())
+            target->ExitVehicle();
+
         if (pMap->IsBattlegroundOrArena())
         {
             // only allow if gm mode is on
@@ -1243,6 +1246,12 @@ bool ChatHandler::HandleGroupSummonCommand(const char* args)
         // save only in non-flight case
         else
             pl->SaveRecallPosition();
+
+        if (pl->IsMounted())
+        {
+            pl->Unmount();
+            pl->RemoveAurasByType(SPELL_AURA_MOUNTED);
+        }
 
         // before GM
         float x,y,z;

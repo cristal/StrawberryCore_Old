@@ -300,11 +300,11 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data)
 void WorldSession::HandleMailMarkAsRead(WorldPacket & recv_data)
 {
     uint64 mailbox;
-    uint32 mailId;
     uint64 unk;
+    uint32 mailId;
     recv_data >> mailbox;
-    recv_data >> mailId;
     recv_data >> unk;            // 4.0.6
+    recv_data >> mailId;
 
     if (!GetPlayer()->GetGameObjectIfCanInteractWith(mailbox, GAMEOBJECT_TYPE_MAILBOX))
         return;
@@ -554,10 +554,10 @@ void WorldSession::HandleGetMailList(WorldPacket & recv_data)
     // client can't work with packets > max int16 value
     const uint32 maxPacketSize = 32767;
 
-    uint32 mailsCount = 0;                                 // real send to client mails amount
-    uint32 realCount  = 0;                                 // real mails amount
+    uint32 mailsCount = 0;                                  // real send to client mails amount
+    uint32 realCount  = 0;                                  // real mails amount
 
-    WorldPacket data(SMSG_MAIL_LIST_RESULT, (200));
+    WorldPacket data(SMSG_MAIL_LIST_RESULT, (200));         // guess size
     data << uint32(0);                                      // real mail's count
     data << uint8(0);                                       // mail's count
     time_t cur_time = time(NULL);
@@ -629,6 +629,13 @@ void WorldSession::HandleGetMailList(WorldPacket & recv_data)
                 data << uint32((item ? item->GetEnchantmentId((EnchantmentSlot)j) : 0));
                 data << uint32((item ? item->GetEnchantmentDuration((EnchantmentSlot)j) : 0));
                 data << uint32((item ? item->GetEnchantmentCharges((EnchantmentSlot)j) : 0));
+            }
+            // Fixed goofy mail system bug with multiple items and gold
+            for (uint8 j = 0; j < 2; ++j)
+            {
+                data << uint32(0);
+                data << uint32(0);
+                data << uint32(0);
             }
             // can be negative
             data << int32((item ? item->GetItemRandomPropertyId() : 0));

@@ -393,13 +393,13 @@ void PlayerMenu::SendQuestGiverStatus(uint32 questStatus, uint64 npcGUID) const
 
 void PlayerMenu::SendQuestGiverQuestDetails(Quest const *quest, uint64 npcGUID, bool activateAccept) const
 {
-    std::string questTitle      = quest->GetTitle();
-    std::string questDetails    = quest->GetDetails();
-    std::string questObjectives = quest->GetObjectives();
-    std::string questEndText    = quest->GetEndText();
+    std::string questTitle            = quest->GetTitle();
+    std::string questDetails          = quest->GetDetails();
+    std::string questObjectives       = quest->GetObjectives();
+    std::string questEndText          = quest->GetEndText();
     std::string questTargetTextWindow = quest->GetQuestGiverPortraitText();
-    std::string questTargetName  = quest->GetQuestGiverPortraitUnk();
-    std::string unk        = "";
+    std::string questTargetName       = quest->GetQuestGiverPortraitUnk();
+    std::string unk                   = "";
 
     int locale = _session->GetSessionDbLocaleIndex();
     if (locale >= 0)
@@ -422,14 +422,14 @@ void PlayerMenu::SendQuestGiverQuestDetails(Quest const *quest, uint64 npcGUID, 
     data << questObjectives;
     data << questTargetTextWindow;
     data << questTargetName;
-    data << uint16(0);                                      // Unknown Value maybe string                             
+    data << uint16(0);                                      // Unknown Value maybe string
     data << uint32(quest->GetQuestGiverPortrait());
     data << uint32(0);
-    data << uint8(activateAccept ? 1 : 0);  
+    data << uint8(activateAccept ? 1 : 0);
     data << uint32(quest->GetQuestFlags());
     data << uint32(quest->GetSuggestedPlayers());
     data << uint8(0);              //Empty?
-    data << uint8(quest->GetQuestStartType());   
+    data << uint8(quest->GetQuestStartType());
     data << uint32(quest->GetRequiredSpell());
 
     data << uint32(quest->GetRewChoiceItemsCount());
@@ -533,7 +533,7 @@ void PlayerMenu::SendQuestQueryResponse(Quest const *quest) const
         }
     }
 
-    WorldPacket data(SMSG_QUEST_QUERY_RESPONSE, 100);     // guess size
+    WorldPacket data(SMSG_QUEST_QUERY_RESPONSE, 100);      // guess size
 
     data << uint32(quest->GetQuestId());                   // quest id
     data << uint32(quest->GetQuestMethod());               // Accepted values: 0, 1 or 2. 0 == IsAutoComplete() (skip objectives/details)
@@ -547,8 +547,8 @@ void PlayerMenu::SendQuestQueryResponse(Quest const *quest) const
     data << uint32(quest->GetRepObjectiveFaction());       // shown in quest log as part of quest objective
     data << uint32(quest->GetRepObjectiveValue());         // shown in quest log as part of quest objective
 
-    data << uint32(quest->GetRepObjectiveFaction2());       // shown in quest log as part of quest objective OPOSITE faction
-    data << uint32(quest->GetRepObjectiveValue2());         // shown in quest log as part of quest objective OPPOSITE faction
+    data << uint32(quest->GetRepObjectiveFaction2());      // shown in quest log as part of quest objective OPOSITE faction
+    data << uint32(quest->GetRepObjectiveValue2());        // shown in quest log as part of quest objective OPPOSITE faction
 
     data << uint32(quest->GetNextQuestInChain());          // client will request this quest from NPC, if not 0
     data << uint32(quest->GetXPId());                      // used for calculating rewarded experience
@@ -561,7 +561,7 @@ void PlayerMenu::SendQuestQueryResponse(Quest const *quest) const
     data << uint32(0);
 
     data << uint32(quest->GetSrcItemId());                 // source item id
-    data << uint32(quest->GetFlags() & 0xFFFF);                      // quest flags
+    data << uint32(quest->GetFlags() & 0xFFFF);            // quest flags
     data << uint32(quest->GetQuestTargetMark());           // Minimap Target Mark, 1-Skull, 16-Unknown
     data << uint32(quest->GetCharTitleId());               // CharTitleId, new 2.4.0, player gets this title (id from CharTitles)
     data << uint32(quest->GetPlayersSlain());              // players slain
@@ -639,13 +639,13 @@ void PlayerMenu::SendQuestQueryResponse(Quest const *quest) const
     for (iI = 0; iI < QUEST_OBJECTIVES_COUNT; ++iI)
         data << ObjectiveText[iI];
 
-    for(iI = 0; iI < 4; ++iI)                               // 4.0.0 currency reward id and count
+    for(iI = 0; iI < QUEST_CURRENCY_COUNT; ++iI)                               // 4.0.0 currency reward id and count
     {
         data << uint32(quest->RewCurrencyId[iI]);
         data << uint32(quest->RewCurrencyCount[iI]);
     }
 
-    for(iI = 0; iI < 4; ++iI)                               // 4.0.0 currency required id and count
+    for(iI = 0; iI < QUEST_CURRENCY_COUNT; ++iI)                               // 4.0.0 currency required id and count
     {
         data << uint32(quest->ReqCurrencyId[iI]);
         data << uint32(quest->ReqCurrencyCount[iI]);
@@ -692,8 +692,8 @@ void PlayerMenu::SendQuestGiverOfferReward(Quest const* quest, uint64 npcGUID, b
     data << questCompleteName;
     data << uint32(quest->GetQuestGiverPortrait());
     data << uint32(quest->GetQuestTurnInPortrait());         // 4.0.6
-    data << uint8(enableNext ? 1 : 0);                        // Auto Finish
-    data << uint32(quest->GetFlags());                        // 3.3.3 questFlags
+    data << uint8(enableNext ? 1 : 0);                       // Auto Finish
+    data << uint32(quest->GetFlags());                       // 3.3.3 questFlags
     data << uint32(quest->GetSuggestedPlayers());            // SuggestedGroupNum
 
     uint32 EmoteCount = 0;

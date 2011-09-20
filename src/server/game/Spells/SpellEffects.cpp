@@ -1029,6 +1029,12 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
 
                     return;
                 }
+                case 56989: // Glyph of Dragon's Breath
+                {
+                    if (unitTarget)
+                        m_caster->CastSpell(m_caster, 56373, false, NULL);
+                    return;
+                }
                 case 26074:                                 // Holiday Cheer
                     // implemented at client side
                     return;
@@ -3689,15 +3695,13 @@ void Spell::EffectSummonType(SpellEffectEntry const* effect)
                     if (amount > 10)
                         amount = 1;
 
-                    switch (m_spellInfo->Id)
-                    {
-                        case 18662: // Curse of Doom
-                        case 54962: // Ticking Bomb
+                    if (m_spellInfo->Id == 18662 || // Curse of Doom
+                        m_spellInfo->Id == 54962 || // Ticking Bomb
+                        properties->Id == 2081)     // Mechanical Dragonling, Arcanite Dragonling, Mithril Dragonling TODO: Research on meaning of basepoints
                             amount = 1;
-                            break;
-                        default:
-                            break;
-                    }
+
+                    if ((properties->Id == 2081 || m_spellInfo->Id == 13258 || m_spellInfo->Id == 13166) && !m_CastItem)
+                        return;
 
                     for (uint32 count = 0; count < amount; ++count)
                     {
@@ -6358,9 +6362,11 @@ void Spell::EffectStuck(SpellEffectEntry const* /*effect*/)
     if (pTarget->isInFlight())
         return;
 
-    pTarget->TeleportTo(pTarget->GetStartPosition(), unitTarget == m_caster ? TELE_TO_SPELL : 0);
-    // homebind location is loaded always
-    // pTarget->TeleportTo(pTarget->m_homebindMapId,pTarget->m_homebindX,pTarget->m_homebindY,pTarget->m_homebindZ,pTarget->GetOrientation(), (unitTarget == m_caster ? TELE_TO_SPELL : 0));
+    WorldSafeLocsEntry const *ClosestGrave = sObjectMgr->GetClosestGraveYard(pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), pTarget->GetMapId(), pTarget->GetTeam());
+    if (ClosestGrave)
+        pTarget->TeleportTo(ClosestGrave->map_id, ClosestGrave->x, ClosestGrave->y, ClosestGrave->z, pTarget->GetOrientation());
+    else
+        pTarget->TeleportTo(pTarget->m_homebindMapId, pTarget->m_homebindX, pTarget->m_homebindY, pTarget->m_homebindZ, pTarget->GetOrientation(), (unitTarget == m_caster ? TELE_TO_SPELL : 0));
 
     // Stuck spell trigger Hearthstone cooldown
     SpellEntry const *spellInfo = sSpellStore.LookupEntry(8690);

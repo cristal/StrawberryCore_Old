@@ -5142,8 +5142,6 @@ bool ChatHandler::HandleCastBackCommand(const char *args)
 
     bool triggered = (trig_str != NULL);
 
-    caster->SetFacingToObject(m_session->GetPlayer());
-
     caster->CastSpell(m_session->GetPlayer(),spell,triggered);
 
     return true;
@@ -5234,8 +5232,6 @@ bool ChatHandler::HandleCastTargetCommand(const char *args)
     }
 
     bool triggered = (trig_str != NULL);
-
-    caster->SetFacingToObject(m_session->GetPlayer());
 
     caster->CastSpell(caster->getVictim(),spell,triggered);
 

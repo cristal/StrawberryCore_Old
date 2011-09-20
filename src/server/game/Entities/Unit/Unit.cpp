@@ -498,34 +498,52 @@ void Unit::SendMonsterMove(float NewPosX, float NewPosY, float NewPosZ, uint32 T
     AddUnitState(UNIT_STAT_MOVE);
 }
 
-void Unit::SendMonsterMove(float NewPosX, float NewPosY, float NewPosZ, uint32 MoveFlags, uint32 time, float speedZ, Player* player)
+void Unit::SendMonsterMove(MonsterMoveData const& moveData, Player* player)
 {
-    WorldPacket data(SMSG_MONSTER_MOVE, 12+4+1+4+4+4+12+GetPackGUID().size());
+    WorldPacket data(SMSG_MONSTER_MOVE, GetPackGUID().size() + 1 + 12 + 4 + 1 + 4 + 8 + 4 + 4 + 12);
     data.append(GetPackGUID());
 
-    data << uint8(0);                                       // new in 3.1
+    data << uint8(0);                                           // new in 3.1
     data << GetPositionX() << GetPositionY() << GetPositionZ();
     data << getMSTime();
 
     data << uint8(0);
-    data << MoveFlags;
+    data << moveData.SplineFlag;
 
-    if (MoveFlags & SPLINEFLAG_TRAJECTORY)
+    if (moveData.SplineFlag & SPLINEFLAG_ANIMATIONTIER)
     {
-        data << time;
-        data << speedZ;
-        data << (uint32)0; // walk time after jump
+        data << uint8(moveData.AnimationState);
+        data << uint32(0);
     }
-    else
-        data << time;
 
-    data << uint32(1);                                      // 1 single waypoint
-    data << NewPosX << NewPosY << NewPosZ;                  // the single waypoint Point B
+    data << moveData.Time;
+
+    if (moveData.SplineFlag & SPLINEFLAG_TRAJECTORY)
+    {
+        data << moveData.SpeedZ;
+        data << uint32(0);                                      // walk time after jump
+    }
+
+    data << uint32(1);                                          // waypoint count
+    data << moveData.DestLocation.GetPositionX();
+    data << moveData.DestLocation.GetPositionY();
+    data << moveData.DestLocation.GetPositionZ();
 
     if (player)
         player->GetSession()->SendPacket(&data);
     else
         SendMessageToSet(&data, true);
+}
+
+void Unit::SendMonsterMove(float NewPosX, float NewPosY, float NewPosZ, uint32 MoveFlags, uint32 time, float speedZ, Player* player)
+{
+    MonsterMoveData data;
+    data.DestLocation.Relocate(NewPosX, NewPosY, NewPosZ);
+    data.SplineFlag = MoveFlags;
+    data.Time = time;
+    data.SpeedZ = speedZ;
+
+    SendMonsterMove(data, player);
 }
 
 void Unit::SendMonsterMoveExitVehicle(Position const* newPos)
@@ -8388,8 +8406,8 @@ bool Unit::HandleAuraProc(Unit* victim, uint32 damage, Aura* triggeredByAura, Sp
                         return false;
                     RuneType rune = ToPlayer()->GetLastUsedRune();
                     // can't proc from death rune use
-                    if (rune == RUNE_DEATH)
-                        return false;
+                    /*if (rune == RUNE_DEATH)
+                        return false;*/
                     AuraEffect* aurEff = triggeredByAura->GetEffect(EFFECT_0);
                     if (!aurEff)
                         return false;
@@ -17971,11 +17989,10 @@ void Unit::BuildMovementPacket(ByteBuffer *data) const
             break;
         case TYPEID_PLAYER:
             // remove unknown, unused etc flags for now
-            const_cast<Unit*>(this)->RemoveUnitMovementFlag(MOVEMENTFLAG_SPLINE_ENABLED);
             if (isInFlight())
             {
                 WPAssert(const_cast<Unit*>(this)->GetMotionMaster()->GetCurrentMovementGeneratorType() == FLIGHT_MOTION_TYPE);
-                const_cast<Unit*>(this)->AddUnitMovementFlag(MOVEMENTFLAG_FORWARD | MOVEMENTFLAG_SPLINE_ENABLED);
+                const_cast<Unit*>(this)->AddUnitMovementFlag(MOVEMENTFLAG_FORWARD);
             }
             break;
         default:
@@ -18001,9 +18018,9 @@ void Unit::BuildMovementPacket(ByteBuffer *data) const
                    || (m_movementInfo.flags2 & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING));
 
     if (data->writeBit(m_movementInfo.flags2 & MOVEMENTFLAG2_INTERPOLATED_TURNING))
-        data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_JUMPING);
+        data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_FALLING_SLOW);
 
-    data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_SPLINE_ELEVATION);
+    /*data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_SPLINE_ELEVATION);*/
 
     // has spline data
     data->writeBit(0);
@@ -18048,7 +18065,7 @@ void Unit::BuildMovementPacket(ByteBuffer *data) const
         *data << (float)m_movementInfo.j_zspeed;
 
         // 0x00001000
-        if (GetUnitMovementFlags() & MOVEMENTFLAG_JUMPING)
+        if (GetUnitMovementFlags() & MOVEMENTFLAG_FALLING_SLOW)
         {
             *data << (float)m_movementInfo.j_sinAngle;
             *data << (float)m_movementInfo.j_cosAngle;
@@ -18057,7 +18074,7 @@ void Unit::BuildMovementPacket(ByteBuffer *data) const
     }
 
     // 0x04000000
-    if (GetUnitMovementFlags() & MOVEMENTFLAG_SPLINE_ELEVATION)
+    if (GetUnitMovementFlags() & MOVEMENTFLAG_UNKNOWN)
         *data << (float)m_movementInfo.splineElevation;
 }
 

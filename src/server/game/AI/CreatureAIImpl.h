@@ -454,6 +454,23 @@ class EventMap : private std::map<uint32, uint32>
             }
         }
 
+        // Cancel events belonging to specified group
+        void CancelEventGroup(uint32 groupId)
+        {
+            uint32 groupMask = (1 << (groupId + 16));
+
+            for (iterator itr = begin(); itr != end();)
+            {
+                if (itr->second & groupMask)
+                {
+                    erase(itr);
+                    itr = begin();
+                }
+                else
+                    ++itr;
+            }
+        }
+
         void CancelEventsByGCD(uint32 gcd)
         {
             gcd = (1 << (gcd + 16));

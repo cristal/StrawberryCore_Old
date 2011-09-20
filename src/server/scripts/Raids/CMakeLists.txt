@@ -59,6 +59,7 @@ set(scripts_STAT_SRCS
   Raids/Icecrown_Citadel/boss_professor_putricide.cpp
   Raids/Icecrown_Citadel/boss_rotface.cpp
   Raids/Icecrown_Citadel/boss_sindragosa.cpp
+  Raids/Icecrown_Citadel/boss_valithria_dreamwalker.cpp
   Raids/Icecrown_Citadel/icecrown_citadel.cpp
   Raids/Icecrown_Citadel/icecrown_citadel.h
   Raids/Icecrown_Citadel/icecrown_citadel_teleport.cpp
