@@ -1953,9 +1953,10 @@ void Guild::SendMoneyInfo(WorldSession *session) const
 void Guild::SendLoginInfo(WorldSession* session)
 {
     WorldPacket data(SMSG_GUILD_EVENT, 1 + 1 + m_motd.size() + 1);
+    /*There is a crash problem for clients..
     data << uint8(GE_MOTD);
     data << uint8(1);
-    data << m_motd;
+    data << m_motd;*/
     session->SendPacket(&data);
     sLog->outDebug("WORLD: Sent guild MOTD (SMSG_GUILD_EVENT)");
 
