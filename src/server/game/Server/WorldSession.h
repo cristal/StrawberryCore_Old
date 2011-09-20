@@ -411,6 +411,7 @@ class WorldSession
         // Recruit-A-Friend Handling
         uint32 GetRecruiterId() { return recruiterId; }
         bool IsARecruiter() { return isRecruiter; }
+        uint64 GetRealGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
 
     public:                                                 // opcodes handlers
 
