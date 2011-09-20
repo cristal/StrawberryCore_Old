@@ -906,6 +906,8 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     isDebugAreaTriggers = false;
 
     SetPendingBind(NULL, 0);
+
+    Number = 0;
 }
 
 Player::~Player ()
@@ -17854,7 +17856,7 @@ void Player::_LoadAuras(PreparedQueryResult result, uint32 timediff)
 {
     sLog->outDebug("Loading auras for player %u",GetGUIDLow());
 
-    /*                                                           0       1        2         3                 4         5      6       7         8              9            10
+    /*                                                           0        1         2              3              4          5        6        7          8              9            10
     QueryResult *result = CharacterDatabase.PQuery("SELECT caster_guid, spell, effect_mask, recalculate_mask, stackcount, amount0, amount1, amount2, base_amount0, base_amount1, base_amount2,
                                                         11          12          13
                                                     maxduration, remaintime, remaincharges FROM character_aura WHERE guid = '%u'", GetGUIDLow());

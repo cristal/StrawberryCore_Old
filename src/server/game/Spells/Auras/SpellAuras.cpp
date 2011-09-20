@@ -1127,104 +1127,105 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
         }
     }
 
-   if (target->GetTypeId() == TYPEID_PLAYER)
-       if (apply)
-       {
-           int SpellNumber;
-           bool Next = false;
-           if (!target->ToPlayer()->FindSpellNumber(this->GetId()))
-           {
-               ++target->ToPlayer()->Number;
-               if (Next == false)
-               {
-                   target->ToPlayer()->SpellId[target->ToPlayer()->Number] = this->GetId();
-                   for (int i = 0; i < 201; ++i)
-                       if (target->ToPlayer()->SpellId[i] == this->GetId())
-                       {
-                           SpellNumber = i;
-                           Next = true;
-                       }
-               }
-           }
-           else
-           {
-               SpellNumber = target->ToPlayer()->FindSpellNumber(this->GetId());
-               Next = true;
-           }
-            // Get Spell Stats
-           const SpellStatsEntry * SpellStats = sSpellMgr->GetSpellStats(this->GetId());
-           if (SpellStats && Next == true) // If there is a query in character database and world database, then continue.
-           {
-               float charprecvalue1 = target->ToPlayer()->GetPercValue1(SpellNumber);
-               float charprecvalue2 = target->ToPlayer()->GetPercValue2(SpellNumber);
-               float charprecvalue3 = target->ToPlayer()->GetPercValue3(SpellNumber);
-               float charprecvalue4 = target->ToPlayer()->GetPercValue4(SpellNumber);
-               float charprecvalue5 = target->ToPlayer()->GetPercValue5(SpellNumber);
-               bool turn = false;
-               int spellid = this->GetId();
-               if (charprecvalue1 == 0 && (SpellStats->value1 != 0 || SpellStats->percent1 != 0))
-               {
-                   bool perc = false;
-                   int stattype = SpellStats->stattype1;
-                   float value = SpellStats->value1;
-                   float percent = SpellStats->percent1;
-               
-                   if (percent != 0)
-                       perc = true;
-                   target->ToPlayer()->_ApplyAuraBonuses(target->ToPlayer(), spellid, stattype, value, 1, perc, turn, true);
-               }
-               
-               if (charprecvalue2 == 0 && (SpellStats->value2 != 0 || SpellStats->percent2 != 0))
-                   Spell_Stats(target->ToPlayer(), 2, spellid, SpellNumber, false, turn);
-               if (charprecvalue3 == 0 && (SpellStats->value3 != 0 || SpellStats->percent3 != 0))
-                   Spell_Stats(target->ToPlayer(), 3, spellid, SpellNumber, false, turn);
-               if (charprecvalue4 == 0 && (SpellStats->value4 != 0 || SpellStats->percent4 != 0))
-                   Spell_Stats(target->ToPlayer(), 4, spellid, SpellNumber, false, turn);
-               if (charprecvalue5 == 0 && (SpellStats->value5 != 0 || SpellStats->percent5 != 0))
-                   Spell_Stats(target->ToPlayer(), 5, spellid, SpellNumber, false, turn);
-           }
-       }
-       else
-       {
-           uint32 SpellNumber = 0;
-           bool Next = false;
-           if (target->ToPlayer()->FindSpellNumber(this->GetId()) > 0)
-           {
-               SpellNumber = target->ToPlayer()->FindSpellNumber(this->GetId());
-               Next = true;
-           }
-            const SpellStatsEntry * SpellStats = sSpellMgr->GetSpellStats(this->GetId());
-           if (SpellStats && Next == true) // If there is a query in character database and world database, then continue.
-           {
-               bool perc = false;
-               bool turn = true;
-               float charprecvalue1 = target->ToPlayer()->GetPercValue1(SpellNumber);
-               float charprecvalue2 = target->ToPlayer()->GetPercValue2(SpellNumber);
-               float charprecvalue3 = target->ToPlayer()->GetPercValue3(SpellNumber);
-               float charprecvalue4 = target->ToPlayer()->GetPercValue4(SpellNumber);
-               float charprecvalue5 = target->ToPlayer()->GetPercValue5(SpellNumber);
-               int spellid = this->GetId();
-               int stattype = SpellStats->stattype1;
-               float value = SpellStats->value1;
-               float percent = SpellStats->percent1;
-               if (percent != 0)
-               {
-                   perc = true;
-                   value = charprecvalue1;
-               }
-               if (charprecvalue1 != 0)
-                  target->ToPlayer()->_ApplyAuraBonuses(target->ToPlayer(), spellid, stattype, value, 1, perc, true, false);
-               
-               if (charprecvalue2 != 0)
-                   Spell_Stats(target->ToPlayer(), 2, spellid, SpellNumber, false, turn);
-               if (charprecvalue3 != 0)
-                   Spell_Stats(target->ToPlayer(), 3, spellid, SpellNumber, false, turn);
-               if (charprecvalue4 != 0)
-                   Spell_Stats(target->ToPlayer(), 4, spellid, SpellNumber, false, turn);
-               if (charprecvalue5 != 0)
-                   Spell_Stats(target->ToPlayer(), 5, spellid, SpellNumber, false, turn);
-           }
-       }
+    if (sWorld->getBoolConfig(CONFIG_SPELL_STAT_SYSTEM))
+        if (target->GetTypeId() == TYPEID_PLAYER)
+            if (apply)
+            {
+                int SpellNumber;
+                bool Next = false;
+                if (!target->ToPlayer()->FindSpellNumber(this->GetId()))
+                {
+                    ++target->ToPlayer()->Number;
+                    if (Next == false)
+                    {
+                        target->ToPlayer()->SpellId[target->ToPlayer()->Number] = this->GetId();
+                        for (int i = 0; i < 201; ++i)
+                            if (target->ToPlayer()->SpellId[i] == this->GetId())
+                            {
+                                SpellNumber = i;
+                                Next = true;
+                            }
+                    }
+                }
+                else
+                {
+                    SpellNumber = target->ToPlayer()->FindSpellNumber(this->GetId());
+                    Next = true;
+                }
+                // Get Spell Stats
+                const SpellStatsEntry * SpellStats = sSpellMgr->GetSpellStats(this->GetId());
+                if (SpellStats && Next == true) // If there is a query in character database and world database, then continue.
+                {
+                    float charprecvalue1 = target->ToPlayer()->GetPercValue1(SpellNumber);
+                    float charprecvalue2 = target->ToPlayer()->GetPercValue2(SpellNumber);
+                    float charprecvalue3 = target->ToPlayer()->GetPercValue3(SpellNumber);
+                    float charprecvalue4 = target->ToPlayer()->GetPercValue4(SpellNumber);
+                    float charprecvalue5 = target->ToPlayer()->GetPercValue5(SpellNumber);
+                    bool turn = false;
+                    int spellid = this->GetId();
+                    if (charprecvalue1 == 0 && (SpellStats->value1 != 0 || SpellStats->percent1 != 0))
+                    {
+                        bool perc = false;
+                        int stattype = SpellStats->stattype1;
+                        float value = SpellStats->value1;
+                        float percent = SpellStats->percent1;
+
+                        if (percent != 0)
+                            perc = true;
+                        target->ToPlayer()->_ApplyAuraBonuses(target->ToPlayer(), spellid, stattype, value, 1, perc, turn, true);
+                    }
+
+                    if (charprecvalue2 == 0 && (SpellStats->value2 != 0 || SpellStats->percent2 != 0))
+                        Spell_Stats(target->ToPlayer(), 2, spellid, SpellNumber, false, turn);
+                    if (charprecvalue3 == 0 && (SpellStats->value3 != 0 || SpellStats->percent3 != 0))
+                        Spell_Stats(target->ToPlayer(), 3, spellid, SpellNumber, false, turn);
+                    if (charprecvalue4 == 0 && (SpellStats->value4 != 0 || SpellStats->percent4 != 0))
+                        Spell_Stats(target->ToPlayer(), 4, spellid, SpellNumber, false, turn);
+                    if (charprecvalue5 == 0 && (SpellStats->value5 != 0 || SpellStats->percent5 != 0))
+                        Spell_Stats(target->ToPlayer(), 5, spellid, SpellNumber, false, turn);
+                }
+            }
+            else
+            {
+                uint32 SpellNumber = 0;
+                bool Next = false;
+                if (target->ToPlayer()->FindSpellNumber(this->GetId()) > 0)
+                {
+                    SpellNumber = target->ToPlayer()->FindSpellNumber(this->GetId());
+                    Next = true;
+                }
+                const SpellStatsEntry * SpellStats = sSpellMgr->GetSpellStats(this->GetId());
+                if (SpellStats && Next == true) // If there is a query in character database and world database, then continue.
+                {
+                    bool perc = false;
+                    bool turn = true;
+                    float charprecvalue1 = target->ToPlayer()->GetPercValue1(SpellNumber);
+                    float charprecvalue2 = target->ToPlayer()->GetPercValue2(SpellNumber);
+                    float charprecvalue3 = target->ToPlayer()->GetPercValue3(SpellNumber);
+                    float charprecvalue4 = target->ToPlayer()->GetPercValue4(SpellNumber);
+                    float charprecvalue5 = target->ToPlayer()->GetPercValue5(SpellNumber);
+                    int spellid = this->GetId();
+                    int stattype = SpellStats->stattype1;
+                    float value = SpellStats->value1;
+                    float percent = SpellStats->percent1;
+                    if (percent != 0)
+                    {
+                        perc = true;
+                        value = charprecvalue1;
+                    }
+                    if (charprecvalue1 != 0)
+                        target->ToPlayer()->_ApplyAuraBonuses(target->ToPlayer(), spellid, stattype, value, 1, perc, true, false);
+
+                    if (charprecvalue2 != 0)
+                        Spell_Stats(target->ToPlayer(), 2, spellid, SpellNumber, false, turn);
+                    if (charprecvalue3 != 0)
+                        Spell_Stats(target->ToPlayer(), 3, spellid, SpellNumber, false, turn);
+                    if (charprecvalue4 != 0)
+                        Spell_Stats(target->ToPlayer(), 4, spellid, SpellNumber, false, turn);
+                    if (charprecvalue5 != 0)
+                        Spell_Stats(target->ToPlayer(), 5, spellid, SpellNumber, false, turn);
+                }
+            }
 
     // handle spell_linked_spell table
     uint32 customAttr = sSpellMgr->GetSpellCustomAttr(GetId());
@@ -1234,55 +1235,48 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
         if (apply)
         {
             if (customAttr & SPELL_ATTR0_CU_LINK_AURA)
-            {
-                std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA);
-                for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
-                {
-                    if (*itr < 0)
-                        target->ApplySpellImmune(GetId(), IMMUNITY_ID, -(*itr), true);
-                    else if (caster)
-                        caster->AddAura(*itr, target);
-                }
-            }
+                if (std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA))
+                    for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
+                    {
+                        if (*itr < 0)
+                            target->ApplySpellImmune(GetId(), IMMUNITY_ID, -(*itr), true);
+                        else if (caster)
+                            caster->AddAura(*itr, target);
+                    }
         }
         else
         {
             // remove linked auras
             if (customAttr & SPELL_ATTR0_CU_LINK_REMOVE)
-            {
-                std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(-(int32)GetId());
-                for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
-                {
-                    if (*itr < 0)
-                        target->RemoveAurasDueToSpell(-(*itr));
-                    else if (removeMode != AURA_REMOVE_BY_DEATH)
-                        target->CastSpell(target, *itr, true, NULL, NULL, GetCasterGUID());
-                }
-            }
+                if (std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(-(int32)GetId()))
+                    for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
+                    {
+                        if (*itr < 0)
+                            target->RemoveAurasDueToSpell(-(*itr));
+                        else if (removeMode != AURA_REMOVE_BY_DEATH)
+                            target->CastSpell(target, *itr, true, NULL, NULL, GetCasterGUID());
+                    }
+
             if (customAttr & SPELL_ATTR0_CU_LINK_AURA)
-            {
-                std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA);
-                for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
-                {
-                    if (*itr < 0)
-                        target->ApplySpellImmune(GetId(), IMMUNITY_ID, -(*itr), false);
-                    else
-                        target->RemoveAura(*itr, GetCasterGUID(), 0, removeMode);
-                }
-            }
+                if (std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA))
+                    for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
+                    {
+                        if (*itr < 0)
+                            target->ApplySpellImmune(GetId(), IMMUNITY_ID, -(*itr), false);
+                        else
+                            target->RemoveAura(*itr, GetCasterGUID(), 0, removeMode);
+                    }
         }
     }
     else if (apply)
     {
         // modify stack amount of linked auras
         if (customAttr & SPELL_ATTR0_CU_LINK_AURA)
-        {
-            std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA);
-            for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
-                if (*itr > 0)
-                    if (Aura* triggeredAura = target->GetAura(*itr, GetCasterGUID()))
-                        triggeredAura->ModStackAmount(GetStackAmount() - triggeredAura->GetStackAmount());
-        }
+            if (std::vector<int32> const* spellTriggered = sSpellMgr->GetSpellLinked(GetId() + SPELL_LINK_AURA))
+                for (std::vector<int32>::const_iterator itr = spellTriggered->begin(); itr != spellTriggered->end(); ++itr)
+                    if (*itr > 0)
+                        if (Aura* triggeredAura = target->GetAura(*itr, GetCasterGUID()))
+                            triggeredAura->ModStackAmount(GetStackAmount() - triggeredAura->GetStackAmount());
     }
 
     // mods at aura apply
@@ -1373,6 +1367,11 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                                 caster->CastSpell(caster, spellId, true);
                         }
                         break;
+                    case 64343: // Impact
+                    {
+                        // Reset cooldown on Fire Blast
+                        caster->ToPlayer()->RemoveSpellCooldown(2136, true);
+                    }
                     case 44544: // Fingers of Frost
                     {
                         // See if we already have the indicator aura. If not, create one.
@@ -1396,6 +1395,20 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         break;
                 }
                 break;
+            case SPELLFAMILY_WARRIOR:
+                if (!caster)
+                    break;
+
+                switch(GetId())
+                {
+                    case 50227: // Warrior - Sword and Board
+                    {
+                        // Reset cooldown on shield slam if needed
+                        caster->ToPlayer()->RemoveSpellCooldown(23922, true);
+                        break;
+                    }
+                }
+                break;
             case SPELLFAMILY_WARLOCK:
                 switch(GetId())
                 {
@@ -1409,6 +1422,39 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         break;
                 }
                 break;
+            case SPELLFAMILY_HUNTER:
+                if (!caster)
+                    break;
+
+                switch(GetId())
+                {
+                    case 1978: // Improved Serpent Sting
+                    {
+                        if (AuraEffect const * aurEff = caster->GetDummyAuraEffect(SPELLFAMILY_HUNTER, 536, 0))
+                        {
+                            int32 basepoints0 = aurEff->GetAmount() * GetEffect(0)->GetTotalTicks() * caster->SpellDamageBonus(target, GetSpellProto(), GetEffect(0)->GetAmount(), DOT) / 100;
+                            caster->CastCustomSpell(target, 83077, &basepoints0, NULL, NULL, true, NULL, GetEffect(0));
+                        }
+                        break;
+                    }
+                    case 82925: // Master Marksman
+                    {
+                        if (target->GetTypeId() == TYPEID_PLAYER && GetStackAmount() == 5)
+                        {
+                            target->CastSpell(target, 82926, true);
+                            target->RemoveAura(82925);
+                        }
+                        break;
+                    }
+                    case 68361: // Animal Handler
+                    {
+                        if (Unit* owner = target->GetOwner())
+                            if (AuraEffect* auraEff = owner->GetDummyAuraEffect(SPELLFAMILY_HUNTER, 2234, 1))
+                                GetEffect(0)->SetAmount(auraEff->GetAmount());
+                        break;
+                    }
+                }
+                break;
             case SPELLFAMILY_PRIEST:
                 if (!caster)
                     break;
@@ -1416,7 +1462,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                 if (GetSpellProto()->GetSpellClassOptions()->SpellFamilyFlags[0] & 0x02000000 && GetEffect(0))
                 {
                     // Improved Devouring Plague
-                    if (AuraEffect const* aurEff = caster->GetDummyAuraEffect(SPELLFAMILY_PRIEST, 3790, 1))
+                    if (AuraEffect const* aurEff = caster->GetDummyAuraEffect(SPELLFAMILY_PRIEST, 3790, 0))
                     {
                         int32 basepoints0 = aurEff->GetAmount() * GetEffect(0)->GetTotalTicks() * caster->SpellDamageBonus(target, GetSpellProto(), GetEffect(0)->GetAmount(), DOT) / 100;
                         int32 heal = int32(CalculatePctN(basepoints0, 15));
@@ -1502,13 +1548,6 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         target->CastSpell(target, 85497, true);
                         target->SetSpeed(MOVE_RUN, 1.6f, true);
                     }
-                }
-                break;
-            case SPELLFAMILY_HUNTER:
-                if (GetId() == 82925 && target->GetTypeId() == TYPEID_PLAYER && GetStackAmount() == 5) // Master Marksman
-                {
-                    target->CastSpell(target, 82926, true);
-                    target->RemoveAura(82925);
                 }
                 break;
             case SPELLFAMILY_DEATHKNIGHT:
@@ -1620,6 +1659,30 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                             break;
                         target->CastSpell(target, 32612, true, NULL, GetEffect(1));
                         break;
+                    case 118: // Improved Polymorph
+                    {
+                        if (removeMode == AURA_REMOVE_BY_EXPIRE || removeMode == AURA_REMOVE_BY_CANCEL)
+                            break;                        
+                        if (caster->HasAura(11210) && !target->HasAura(87515))
+                        {
+                            target->CastSpell(target, 83046, true);
+                            caster->AddAura(87515, target); // Immune Marker
+                        }
+                        else if (caster->HasAura(12592) && !target->HasAura(87515))
+                        {
+                            target->CastSpell(target, 83047, true);
+                            caster->AddAura(87515, target); // Immune Marker
+                        }
+                        break;
+                    }
+                    case 1463: // Incanter's Absorption
+                    {                        
+                        if (removeMode == AURA_REMOVE_BY_EXPIRE || removeMode == AURA_REMOVE_BY_CANCEL)
+                            break;
+                        if (caster->HasAura(44394) || caster->HasAura(44395))
+                            caster->CastSpell(caster, 86261, true);
+                        break;
+                    }
                     case 74396: // Fingers of Frost
                         // Remove the IGNORE_AURASTATE aura
                         target->RemoveAurasDueToSpell(44544);
@@ -2077,10 +2140,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                     if (presence == 48265 || unholyPresenceAura)
                     {
                         if (presence == 48265 && unholyPresenceAura)
-                        {
                             target->RemoveAurasDueToSpell(63622);
-                            target->RemoveAurasDueToSpell(65095);
-                        }
                         target->RemoveAurasDueToSpell(49772);
                     }
                 }
