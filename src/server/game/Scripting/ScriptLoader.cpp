@@ -63,6 +63,7 @@ void AddSC_modify_commandscript();
 void AddSC_npc_commandscript();
 //void AddSC_go_commandscript();
 //void AddSC_learn_commandscript();
+void AddSC_misc_commandscript();
 //void AddSC_modify_commandscript();
 void AddSC_debug_commandscript();
 void AddSC_reload_commandscript();
@@ -683,6 +684,7 @@ void AddCommandScripts()
     AddSC_npc_commandscript();
     //AddSC_go_commandscript();
     //AddSC_learn_commandscript();
+	AddSC_misc_commandscript();
     //AddSC_modify_commandscript();
     AddSC_debug_commandscript();
 	AddSC_gps_commandscript();
