@@ -734,14 +734,13 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
 
 void WorldSession::HandleListInventoryOpcode(WorldPacket & recv_data)
 {
-    uint64 guid;
+    sLog->outDebug("WORLD: Recvd CMSG_LIST_INVENTORY");
 
+    uint64 guid;
     recv_data >> guid;
 
     if (!GetPlayer()->isAlive())
         return;
-
-    sLog->outDebug("WORLD: Recvd CMSG_LIST_INVENTORY");
 
     SendListInventory(guid);
 }
