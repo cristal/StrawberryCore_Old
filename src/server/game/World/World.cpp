@@ -43,7 +43,6 @@
 #include "AuctionHouseMgr.h"
 #include "ObjectMgr.h"
 #include "TicketMgr.h"
-#include "CreatureEventAIMgr.h"
 #include "SpellMgr.h"
 #include "Chat.h"
 #include "DATAStores.h"
@@ -1679,15 +1678,6 @@ void World::SetInitialWorldSettings()
 
     sLog->outString("Loading Scripts text locales...");      // must be after Load*Scripts calls
     sObjectMgr->LoadDbScriptStrings();
-
-    sLog->outString("Loading CreatureEventAI Texts...");
-    sEventAIMgr->LoadCreatureEventAI_Texts();
-
-    sLog->outString("Loading CreatureEventAI Summons...");
-    sEventAIMgr->LoadCreatureEventAI_Summons();
-
-    sLog->outString("Loading CreatureEventAI Scripts...");
-    sEventAIMgr->LoadCreatureEventAI_Scripts();
 
     sLog->outString("Loading spell script names...");
     sObjectMgr->LoadSpellScriptNames();

@@ -54,7 +54,6 @@
 #include "BattlegroundMgr.h"
 #include "InstanceSaveMgr.h"
 #include "InstanceScript.h"
-#include "CreatureEventAIMgr.h"
 #include "SpellAuraEffects.h"
 #include "DATAEnums.h"
 #include "ConditionMgr.h"

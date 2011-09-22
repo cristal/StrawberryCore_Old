@@ -10,7 +10,6 @@ EndScriptData */
 #include "SpellMgr.h"
 #include "TicketMgr.h"
 #include "MapManager.h"
-#include "CreatureEventAIMgr.h"
 #include "DisableMgr.h"
 #include "LFGMgr.h"
 #include "AuctionHouseMgr.h"
@@ -32,7 +31,6 @@ public:
         {
             { "achievement",SEC_ADMINISTRATOR,  true,  &HandleReloadAllAchievementCommand,"", NULL },
             { "area",       SEC_ADMINISTRATOR,  true,  &HandleReloadAllAreaCommand,       "", NULL },
-            { "eventai",    SEC_ADMINISTRATOR,  true,  &HandleReloadAllEventAICommand,    "", NULL },
             { "gossips",    SEC_ADMINISTRATOR,  true,  &HandleReloadAllGossipsCommand,    "", NULL },
             { "item",       SEC_ADMINISTRATOR,  true,  &HandleReloadAllItemCommand,       "", NULL },
             { "locales",    SEC_ADMINISTRATOR,  true,  &HandleReloadAllLocalesCommand,    "", NULL },
@@ -59,16 +57,13 @@ public:
             { "conditions",                   SEC_ADMINISTRATOR, true,  &HandleReloadConditions,                        "", NULL },
             { "config",                       SEC_ADMINISTRATOR, true,  &HandleReloadConfigCommand,                     "", NULL },
             { "creature_text",                SEC_ADMINISTRATOR, true,  &HandleReloadCreatureText,                      "", NULL },
-            { "creature_ai_scripts",          SEC_ADMINISTRATOR, true,  &HandleReloadEventAIScriptsCommand,             "", NULL },
-            { "creature_ai_summons",          SEC_ADMINISTRATOR, true,  &HandleReloadEventAISummonsCommand,             "", NULL },
-            { "creature_ai_texts",            SEC_ADMINISTRATOR, true,  &HandleReloadEventAITextsCommand,               "", NULL },
-            { "creature_involvedrelation",    SEC_ADMINISTRATOR, true,  &HandleReloadCreatureQuestInvRelationsCommand,  "",NULL },
+            { "creature_involvedrelation",    SEC_ADMINISTRATOR, true,  &HandleReloadCreatureQuestInvRelationsCommand,  "", NULL },
             { "creature_linked_respawn",      SEC_GAMEMASTER,    true,  &HandleReloadLinkedRespawnCommand,              "", NULL },
             { "creature_loot_template",       SEC_ADMINISTRATOR, true,  &HandleReloadLootTemplatesCreatureCommand,      "", NULL },
             { "creature_onkill_reputation",   SEC_ADMINISTRATOR, true,  &HandleReloadOnKillReputationCommand,           "", NULL },
             { "creature_questrelation",       SEC_ADMINISTRATOR, true,  &HandleReloadCreatureQuestRelationsCommand,     "", NULL },
             { "creature_template",            SEC_ADMINISTRATOR, true,  &HandleReloadCreatureTemplateCommand,           "", NULL },
-            { "db_script_string",             SEC_ADMINISTRATOR, true,  &HandleReloadDbScriptStringCommand,            "", NULL },
+            { "db_script_string",             SEC_ADMINISTRATOR, true,  &HandleReloadDbScriptStringCommand,            "",  NULL },
             { "disables",                     SEC_ADMINISTRATOR, true,  &HandleReloadDisablesCommand,                   "", NULL },
             { "disenchant_loot_template",     SEC_ADMINISTRATOR, true,  &HandleReloadLootTemplatesDisenchantCommand,    "", NULL },
             { "event_scripts",                SEC_ADMINISTRATOR, true,  &HandleReloadEventScriptsCommand,               "", NULL },
@@ -103,7 +98,7 @@ public:
             { "npc_spellclick_spells",        SEC_ADMINISTRATOR, true,  &HandleReloadSpellClickSpellsCommand,           "",NULL},
             { "npc_trainer",                  SEC_ADMINISTRATOR, true,  &HandleReloadNpcTrainerCommand,                 "", NULL },
             { "npc_vendor",                   SEC_ADMINISTRATOR, true,  &HandleReloadNpcVendorCommand,                  "", NULL },
-			{ "opcodes",                      SEC_ADMINISTRATOR, true,  &HandleReloadOpcodes,                           "", NULL },
+            { "opcodes",                      SEC_ADMINISTRATOR, true,  &HandleReloadOpcodes,                           "", NULL },
             { "page_text",                    SEC_ADMINISTRATOR, true,  &HandleReloadPageTextsCommand,                  "", NULL },
             { "pickpocketing_loot_template",  SEC_ADMINISTRATOR, true,  &HandleReloadLootTemplatesPickpocketingCommand, "",NULL},
             { "points_of_interest",           SEC_ADMINISTRATOR, true,  &HandleReloadPointsOfInterestCommand,           "", NULL },
@@ -133,7 +128,7 @@ public:
             { "spell_scripts",                SEC_ADMINISTRATOR, true,  &HandleReloadSpellScriptsCommand,               "", NULL },
             { "spell_target_position",        SEC_ADMINISTRATOR, true,  &HandleReloadSpellTargetPositionCommand,        "", NULL },
             { "spell_threats",                SEC_ADMINISTRATOR, true,  &HandleReloadSpellThreatsCommand,               "", NULL },
-			{ "spell_stats",                  SEC_ADMINISTRATOR, true,  &HandleReloadSpellStatsCommand,                 "", NULL },
+            { "spell_stats",                  SEC_ADMINISTRATOR, true,  &HandleReloadSpellStatsCommand,                 "", NULL },
             { "spell_group_stack_rules",      SEC_ADMINISTRATOR, true,  &HandleReloadSpellGroupStackRulesCommand,       "", NULL },
             { "voragine_string",              SEC_ADMINISTRATOR, true,  &HandleReloadVoragineStringCommand,              "", NULL },
             { "waypoint_scripts",             SEC_ADMINISTRATOR, true,  &HandleReloadWpScriptsCommand,                  "", NULL },
@@ -142,7 +137,7 @@ public:
         static ChatCommand commandTable[] =
         {
             { "reload",         SEC_ADMINISTRATOR,  true,  NULL,                 "", reloadCommandTable },
-			{ "reload all",     SEC_ADMINISTRATOR,  true,  NULL,                 "", reloadAllCommandTable },
+            { "reload all",     SEC_ADMINISTRATOR,  true,  NULL,                 "", reloadAllCommandTable },
             { NULL,             0,                  false, NULL,                               "", NULL }
         };
         return commandTable;
@@ -161,7 +156,6 @@ public:
 
         HandleReloadAllAchievementCommand(handler,"");
         HandleReloadAllAreaCommand(handler,"");
-        HandleReloadAllEventAICommand(handler,"");
         HandleReloadAllLootCommand(handler,"");
         HandleReloadAllNpcCommand(handler,"");
         HandleReloadAllQuestCommand(handler,"");
@@ -176,7 +170,7 @@ public:
         HandleReloadReservedNameCommand(handler,"");
         HandleReloadVoragineStringCommand(handler,"");
         HandleReloadGameTeleCommand(handler,"");
-		HandleReloadItemTemplateCommand(handler, "");
+        HandleReloadItemTemplateCommand(handler, "");
 
         HandleReloadAutobroadcastCommand(handler,"");
         return true;
@@ -251,14 +245,6 @@ public:
         return true;
     }
 
-    static bool HandleReloadAllEventAICommand(ChatHandler* handler, const char* /*args*/)
-    {
-        HandleReloadEventAITextsCommand(handler,"a");
-        HandleReloadEventAISummonsCommand(handler,"a");
-        HandleReloadEventAIScriptsCommand(handler,"a");
-        return true;
-    }
-
     static bool HandleReloadAllSpellCommand(ChatHandler* handler, const char* /*args*/)
     {
         HandleReloadSkillDiscoveryTemplateCommand(handler,"a");
@@ -273,7 +259,7 @@ public:
         HandleReloadSpellTargetPositionCommand(handler,"a");
         HandleReloadSpellThreatsCommand(handler,"a");
         HandleReloadSpellGroupStackRulesCommand(handler,"a");
-		HandleReloadSpellStatsCommand(handler,"a");
+        HandleReloadSpellStatsCommand(handler,"a");
         HandleReloadSpellPetAurasCommand(handler,"a");
         return true;
     }
@@ -875,21 +861,21 @@ public:
         return true;
     }
 
-	static bool HandleReloadSpellStatsCommand(ChatHandler* handler, const char* /*args*/)
+    static bool HandleReloadSpellStatsCommand(ChatHandler* handler, const char* /*args*/)
     {
-		//if (World::m_bool_configs[CONFIG_SPELL_STAT_SYSTEM])
-		//{
-			sLog->outString("Re-Loading Spell Stats...");
-			sSpellMgr->LoadSpellStats();
-			handler->SendGlobalGMSysMessage("DB table `spell_stats` reloaded.");
-		/*}
-		else 
-		{
-			sLog->outString("Spell Stat System is disabled!");
-			return false;
-		}*/
+        //if (World::m_bool_configs[CONFIG_SPELL_STAT_SYSTEM])
+        //{
+            sLog->outString("Re-Loading Spell Stats...");
+            sSpellMgr->LoadSpellStats();
+            handler->SendGlobalGMSysMessage("DB table `spell_stats` reloaded.");
+        /*}
+        else 
+        {
+            sLog->outString("Spell Stat System is disabled!");
+            return false;
+        }*/
 
-		return true;
+        return true;
     }
 
     static bool HandleReloadPageTextsCommand(ChatHandler* handler, const char* /*args*/)
@@ -993,31 +979,6 @@ public:
         if (*args != 'a')
             handler->SendGlobalGMSysMessage("DB table `waypoint_scripts` reloaded.");
 
-        return true;
-    }
-
-    static bool HandleReloadEventAITextsCommand(ChatHandler* handler, const char* /*args*/)
-    {
-
-        sLog->outString("Re-Loading Texts from `creature_ai_texts`...");
-        sEventAIMgr->LoadCreatureEventAI_Texts();
-        handler->SendGlobalGMSysMessage("DB table `creature_ai_texts` reloaded.");
-        return true;
-    }
-
-    static bool HandleReloadEventAISummonsCommand(ChatHandler* handler, const char* /*args*/)
-    {
-        sLog->outString("Re-Loading Summons from `creature_ai_summons`...");
-        sEventAIMgr->LoadCreatureEventAI_Summons();
-        handler->SendGlobalGMSysMessage("DB table `creature_ai_summons` reloaded.");
-        return true;
-    }
-
-    static bool HandleReloadEventAIScriptsCommand(ChatHandler* handler, const char* /*args*/)
-    {
-        sLog->outString("Re-Loading Scripts from `creature_ai_scripts`...");
-        sEventAIMgr->LoadCreatureEventAI_Scripts();
-        handler->SendGlobalGMSysMessage("DB table `creature_ai_scripts` reloaded.");
         return true;
     }
 
@@ -1251,12 +1212,12 @@ public:
         return true;
     }
 
-    static bool HandleReloadOpcodes(ChatHandler* handler, const char* /*args*/)	
+    static bool HandleReloadOpcodes(ChatHandler* handler, const char* /*args*/)    
     {
-        sLog->outString("Re-Loading Opcodes...");	
+        sLog->outString("Re-Loading Opcodes...");    
         InitOpcodeTable();
-        handler->SendGlobalGMSysMessage("Opcodes reloaded.");	
-        return true;	
+        handler->SendGlobalGMSysMessage("Opcodes reloaded.");    
+        return true;    
     }
 };
 
