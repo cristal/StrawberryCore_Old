@@ -2039,6 +2039,13 @@ void Map::RemoveAllObjectsInRemoveList()
         std::set<WorldObject*>::iterator itr = i_objectsToRemove.begin();
         WorldObject* obj = *itr;
 
+        // Prevents access violation caused by NULL obj pointer. Closes #777. [fix 256]
+        if (!obj)
+        {
+            i_objectsToRemove.erase(itr);
+            continue;
+        }
+
         switch(obj->GetTypeId())
         {
             case TYPEID_CORPSE:

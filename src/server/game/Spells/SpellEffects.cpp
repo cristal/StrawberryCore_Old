@@ -610,30 +610,51 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                 if (m_caster->HasAura(81659)) // Rank 1
                 { 
                     if (m_spellInfo->Id == 585)
-                    {
                         m_caster->CastSpell(m_caster,81660,true);
-                    }
-                    
                     else
                     {
-                        if (m_spellInfo->Id == 15407)      // Dark Evangelism from Mind Flay                   
+                        if (m_spellInfo->Id == 15407)      // Dark Evangelism from Mind Flay
                             m_caster->CastSpell(m_caster,87117,true);
                     }
                 }
-                else
-                 
-                if (m_caster->HasAura(81662)) // Rank 2
+                else if (m_caster->HasAura(81662)) // Rank 2
                 {
                     if (m_spellInfo->Id == 585)
-                    {
                         m_caster->CastSpell(m_caster,81661,true);
-                    }
-                    
                     else
                     { 
                         if (m_spellInfo->Id == 15407)      // Dark Evangelism from Mind Flay 
                             m_caster->CastSpell(m_caster,87118,true);
-                    }     
+                    }
+                }
+
+                /* Evangelism */
+                if (m_caster->HasAura(81659)) //Rank 1
+                {
+                    if (m_spellInfo->Id == 585 || m_spellInfo->Id == 14914)
+                        m_caster->CastSpell(m_caster, 81660, true);
+                }
+                
+                if (m_caster->HasAura(81662)) //Rank 2
+                {
+                    if (m_spellInfo->Id == 585 || m_spellInfo->Id == 14914)
+                        m_caster->CastSpell(m_caster, 81661, true);
+                }
+
+                // Chakra
+                if (m_caster->HasAura(14751))
+                {
+                    switch(m_spellInfo->Id)
+                    {
+                        case 585:    // Smite 
+                        case 73510:  // Mind Spike 
+                            {
+                                m_caster->CastSpell(m_caster, 81209, true); // Chakra : Chastise
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                 }
 
                 // Shadow Word: Death - deals damage equal to damage done to caster
@@ -645,7 +666,14 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                         back_damage -= aurEff->GetAmount() * back_damage / 100;
 
                     if (back_damage < int32(unitTarget->GetHealth()))
+                    {
                         m_caster->CastCustomSpell(m_caster, 32409, &back_damage, 0, 0, true);
+                        if (unitTarget->HealthBelowPct(25) && m_caster->HasAura(55682) && !unitTarget->HasAura(95652)) // Glyph of Shadow Word: Death
+                        {
+                            m_caster->AddAura(95652, unitTarget); // Glyph of Shadow Word: Death - Marker
+                            m_caster->ToPlayer()->RemoveSpellCooldown(32379, true); // Shadow Word: Death
+                        }
+                    }
                 }
                 // Mind Blast - applies Mind Trauma if:
                 else if (m_spellInfo->SpellFamilyFlags[2] & 0x00002000)
@@ -1808,9 +1836,17 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
 
                 if (m_caster->ToPlayer()->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND))
                 {
-                    // Damage is increased by 25% if your off-hand weapon is enchanted with Flametongue.
+                    // Damage is increased by 25% if your off-hand weapon is enchanted with Flame tongue.
                     if (m_caster->GetAuraEffect(SPELL_AURA_DUMMY, SPELLFAMILY_SHAMAN, 0x200000, 0, 0))
-                        m_damage += m_damage * damage / 100;
+                        AddPctN(m_damage, damage);
+                }
+                // Improved Lava Lash
+                if (AuraEffect const* ill = m_caster->GetAuraEffect(SPELL_AURA_DUMMY, SPELLFAMILY_SHAMAN, 4780, 1))
+                // Searing Flames
+                if (AuraEffect const* sf = unitTarget->GetAuraEffect(77661, 0, m_caster->GetOwner()->GetGUID()))
+                {
+                    AddPctN(m_damage, sf->GetBase()->GetStackAmount() * ill->GetAmount());
+                    unitTarget->RemoveAura(77661);
                 }
                 return;
             }
@@ -2734,8 +2770,25 @@ void Spell::EffectPowerBurn(SpellEffectEntry const* effect)
     m_damage += newDamage;
 }
 
-void Spell::EffectHeal(SpellEffectEntry const* /*effect*/)
+void Spell::EffectHeal(SpellEffectEntry const* effect)
 {
+    /* Chakra */
+    if (m_caster->HasAura(14571))
+    {
+        switch(m_spellInfo->Id)
+        {
+            case  2050: /* Heal */
+            case  2060: /* Greater Heal*/
+            case  2061: /* Flash Heal */
+            case 32546: /* Binding Heal */
+               m_caster->CastSpell(m_caster, 81208, true); /* Chakra: Serenity */
+               break;
+               
+            case 596: /* Prayer of Healing */
+               m_caster->CastSpell(m_caster, 81206, true); /* Chakra: Sanctuary */
+               break;
+        }
+    }
 }
 
 void Spell::SpellDamageHeal(SpellEffectEntry const* effect)
@@ -4972,10 +5025,11 @@ void Spell::EffectInterruptCast(SpellEffectEntry const* effect)
         if (Spell* spell = unitTarget->GetCurrentSpell(CurrentSpellTypes(i)))
         {
             SpellEntry const* curSpellInfo = spell->m_spellInfo;
+            uint32 interruptFlags = (i == CURRENT_CHANNELED_SPELL) ? curSpellInfo->ChannelInterruptFlags : curSpellInfo->InterruptFlags;
             // check if we can interrupt spell
             if ((spell->getState() == SPELL_STATE_CASTING
                 || (spell->getState() == SPELL_STATE_PREPARING && spell->GetCastTime() > 0.0f))
-                && curSpellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_INTERRUPT && curSpellInfo->PreventionType == SPELL_PREVENTION_TYPE_SILENCE)
+                && (interruptFlags & SPELL_INTERRUPT_FLAG_INTERRUPT) && curSpellInfo->PreventionType == SPELL_PREVENTION_TYPE_SILENCE)
             {
                 if (m_originalCaster)
                 {
@@ -5911,15 +5965,15 @@ void Spell::EffectScriptEffect(SpellEffectEntry const* effect)
                             sLog->outError("Unknown Lightwell spell caster %u", m_caster->GetEntry());
                             return;
                     }
-                    Aura * chargesaura = m_caster->GetAura(59907);
 
-                    if (chargesaura && chargesaura->GetCharges() > 1)
+                    // proc a spellcast
+                    if (Aura * chargesAura = m_caster->GetAura(59907))
                     {
-                        chargesaura->SetCharges(chargesaura->GetCharges() - 1);
                         unitTarget->CastSpell(unitTarget, spell_heal, true, NULL, NULL, m_caster->ToTempSummon()->GetSummonerGUID());
+                        if (chargesAura->ModCharges(-1))
+                            m_caster->ToTempSummon()->UnSummon();
                     }
-                    else
-                        m_caster->ToTempSummon()->UnSummon();
+
                     return;
                 }
                 // Stoneclaw Totem

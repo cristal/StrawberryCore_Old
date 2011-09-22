@@ -1164,6 +1164,27 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage *damageInfo, int32 dama
     if (damage < 0)
         return;
 
+    if (spellInfo->AttributesEx4 & SPELL_ATTR4_UNK8)
+    {
+        Unit *pVictim = damageInfo->target;
+        if (!pVictim || !pVictim->isAlive())
+            return;
+
+        SpellSchoolMask damageSchoolMask = SpellSchoolMask(damageInfo->schoolMask);
+
+        // Calculate absorb resist
+        if (damage > 0)
+        {
+            CalcAbsorbResist(pVictim, damageSchoolMask, SPELL_DIRECT_DAMAGE, damage, &damageInfo->absorb, &damageInfo->resist, spellInfo);
+            damage -= damageInfo->absorb + damageInfo->resist;
+        }
+        else
+            damage = 0;
+
+        damageInfo->damage = damage;
+        return;
+    }
+
     Unit* victim = damageInfo->target;
     if (!victim || !victim->isAlive())
         return;
@@ -6927,8 +6948,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
         }
         case SPELLFAMILY_PALADIN:
         {
-            // Seal of Righteousness - melee proc dummy (addition ${$MWS*(0.022*$AP+0.044*$SPH)} damage)
-            if (dummySpell->GetSpellClassOptions()->SpellFamilyFlags[0]&0x8000000)
+            // Seal of Righteousness - melee proc dummy (addition ${$MWS*(0.011*$AP+0.022*$SPH)} damage)
+            if (dummySpell->Id == 20154)
             {
                 if (effIndex != 0)
                     return false;
@@ -6936,7 +6957,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 float ap = GetTotalAttackPowerValue(BASE_ATTACK);
                 int32 holy = SpellBaseDamageBonus(SPELL_SCHOOL_MASK_HOLY) +
                              SpellBaseDamageBonusForVictim(SPELL_SCHOOL_MASK_HOLY, victim);
-                basepoints0 = (int32)GetAttackTime(BASE_ATTACK) * int32(ap * 0.022f + 0.044f * holy) / 1000;
+                basepoints0 = (int32)GetAttackTime(BASE_ATTACK) * int32(ap * 0.011f + 0.022f * holy) / 1000;
                 break;
             }
             // Light's Beacon - Beacon of Light
@@ -8595,11 +8616,12 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                 }
                 break;
             case SPELLFAMILY_WARRIOR:
-                if (auraSpellInfo->Id == 50421)             // Scent of Blood
+                switch (auraSpellInfo->Id)
                 {
-                    CastSpell(this, 50422, true);
-                    RemoveAuraFromStack(auraSpellInfo->Id);
-                    return false;
+                    case 80128: // Impending Victory
+                    case 80129:
+                        if (victim->HealthAbovePct(20))
+                            return false;
                 }
                 break;
             case SPELLFAMILY_WARLOCK:
@@ -8965,6 +8987,12 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                             return false;
                     }
                 }
+                else if (auraSpellInfo->Id == 50421)             // Scent of Blood
+                {
+                    CastSpell(this, 50422, true);
+                    RemoveAuraFromStack(auraSpellInfo->Id);
+                    return false;
+                }
                 // Blood Presence (Improved)
                 else if (auraSpellInfo->Id == 63611)
                 {
@@ -9246,18 +9274,6 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                 }
             }
             break;
-        // Lead Plating
-        case 92184:
-            if (HealthBelowPct(34) || (!HealthBelowPctDamaged(35, damage)))
-                return false;
-            else
-            {
-                if (!ToPlayer()->HasSpellCooldown(trigger_spell_id))
-                {
-                    AddAura(trigger_spell_id, this);
-                    ToPlayer()->AddSpellCooldown(trigger_spell_id, 0, time(NULL) + 30);
-                }
-            }
         break;
         // Auras which should proc on area aura source (caster in this case):
         // Turn the Tables
@@ -9280,6 +9296,55 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                 ToPlayer()->AddSpellCooldown(trigger_spell_id, 0, time(NULL) + cooldown);
             return true;
         }
+        case 92184: // Lead Plating
+        case 92233: // Tectonic Shift
+        case 92355: // Turn of the Worm
+        case 92235: // Turn of the Worm
+        case 90996: // Crescendo of Suffering
+        case 91002: // Crescendo of Suffering
+        case 75477: // Scale Nimbleness
+        case 75480: // Scaly Nimbleness
+        case 71633: // Thick Skin
+        case 71639: // Thick Skin
+            if (HealthBelowPct(34) || (!HealthBelowPctDamaged(35, damage)))
+                return false;
+            else
+            {
+                if (!ToPlayer()->HasSpellCooldown(trigger_spell_id))
+                {
+                    AddAura(trigger_spell_id, this);
+                    ToPlayer()->AddSpellCooldown(trigger_spell_id, 0, time(NULL) + 30);
+                }
+            }
+        break;
+        case 96945: // Loom of Fate
+        case 97129: // Loom of Fate
+            if (HealthBelowPct(34) || (!HealthBelowPctDamaged(35, damage)))
+                return false;
+            else
+            {
+                if (!ToPlayer()->HasSpellCooldown(trigger_spell_id))
+                {
+                    AddAura(trigger_spell_id, this);
+                    ToPlayer()->AddSpellCooldown(trigger_spell_id, 0, time(NULL) + 60);
+                }
+            }
+        break;
+        // Die by the Sword
+        // Die by the Sword
+        case 85386:
+        case 86624:
+            if (HealthBelowPct(19) || (!HealthBelowPctDamaged(20, damage)))
+                return false;
+            else
+            {
+                if (!ToPlayer()->HasSpellCooldown(trigger_spell_id))
+                {
+                    AddAura(trigger_spell_id, this);
+                    ToPlayer()->AddSpellCooldown(trigger_spell_id, 0, time(NULL) + 120);
+                }
+            }
+        break;
         // Cast positive spell on enemy target
         case 7099:  // Curse of Mending
         case 39703: // Curse of Mending

@@ -1528,7 +1528,8 @@ float Creature::GetAttackDistance(Unit const* pl) const
 void Creature::setDeathState(DeathState s)
 {
     Unit::setDeathState(s);
-    if ((s == JUST_DIED && !m_isDeadByDefault)||(s == JUST_ALIVED && m_isDeadByDefault))    {
+    if ((s == JUST_DIED && !m_isDeadByDefault)||(s == JUST_ALIVED && m_isDeadByDefault))
+    {
         m_corpseRemoveTime = time(NULL) + m_corpseDelay;
         m_respawnTime = time(NULL) + m_respawnDelay + m_corpseDelay;
 

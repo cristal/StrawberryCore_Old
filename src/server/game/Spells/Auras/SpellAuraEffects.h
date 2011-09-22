@@ -89,11 +89,8 @@ class AuraEffect
         void SendTickImmune(Unit * target, Unit *caster) const;
 
         void PeriodicTick(AuraApplication * aurApp, Unit * caster) const;
-        void PeriodicDummyTick(Unit * target, Unit * caster) const;
         void HandleProc(AuraApplication* aurApp, ProcEventInfo& eventInfo);
         Unit* GetTriggerTarget(Unit * target) const;
-        void TriggerSpell(Unit * target, Unit * caster) const;
-        void TriggerSpellWithValue(Unit * target, Unit * caster) const;
 
         void CleanupTriggeredSpells(Unit * target);
 
@@ -289,6 +286,19 @@ class AuraEffect
         void HandleAuraOverrideSpells(AuraApplication const * aurApp, uint8 mode, bool apply) const;
         void HandleAuraSetVehicle(AuraApplication const * aurApp, uint8 mode, bool apply) const;
         void HandleAuraModFakeInebriation(AuraApplication const * aurApp, uint8 mode, bool apply) const;
+
+        // aura effect periodic tick handlers
+        void HandlePeriodicDummyAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicTriggerSpellAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicTriggerSpellWithValueAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicHealthLeechAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicHealthFunnelAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicHealAurasTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicManaLeechAuraTick(Unit* target, Unit* caster) const;
+        void HandleObsModPowerAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicEnergizeAuraTick(Unit* target, Unit* caster) const;
+        void HandlePeriodicPowerBurnAuraTick(Unit* target, Unit* caster) const;
 
         // aura effect proc handlers
         void HandleProcTriggerSpellAuraProc(AuraApplication* aurApp, ProcEventInfo& eventInfo);

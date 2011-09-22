@@ -154,8 +154,6 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
     uint32 lang;
 
     if (type != CHAT_MSG_EMOTE && type != CHAT_MSG_AFK && type != CHAT_MSG_DND)
-        recv_data >> lang;
-    else
         lang = LANG_UNIVERSAL;
 
     sLog->outDebug("CHAT: packet received. type %u, lang %u", type, lang );
@@ -176,35 +174,40 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
     if (!processChatmessageFurtherAfterSecurityChecks(msg, lang))
         return;
 
-    if(msg.empty())
+    if (msg.empty())
         return;
 
     Player* sender = GetPlayer();
 
-    // prevent talking at unknown language (cheating)
-    LanguageDesc const* langDesc = GetLanguageDescByID(lang);
-    if (!langDesc)
+    if (type != CHAT_MSG_EMOTE)
     {
-        SendNotification(LANG_UNKNOWN_LANGUAGE);
-        return;
-    }
-    if (langDesc->skill_id != 0 && !sender->HasSkill(langDesc->skill_id))
-    {
-        // also check SPELL_AURA_COMPREHEND_LANGUAGE (client offers option to speak in that language)
-        Unit::AuraEffectList const& langAuras = sender->GetAuraEffectsByType(SPELL_AURA_COMPREHEND_LANGUAGE);
-        bool foundAura = false;
-        for (Unit::AuraEffectList::const_iterator i = langAuras.begin(); i != langAuras.end(); ++i)
+        recv_data >> lang;
+
+        // prevent talking at unknown language (cheating)
+        LanguageDesc const* langDesc = GetLanguageDescByID(lang);
+        if (!langDesc)
         {
-            if ((*i)->GetMiscValue() == int32(lang))
-            {
-                foundAura = true;
-                break;
-            }
-        }
-        if (!foundAura)
-        {
-            SendNotification(LANG_NOT_LEARNED_LANGUAGE);
+            SendNotification(LANG_UNKNOWN_LANGUAGE);
             return;
+        }
+        if (langDesc->skill_id != 0 && !_player->HasSkill(langDesc->skill_id))
+        {
+            // also check SPELL_AURA_COMPREHEND_LANGUAGE (client offers option to speak in that language)
+            Unit::AuraEffectList const& langAuras = _player->GetAuraEffectsByType(SPELL_AURA_COMPREHEND_LANGUAGE);
+            bool foundAura = false;
+            for (Unit::AuraEffectList::const_iterator i = langAuras.begin(); i != langAuras.end(); ++i)
+            {
+                if ((*i)->GetMiscValue() == int32(lang))
+                {
+                    foundAura = true;
+                    break;
+                }
+            }
+            if (!foundAura)
+            {
+                SendNotification(LANG_NOT_LEARNED_LANGUAGE);
+                return;
+            }
         }
     }
 
@@ -258,7 +261,8 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         if (!sender->CanSpeak())
         {
             std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-            SendNotification(GetVoragineString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+            SendNotification(GetVoragineString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
+            recv_data.rfinish(); // Prevent warnings
             return;
         }
 
@@ -305,25 +309,21 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
                 break;
             }
 
-            Player* receiver = sObjectMgr->GetPlayer(channelOrWhisperName.c_str());
-            uint32 senderSecurity = GetSecurity();
-            uint32 receiverSecurity = receiver ? receiver->GetSession()->GetSecurity() : SEC_PLAYER;
-            if (!receiver || (senderSecurity == SEC_PLAYER && receiverSecurity > SEC_PLAYER && !receiver->isAcceptWhispers() && !receiver->IsInWhisperWhiteList(sender->GetGUID())))
+            Player* receiver = sObjectAccessor->FindPlayerByName(channelOrWhisperName.c_str());
+            bool senderIsPlayer = GetSecurity() == SEC_PLAYER;
+            bool receiverIsPlayer = receiver ? receiver->GetSession()->GetSecurity() : SEC_PLAYER;
+            if (!receiver || (senderIsPlayer && !receiverIsPlayer && !receiver->isAcceptWhispers() && !receiver->IsInWhisperWhiteList(sender->GetGUID())))
             {
                 SendPlayerNotFoundNotice(channelOrWhisperName);
                 return;
             }
 
-            if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHAT) && senderSecurity == SEC_PLAYER && receiverSecurity == SEC_PLAYER)
-            {
-                uint32 senderFaction = GetPlayer()->GetTeam();
-                uint32 receiverFaction = receiver->GetTeam();
-                if (senderFaction != receiverFaction)
+            if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHAT) && senderIsPlayer && receiverIsPlayer)
+                if (GetPlayer()->GetTeam() != receiver->GetTeam())
                 {
                     SendWrongFactionNotice();
                     return;
                 }
-            }
 
             if (GetPlayer()->HasAura(1852) && !receiver->isGameMaster())
             {
@@ -332,7 +332,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
             }
 
             // If player is a Gamemaster and doesn't accept whisper, we auto-whitelist every player that the Gamemaster is talking to
-            if (senderSecurity > SEC_PLAYER && !sender->isAcceptWhispers() && !sender->IsInWhisperWhiteList(receiver->GetGUID()))
+            if (!senderIsPlayer && !sender->isAcceptWhispers() && !sender->IsInWhisperWhiteList(receiver->GetGUID()))
                 sender->AddWhisperWhiteList(receiver->GetGUID());
 
             GetPlayer()->Whisper(msg, lang, receiver->GetGUID());
@@ -457,10 +457,13 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         } break;
         case CHAT_MSG_CHANNEL:
         {
-            if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ))
+            if (GetSecurity() == SEC_PLAYER)
             {
-                SendNotification(GetVoragineString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
-                return;
+                if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ))
+                {
+                    SendNotification(GetVoragineString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
+                    return;
+                }
             }
 
             if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
@@ -481,7 +484,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
                 if (!_player->isAFK())
                 {
                     if (msg.empty())
-                        msg = GetVoragineString(LANG_PLAYER_AFK_DEFAULT);
+                        msg  = GetVoragineString(LANG_PLAYER_AFK_DEFAULT);
                     _player->afkMsg = msg;
                 }
 
