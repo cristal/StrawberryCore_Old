@@ -684,10 +684,10 @@ void AddCommandScripts()
     AddSC_npc_commandscript();
     //AddSC_go_commandscript();
     //AddSC_learn_commandscript();
-	AddSC_misc_commandscript();
+    AddSC_misc_commandscript();
     //AddSC_modify_commandscript();
     AddSC_debug_commandscript();
-	AddSC_gps_commandscript();
+    AddSC_gps_commandscript();
     AddSC_reload_commandscript();
 }
 
