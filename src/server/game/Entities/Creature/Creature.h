@@ -96,7 +96,6 @@ struct CreatureTemplate
     uint32  GossipMenuId;
     uint8   minlevel;
     uint8   maxlevel;
-    uint32  expansion;
     uint32  faction_A;
     uint32  faction_H;
     uint32  npcflag;
@@ -137,9 +136,6 @@ struct CreatureTemplate
     std::string AIName;
     uint32  MovementType;
     uint32  InhabitType;
-    float   ModHealth;
-    float   ModMana;
-    float   ModArmor;
     bool    RacialLeader;
     uint32  questItems[MAX_CREATURE_QUEST_ITEMS];
     uint32  movementId;

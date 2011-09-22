@@ -195,13 +195,13 @@ void WorldSession::HandleCreatureQueryOpcode(WorldPacket & recv_data)
             data << uint32(ci->KillCredit[i]);                  // Kill Credits
         for (int i = 0; i < MAX_MODELS; ++i)
             data << uint32(ci->Modelid[i]);                     // Modelid1 -  Modelid2 - Modelid3 - Modelid4
-        data << float(ci->ModHealth);                       // dmg/hp modifier
-        data << float(ci->ModMana);                         // dmg/mana modifier
+        data << float(0);                       // dmg/hp modifier
+        data << float(0);                       // dmg/mana modifier
         data << uint8(ci->RacialLeader);
         for (uint32 i = 0; i < MAX_CREATURE_QUEST_ITEMS; ++i)
             data << uint32(ci->questItems[i]);              // itemId[6], quest drop
         data << uint32(ci->movementId);                     // CreatureMovementInfo.dbc
-        data << uint32(ci->expansion);                      // Expansion
+        data << uint32(0);                      // Expansion
         SendPacket(&data);
         sLog->outDebug("WORLD: Sent SMSG_CREATURE_QUERY_RESPONSE");
     }
