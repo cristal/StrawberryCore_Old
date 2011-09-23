@@ -44,7 +44,7 @@ bool LoadOpcodes()
 {
     uint32 oldMSTime = getMSTime();
 
-    uint16 build = 14480;
+    uint16 build = 14545;
     QueryResult result = WorldDatabase.PQuery("SELECT name, number FROM opcodes where version = %u", build);
 
     if (!result)

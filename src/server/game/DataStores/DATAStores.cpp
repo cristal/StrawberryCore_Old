@@ -789,12 +789,12 @@ void LoadDATAStores()
     }
 
     // Check loaded DATA files proper version
-    if (//!sAreaStore.LookupEntry(5839)              ||       // last area (areaflag) added in 4.2.0a (14480)
-        !sCharTitlesStore.LookupEntry(279)         ||       // last char title added in 4.2.0a (14480)
-        !sGemPropertiesStore.LookupEntry(1860)     ||       // last gem property added in 4.2.0a (14480)
-        !sItemExtendedCostStore.LookupEntry(3652)  ||       // last item extended cost added in 4.2.0a (14480)
-        !sMapStore.LookupEntry(968)                ||       // last map added in 4.2.0a (14480)
-        !sSpellStore.LookupEntry(102129)            )       // last added spell in 4.2.0a (14480)
+    if (//!sAreaStore.LookupEntry(5839)              ||       // last area (areaflag) added in 4.2.2 (14545)
+        !sCharTitlesStore.LookupEntry(279)         ||       // last char title added in 4.2.2 (14545)
+        !sGemPropertiesStore.LookupEntry(1860)     ||       // last gem property added in 4.2.2 (14545)
+        !sItemExtendedCostStore.LookupEntry(3654)  ||       // last item extended cost added in 4.2.2 (14545)
+        !sMapStore.LookupEntry(968)                ||       // last map added in 4.2.2 (14545)
+        !sSpellStore.LookupEntry(102129)            )       // last added spell in 4.2.2 (14545)
     {
         sLog->outError("\nYou have outdated DATA files. Please extract correct versions from current using client.");
         exit(1);
