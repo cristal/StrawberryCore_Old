@@ -404,9 +404,6 @@ void WorldSession::HandlePetitionSignOpcode(WorldPacket & recv_data)
         // close at signer side
         SendPacket(&data);
 
-        // update for owner if online
-        if (Player *owner = sObjectMgr->GetPlayer(ownerguid))
-            owner->GetSession()->SendPacket(&data);
         return;
     }
 
