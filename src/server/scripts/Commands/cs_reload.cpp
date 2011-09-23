@@ -373,7 +373,23 @@ public:
             return false;
 
         uint32 entry = (uint32) atoi((char*)args);
-        QueryResult result = WorldDatabase.PQuery("SELECT difficulty_entry_1, difficulty_entry_2, difficulty_entry_3, KillCredit1, KillCredit2, modelid1, modelid2, modelid3, modelid4, name, subname, IconName, gossip_menu_id, minlevel, maxlevel, faction_A, faction_H, npcflag, speed_walk, speed_run, scale, rank, mindmg, maxdmg, dmgschool, attackpower, dmg_multiplier, baseattacktime, rangeattacktime, unit_class, unit_flags, dynamicflags, family, trainer_id, trainer_type, trainer_spell, trainer_class, trainer_race, minrangedmg, maxrangedmg, rangedattackpower, type, type_flags, lootid, pickpocketloot, skinloot, resistance1, resistance2, resistance3, resistance4, resistance5, resistance6, spell1, spell2, spell3, spell4, spell5, spell6, spell7, spell8, PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, InhabitType, RacialLeader, questItem1, questItem2, questItem3, questItem4, questItem5, questItem6, movementId, RegenHealth, equipment_id, mechanic_immune_mask, flags_extra, ScriptName FROM creature_template WHERE entry = %u", entry);
+        //                                                        0                   1                    2               3            4
+        QueryResult result = WorldDatabase.PQuery("SELECT difficulty_entry_1, difficulty_entry_2, difficulty_entry_3, KillCredit1, KillCredit2, "
+            //   5         6         7         8      9       10       11            12          13        14        15          16       17
+            "modelid1, modelid2, modelid3, modelid4, name, subname, IconName, gossip_menu_id, minlevel, maxlevel, faction_A, faction_H, npcflag, "
+            //  18          19       20     21     22      23       24          25             26              27              28             29
+            "speed_walk, speed_run, scale, rank, mindmg, maxdmg, dmgschool, attackpower, dmg_multiplier, baseattacktime, rangeattacktime, unit_class, "
+            //  30            31         32        33           34             35             36             37           38          39
+            "unit_flags, dynamicflags, family, trainer_id, trainer_type, trainer_spell, trainer_class, trainer_race, minrangedmg, maxrangedmg, "
+            //       40          41       42        43          44           45         46           47            48           49          50
+            "rangedattackpower, type, type_flags, lootid, pickpocketloot, skinloot, resistance1, resistance2, resistance3, resistance4, resistance5, "
+            //    51        52      53      54      55      56      57      58      59          60            61        62       63      64         65
+            "resistance6, spell1, spell2, spell3, spell4, spell5, spell6, spell7, spell8, PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, "
+            //    66           67           68          69          70          71          72          73          74           75          76
+            "InhabitType, RacialLeader, questItem1, questItem2, questItem3, questItem4, questItem5, questItem6, movementId, RegenHealth, equipment_id, "
+            //          77              78          79
+            "mechanic_immune_mask, flags_extra, ScriptName "
+            "FROM creature_template WHERE entry = %u", entry);
         if (!result)
         {
             handler->PSendSysMessage(LANG_COMMAND_CREATURETEMPLATE_NOTFOUND, entry);
