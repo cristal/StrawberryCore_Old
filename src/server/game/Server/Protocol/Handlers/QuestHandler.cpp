@@ -316,10 +316,8 @@ void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket & recv_data)
         return;
 
     if(!IS_PLAYER_GUID(guid))
-    {
         if (!pObject->hasInvolvedQuest(quest))
             return;
-    }
 
     Quest const *pQuest = sObjectMgr->GetQuestTemplate(quest);
     if (pQuest)
@@ -356,6 +354,9 @@ void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket & recv_data)
         }
         else
             _player->PlayerTalkClass->SendQuestGiverOfferReward(pQuest, guid, true);
+
+        // Don't forget to close window.
+        _player->SendQuestWindowClose(pQuest->GetQuestId());
     }
 }
 
