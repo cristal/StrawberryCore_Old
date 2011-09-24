@@ -708,6 +708,8 @@ uint32 WorldSession::getDialogStatus(Player *pPlayer, Object* questgiver, uint32
 
 void WorldSession::SendStatusOfQuestGivers()
 {
+    sLog->outDebug("WORLD: Received StatusOfQuestGivers");
+
     uint32 count = 0;
 
     WorldPacket data(SMSG_QUESTGIVER_STATUS_MULTIPLE, 16);
