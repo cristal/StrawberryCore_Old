@@ -1166,6 +1166,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
 
     m_playerLoading = false;
 
+    SendStatusOfQuestGivers();
     sScriptMgr->OnPlayerLogin(pCurrChar);
     delete holder;
 }

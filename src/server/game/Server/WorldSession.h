@@ -704,20 +704,21 @@ class WorldSession
         void HandleTalentWipeConfirmOpcode(WorldPacket& recvPacket);
         void HandleUnlearnSkillOpcode(WorldPacket& recvPacket);
 
-        void HandleQuestgiverStatusQueryOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverStatusMultipleQuery(WorldPacket& recvPacket);
-        void HandleQuestgiverHelloOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverAcceptQuestOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverQueryQuestOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverChooseRewardOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverRequestRewardOpcode(WorldPacket& recvPacket);
+        void HandleQuestGiverStatusQueryOpcode(WorldPacket& recvPacket);
+        void SendStatusOfQuestGivers();
+        void HandleQuestGiverStatusMultipleQuery(WorldPacket& recvPacket);
+        void HandleQuestGiverHelloOpcode(WorldPacket& recvPacket);
+        void HandleQuestGiverAcceptQuestOpcode(WorldPacket& recvPacket);
+        void HandleQuestGiverQueryQuestOpcode(WorldPacket& recvPacket);
+        void HandleQuestGiverChooseRewardOpcode(WorldPacket& recvPacket);
+        void HandleQuestGiverRequestRewardOpcode(WorldPacket& recvPacket);
         void HandleQuestQueryOpcode(WorldPacket& recvPacket);
-        void HandleQuestgiverCancel(WorldPacket& recv_data);
+        void HandleQuestGiverCancel(WorldPacket& recv_data);
         void HandleQuestLogSwapQuest(WorldPacket& recv_data);
         void HandleQuestLogRemoveQuest(WorldPacket& recv_data);
         void HandleQuestConfirmAccept(WorldPacket& recv_data);
-        void HandleQuestgiverCompleteQuest(WorldPacket& recv_data);
-        void HandleQuestgiverQuestAutoLaunch(WorldPacket& recvPacket);
+        void HandleQuestGiverCompleteQuest(WorldPacket& recv_data);
+        void HandleQuestGiverQuestAutoLaunch(WorldPacket& recvPacket);
         void HandlePushQuestToParty(WorldPacket& recvPacket);
         void HandleQuestPushResult(WorldPacket& recvPacket);
 

@@ -41,7 +41,7 @@
 #include "CreatureAI.h"
 #include "GameObjectAI.h"
 
-void WorldSession::HandleQuestgiverStatusQueryOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverStatusQueryOpcode(WorldPacket & recv_data)
 {
     uint64 guid;
     recv_data >> guid;
@@ -87,7 +87,7 @@ void WorldSession::HandleQuestgiverStatusQueryOpcode(WorldPacket & recv_data)
     _player->PlayerTalkClass->SendQuestGiverStatus(questStatus, guid);
 }
 
-void WorldSession::HandleQuestgiverHelloOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverHelloOpcode(WorldPacket & recv_data)
 {
     uint64 guid;
     recv_data >> guid;
@@ -117,7 +117,7 @@ void WorldSession::HandleQuestgiverHelloOpcode(WorldPacket & recv_data)
     pCreature->AI()->sGossipHello(_player);
 }
 
-void WorldSession::HandleQuestgiverAcceptQuestOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverAcceptQuestOpcode(WorldPacket & recv_data)
 {
     uint64 guid;
     uint32 quest;
@@ -241,7 +241,7 @@ void WorldSession::HandleQuestgiverAcceptQuestOpcode(WorldPacket & recv_data)
     _player->PlayerTalkClass->SendCloseGossip();
 }
 
-void WorldSession::HandleQuestgiverQueryQuestOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverQueryQuestOpcode(WorldPacket & recv_data)
 {
     uint64 guid;
     uint32 quest;
@@ -294,7 +294,7 @@ void WorldSession::HandleQuestQueryOpcode(WorldPacket & recv_data)
     }
 }
 
-void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverChooseRewardOpcode(WorldPacket & recv_data)
 {
     uint32 quest, reward;
     uint64 guid;
@@ -360,7 +360,7 @@ void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket & recv_data)
     }
 }
 
-void WorldSession::HandleQuestgiverRequestRewardOpcode(WorldPacket & recv_data)
+void WorldSession::HandleQuestGiverRequestRewardOpcode(WorldPacket & recv_data)
 {
     uint32 quest;
     uint64 guid;
@@ -389,7 +389,7 @@ void WorldSession::HandleQuestgiverRequestRewardOpcode(WorldPacket & recv_data)
         _player->PlayerTalkClass->SendQuestGiverOfferReward(pQuest, guid, true);
 }
 
-void WorldSession::HandleQuestgiverCancel(WorldPacket& /*recv_data*/)
+void WorldSession::HandleQuestGiverCancel(WorldPacket& /*recv_data*/)
 {
     sLog->outDebug("WORLD: Received CMSG_QUESTGIVER_CANCEL");
 
@@ -477,7 +477,7 @@ void WorldSession::HandleQuestConfirmAccept(WorldPacket& recv_data)
     }
 }
 
-void WorldSession::HandleQuestgiverCompleteQuest(WorldPacket& recv_data)
+void WorldSession::HandleQuestGiverCompleteQuest(WorldPacket& recv_data)
 {
     uint32 quest;
     uint64 guid;
@@ -523,7 +523,7 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPacket& recv_data)
     }
 }
 
-void WorldSession::HandleQuestgiverQuestAutoLaunch(WorldPacket& /*recvPacket*/)
+void WorldSession::HandleQuestGiverQuestAutoLaunch(WorldPacket& /*recvPacket*/)
 {
     sLog->outDebug("WORLD: Received CMSG_QUESTGIVER_QUEST_AUTOLAUNCH");
 }
@@ -706,10 +706,8 @@ uint32 WorldSession::getDialogStatus(Player *pPlayer, Object* questgiver, uint32
     return result;
 }
 
-void WorldSession::HandleQuestgiverStatusMultipleQuery(WorldPacket& /*recvPacket*/)
+void WorldSession::SendStatusOfQuestGivers()
 {
-    sLog->outDebug("WORLD: Received CMSG_QUESTGIVER_STATUS_MULTIPLE_QUERY");
-
     uint32 count = 0;
 
     WorldPacket data(SMSG_QUESTGIVER_STATUS_MULTIPLE, 16);
@@ -755,6 +753,13 @@ void WorldSession::HandleQuestgiverStatusMultipleQuery(WorldPacket& /*recvPacket
 
     data.put<uint32>(0, count);                             // write real count
     SendPacket(&data);
+}
+
+void WorldSession::HandleQuestGiverStatusMultipleQuery(WorldPacket& /*recvPacket*/)
+{
+    sLog->outDebug("WORLD: Received CMSG_QUESTGIVER_STATUS_MULTIPLE_QUERY");
+
+    SendStatusOfQuestGivers();
 }
 
 void WorldSession::HandleQueryQuestsCompleted(WorldPacket & /*recv_data*/)
