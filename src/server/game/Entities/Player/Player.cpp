@@ -22127,38 +22127,43 @@ void Player::ModifyMoney(int32 d)
     sScriptMgr->OnPlayerMoneyChanged(this, d);
 
     if (d < 0)
-        SetMoney ((GetMoney() >> 32) > uint32(-d) ? (GetMoney() >> 32) + d : 0);
+        SetMoney (GetMoney() > uint64(-d) ? GetMoney() + d : 0);
     else
     {
-        uint32 newAmount = 0;
+        uint64 newAmount = 0;
+
         if (GetMoney() < uint32(MAX_MONEY_AMOUNT - d))
         {
-            newAmount = (GetMoney() >> 32) + d;
-            if(Guild *pGuild = sGuildMgr->GetGuildById(GetGuildId()))
+            newAmount = GetMoney() + d;
+            SetGuildMoneyModifier(1);
+
+            if (Guild *pGuild = sGuildMgr->GetGuildById(GetGuildId()))
             {
-                if(pGuild)
+                if (pGuild)
                 {
-                    if(!this->HasAura(83940) && !this->HasAura(83941))
+                    if (!this->HasAura(83940) && !this->HasAura(83941))
                         SetGuildMoneyModifier(10);
 
-                    if(this->HasAura(83940) && !this->HasAura(83941))
+                    if (this->HasAura(83940) && !this->HasAura(83941))
                         SetGuildMoneyModifier(15);
 
-                    if(this->HasAura(83941) && this->HasAura(83940))
+                    if (this->HasAura(83941) && this->HasAura(83940))
                         SetGuildMoneyModifier(25);
 
-                    //If we withdraw money from guild we don't get lootGUID, same in quests
-                    if(this->GetLootGUID())
+                    //If we withdraw money from guild we don't get lootGUID, same in quests ;)
+                    if (this->GetLootGUID())
                     {
-                        uint64 GuildMoney = (uint64)(d * (GetGuildMoneyModifier() *0.01));
+                        uint64 GuildMoney = (d * (GetGuildMoneyModifier() *0.01));
 
-                        if(GuildMoney < 1)
+                        if (GuildMoney < 1)
                             GuildMoney = 1;
 
                         pGuild->SetGuildMoney(GuildMoney);
                     }
                 }
-            } this->SendPlayerMoneyNotify(this, d, GetGuildMoneyModifier());
+            }
+
+			this->SendPlayerMoneyNotify(this, d, GetGuildMoneyModifier());
         }
         else
         {
@@ -22167,6 +22172,7 @@ void Player::ModifyMoney(int32 d)
             if (d)
                 SendEquipError(EQUIP_ERR_TOO_MUCH_GOLD, NULL, NULL);
         }
+
         SetMoney (newAmount);
     }
 }
