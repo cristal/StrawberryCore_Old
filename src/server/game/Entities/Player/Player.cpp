@@ -3241,6 +3241,7 @@ void Player::GiveLevel(uint8 level)
                     SetByteFlag(PLAYER_FIELD_BYTES, 1, 0x01);
             }
 
+    GetSession()->SendStatusOfQuestGivers();
     sScriptMgr->OnPlayerLevelChanged(this, oldLevel);
 }
 
