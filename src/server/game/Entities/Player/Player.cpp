@@ -22163,7 +22163,7 @@ void Player::ModifyMoney(int32 d)
                 }
             }
 
-			this->SendPlayerMoneyNotify(this, d, GetGuildMoneyModifier());
+            this->SendPlayerMoneyNotify(this, d, GetGuildMoneyModifier());
         }
         else
         {
