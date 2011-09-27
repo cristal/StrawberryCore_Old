@@ -4536,20 +4536,18 @@ bool Player::resetTalents(bool no_cost)
         return false;
     }
 
-    uint64 cost = 0;
+    uint32 cost = 0;
 
     if (!no_cost && !sWorld->getBoolConfig(CONFIG_NO_RESET_TALENT_COST))
     {
         cost = resetTalentsCost();
 
-        if (!HasEnoughMoney(cost))
+        if (!HasEnoughMoney(uint64(cost)))
         {
             SendBuyError(BUY_ERR_NOT_ENOUGHT_MONEY, 0, 0, 0);
             return false;
         }
     }
-
-    RemovePet(NULL, PET_SAVE_NOT_IN_SLOT, true);
 
     for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i)
     {
@@ -4577,14 +4575,17 @@ bool Player::resetTalents(bool no_cost)
             removeSpell(talentInfo->RankID[rank], true);
             if (const SpellEntry *_spellEntry = sSpellStore.LookupEntry(talentInfo->RankID[rank]))
                 for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)                  // search through the SpellEntry for valid trigger spells
-                    if (_spellEntry->GetSpellEffect(i)->EffectTriggerSpell > 0 && _spellEntry->GetSpellEffectIdByIndex(i) == SPELL_EFFECT_LEARN_SPELL)
-                        removeSpell(_spellEntry->GetSpellEffect(i)->EffectTriggerSpell, true); // and remove any spells that the talent teaches
+                    if (SpellEffectEntry const* effect = _spellEntry->GetSpellEffect(i))
+                        if (effect->EffectTriggerSpell > 0 && effect->Effect == SPELL_EFFECT_LEARN_SPELL)
+                            removeSpell(_spellEntry->GetSpellEffect(i)->EffectTriggerSpell, true); // and remove any spells that the talent teaches
             // if this talent rank can be found in the PlayerTalentMap, mark the talent as removed so it gets deleted
             PlayerTalentMap::iterator plrTalent = m_talents[m_activeSpec]->find(talentInfo->RankID[rank]);
             if (plrTalent != m_talents[m_activeSpec]->end())
                 plrTalent->second->state = PLAYERSPELL_REMOVED;
         }
     }
+
+    RemovePet(NULL, PET_SAVE_NOT_IN_SLOT, true);
 
     for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
     {
@@ -4600,8 +4601,8 @@ bool Player::resetTalents(bool no_cost)
     
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     _SaveTalents(trans);
-    _SaveTalentBranchSpecs(trans);
     _SaveSpells(trans);
+    _SaveTalentBranchSpecs(trans);
     CharacterDatabase.CommitTransaction(trans);
 
     SetFreeTalentPoints(talentPointsForLevel);
@@ -4612,7 +4613,7 @@ bool Player::resetTalents(bool no_cost)
         GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_GOLD_SPENT_FOR_TALENTS, cost);
         GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_NUMBER_OF_TALENT_RESETS, 1);
 
-        m_resetTalentsCost = (cost >> 32);
+        m_resetTalentsCost = cost;
         m_resetTalentsTime = time(NULL);
     }
 
@@ -14882,13 +14883,11 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
     uint64 guid = source->GetGUID();
 
     if (source->GetTypeId() == TYPEID_GAMEOBJECT)
-    {
         if (gossipOptionId > GOSSIP_OPTION_QUESTGIVER)
         {
             sLog->outError("Player guid %u request invalid gossip option for GameObject entry %u", GetGUIDLow(), source->GetEntry());
             return;
         }
-    }
 
     GossipMenuItemData const* menuItemData = gossipMenu.GetItemData(gossipListId);
     if (!menuItemData)
@@ -22126,7 +22125,7 @@ void Player::InitPrimaryProfessions()
 void Player::ModifyMoney(int32 d)
 {
     sScriptMgr->OnPlayerMoneyChanged(this, d);
-
+	printf("MONEY: %i", d);
     if (d < 0)
         SetMoney (GetMoney() > uint64(-d) ? GetMoney() + d : 0);
     else
@@ -22174,7 +22173,7 @@ void Player::ModifyMoney(int32 d)
                 SendEquipError(EQUIP_ERR_TOO_MUCH_GOLD, NULL, NULL);
         }
 
-        SetMoney (newAmount);
+        SetMoney(newAmount);
     }
 }
 
