@@ -22125,7 +22125,6 @@ void Player::InitPrimaryProfessions()
 void Player::ModifyMoney(int32 d)
 {
     sScriptMgr->OnPlayerMoneyChanged(this, d);
-	printf("MONEY: %i", d);
     if (d < 0)
         SetMoney (GetMoney() > uint64(-d) ? GetMoney() + d : 0);
     else
