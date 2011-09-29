@@ -768,14 +768,10 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     VendorItemData const* items = vendor->GetVendorItems();
     if (!items)
     {
-        WorldPacket data(SMSG_LIST_INVENTORY, 1 + 4 + 1 + 2);
-        data << uint8(0);                                   // count == 0, next will be error code
+        WorldPacket data(SMSG_LIST_INVENTORY, 4 + 1 + 1 + 1);
+        data << uint32(0);                                   // count == 0, next will be error code
         data << uint8(0);
         data << uint8(0);                                   // "Vendor has no inventory"
-        data << uint8(0);
-        data << uint8(0);
-        data << uint8(0);
-        data << uint8(0);
         SendPacket(&data);
         return;
     }
@@ -787,8 +783,8 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     data << uint8(0);
 
     size_t countPos = data.wpos();
-    data << uint32(count);
-    data << uint8(0);
+    data << uint8(count);
+    data << uint32(0);
 
     float discountMod = _player->GetReputationPriceDiscount(vendor);
 
@@ -818,16 +814,16 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 // reputation discount
                 int32 price = item->IsGoldRequired(itemTemplate) ? uint32(floor(itemTemplate->BuyPrice * discountMod)) : 0;
 
+				data << item->item;
                 data << uint32(slot + 1);       // client expects counting to start at 1
-                data << uint32(1);                          // unk 4.0.1
-                data << uint32(item->item);
+                data << uint32(price);                          // unk 4.0.1;
                 data << uint32(itemTemplate->DisplayInfoID);
                 data << int32(leftInStock);
-                data << uint32(price);
                 data << uint32(itemTemplate->MaxDurability);
                 data << uint32(itemTemplate->BuyCount);
                 data << uint32(item->ExtendedCost);
-                data << uint8(0);                           // unk uint32 4.0.1 now 8
+                data << uint32(0);  // unk 4.0.1
+				data << uint32(1); // unk value 4.0.1 always 1
             }
         }
     }
