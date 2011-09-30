@@ -788,7 +788,7 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
 
     float discountMod = _player->GetReputationPriceDiscount(vendor);
 
-    for (uint8 slot = 0; slot < itemCount; ++slot)
+    for (uint32 slot = 0; slot < itemCount; ++slot)
     {
         if (VendorItem const* item = items->GetItem(slot))
         {
@@ -814,7 +814,7 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 // reputation discount
                 int32 price = item->IsGoldRequired(itemTemplate) ? uint32(floor(itemTemplate->BuyPrice * discountMod)) : 0;
 
-				data << item->item;
+                data << item->item;
                 data << uint32(slot + 1);       // client expects counting to start at 1
                 data << uint32(price);                          // unk 4.0.1;
                 data << uint32(itemTemplate->DisplayInfoID);
@@ -823,7 +823,7 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 data << uint32(itemTemplate->BuyCount);
                 data << uint32(item->ExtendedCost);
                 data << uint32(0);  // unk 4.0.1
-				data << uint32(1); // unk value 4.0.1 always 1
+                data << uint32(1); // unk value 4.0.1 always 1
             }
         }
     }

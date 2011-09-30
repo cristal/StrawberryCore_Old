@@ -1961,7 +1961,7 @@ void Player::setDeathState(DeathState s)
         SetUInt32Value(PLAYER_SELF_RES_SPELL, 0);
 }
 
-void Player::BuildEnumData(QueryResult result, WorldPacket* data)
+bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
 {
     //             0               1                2                3                 4                  5                       6                        7
     //    "SELECT characters.guid, characters.name, characters.race, characters.class, characters.gender, characters.playerBytes, characters.playerBytes2, characters.level, "
@@ -1972,10 +1972,12 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
 
     Field *fields = result->Fetch();
 
+    uint32 guid = fields[0].GetUInt32();
     uint8 playerRace = fields[2].GetUInt8();
     uint8 playerClass = fields[3].GetUInt8();
-    uint32 guid = fields[0].GetUInt32();
+    uint8 gender = fields[4].GetUInt8();
     uint32 playerBytes = fields[5].GetUInt32();
+    uint8 level = fields[7].GetUInt8();
     uint32 playerFlags = fields[14].GetUInt32();
     uint32 atLoginFlags = fields[15].GetUInt32();
     uint32 zone = fields[8].GetUInt32();
@@ -1996,8 +1998,8 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
     }
 
     *data << uint8(playerBytes >> 24);                    // Hair color
-    *data << uint8(fields[4].GetUInt8());                 // Gender
-    *data << uint8(fields[7].GetUInt8());                 // Level
+    *data << uint8(gender);                               // Gender
+    *data << uint8(level);                                // Level
 
     *data << uint32(zone);                                // Zone id
     *data << uint32(petDisplayId);                        // Pet DisplayID
@@ -2005,7 +2007,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
     if (uint8(guid >> 8) != 0)
         *data << uint8(guid >> 8);
 
-    *data << uint8(playerRace);                                // Race
+    *data << uint8(playerRace);                           // Race
 
     if (uint8(guid >> 24) != 0)
         *data << uint8(guid >> 24);
@@ -2028,7 +2030,8 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
     }
     else
         charFlags |= CHARACTER_FLAG_DECLINED;
-    *data << uint32(charFlags);                          // character flags
+
+    *data << uint32(charFlags);                           // character flags
 
     *data << uint32(petFamily);                           // Pet Family
     *data << uint8(playerBytes >> 16);                    // Hair style
@@ -2040,6 +2043,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
         uint32 visualbase = slot * 2;
         uint32 itemId = GetUInt32ValueFromArray(equipment, visualbase);
         ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+        ItemEntry const *db2Item = sItemStore.LookupEntry(itemId); // Use Item.db2.DisplayID for Char Enum
         if (!proto)
         {
             *data << uint32(0);
@@ -2062,7 +2066,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
                 break;
         }
 
-        *data << uint32(proto->DisplayInfoID);
+        *data << uint32(db2Item ? db2Item->DisplayId : proto->DisplayInfoID);
         *data << uint32(enchant ? enchant->aura_id : 0);
         *data << uint8(proto->InventoryType);
     }
@@ -2106,6 +2110,8 @@ void Player::BuildEnumData(QueryResult result, WorldPacket* data)
     uint32 playerBytes2 = fields[6].GetUInt32();
     *data << uint8(playerBytes2 & 0xFF);                  // facial hair
     *data << uint8(playerBytes);                          // skin
+
+    return true;
 }
 
 bool Player::ToggleAFK()
