@@ -4621,7 +4621,7 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectTriggerSpell[0] = 33760;
             count++;
             break;
-        case 26573 : //Consecration
+		case 26573 : //Consecration
             spellInfo->EffectTriggerSpell[1] = 82366;
             spellInfo->EffectTriggerSpell[2] = 69930;
             count++;
@@ -4883,7 +4883,7 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectSpellClassMask[0] = flag96(0x00000040, 0x00000000, 0x00000000);
             count++;
             break;
-        // ULDUAR SPELLS
+		// ULDUAR SPELLS
         //
         case 63342: // Focused Eyebeam Summon Trigger
             spellInfo->MaxAffectedTargets = 1;
@@ -4989,10 +4989,6 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectImplicitTargetB[0] = TARGET_UNIT_TARGET_ANY;
             spellInfo->Effect[1] = 0;
             count++;
-            break;
-        case 86150: // Guardian of Ancient Kings
-            spellInfo->EffectTriggerSpell[0] = 86698;
-            spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_CASTER;
             break;
         default:
             break;
