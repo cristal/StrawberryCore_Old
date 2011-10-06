@@ -161,6 +161,10 @@ void GameObject::RemoveFromWorld()
 
 bool GameObject::Create(uint32 guidlow, uint32 name_id, Map *map, uint32 phaseMask, float x, float y, float z, float ang, float rotation0, float rotation1, float rotation2, float rotation3, uint32 animprogress, GOState go_state, uint32 artKit)
 {
+    do
+        ++guidlow;
+    while (sWorld->ExistGameObject(guidlow-65536, name_id) == true);
+
     ASSERT(map);
     SetMap(map);
 
@@ -261,6 +265,11 @@ bool GameObject::Create(uint32 guidlow, uint32 name_id, Map *map, uint32 phaseMa
     }
     LastUsedScriptID = GetGOInfo()->ScriptId;
     AIM_Initialize();
+
+    GameObjectss gameobjects;
+    gameobjects.guid = guidlow;
+    gameobjects.id = name_id;
+    sWorld->mGameObjectsContainer[sWorld->mGameObjectsContainer.size()+1] = gameobjects;
 
     return true;
 }

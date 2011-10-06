@@ -554,6 +554,22 @@ struct GCharacters
 
 typedef UNORDERED_MAP<uint32, GCharacters> CharactersMap;
 
+struct GGameObjects
+{
+    uint32 guid;
+    uint32 id;
+};
+
+typedef UNORDERED_MAP<uint32, GGameObjects> GameObjectsMap;
+
+struct GameObjectss
+{
+    uint32 guid;
+    uint32 id;
+};
+
+typedef UNORDERED_MAP<uint32, GameObjectss> GameObjectsContainer;
+
 // The World
 class World
 {
@@ -821,6 +837,24 @@ class World
                     return true;
             return false;
         }
+
+        void LoadGameObjectCheck();
+        GGameObjects const* GetGameObjectsForCheck(uint32 id) const
+        {
+            GameObjectsMap::const_iterator itr = mGameObjects.find(id);
+            if (itr != mGameObjects.end())
+                return &itr->second;
+            return NULL;
+        }
+
+        GameObjectsContainer mGameObjectsContainer;
+        bool ExistGameObject(uint32 guid, uint32 id) const
+        {
+            for (GameObjectsContainer::const_iterator itr = mGameObjectsContainer.begin(); itr != mGameObjectsContainer.end(); ++itr)
+                if (itr->second.guid == guid && itr->second.id == id)
+                    return true;
+            return false;
+        }
     protected:
         void _UpdateGameTime();
         // callback for UpdateRealmCharacters
@@ -836,6 +870,7 @@ class World
         void ResetCurrencyWeekCap();
 
         CharactersMap mCharacters;
+        GameObjectsMap mGameObjects;
     private:
         static volatile bool m_stopEvent;
         static uint8 m_ExitCode;

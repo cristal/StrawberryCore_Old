@@ -1324,6 +1324,9 @@ void World::SetInitialWorldSettings()
     sLog->outString("Loading Current Characters To Guid Check, Please Wait(This can take a few secs just once(Avrg: 0-20 secs))...");
     LoadCharacterCheck();
 
+    sLog->outString("Loading GameObjects To Guid Check...");
+    LoadGameObjectCheck();
+
     sLog->outString("Loading Script Names...");
     sObjectMgr->LoadScriptNames();
 
@@ -2194,7 +2197,142 @@ void World::LoadCharacterCheck()
             }
         }
 
-    sLog->outString(">> Loaded %u characters in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+    sLog->outString(">> Loaded %u characters for the guid check in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+    sLog->outString();
+}
+
+void World::LoadGameObjectCheck()
+{
+    QueryResult result = WorldDatabase.PQuery("SELECT `guid`, `id` FROM `gameobject` ORDER BY `id`");
+    if (!result)
+        return;
+
+    uint32 oldMSTime = getMSTime();
+
+    // How it works ?
+    // First it will search whole exist gameobjects in the database. If a same gameobject has both
+    // guid which are X+65536(X+0x10000) then the system will make a new guid for it.
+
+    // Why X+65536 ?
+    // Because X+65536 means X. For example: 1+65536 = 65537 and 65537 means 1.
+
+    uint32 LastId = -1;
+    int PairList[1000];
+    int PairNumber = 0;
+
+    uint32 count = 0;
+    do
+    {
+        Field *fields = result->Fetch();
+        GGameObjects ggameobjects;
+        GameObjectss gameobjects;
+
+        if (LastId != -1)
+            if (LastId != fields[1].GetInt32())
+            {
+                int Number = 0;
+                for (int i = count; i > -1; --i)
+                {
+                    if (const GGameObjects* go = GetGameObjectsForCheck(i))
+                    {
+                        if (go->id == LastId)
+                            Number = i;
+                        else
+                            i = -1;
+                    }
+                }
+
+                if (Number != 0)
+                    for (int i = Number+1; i < signed(count+1); ++i)
+                        for (int ii = Number+1; ii < signed(count+1); ++ii)
+                            if (i != ii)
+                                if (mGameObjects[i].guid == mGameObjects[ii].guid)
+                                {
+                                    bool Exist = false;
+                                    for (int iii = 0; iii < PairNumber+1; ++iii)
+                                        if (mGameObjects[i].guid == PairList[iii])
+                                            Exist = true;
+                                    if (Exist == false)
+                                    {
+                                        PairList[PairNumber] = mGameObjects[i].guid;
+                                        ++PairNumber;
+                                    }
+                                }
+            }
+
+        LastId = fields[1].GetInt32();
+        uint32 Guid = fields[0].GetInt32();
+        do
+            Guid=Guid-65536;
+        while (Guid>65535);
+
+        ggameobjects.guid = Guid;
+        ggameobjects.id = LastId;
+
+        gameobjects.guid = Guid;
+        gameobjects.id = LastId;
+
+        mGameObjects[count] = ggameobjects;
+
+        mGameObjectsContainer[count] = gameobjects;
+        ++count;
+    }
+    while (result->NextRow());
+    
+    for (int i = 0; i < PairNumber; ++i)
+    {
+        int oldguid = PairList[i];
+        int newguid = sObjectMgr->GenerateLowGuid(HIGHGUID_GAMEOBJECT);
+        std::string tablename;
+        std::string columnname;
+        std::string typestr;
+        bool Triple;
+        for (int ii = 0; ii < 14; ++ii)
+        {
+            tablename.clear();
+            columnname.clear();
+            typestr.clear();
+            typestr = "";
+            Triple = false;
+            switch (ii)
+            {
+            case  0: tablename = "game_event_gameobject"; columnname = "guid";                                      break;
+            case  1: tablename = "gameobject";            columnname = "guid";                                      break;
+            case  2: tablename = "gameobject_scripts";    columnname = "id";                                        break;
+            case  3: tablename = "linked_respawn";        columnname = "linkedGuid"; typestr = " and `linkType`=1"; break;
+            case  4: tablename = "linked_respawn";        columnname = "guid";       typestr = " and `linkType`=2"; break;
+            case  5: tablename = "linked_respawn";        columnname = "linkedGuid"; typestr = " and `linkType`=2"; break;
+            case  6: tablename = "linked_respawn";        columnname = "guid";       typestr = " and `linkType`=3"; break;
+            case  7: tablename = "pool_gameobject";       columnname = "guid";                                      break;
+            case  8: tablename = "gameobject_scripts";    columnname = "datalong";   Triple = true;                 break;
+            case  9: tablename = "spell_scripts";         columnname = "datalong";   Triple = true;                 break;
+            case  10: tablename = "quest_start_scripts";  columnname = "datalong";   Triple = true;                 break;
+            case  11: tablename = "quest_end_scripts";    columnname = "datalong";   Triple = true;                 break;
+            case  12: tablename = "event_scripts";        columnname = "datalong";   Triple = true;                 break;
+            case  13: tablename = "waypoint_scripts";     columnname = "datalong";   Triple = true;                 break;
+            }
+
+            if (Triple == false)
+                WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s", 
+                    tablename.c_str(), columnname.c_str(), newguid, columnname.c_str(), oldguid, typestr.c_str());
+            else
+            {
+                for (int iii = 0; iii < 3; ++iii)
+                {
+                    switch (iii)
+                    {
+                    case 0: typestr = " and `command`=9"; break;
+                    case 1: typestr = " and `command`=11"; break;
+                    case 2: typestr = " and `command`=12"; break;
+                    }
+                    WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s", 
+                        tablename.c_str(), columnname.c_str(), newguid, columnname.c_str(), oldguid, typestr.c_str());
+                }
+            }
+        }
+    }
+
+    sLog->outString(">> Loaded %u gameobjects for the guid check in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
     sLog->outString();
 }
 

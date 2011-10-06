@@ -315,14 +315,9 @@ void WorldSession::HandleGameObjectUseOpcode(WorldPacket & recv_data)
 void WorldSession::HandleGameobjectReportUse(WorldPacket& recvPacket)
 {
     uint64 guid;
-    uint8 packetGuid, byte, maxhexcoef;
-    recvPacket >> packetGuid;
-    recvPacket >> byte;
-    recvPacket >> maxhexcoef; // This will appear at every 0x10000 (65536)
+    recvPacket >> guid;
+    --guid;
 
-    guid = (byte*256)+packetGuid;
-    if (maxhexcoef > 0)
-        guid = guid+(65536*maxhexcoef);
     sLog->outDebug("WORLD: Recvd CMSG_GAMEOBJ_REPORT_USE Message [in game guid: %u]", GUID_LOPART(guid));
 
     // ignore for remote control state
@@ -416,6 +411,12 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
         // if rank not found then function return NULL but in explicit cast case original spell can be casted and later failed with appropriate error message
         if (actualSpellInfo)
             spellInfo = actualSpellInfo;
+    }
+
+    if (spellId == 6477) // Opening..
+    {
+        realgoentry = targets.GetGOTarget()->GetEntry();
+        realgoguid = targets.GetGOTargetGUID();
     }
 
     Spell* spell = new Spell(mover, spellInfo, TRIGGERED_NONE, 0, false);
