@@ -4480,11 +4480,6 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectImplicitTargetB[0] = TARGET_DST_DB;
             count++;
             break;
-        case 86150: // Guardian of Ancient Kings
-            spellInfo->EffectTriggerSpell[0] = 86698;
-            spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_CASTER;
-            count++;
-            break;
         case 26029: // dark glare
         case 37433: // spout
         case 43140: case 43215: // flame breath
