@@ -3091,8 +3091,8 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
     // Set combo point requirement
     if ((_triggeredCastFlags & TRIGGERED_IGNORE_COMBO_POINTS) || m_CastItem || !m_caster->m_movedPlayer)
         m_needComboPoints = false;
-		printf("1\n");
-    SpellCastResult result = CheckCast(true);	printf("2\n");
+
+    SpellCastResult result = CheckCast(true);
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
         if (triggeredByAura && !triggeredByAura->GetBase()->IsPassive())
