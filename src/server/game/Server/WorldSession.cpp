@@ -922,22 +922,6 @@ void WorldSession::ProcessQueryCallbacks()
 {
     QueryResult result;
 
-    //! HandleNameQueryOpcode
-    while (!m_nameQueryCallbacks.is_empty())
-    {
-        QueryResultFuture lResult;
-        ACE_Time_Value timeout = ACE_Time_Value::zero;
-        if (m_nameQueryCallbacks.next_readable(lResult, &timeout) != 1)
-           break;
-
-        if (lResult.ready())
-        {
-            lResult.get(result);
-            SendNameQueryOpcodeFromDBCallBack(result);
-            lResult.cancel();
-        }
-    }
-
     //! HandleCharEnumOpcode
     if (m_charEnumCallback.ready())
     {

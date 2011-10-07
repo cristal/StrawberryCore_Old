@@ -554,6 +554,14 @@ struct GCharacters
 
 typedef UNORDERED_MAP<uint32, GCharacters> CharactersMap;
 
+struct CharacterNameData
+{
+    std::string m_name;
+    uint8 m_class;
+    uint8 m_race;
+    uint8 m_gender;
+};
+
 struct GGameObjects
 {
     uint32 guid;
@@ -819,6 +827,9 @@ class World
 
         bool isEventKillStart;
 
+        CharacterNameData* GetCharacterNameData(uint32 guid);
+        void ReloadSingleCharacterNameData(uint32 guid);
+
         uint32 GetCleaningFlags() { return m_CleaningFlags; }
         void SetCleaningFlags(uint32 flags) { m_CleaningFlags = flags; }
 
@@ -962,7 +973,10 @@ class World
 
         std::list<std::string> m_Autobroadcasts;
 
-    private:
+        std::map<uint32, CharacterNameData*> m_CharacterNameDataMap;
+        ACE_Thread_Mutex m_CharacterNameDataMapMutex;
+        void LoadCharacterNameData();
+
         void ProcessQueryCallbacks();
         QueryCallback<QueryResult, uint32> m_realmCharCallback;
 };

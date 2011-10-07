@@ -820,8 +820,8 @@ void Battleground::EndBattleground(uint32 winner)
                 //    plr->ModifyArenaPoints(winner_arena);
                 if (!plr->GetRandomWinner())
                 {    
-                    plr->ModifyCurrency(CURRENCY_TYPE_CONQUEST_POINTS, 25 * PLAYER_CURRENCY_PRECISION);    
-                     plr->SetRandomWinner(true);    
+                    plr->ModifyCurrency(CURRENCY_TYPE_CONQUEST_POINTS, 25 * PLAYER_CURRENCY_PRECISION);
+                    plr->SetRandomWinner(true);
                 }
             }
 

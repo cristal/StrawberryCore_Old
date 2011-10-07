@@ -407,6 +407,40 @@ struct EnchantDuration
 typedef std::list<EnchantDuration> EnchantDurationList;
 typedef std::list<Item*> ItemDurationList;
 
+enum BranchSpec
+{
+    DEATH_KNIGHT_BLOOD   = 398,
+    DEATH_KNIGHT_FROST   = 399,
+    DEATH_KNIGHT_UNHOLY  = 400,
+    DRUID_BALANCE        = 752,
+    DRUID_FERAL_COMBAT   = 750,
+    DRUID_RESTORATION    = 748,
+    HUNTER_BEAST_MASTERY = 811,
+    HUNTER_MARKMANSHIP   = 807,
+    HUNTER_SURVIVAL      = 809,
+    MAGE_ARCANE          = 799,
+    MAGE_FIRE            = 851,
+    MAGE_FROST           = 823,
+    PALADIN_HOLY         = 831,
+    PALADIN_PROTECTION   = 839,
+    PALADIN_RETRIBUTION  = 855,
+    PRIEST_DISCIPLINE    = 760,
+    PRIEST_HOLY          = 813,
+    PRIEST_SHADOW        = 759,
+    ROGUE_ASSASINATION   = 182,
+    ROGUE_COMBAT         = 181,
+    ROGUE_SUBTLETY       = 183,
+    SHAMAN_ELEMENTAL     = 261,
+    SHAMAN_ENCHANCEMENT  = 263,
+    SHAMAN_RESTORATION   = 262,
+    WARLOCK_AFFLICTION   = 871,
+    WARLOCK_DEMONOLOGY   = 867,
+    WARLOCK_DESTRUCTION  = 865,
+    WARRIOR_ARMS         = 746,
+    WARRIOR_FURY         = 815,
+    WARRIOR_PROTECTION   = 845
+};
+
 enum PlayerMovementType
 {
     MOVE_ROOT       = 1,
@@ -503,7 +537,7 @@ enum PlayerFlags
 #define PLAYER_TITLE_HAND_OF_ADAL          UI64LIT(0x0000008000000000) // 39
 #define PLAYER_TITLE_VENGEFUL_GLADIATOR    UI64LIT(0x0000010000000000) // 40
 
-#define KNOWN_TITLES_SIZE   3
+#define KNOWN_TITLES_SIZE   6
 #define MAX_TITLE_INDEX     (KNOWN_TITLES_SIZE*64)          // 3 uint64 fields
 
 // used in PLAYER_FIELD_BYTES values

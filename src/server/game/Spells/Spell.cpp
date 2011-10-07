@@ -3090,8 +3090,8 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
     // Set combo point requirement
     if ((_triggeredCastFlags & TRIGGERED_IGNORE_COMBO_POINTS) || m_CastItem || !m_caster->m_movedPlayer)
         m_needComboPoints = false;
-
-    SpellCastResult result = CheckCast(true);
+		printf("1\n");
+    SpellCastResult result = CheckCast(true);	printf("2\n");
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
         if (triggeredByAura && !triggeredByAura->GetBase()->IsPassive())
@@ -3117,7 +3117,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
 
     // don't allow channeled spells / spells with cast time to be casted while moving
     // (even if they are interrupted on moving, spells with almost immediate effect get to have their effect processed before movement interrupter kicks in)
-    if ((IsChanneledSpell(m_spellInfo) || m_casttime) && m_caster->GetTypeId() == TYPEID_PLAYER && m_caster->isMoving() && m_spellInfo->GetInterruptFlags() & SPELL_INTERRUPT_FLAG_MOVEMENT)
+    if ((IsChanneledSpell(m_spellInfo) || m_casttime) && m_caster->GetTypeId() == TYPEID_PLAYER && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT && !m_caster->CanCastWhileWalking(m_spellInfo))
     {
         SendCastResult(SPELL_FAILED_MOVING);
         finish(false);
@@ -3686,7 +3686,7 @@ void Spell::update(uint32 difftime)
         (m_spellInfo->GetSpellEffectIdByIndex(0) != SPELL_EFFECT_STUCK || !m_caster->HasUnitMovementFlag(MOVEMENTFLAG_FALLING)))
     {
         // don't cancel for melee, autorepeat, triggered and instant spells
-        if (!IsNextMeleeSwingSpell() && !IsAutoRepeat() && !IsTriggered())
+        if (!IsNextMeleeSwingSpell() && !IsAutoRepeat() && !IsTriggered() && !m_caster->CanCastWhileWalking(m_spellInfo))
             cancel();
     }
 
@@ -4971,7 +4971,8 @@ SpellCastResult Spell::CheckCast(bool strict)
     {
         // skip stuck spell to allow use it in falling case and apply spell limitations at movement
         if ((!m_caster->HasUnitMovementFlag(MOVEMENTFLAG_FALLING) || m_spellInfo->GetSpellEffectIdByIndex(0) != SPELL_EFFECT_STUCK) &&
-            (IsAutoRepeat() || (m_spellInfo->GetAuraInterruptFlags() & AURA_INTERRUPT_FLAG_NOT_SEATED) != 0))
+            (IsAutoRepeat() || (m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) != 0) &&
+            !m_caster->CanCastWhileWalking(m_spellInfo))
             return SPELL_FAILED_MOVING;
     }
 
@@ -6344,47 +6345,6 @@ SpellCastResult Spell::CheckItems()
                 if (!p_caster->HasItemCount(itemid, itemcount))
                     return SPELL_FAILED_ITEM_NOT_READY;         //0x54
             }
-        }
-
-        // check totem-item requirements (items presence in inventory)
-        uint32 Totems = 2;
-        if (SpellTotemsEntry const* totems = m_spellInfo->GetSpellTotems())
-        {
-            for (int i = 0; i < 2 ; ++i)
-            {
-                if (totems->Totem[i] != 0)
-                {
-                    if (p_caster->HasItemCount(totems->Totem[i], 1))
-                    {
-                        Totems -= 1;
-                        continue;
-                    }
-                }
-                else
-                    Totems -= 1;
-            }
-
-            if (Totems != 0)
-                return SPELL_FAILED_TOTEMS;                         //0x7C
-
-            // Check items for TotemCategory  (items presence in inventory)
-            uint32 TotemCategory = 2;
-            for (int i= 0; i < 2; ++i)
-            {
-                if (totems->TotemCategory[i] != 0)
-                {
-                    if (p_caster->HasItemTotemCategory(totems->TotemCategory[i]))
-                    {
-                        TotemCategory -= 1;
-                        continue;
-                    }
-                }
-                else
-                    TotemCategory -= 1;
-            }
-
-            if (TotemCategory != 0)
-                return SPELL_FAILED_TOTEM_CATEGORY;                 //0x7B
         }
     }
 

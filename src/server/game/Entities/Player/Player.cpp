@@ -670,7 +670,6 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     m_ExtraFlags = 0;
 
     m_spellModTakingSpell = NULL;
-    //m_pad = 0;
 
     eclipse = 0;
 
@@ -2634,7 +2633,7 @@ void Player::Regenerate(Powers power)
             if (getLevel() < 15)
                 ManaIncreaseRate = sWorld->getRate(RATE_POWER_MANA) * (2.066f - (getLevel() * 0.066f));
 
-            if (recentCast) // Voragine Updates Mana in intervals of 2s, which is correct
+            if (isInCombat()) // Voragine Updates Mana in intervals of 2s, which is correct
                 addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER) *  ManaIncreaseRate * 0.001f * m_regenTimer * haste;
             else
                 addvalue += GetFloatValue(UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER) * ManaIncreaseRate * 0.001f * m_regenTimer * haste;
@@ -6150,9 +6149,6 @@ void Player::UpdateRating(CombatRating cr)
             break;
         case CR_HIT_TAKEN_SPELL:                            // Implemented in Unit::MagicSpellHitResult
             break;
-        case CR_CRIT_TAKEN_MELEE:                           // Implemented in Unit::RollMeleeOutcomeAgainst (only for chance to crit)
-        case CR_CRIT_TAKEN_RANGED:
-            break;
         case CR_CRIT_TAKEN_SPELL:                           // Implemented in Unit::SpellCriticalBonus (only for chance to crit)
             break;
         case CR_HASTE_MELEE:                                // Implemented in Player::ApplyRatingMod
@@ -8017,6 +8013,9 @@ void Player::AuraBonusesCheck(Player* player, bool percent, bool turn, float per
             player->HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED_NEG, TOTAL_VALUE, -float(value), apply);
         }
         break;
+    default:
+        sLog->outError("Unknown(%u) state number for AuraBonusesCheck", state);
+        break;
     }
 
     if (turn == true) // If X is not on the player, then change the percent values as 0.
@@ -8144,9 +8143,11 @@ void Player::_ApplyAuraBonuses(Player* player, uint32 spellid, uint32 TypeOfStat
             AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_HIT_TAKEN_SPELL, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..
             break;
         case SPELL_MOD_CRIT_TAKEN_MELEE_RATING:
+            // This will not work for a while.
             /*AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_CRIT_TAKEN_MELEE, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..*/
             break;
         case SPELL_MOD_CRIT_TAKEN_RANGED_RATING:
+            // This will not work for a while.
             /*AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_CRIT_TAKEN_RANGED, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..*/
             break;
         case SPELL_MOD_CRIT_TAKEN_SPELL_RATING:
@@ -8178,7 +8179,7 @@ void Player::_ApplyAuraBonuses(Player* player, uint32 spellid, uint32 TypeOfStat
             // NOTE: The values of 25, 26 and 27 must be same.
             break;
         case SPELL_MOD_RESILIENCE_RATING:
-            AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_CRIT_TAKEN_MELEE, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..
+            AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_RESILIENCE_PLAYER_DAMAGE_TAKEN, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..
             break;
         case SPELL_MOD_HASTE_RATING:
             // SPELL_MOD_HASTE_MELEE_RATING(28) + SPELL_MOD_HASTE_RANGED_RATING(29) + SPELL_MOD_HASTE_SPELL_RATING(30)
@@ -8199,10 +8200,10 @@ void Player::_ApplyAuraBonuses(Player* player, uint32 spellid, uint32 TypeOfStat
 //      case SPELL_MOD_FERAL_ATTACK_POWER:
 //          ApplyFeralAPBonus(int32(value), apply);
 //          break;
-        case SPELL_MOD_MANA_REGENERATION: // bura
+        case SPELL_MOD_MANA_REGENERATION:
             AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 2, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_ARMOR_PENETRATION, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_ARMOR_PENETRATION, STAT_STAMINA will not use(like NULL), because state is 2..
             break;
-        case SPELL_MOD_ARMOR_PENETRATION_RATING: // bura
+        case SPELL_MOD_ARMOR_PENETRATION_RATING:
             AuraBonusesCheck(player, percent, turn, realperc, value, spellInfo, GetGUIDLow(), 1, UNIT_MOD_STAT_STAMINA, BASE_VALUE, CR_ARMOR_PENETRATION, STAT_STAMINA, row, apply); // UNIT_MOD_STAT_STAMINA, BASE_VALUE, STAT_STAMINA will not use(like NULL), because there is a CombatRating and state is 1..
             break;
         case SPELL_MOD_SPELL_POWER:
@@ -8346,12 +8347,6 @@ void Player::_ApplyItemBonuses(ItemTemplate const *proto, uint8 slot, bool apply
             case ITEM_MOD_HIT_TAKEN_SPELL_RATING:
                 ApplyRatingMod(CR_HIT_TAKEN_SPELL, int32(val), apply);
                 break;
-            case ITEM_MOD_CRIT_TAKEN_MELEE_RATING:
-                ApplyRatingMod(CR_CRIT_TAKEN_MELEE, int32(val), apply);
-                break;
-            case ITEM_MOD_CRIT_TAKEN_RANGED_RATING:
-                ApplyRatingMod(CR_CRIT_TAKEN_RANGED, int32(val), apply);
-                break;
             case ITEM_MOD_CRIT_TAKEN_SPELL_RATING:
                 ApplyRatingMod(CR_CRIT_TAKEN_SPELL, int32(val), apply);
                 break;
@@ -8379,15 +8374,8 @@ void Player::_ApplyItemBonuses(ItemTemplate const *proto, uint8 slot, bool apply
                 ApplyRatingMod(CR_HIT_TAKEN_RANGED, int32(val), apply);
                 ApplyRatingMod(CR_HIT_TAKEN_SPELL, int32(val), apply);
                 break;
-            case ITEM_MOD_CRIT_TAKEN_RATING:
-                ApplyRatingMod(CR_CRIT_TAKEN_MELEE, int32(val), apply);
-                ApplyRatingMod(CR_CRIT_TAKEN_RANGED, int32(val), apply);
-                ApplyRatingMod(CR_CRIT_TAKEN_SPELL, int32(val), apply);
-                break;
             case ITEM_MOD_RESILIENCE_RATING:
-                ApplyRatingMod(CR_CRIT_TAKEN_MELEE, int32(val), apply);
-                ApplyRatingMod(CR_CRIT_TAKEN_RANGED, int32(val), apply);
-                ApplyRatingMod(CR_CRIT_TAKEN_SPELL, int32(val), apply);
+                ApplyRatingMod(CR_RESILIENCE_PLAYER_DAMAGE_TAKEN, int32(val), apply);
                 break;
             case ITEM_MOD_HASTE_RATING:
                 ApplyRatingMod(CR_HASTE_MELEE, int32(val), apply);
@@ -11695,7 +11683,7 @@ void Player::SendCurrencies() const
         packet << uint32(itr->second.weekCount / PLAYER_CURRENCY_PRECISION);
         packet << uint8(0);                     // unknown
         packet << uint32(entry->ID);
-        packet << uint32(sWorld->GetNextWeeklyQuestsResetTime() - 1*WEEK);
+        packet << uint32(sWorld->GetNextWeeklyQuestsResetTime() - WEEK);
         packet << uint32(_GetCurrencyWeekCap(entry) / PLAYER_CURRENCY_PRECISION);
         packet << uint32(itr->second.totalCount / PLAYER_CURRENCY_PRECISION);
     }
@@ -11741,32 +11729,29 @@ void Player::ModifyCurrency(uint32 id, int32 count)
         oldWeekCount = itr->second.weekCount;
     }
 
-    int32 newTotalCount = int32(oldTotalCount) + count;
+    int32 newTotalCount = oldTotalCount + count;
     if (newTotalCount < 0)
         newTotalCount = 0;
 
-    int32 newWeekCount = int32(oldWeekCount) + (count > 0 ? count : 0);
+    int32 newWeekCount = oldWeekCount + (count > 0 ? count : 0);
     if (newWeekCount < 0)
         newWeekCount = 0;
 
-    if (currency->TotalCap && int32(currency->TotalCap) < newTotalCount)
+    uint32 totalCap = _GetCurrencyTotalCap(currency);
+    if (totalCap && int32(totalCap) < newTotalCount)
     {
         int32 delta = newTotalCount - int32(currency->TotalCap);
         newTotalCount = int32(currency->TotalCap);
         newWeekCount -= delta;
     }
 
-    // TODO: fix conquest points
     uint32 weekCap = _GetCurrencyWeekCap(currency);
-    if (weekCap && int32(weekCap) < newTotalCount)
+    if (weekCap && int32(weekCap) < newWeekCount)
     {
-        int32 delta = newWeekCount - int32(weekCap);
-        newWeekCount = int32(weekCap);
+        int32 delta = newWeekCount - weekCap;
+        newWeekCount = weekCap;
         newTotalCount -= delta;
     }
-
-    // if we change total, we must change week
-    ASSERT(((newTotalCount-oldTotalCount) != 0) == ((newWeekCount-oldWeekCount) != 0));
 
     if (newTotalCount != oldTotalCount)
     {
@@ -11799,21 +11784,11 @@ uint32 Player::_GetCurrencyWeekCap(const CurrencyTypesEntry* currency) const
     switch (currency->ID)
     {
         case CURRENCY_TYPE_CONQUEST_POINTS:
-        {
-            // TODO: implement
-            cap = 0;
+            cap = uint32(m_conquestPointsWeekCap[CP_SOURCE_ARENA] * PLAYER_CURRENCY_PRECISION * sWorld->getRate(RATE_CONQUEST_POINTS_WEEK_LIMIT));
             break;
-        }
-        case CURRENCY_TYPE_HONOR_POINTS:
-        {
-            uint32 honorcap = sWorld->getIntConfig(CONFIG_MAX_HONOR_POINTS);
-            if (honorcap > 0)
-                cap = honorcap;
-            break;
-        }
         case CURRENCY_TYPE_JUSTICE_POINTS:
         {
-            uint32 justicecap = sWorld->getIntConfig(CONFIG_MAX_JUSTICE_POINTS);
+            uint32 justicecap = sWorld->getIntConfig(CONFIG_MAX_JUSTICE_POINTS) * PLAYER_CURRENCY_PRECISION;
             if (justicecap > 0)
                 cap = justicecap;
             break;
@@ -11826,6 +11801,25 @@ uint32 Player::_GetCurrencyWeekCap(const CurrencyTypesEntry* currency) const
         packet << uint32(cap / PLAYER_CURRENCY_PRECISION);
         packet << uint32(currency->ID);
         GetSession()->SendPacket(&packet);
+    }
+
+    return cap;
+}
+
+uint32 Player::_GetCurrencyTotalCap(const CurrencyTypesEntry* currency) const
+{
+    uint32 cap = currency->TotalCap;
+    switch (currency->ID)
+    {
+        case CURRENCY_TYPE_CONQUEST_POINTS:
+            cap = sWorld->getIntConfig(CONFIG_MAX_CONQUEST_POINTS) * PLAYER_CURRENCY_PRECISION;
+            break;
+        case CURRENCY_TYPE_HONOR_POINTS:
+            cap = sWorld->getIntConfig(CONFIG_MAX_HONOR_POINTS) * PLAYER_CURRENCY_PRECISION;
+            break;
+        case CURRENCY_TYPE_JUSTICE_POINTS:
+            cap = sWorld->getIntConfig(CONFIG_MAX_JUSTICE_POINTS) * PLAYER_CURRENCY_PRECISION;
+            break;
     }
 
     return cap;
@@ -14463,21 +14457,8 @@ void Player::ApplyEnchantment(Item *item, EnchantmentSlot slot, bool apply, bool
                             ApplyRatingMod(CR_CRIT_SPELL, enchant_amount, apply);
                             sLog->outDebug("+ %u CRITICAL", enchant_amount);
                             break;
-//                        Values ITEM_MOD_HIT_TAKEN_RATING and ITEM_MOD_CRIT_TAKEN_RATING are never used in Enchantment
-//                        case ITEM_MOD_HIT_TAKEN_RATING:
-//                            ApplyRatingMod(CR_HIT_TAKEN_MELEE, enchant_amount, apply);
-//                            ApplyRatingMod(CR_HIT_TAKEN_RANGED, enchant_amount, apply);
-//                            ApplyRatingMod(CR_HIT_TAKEN_SPELL, enchant_amount, apply);
-//                            break;
-//                        case ITEM_MOD_CRIT_TAKEN_RATING:
-//                            ApplyRatingMod(CR_CRIT_TAKEN_MELEE, enchant_amount, apply);
-//                            ApplyRatingMod(CR_CRIT_TAKEN_RANGED, enchant_amount, apply);
-//                            ApplyRatingMod(CR_CRIT_TAKEN_SPELL, enchant_amount, apply);
-//                            break;
                         case ITEM_MOD_RESILIENCE_RATING:
-                            ApplyRatingMod(CR_CRIT_TAKEN_MELEE, enchant_amount, apply);
-                            ApplyRatingMod(CR_CRIT_TAKEN_RANGED, enchant_amount, apply);
-                            ApplyRatingMod(CR_CRIT_TAKEN_SPELL, enchant_amount, apply);
+                            ApplyRatingMod(CR_RESILIENCE_PLAYER_DAMAGE_TAKEN, enchant_amount, apply);
                             sLog->outDebug("+ %u RESILIENCE", enchant_amount);
                             break;
                         case ITEM_MOD_HASTE_RATING:
@@ -15707,15 +15688,13 @@ void Player::RewardQuest(Quest const *pQuest, uint32 reward, Object* questGiver,
         InitTalentForLevel();
     }
 
-    //if (pQuest->GetRewArenaPoints())
-    //    ModifyArenaPoints(pQuest->GetRewArenaPoints());
-    // currencies reward    
-    for (uint32 i=0; i<QUEST_CURRENCY_COUNT; i++)    
+    // currencies reward
+    for (uint32 i=0; i<QUEST_CURRENCY_COUNT; i++)
     {    
-        uint32 currId = pQuest->GetRewCurrencyId(i);    
-        uint32 currCount = pQuest->GetRewCurrencyCount(i);    
-        if( currId && currCount )    
-            ModifyCurrency(currId, currCount * PLAYER_CURRENCY_PRECISION);    
+        uint32 currId = pQuest->GetRewCurrencyId(i);
+        uint32 currCount = pQuest->GetRewCurrencyCount(i);
+        if(currId && currCount)
+            ModifyCurrency(currId, currCount * PLAYER_CURRENCY_PRECISION);
     }
 
     // Send reward mail
@@ -18550,21 +18529,21 @@ void Player::_LoadCurrency(PreparedQueryResult result)
                 continue;
             }
 
-            uint32 weekCap = _GetCurrencyWeekCap(entry);
+            uint32 weekCap  = _GetCurrencyWeekCap(entry);
+            uint32 totalCap = _GetCurrencyTotalCap(entry);
 
             PlayerCurrency cur;
 
             cur.state = PLAYERCURRENCY_UNCHANGED;
-            cur.totalCount = totalCount > entry->TotalCap ? entry->TotalCap : totalCount;
-            cur.weekCount = weekCount > weekCap ? weekCap : weekCount;
-            /*if (totalCap == 0) // unlimited, don't check    
-                cur.totalCount = totalCount;    
-            else    
-                cur.totalCount = totalCount > totalCap ? totalCap : totalCount;    
-            if (weekCap == 0)    
-                cur.weekCount = weekCount;    
-            else    
-                cur.weekCount = weekCount > weekCap ? weekCap : weekCount;*/
+            if (totalCap == 0) // unlimited, don't check
+                cur.totalCount = totalCount;
+            else
+                cur.totalCount = totalCount > totalCap ? totalCap : totalCount;
+
+            if (weekCap == 0)
+                cur.weekCount = weekCount;
+            else
+                cur.weekCount = weekCount > weekCap ? weekCap : weekCount;
 
             m_currencies[currency_id] = cur;
         }
@@ -19209,7 +19188,6 @@ void Player::SaveToDB()
     _SaveWeeklyQuestStatus(trans);
     _SaveTalents(trans);
     _SaveTalentBranchSpecs(trans);
-    _SaveCurrency(trans);
     _SaveSpells(trans);
     _SaveSpellCooldowns(trans);
     _SaveActions(trans);
@@ -19220,6 +19198,7 @@ void Player::SaveToDB()
     _SaveEquipmentSets(trans);
     GetSession()->SaveTutorialsData(trans);                 // changed only while character in game
     _SaveGlyphs(trans);
+    _SaveCurrency(trans);
     _SaveInstanceTimeRestrictions(trans);
     _SaveConquestPointsWeekCap(trans);
 
@@ -19831,6 +19810,7 @@ void Player::Customize(uint64 guid, uint8 gender, uint8 skin, uint8 face, uint8 
     player_bytes2 |= facialHair;
 
     CharacterDatabase.PExecute("UPDATE characters SET gender = '%u', playerBytes = '%u', playerBytes2 = '%u' WHERE guid = '%u'", gender, skin | (face << 8) | (hairStyle << 16) | (hairColor << 24), player_bytes2, GUID_LOPART(guid));
+    sWorld->ReloadSingleCharacterNameData(GUID_LOPART(guid));
 }
 
 void Player::SendAttackSwingDeadTarget()
@@ -20500,7 +20480,7 @@ void Player::AddSpellMod(SpellModifier* mod, bool apply)
 {
     sLog->outDebug("Player::AddSpellMod %d", mod->spellId);
     bool isFlat = mod->type == SPELLMOD_FLAT;
-    Opcodes Opcode = (mod->type == SPELLMOD_FLAT) ? SMSG_SET_FLAT_SPELL_MODIFIER : SMSG_SET_PCT_SPELL_MODIFIER;
+    Opcodes Opcode = (isFlat) ? SMSG_SET_FLAT_SPELL_MODIFIER : SMSG_SET_PCT_SPELL_MODIFIER;
 
     WorldPacket data(Opcode);
     data << uint32(1); //number of spell mod to add
@@ -21177,13 +21157,23 @@ inline bool Player::_StoreOrEquipNewItem(uint32 vendorslot, uint32 item, uint8 c
         for (int i = 0; i < MAX_ITEM_EXT_COST_ITEMS; ++i)
         {
             if (iece->RequiredItem[i])
-                DestroyItemCount(iece->RequiredItem[i], iece->RequiredItemCount[i], true);
+                DestroyItemCount(iece->RequiredItem[i], (iece->RequiredItemCount[i] * count), true);
         }
 
         for (int i = 0; i < MAX_ITEM_EXT_COST_CURRENCIES; ++i)
         {
-            if (iece->RequiredCurrency[i])
-                ModifyCurrency(iece->RequiredCurrency[i], -int32(iece->RequiredCurrencyCount[i]));
+            switch (iece->RequiredCurrency[i])
+            {
+                case NULL: break;
+                case CURRENCY_TYPE_CONQUEST_POINTS: // There are currencies that include multiplier in dbc
+                case CURRENCY_TYPE_HONOR_POINTS:
+                case CURRENCY_TYPE_JUSTICE_POINTS:
+                case CURRENCY_TYPE_VALOR_POINTS:
+                    ModifyCurrency(iece->RequiredCurrency[i], -int32(iece->RequiredCurrencyCount[i] * count));
+                    break;
+                default: // other ones need multiplier
+                    ModifyCurrency(iece->RequiredCurrency[i], -int32(iece->RequiredCurrencyCount[i] * count * PLAYER_CURRENCY_PRECISION));
+            }
         }
     }
 
@@ -21305,10 +21295,25 @@ bool Player::BuyItemFromVendorSlot(uint64 vendorguid, uint32 vendorslot, uint32 
         // currency price
         for (int i = 0; i < MAX_ITEM_EXT_COST_CURRENCIES; ++i)
         {
-            if (iece->RequiredCurrency[i] && !HasCurrency(iece->RequiredCurrency[i], iece->RequiredCurrencyCount[i]))
+            switch (iece->RequiredCurrency[i])
             {
-                SendEquipError(EQUIP_ERR_VENDOR_MISSING_TURNINS, NULL, NULL);
-                return false;
+                case NULL: break;
+                case CURRENCY_TYPE_CONQUEST_POINTS: // There are currencies that include multiplier in dbc
+                case CURRENCY_TYPE_HONOR_POINTS:
+                case CURRENCY_TYPE_JUSTICE_POINTS:
+                case CURRENCY_TYPE_VALOR_POINTS:
+                    if (!HasCurrency(iece->RequiredCurrency[i], iece->RequiredCurrencyCount[i]))
+                    {
+                        SendEquipError(EQUIP_ERR_VENDOR_MISSING_TURNINS, NULL, NULL);
+                        return false;
+                    }
+                    break;
+                default: // other ones need multiplier
+                    if (!HasCurrency(iece->RequiredCurrency[i], iece->RequiredCurrencyCount[i] * PLAYER_CURRENCY_PRECISION))
+                    {
+                        SendEquipError(EQUIP_ERR_VENDOR_MISSING_TURNINS, NULL, NULL);
+                        return false;
+                    }
             }
         }
 
@@ -22693,7 +22698,8 @@ void Player::learnSkillRewardedSpells(uint32 skill_id, uint32 skill_value)
 
 void Player::SendAurasForTarget(Unit* target)
 {
-    if (!target || target->GetVisibleAuras()->empty())                  // speedup things
+    // Client requires this packet on login to initialize so we can't skip it for self
+    if (!target || (target->GetVisibleAuras()->empty() && target != this ))                  // speedup things
         return;
 
     WorldPacket data(SMSG_AURA_UPDATE_ALL);
@@ -22761,9 +22767,6 @@ void Player::ResetWeeklyQuestStatus()
     m_weeklyquests.clear();
     // DB data deleted in caller
     m_WeeklyQuestChanged = false;
-
-    for (PlayerCurrenciesMap::iterator itr = m_currencies.begin(); itr != m_currencies.end(); ++itr)
-        itr->second.weekCount = 0;                  // no need to change state here as sWorld resets currencies in DB
 }
 
 void Player::ResetCurrencyWeekCap()
@@ -25310,6 +25313,8 @@ void Player::ActivateSpec(uint8 spec)
     _SaveActions(trans);
     CharacterDatabase.CommitTransaction(trans);
 
+    UnsummonPetTemporaryIfAny();
+
     // TO-DO: We need more research to know what happens with warlock's reagent
     if (Pet* pet = GetPet())
         RemovePet(pet, PET_SAVE_NOT_IN_SLOT);
@@ -25369,7 +25374,7 @@ void Player::ActivateSpec(uint8 spec)
         if (!talentInfo || talentInfo->TalentTabID != GetTalentBranchSpec(m_activeSpec))
             continue;
         
-        removeSpell(talentInfo->SpellID, true);
+        removeSpell(talentInfo->SpellID, false);
     }
 
     // set glyphs
@@ -25416,13 +25421,13 @@ void Player::ActivateSpec(uint8 spec)
     for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
     {
         TalentTreePrimarySpellsEntry const *talentInfo = sTalentTreePrimarySpellsStore.LookupEntry(i);
-        
-        if (!talentInfo || talentInfo->TalentTabID != GetTalentBranchSpec(spec))
+
+        if (!talentInfo || talentInfo->TalentTabID != TalentBranchSpec(spec))
             continue;
-        
+
         learnSpell(talentInfo->SpellID, false);
     }
-    
+
     // set glyphs
     for (uint8 slot = 0; slot < MAX_GLYPH_SLOT_INDEX; ++slot)
     {

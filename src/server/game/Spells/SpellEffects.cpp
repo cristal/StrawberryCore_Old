@@ -361,6 +361,10 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
 
                 switch(m_spellInfo->Id)                     // better way to check unknown
                 {
+                    case 86150: // Guardian of Ancient Kings
+                        if (unitTarget)
+                            m_caster->CastSpell(m_caster, 86698, false, NULL);
+                        return;
                     // Positive/Negative Charge
                     case 28062:
                     case 28085:
@@ -1618,6 +1622,12 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                     //Juggernaut CD part
                     if (m_caster->HasAura(64976))
                         m_caster->CastSpell(m_caster, 96215, true);
+                    return;
+                }
+                // Rallying Cry
+                case 97463:
+                {
+                    m_caster->CastCustomSpell(m_caster, 97463, NULL, NULL, NULL, true);
                     return;
                 }
             }
@@ -6373,7 +6383,7 @@ void Spell::EffectDuel(SpellEffectEntry const* effect)
     //END
 
     // Send request
-    WorldPacket data(SMSG_DUEL_REQUESTED, 8 + 8);
+    WorldPacket data(SMSG_DUEL_REQUESTED, 2 + 8 + 8);
     data << uint64(pGameObj->GetGUID());
     data << uint64(caster->GetGUID());
     caster->GetSession()->SendPacket(&data);

@@ -35,7 +35,7 @@ const char ArmorLocationfmt[] = "nfffff";
 const char AuctionHouseEntryfmt[] = "niiix";
 const char BankBagSlotPricesEntryfmt[] = "ni";
 const char BarberShopStyleEntryfmt[] = "nixxxiii";
-const char BattlemasterListEntryfmt[] = "niiiiiiiiixsiiiixxxx";
+const char BattlemasterListEntryfmt[] = "niiiiiiiiixsiiiiiiii";
 const char CharStartOutfitEntryfmt[] = "diiiiiiiiiiiiiiiiiiiiiiiiixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 const char CharTitlesEntryfmt[] = "nxsxix";
 const char ChatChannelsEntryfmt[] = "nixsx";
@@ -79,6 +79,7 @@ const char ItemLimitCategoryEntryfmt[] = "nxii";
 const char ItemRandomPropertiesfmt[] = "nxiiiiis";
 const char ItemRandomSuffixfmt[] = "nsxiiiiiiiiii";
 const char ItemSetEntryfmt[] = "dsiiiiiiiiiixxxxxxxiiiiiiiiiiiiiiiiii";
+const char ItemReforgefmt[]="nifif";
 const char LFGDungeonEntryfmt[] = "nxiiiiiiixixxixixx";
 const char LockEntryfmt[] = "niiiiiiiiiiiiiiiiiiiiiiiixxxxxxxx";
 const char MailTemplateEntryfmt[] = "nxs";
@@ -207,6 +208,7 @@ const char ItemExtendedCostEntryfmt[] = "nxxiiiiiiiiiiiixiiiiiiiiiixxxxx";
     ItemRandomPropertiesfmt,
     ItemRandomSuffixfmt,
     ItemSetEntryfmt,
+    ItemReforgefmt,
     LFGDungeonEntryfmt,
     LockEntryfmt,
     MailTemplateEntryfmt,

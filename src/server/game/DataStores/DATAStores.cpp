@@ -118,6 +118,7 @@ DATAStorage <ItemLimitCategoryEntry>                 sItemLimitCategoryStore(Loo
 DATAStorage <ItemRandomPropertiesEntry>              sItemRandomPropertiesStore(LookupFormat(ItemRandomPropertiesfmt));
 DATAStorage <ItemRandomSuffixEntry>                  sItemRandomSuffixStore(LookupFormat(ItemRandomSuffixfmt));
 DATAStorage <ItemSetEntry>                           sItemSetStore(LookupFormat(ItemSetEntryfmt));
+DATAStorage <ItemReforgeEntry>                       sItemReforgeStore(LookupFormat(ItemReforgefmt));
 DATAStorage <LFGDungeonEntry>                        sLFGDungeonStore(LookupFormat(LFGDungeonEntryfmt));
 DATAStorage <LockEntry>                              sLockStore(LookupFormat(LockEntryfmt));
 DATAStorage <MailTemplateEntry>                      sMailTemplateStore(LookupFormat(MailTemplateEntryfmt));
@@ -482,6 +483,7 @@ void LoadDATAStores()
     FORMAT(ItemDamagefmt, availableDataLocales,bad_dbc_files,sItemDamageTwoHandStore,        storesPath,"ItemDamageTwoHand.dbc");
     FORMAT(ItemDamagefmt, availableDataLocales,bad_dbc_files,sItemDamageTwoHandCasterStore,  storesPath,"ItemDamageTwoHandCaster.dbc");
     FORMAT(ItemDamagefmt, availableDataLocales,bad_dbc_files,sItemDamageWandStore,           storesPath,"ItemDamageWand.dbc");
+    FORMAT(ItemReforgefmt, availableDataLocales,bad_dbc_files,sItemReforgeStore,              storesPath,"ItemReforge.dbc");
     FORMAT(LFGDungeonEntryfmt, availableDataLocales,bad_dbc_files,sLFGDungeonStore,               storesPath,"LFGDungeons.dbc");
     FORMAT(LockEntryfmt, availableDataLocales,bad_dbc_files,sLockStore,                     storesPath,"Lock.dbc");
     FORMAT(PhaseEntryfmt, availableDataLocales,bad_dbc_files, sPhaseStores,                  storesPath, "Phase.dbc");

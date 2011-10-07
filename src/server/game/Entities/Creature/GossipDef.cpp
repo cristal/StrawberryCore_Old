@@ -385,7 +385,7 @@ void PlayerMenu::SendQuestGiverStatus(uint32 questStatus, uint64 npcGUID) const
 {
     WorldPacket data(SMSG_QUESTGIVER_STATUS, 11);
     data << uint64(npcGUID);
-    data << uint32(questStatus);
+    data << questStatus;
 
     _session->SendPacket(&data);
     sLog->outDebug("WORLD: Sent SMSG_QUESTGIVER_STATUS NPC Guid=%u, status=%u", GUID_LOPART(npcGUID), questStatus);

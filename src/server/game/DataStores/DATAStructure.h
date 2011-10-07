@@ -642,10 +642,10 @@ struct BattlemasterListEntry
     uint32 HolidayWorldStateId;                             // 13 new 3.1
     uint32 minLevel;                                        // 14, min level (sync with PvPDifficulty.dbc content)
     uint32 maxLevel;                                        // 15, max level (sync with PvPDifficulty.dbc content)
-    //uint32 maxGroupSizeRated;                             // 16 4.0.1
-    //uint32 unk;                                           // 17 - 4.0.6.13596
-    //uint32 maxPlayers;                                    // 18 4.0.1
-    //uint32 unk1;                                          // 19 4.0.3, value 2 for Rated Battlegrounds
+    uint32 maxGroupSizeRated;                               // 16 4.0.1
+    uint32 maxPlayers;                                      // 17 4.0.1
+    uint32 minPlayers;                                      // 18 4.0.6
+    uint32 rated;                                           // 19 4.0.3, value 2 for Rated Battlegrounds
 };
 
 #define MAX_OUTFIT_ITEMS 24
@@ -1219,6 +1219,15 @@ struct ItemRandomSuffixEntry
                                                             // 2        m_internalName
     uint32    enchant_id[5];                                // 3-7      m_enchantment
     uint32    prefix[5];                                    // 8-12     m_allocationPct
+};
+
+struct ItemReforgeEntry
+{
+    uint32    ID;                                           // 0
+    uint32    oldstat;                                      // 1
+    float     oldstat_coef;                                 // 2
+    uint32    newstat;                                      // 2
+    float     newstat_coef;                                 // 3
 };
 
 #define MAX_ITEM_SET_ITEMS 10

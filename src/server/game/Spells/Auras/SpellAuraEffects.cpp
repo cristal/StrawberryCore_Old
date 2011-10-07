@@ -375,7 +375,7 @@ pAuraEffectHandler AuraEffectHandler[TOTAL_AURAS]=
     &AuraEffect::HandleNoImmediateEffect,                         //315 SPELL_AURA_UNDERWATER_WALKING todo
     &AuraEffect::HandleNoImmediateEffect,                         //316 SPELL_AURA_PERIODIC_HASTE implemented in AuraEffect::CalculatePeriodic
     &AuraEffect::HandleAuraModSpellPowerPercent,                  //317 SPELL_AURA_MOD_SPELL_POWER_PCT
-    &AuraEffect::HandleNoImmediateEffect,                         //318 SPELL_AURA_MASTERY
+    &AuraEffect::HandleMastery,                                   //318 SPELL_AURA_MASTERY
     &AuraEffect::HandleModMeleeSpeedPct,                          //319 This is actually mod haste (?)
     &AuraEffect::HandleNULL,                                      //320
     &AuraEffect::HandleNULL,                                      //321
@@ -821,14 +821,14 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                 
                 uint32 spellId = 0;
                 uint32 plrskill = plr->GetSkillValue(SKILL_RIDING);
-                uint32 map = GetVirtualMapForMapAndZone(plr->GetMapId(), plr->GetZoneId());
+                uint32 map = plr->GetMapId();
                 uint32 maxSkill = 0;
                 for(int i = 0; i < MAX_MOUNT_TYPE_COLUMN; i++)
                 {
                     const MountCapabilityEntry *cap = sMountCapabilityStore.LookupEntry(type->capabilities[i]);
                     if(!cap)
                         continue;
-                    if(cap->map != ((uint32)-1) && cap->map != map)
+                    if(cap->map != -1 && cap->map != map)
                         continue;
                     if(cap->reqSkillLevel > plrskill || cap->reqSkillLevel <= maxSkill)
                         continue;
@@ -837,7 +837,7 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                     maxSkill = cap->reqSkillLevel;
                     spellId = cap->spell;
                 }
-                return (int) spellId;
+                return (int)spellId;
             }  
             break;
         }
@@ -2124,7 +2124,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
         damage = caster->SpellCriticalDamageBonus(m_spellProto, damage, target);
 
     int32 dmg = damage;
-    caster->ApplyResilience(target, NULL, &dmg, crit, CR_CRIT_TAKEN_SPELL);
+    caster->ApplyResilience(target, &dmg);
     damage = dmg;
 
     caster->CalcAbsorbResist(target, GetSpellSchoolMask(GetSpellProto()), DOT, damage, &absorb, &resist, m_spellProto);
@@ -2189,7 +2189,7 @@ void AuraEffect::HandlePeriodicHealthLeechAuraTick(Unit* target, Unit* caster) c
     }
 
     int32 dmg = damage;
-    caster->ApplyResilience(target, NULL, &dmg, crit, CR_CRIT_TAKEN_SPELL);
+    caster->ApplyResilience(target, &dmg);
     damage = dmg;
 
     caster->CalcAbsorbResist(target, GetSpellSchoolMask(GetSpellProto()), DOT, damage, &absorb, &resist, m_spellProto);
@@ -4012,10 +4012,10 @@ void AuraEffect::HandleAuraMounted(AuraApplication const *aurApp, uint8 mode, bo
     Unit *target = aurApp->GetTarget();
     uint32 spellId = (uint32)GetAmount();
     Player *plr = target->ToPlayer();
+
     if(plr && spellId < 2)
-    {
         return;
-    }
+
     if (apply)
     {
         uint32 creatureEntry = GetMiscValue();
@@ -7081,4 +7081,17 @@ void AuraEffect::HandleRaidProcFromChargeWithValueAuraProc(AuraApplication* aurA
 
     sLog->outDebug("AuraEffect::HandleRaidProcFromChargeWithValueAuraProc: Triggering spell %u from aura %u proc", triggerSpellId, GetId());
     target->CastCustomSpell(target, triggerSpellId, &value, NULL, NULL, true, NULL, this, GetCasterGUID());
+}
+
+void AuraEffect::HandleMastery(AuraApplication const* aurApp, uint8 mode, bool apply) const
+{
+    Player * plr = aurApp->GetBase()->GetOwner()->ToPlayer();
+    uint32 mastery;
+    switch(plr->GetActiveSpec())
+    {
+        case PALADIN_HOLY:          mastery = 76669; break;
+        case PALADIN_PROTECTION:    mastery = 76671; break;
+        case PALADIN_RETRIBUTION:   mastery = 76672; break;
+    }
+    plr->CastCustomSpell(plr,mastery,NULL,NULL,NULL,false);
 }
