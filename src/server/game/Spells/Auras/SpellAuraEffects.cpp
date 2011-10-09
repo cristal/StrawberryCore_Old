@@ -7086,12 +7086,14 @@ void AuraEffect::HandleRaidProcFromChargeWithValueAuraProc(AuraApplication* aurA
 void AuraEffect::HandleMastery(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
     Player * plr = aurApp->GetBase()->GetOwner()->ToPlayer();
-    uint32 mastery;
+    uint32 mastery = 0;
     switch(plr->GetActiveSpec())
     {
         case PALADIN_HOLY:          mastery = 76669; break;
         case PALADIN_PROTECTION:    mastery = 76671; break;
         case PALADIN_RETRIBUTION:   mastery = 76672; break;
     }
-    plr->CastCustomSpell(plr,mastery,NULL,NULL,NULL,false);
+
+    if (mastery != 0)
+        plr->CastCustomSpell(plr,mastery,NULL,NULL,NULL,false);
 }
