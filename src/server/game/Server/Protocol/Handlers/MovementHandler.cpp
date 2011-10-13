@@ -38,6 +38,152 @@
 #include "ObjectMgr.h"
 #include "MovementStructures.h"
 
+/*-------------Anti-Cheat--------------*/
+#include "World.h"
+
+bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* Op,float Val1,uint32 Val2,MovementInfo* MvInfo)
+{
+    if(!Reason)
+    {
+       sLog->outError("Anti__ReportCheat: Missing Reason parameter!");
+       return false;
+    }
+
+    const char* Player = GetPlayer()->GetName();
+    uint32 Acc = GetPlayer()->GetSession()->GetAccountId();
+    uint32 Map = GetPlayer()->GetMapId();
+    uint32 zone_id = GetPlayer()->GetZoneId();
+    uint32 area_id = GetPlayer()->GetAreaId();
+    float startX = 0.0f;
+    float startY = 0.0f;
+    float startZ = 0.0f;
+    float endX = 0.0f;
+    float endY = 0.0f;
+    float endZ = 0.0f;
+    uint32 fallTime = 0;
+    uint32 t_guid = 0;
+    uint32 flags = 0;
+
+    MapEntry const* mapEntry = sMapStore.LookupEntry(GetPlayer()->GetMapId());
+    AreaTableEntry const* zoneEntry = GetAreaEntryByAreaID(zone_id);
+    AreaTableEntry const* areaEntry = GetAreaEntryByAreaID(area_id);
+
+    std::string mapName(mapEntry ? mapEntry->name : "<unknown>");
+    std::string zoneName(zoneEntry ? zoneEntry->area_name : "<unknown>");
+    std::string areaName(areaEntry ? areaEntry->area_name : "<unknown>");
+
+    CharacterDatabase.escape_string(mapName);
+    CharacterDatabase.escape_string(zoneName);
+    CharacterDatabase.escape_string(areaName);
+
+    if(!Player)
+    {
+       sLog->outError("Anti__ReportCheat: Player with no name?!?");
+       return false;
+    }
+
+    QueryResult Res=CharacterDatabase.PQuery("SELECT speed,Val1 FROM cheaters WHERE player='%s' AND reason LIKE '%s' AND Map='%u' AND last_date >= NOW()-300",Player,Reason,Map);
+    if(Res)
+    {
+       Field* Fields = Res->Fetch();
+
+       std::stringstream Query;
+       Query << "UPDATE cheaters SET count=count+1,last_date=NOW()";
+       Query.precision(5);
+       if(Speed>0.0f && Speed > Fields[0].GetFloat())
+       {
+          Query << ",speed='";
+          Query << std::fixed << Speed;
+          Query << "'";
+       }
+
+       if(Val1>0.0f && Val1 > Fields[1].GetFloat())
+       {
+          Query << ",Val1='";
+          Query << std::fixed << Val1;
+          Query << "'";
+       }
+
+       Query << " WHERE player='" << Player << "' AND reason='" << Reason << "' AND Map='" << Map << "' AND last_date >= NOW()-300 ORDER BY entry DESC LIMIT 1";
+
+       CharacterDatabase.Execute(Query.str().c_str());
+    }
+    else
+    {
+       if(!Op)
+          Op="";
+
+        startX = GetPlayer()->GetPositionX();
+        startY = GetPlayer()->GetPositionY();
+        startZ = GetPlayer()->GetPositionZ();
+
+        if(MvInfo)
+        {
+           fallTime = MvInfo->fallTime;
+           flags = MvInfo->flags;
+           t_guid = MvInfo->t_guid;
+
+           endX = MvInfo->pos.GetPositionX();
+           endY = MvInfo->pos.GetPositionY();
+           endZ = MvInfo->pos.GetPositionZ();
+        }
+
+        CharacterDatabase.PExecute("INSERT INTO cheaters (player,acctid,reason,speed,count,first_date,last_date,Op,Val1,Val2,Map,mapEntry,zone_id,zoneEntry,area_id,areaEntry,Level,startX,startY,startZ,endX,endY,endZ,t_guid,flags,fallTime) "
+        "VALUES ('%s','%u','%s','%f','1',NOW(),NOW(),'%s','%f','%u','%u','%s','%u','%s','%u','%s','%u','%f','%f','%f','%f','%f','%f','%u','%u','%u')",
+        Player,Acc,Reason,Speed,Op,Val1,Val2,
+        Map, mapName.c_str(),
+        zone_id, zoneName.c_str(),
+        area_id, areaName.c_str(),
+        GetPlayer()->getLevel(),
+        startX,startY,startZ,
+        endX,endY,endZ,
+        t_guid,flags,t_guid);
+    }
+
+    if(sWorld->GetMvAnticheatKill() && GetPlayer()->isAlive())
+        if (GetPlayer())
+            GetPlayer()->DealDamage(GetPlayer(), GetPlayer()->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
+
+    if(sWorld->GetMvAnticheatKick())
+        if (GetPlayer())
+            GetPlayer()->GetSession()->KickPlayer();
+    if(sWorld->GetMvAnticheatBan() & 1)
+       sWorld->BanAccount(BAN_CHARACTER,Player,sWorld->GetMvAnticheatBanTime(),"Cheat","Anticheat");
+
+    if(sWorld->GetMvAnticheatBan() & 2)
+    {
+       QueryResult result = LoginDatabase.PQuery("SELECT last_ip FROM account WHERE id=%u", Acc);
+       if(result)
+       {
+          Field *fields = result->Fetch();
+          std::string LastIP = fields[0].GetString();
+          if(!LastIP.empty())
+             sWorld->BanAccount(BAN_IP,LastIP,sWorld->GetMvAnticheatBanTime(),"Cheat","Anticheat");
+       }
+    }
+    return true;
+}
+
+bool WorldSession::Anti__CheatOccurred(uint32 CurTime,const char* Reason,float Speed,const char* Op, float Val1,uint32 Val2,MovementInfo* MvInfo)
+{
+    if(!Reason)
+    {
+       sLog->outError("Anti__CheatOccurred: Missing Reason parameter!");
+       return false;
+    }
+
+    GetPlayer()->m_anti_lastalarmtime = CurTime;
+    GetPlayer()->m_anti_alarmcount = GetPlayer()->m_anti_alarmcount + 1;
+
+    if (GetPlayer()->m_anti_alarmcount > sWorld->GetMvAnticheatAlarmCount())
+    {
+       Anti__ReportCheat(Reason,Speed,Op,Val1,Val2,MvInfo);
+       return true;
+    }
+    return false;
+}
+/*-------------------------------------*/
+
 void WorldSession::HandleMoveWorldportAckOpcode(WorldPacket & /*recv_data*/)
 {
     sLog->outDebug("WORLD: got MSG_MOVE_WORLDPORT_ACK.");
@@ -93,6 +239,10 @@ void WorldSession::HandleMoveWorldportAckOpcode()
 
     GetPlayer()->ResetMap();
     GetPlayer()->SetMap(newMap);
+
+    /*-------------Anti-Cheat--------------*/
+    GetPlayer()->m_anti_TeleTime=time(NULL);
+    /*-------------------------------------*/
 
     GetPlayer()->SendInitialPacketsBeforeAddToMap();
     if (!GetPlayer()->GetMap()->Add(GetPlayer()))
@@ -191,6 +341,11 @@ void WorldSession::HandleMoveWorldportAckOpcode()
     // resummon pet
     GetPlayer()->ResummonPetTemporaryUnSummonedIfAny();
 
+    /*-------------Anti-Cheat--------------*/
+    GetPlayer()->Anti__SetLastTeleTime(::time(NULL));
+    GetPlayer()->m_anti_BeginFallZ=INVALID_HEIGHT;
+    /*-------------------------------------*/
+
     //lets process all delayed operations on successful teleport
     GetPlayer()->ProcessDelayedOperations();
 }
@@ -242,6 +397,14 @@ void WorldSession::HandleMoveTeleportAck(WorldPacket& recv_data)
 
     // resummon pet
     GetPlayer()->ResummonPetTemporaryUnSummonedIfAny();
+
+    /*-------------Anti-Cheat--------------*/
+    if(plMover)
+    {
+        plMover->Anti__SetLastTeleTime(::time(NULL));
+        plMover->m_anti_BeginFallZ=INVALID_HEIGHT;
+    }
+    /*-------------------------------------*/
 
     //lets process all delayed operations on successful teleport
     GetPlayer()->ProcessDelayedOperations();
