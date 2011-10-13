@@ -72,9 +72,9 @@ bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* 
     std::string zoneName(zoneEntry ? zoneEntry->area_name : "<unknown>");
     std::string areaName(areaEntry ? areaEntry->area_name : "<unknown>");
 
-    CharacterDatabase.escape_string(mapName);
-    CharacterDatabase.escape_string(zoneName);
-    CharacterDatabase.escape_string(areaName);
+    CharacterDatabase.EscapeString(mapName);
+    CharacterDatabase.EscapeString(zoneName);
+    CharacterDatabase.EscapeString(areaName);
 
     if(!Player)
     {
