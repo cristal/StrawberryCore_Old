@@ -303,6 +303,11 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
         // if we boarded a transport, add us to it
         if (plMover && !plMover->GetTransport())
         {
+            /*-------------Anti-Cheat--------------*/
+            float trans_rad = movementInfo.t_pos.GetPositionX()*movementInfo.t_pos.GetPositionX() + movementInfo.t_pos.GetPositionY()*movementInfo.t_pos.GetPositionY() + movementInfo.t_pos.GetPositionZ()*movementInfo.t_pos.GetPositionZ();
+            if (trans_rad > 3600.0f) // transport radius = 60 yards //cheater with on_transport_flag
+                return;
+            /*-------------------------------------*/
             // elevators also cause the client to send MOVEMENTFLAG_ONTRANSPORT - just unmount if the guid can be found in the transport list
             for (MapManager::TransportSet::const_iterator iter = sMapMgr->m_Transports.begin(); iter != sMapMgr->m_Transports.end(); ++iter)
             {
@@ -339,7 +344,265 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
     {
         // now client not include swimming flag in case jumping under water
         plMover->SetInWater(!plMover->IsInWater() || plMover->GetBaseMap()->IsUnderWater(movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()));
+        /*-------------Anti-Cheat--------------*/
+        if(plMover->GetBaseMap()->IsUnderWater(movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-7.0f))
+            plMover->m_anti_BeginFallZ=INVALID_HEIGHT;
+        /*-------------------------------------*/
     }
+
+    /*-------------Anti-Cheat--------------*/
+    uint32 Anti_TeleTimeDiff=plMover ? time(NULL) - plMover->Anti__GetLastTeleTime() : time(NULL);
+    static const uint32 Anti_TeleTimeIgnoreDiff = sWorld->GetMvAnticheatIgnoreAfterTeleport();
+
+    if (plMover && (plMover->m_transport == 0) && sWorld->GetMvAnticheatEnable() && GetPlayer()->GetSession()->GetSecurity() <= sWorld->GetMvAnticheatGmLevel() && GetPlayer()->GetMotionMaster()->GetCurrentMovementGeneratorType()!=FLIGHT_MOTION_TYPE && Anti_TeleTimeDiff>Anti_TeleTimeIgnoreDiff)
+    {
+        const uint32 CurTime=getMSTime();
+        if(getMSTimeDiff(GetPlayer()->m_anti_lastalarmtime,CurTime) > sWorld->GetMvAnticheatAlarmPeriod())
+            GetPlayer()->m_anti_alarmcount = 0;
+
+        static const float DIFF_OVERGROUND = 10.0f;
+        float Anti__GroundZ = GetPlayer()->GetMap()->GetHeight(GetPlayer()->GetPositionX(),GetPlayer()->GetPositionY(),MAX_HEIGHT);
+        float Anti__FloorZ = GetPlayer()->GetMap()->GetHeight(GetPlayer()->GetPositionX(),GetPlayer()->GetPositionY(),GetPlayer()->GetPositionZ());
+        float Anti__MapZ = ((Anti__FloorZ <= (INVALID_HEIGHT+5.0f)) ? Anti__GroundZ : Anti__FloorZ) + DIFF_OVERGROUND;
+        bool Next = false;
+        uint32 Times = 0;
+
+        //if(!GetPlayer()->CanFly() && !GetPlayer()->GetBaseMap()->IsUnderWater(movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-7.0f) && Anti__MapZ < GetPlayer()->GetPositionZ() && Anti__MapZ > (INVALID_HEIGHT+DIFF_OVERGROUND + 5.0f))
+        if (GetPlayer()->IsFlying() && !GetPlayer()->HasAuraType(SPELL_AURA_FLY))
+        {
+            bool Mounton = false;
+            bool Mountoff = false;
+            bool Buffvar = false;
+            bool Next2 = false;
+            bool Next3 = false;
+            uint32 MountID = 0;
+            uint32 Times2 = 0;
+            // static const float DIFF_AIRJUMP=25.0f; // 25 is realy high, but to many false positives...
+            Unit::AuraApplicationMap const& auras = GetPlayer()->GetAppliedAuras();
+            for (Unit::AuraApplicationMap::const_iterator itr = auras.begin(); itr != auras.end(); ++itr)
+            {
+                ++Times;
+                if (!auras.empty())
+                {
+                    if (itr->second->GetBase()->HasEffectType(SPELL_AURA_MOUNTED))
+                    {
+                        Mountoff = true;
+                        MountID = itr->second->GetBase()->GetId();
+                        if (Mounton == true)
+                            Mounton = false;
+                    }
+                    else
+                    {
+                        if (MountID == 0)
+                            Mounton = true;
+                    }
+
+                    if (Times == auras.size())
+                        Next = true;
+                }
+            }
+
+            if (Next == true)
+            {
+                if (Mountoff == true)
+                    if (MountID != 0)
+                        Unit::AuraApplicationMap const& auras = GetPlayer()->GetAppliedAuras();
+                        for (Unit::AuraApplicationMap::const_iterator itr = auras.begin(); itr != auras.end(); ++itr)
+                        {
+                            ++Times2;
+                            if (!auras.empty())
+                            {
+                                if (itr->second->GetBase()->GetId() == MountID)
+                                    if (!itr->second->GetBase()->HasEffectType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED)) // Uçan binek deðilse
+                                        Next2 = true;
+
+                                if (Times2 == auras.size() && Next2 == true)
+                                    Next3 = true;
+                            }
+                        }
+                if (Mounton == true)
+                {
+                    Unit::AuraApplicationMap const& auras = GetPlayer()->GetAppliedAuras();
+                    for (Unit::AuraApplicationMap::const_iterator itr = auras.begin(); itr != auras.end(); ++itr)
+                    {
+                        ++Times2;
+                        if (!auras.empty())
+                        {
+                            if (itr->second->GetBase()->HasEffectType(SPELL_AURA_FLY))
+                                Buffvar = true;
+                            else
+                            {
+                                Next2 = true;
+                                if (Buffvar == true)
+                                    Next2 = true;
+                            }
+
+                            if (Times2 == auras.size() && Next2 == true)
+                                Next3 = true;
+                        }
+                    }
+                }
+            }
+
+            if (Next3 == true)
+                if((movementInfo.flags & (MOVEMENTFLAG_CAN_FLY /*| MOVEMENTFLAG_DESCENDING */| MOVEMENTFLAG_FLYING)) != 0) // Fly Hack
+                {
+                    Anti__CheatOccurred(CurTime,"Fly Hack",
+                    ((uint8)(GetPlayer()->HasAuraType(SPELL_AURA_FLY))) +
+                    ((uint8)(GetPlayer()->HasAuraType(SPELL_AURA_MOD_INCREASE_FLIGHT_SPEED))*2),
+                    NULL,GetPlayer()->GetPositionZ()-Anti__MapZ);
+                }
+        }
+        /* I really don't care about movement-type yet (todo)
+        UnitMoveType move_type;
+
+        if (movementInfo.flags & MOVEMENTFLAG_FLYING) move_type = MOVE_FLY;
+        else if (movementInfo.flags & MOVEMENTFLAG_SWIMMING) move_type = MOVE_SWIM;
+        else if (movementInfo.flags & MOVEMENTFLAG_WALK_MODE) move_type = MOVE_WALK;
+        else move_type = MOVE_RUN;*/
+    
+        /*double delta_x1 = GetPlayer()->GetPositionX();
+        double delta_x2 = movementInfo.pos.GetPositionX();
+        double delta_y1 = GetPlayer()->GetPositionY();
+        double delta_y2 = movementInfo.pos.GetPositionY();
+        double Xdifference = int32(delta_x1-delta_x2);
+        double Ydifference = int32(delta_y1-delta_y2);
+        double Xreal = Xfark*Xfark;
+        double Yreal = Yfark*Yfark;
+        double XYtoplam = Xasil+Yasil;
+        double X = sqrt(XYtoplam); // Geometry*/
+
+        double delta_x = int32(GetPlayer()->GetPositionX() - movementInfo.pos.GetPositionX());
+        double delta_y = int32(GetPlayer()->GetPositionY() - movementInfo.pos.GetPositionY());
+        double delta_z = int32(GetPlayer()->GetPositionZ() - movementInfo.pos.GetPositionZ());
+        double delta = sqrt(delta_x * delta_x + delta_y * delta_y); // Len of movement-vector via Pythagoras (a^2+b^2=Len^2)
+        double tg_z = 0.0f; //tangens
+        double delta_t = getMSTimeDiff(GetPlayer()->m_anti_lastmovetime,CurTime);
+        GetPlayer()->m_anti_lastmovetime = CurTime;
+        GetPlayer()->m_anti_MovedLen += delta;
+
+        if(delta_t > 15000.0f)
+            delta_t = 15000.0f;
+
+        // Tangens of walking angel
+        if (!(movementInfo.flags & (MOVEMENTFLAG_FLYING | MOVEMENTFLAG_SWIMMING)))
+        tg_z = ((delta !=0.0f) && (delta_z > 0.0f)) ? (atan((delta_z*delta_z) / delta) * 180.0f / M_PI) : 0.0f;
+
+        //antiOFF fall-damage, MOVEMENTFLAG_FALLING seted by client if player try movement when falling and unset in this case the MOVEMENTFLAG_FALLING flag.
+
+        if((GetPlayer()->m_anti_BeginFallZ == INVALID_HEIGHT) && (movementInfo.flags & (MOVEMENTFLAG_FALLING | MOVEMENTFLAG_PENDING_STOP)) != 0)
+            GetPlayer()->m_anti_BeginFallZ=(float)(movementInfo.pos.GetPositionZ());
+
+        if(GetPlayer()->m_anti_NextLenCheck <= CurTime)
+        {
+            // Check every 500ms is a lot more advisable then 1000ms, because normal movment packet arrives every 500ms
+            uint32 OldNextLenCheck=GetPlayer()->m_anti_NextLenCheck;
+            double delta_xyt=GetPlayer()->m_anti_MovedLen/(float)(getMSTimeDiff(OldNextLenCheck-500,CurTime));
+            GetPlayer()->m_anti_NextLenCheck = CurTime+500;
+            GetPlayer()->m_anti_MovedLen = 0.0f;
+
+            if (GetPlayer()->HasAuraType(SPELL_AURA_MOD_INCREASE_SPEED))
+                GetPlayer()->m_SpeedBuff = true;
+
+            if (GetPlayer()->m_SpeedBuff == true)
+                if (!GetPlayer()->HasAuraType(SPELL_AURA_MOD_INCREASE_SPEED))
+                    GetPlayer()->m_SpeedBuff2 = true;
+
+            if (GetPlayer()->HasAuraType(SPELL_AURA_MOUNTED) && GetPlayer()->IsFlying())
+                GetPlayer()->m_FlyingMount = true;
+
+            if (GetPlayer()->m_FlyingMount == true && !GetPlayer()->IsFlying())
+                GetPlayer()->m_FlyingMount2 = true;
+
+            if (GetPlayer()->IsFalling() && GetPlayer()->m_FlyingMount2 == true)
+                GetPlayer()->m_FlyingMountCheck = true;
+        
+            double realdelta_xyt = delta_xyt*138; // Converting
+            if (!GetPlayer()->IsFlying())
+            {
+                if (GetPlayer()->GetSpeedRate(MOVE_RUN) < realdelta_xyt)
+                    if (GetPlayer()->m_SpeedBuff2 == false)
+                        if (!GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_SWIMMING))
+                        {
+                            if (!GetPlayer()->IsFalling())
+                                if (!GetPlayer()->GetVehicleCreatureBase())
+                                    if (GetPlayer()->m_FlyingMount2 == false)
+                                        if(GetPlayer()->GetZoneId() != 2257)
+                                        {
+                                            Anti__CheatOccurred(CurTime,"Speed Hack(Ground)",delta_xyt,LookupOpcodeName(opcode),
+                                            (float)(GetPlayer()->GetMotionMaster()->GetCurrentMovementGeneratorType()),
+                                            (float)(getMSTimeDiff(OldNextLenCheck-500,CurTime)),&movementInfo);
+                                        }
+                        }
+                        else
+                        {
+                            if (!GetPlayer()->GetVehicleCreatureBase())
+                            {
+                                Anti__CheatOccurred(CurTime,"Speed Hack(Swimming)",delta_xyt,LookupOpcodeName(opcode),
+                                (float)(GetPlayer()->GetMotionMaster()->GetCurrentMovementGeneratorType()),
+                                (float)(getMSTimeDiff(OldNextLenCheck-500,CurTime)),&movementInfo);
+                            }
+                        }
+            }
+            else
+            {
+                if (GetPlayer()->GetSpeedRate(MOVE_FLIGHT) < realdelta_xyt)
+                    if (!GetPlayer()->IsFalling())
+                        if (!GetPlayer()->GetVehicleCreatureBase())
+                        {
+                            Anti__CheatOccurred(CurTime,"Speed Hack(Flying)",delta_xyt,LookupOpcodeName(opcode),
+                            (float)(GetPlayer()->GetMotionMaster()->GetCurrentMovementGeneratorType()),
+                            (float)(getMSTimeDiff(OldNextLenCheck-500,CurTime)),&movementInfo);
+                        }
+            }
+
+            if (GetPlayer()->m_SpeedBuff2 == true)
+                if (!GetPlayer()->IsFalling())
+                {
+                    GetPlayer()->m_SpeedBuff2 = false;
+                    GetPlayer()->m_SpeedBuff = false;
+                }
+
+            if (GetPlayer()->m_FlyingMountCheck == true)
+                if (!GetPlayer()->IsFalling())
+                {
+                    GetPlayer()->m_FlyingMount = false;
+                    GetPlayer()->m_FlyingMount2 = false;
+                    GetPlayer()->m_FlyingMountCheck = false;
+                }
+        }
+
+        /*if(GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_JUMPING) && !GetPlayer()->IsFlying())
+            GetPlayer()->m_PositionZ = GetPlayer()->GetPositionZ();
+
+        if (GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_JUMPING))
+        if (GetPlayer()->m_PositionZ !=0)
+        {
+            if (GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_JUMPING))
+            {
+                if (!GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FALLING) && GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_JUMPING))
+                Anti__CheatOccurred(CurTime,"Ziplama hilesi", 0.0f,LookupOpcodeName(opcode),0.0f,movementInfo.flags,&movementInfo);
+            }
+        }*/
+
+        // Check for waterwalking
+        if(GetPlayer()->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_WATERWALKING))
+            if (!GetPlayer()->HasAuraType(SPELL_AURA_WATER_WALK))
+                if (!GetPlayer()->isDead())
+                    if (!GetPlayer()->IsUnderWater()/* && GetPlayer()->GetBaseMap()->IsUnderWater(movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-1) == true*/)
+                        if (Creature* pSummon = GetPlayer()->SummonCreature(1, movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-0.1f, 0, TEMPSUMMON_TIMED_DESPAWN, 550))
+                            if(pSummon->IsInWater() && !GetPlayer()->HasAuraType(SPELL_AURA_WATER_WALK) && !GetPlayer()->IsInWater())
+                                Anti__CheatOccurred(CurTime,"Water Walking",0.0f,NULL,0.0f,(uint32)(movementInfo.flags));
+
+        // Check for walking upwards a mountain while not beeing able to do that
+        /*if ((tg_z > 85.0f))
+            Anti__CheatOccurred(CurTime,"Mount hack",tg_z,NULL,delta,delta_z);*/
+
+        if(Anti__FloorZ < -199900.0f && Anti__GroundZ >= -199900.0f && GetPlayer()->GetPositionZ()+5.0f < Anti__GroundZ)
+            if (GetPlayer()->GetPositionZ() == 0 && !GetPlayer()->IsFalling())
+                Anti__CheatOccurred(CurTime,"Teleport2Plane hack", GetPlayer()->GetPositionZ(),NULL,Anti__GroundZ);
+    }
+    /*-------------------------------------*/
 
     /*----------------------*/
 
