@@ -210,7 +210,7 @@ set(scripts_STAT_SRCS
   Raids/Blackwing_Descent/boss_chimaeron.cpp
   Raids/Blackwing_Descent/boss_magmaw.cpp
   Raids/Blackwing_Descent/boss_maloriak.cpp
-  Raids/Blackwing_Descent/boss_nefarians.cpp
+  Raids/Blackwing_Descent/boss_nefarian.cpp
   Raids/Blackwing_Descent/boss_omnotron.cpp
   Raids/Blackwing_Descent/instance_blackwing_descent.cpp
   Raids/ThroneOfTheFourWinds/boss_alakir.cpp
