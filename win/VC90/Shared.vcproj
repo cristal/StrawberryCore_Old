@@ -48,7 +48,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Conditions;..\..\src\server\shared;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\shared\Collision\Maps;..\..\src\server\shared\Collision\Models;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\dep\MySql;..\..\dep\MersenneTwister;&quot;..\..\dep\UTF-8-cpp&quot;;..\..\dep\MySql\extra\yassl\include;..\..\dep\;..\..\dep\Ace;..\..\dep\MySql\include;..\..\dep\G3DLite\include;..\..\dep\G3DLite"
+				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Conditions;..\..\src\server\shared;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\shared\Collision\Maps;..\..\src\server\shared\Collision\Models;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\dep\mysqllite;..\..\dep\MersenneTwister;..\..\dep\utf8cpp;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\;..\..\dep\acelite;..\..\dep\mysqllite\include;..\..\dep\G3DLite\include;..\..\dep\G3DLite"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -56,7 +56,7 @@
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+				PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 				PrecompiledHeaderFile=".\Shared_$(PlatformName)_$(ConfigurationName)\shared.pch"
 				AssemblerListingLocation=".\Shared_$(PlatformName)_$(ConfigurationName)\"
 				ObjectFile=".\Shared_$(PlatformName)_$(ConfigurationName)\"
@@ -67,7 +67,7 @@
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="..\..\src\server\shared\PCH\sharedPCH.h"
+				ForcedIncludeFiles="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -195,7 +195,7 @@
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+				PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 				PrecompiledHeaderFile=".\Shared_$(PlatformName)_$(ConfigurationName)\shared.pch"
 				AssemblerListingLocation=".\Shared_$(PlatformName)_$(ConfigurationName)\"
 				ObjectFile=".\Shared_$(PlatformName)_$(ConfigurationName)\"
@@ -206,7 +206,7 @@
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="..\..\src\server\shared\PCH\sharedPCH.h"
+				ForcedIncludeFiles="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -462,6 +462,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\server\shared\Database\DatabaseWorker.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\server\shared\Database\DatabaseWorker.h"
 				>
 			</File>
@@ -514,7 +518,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\shared\PCH\sharedPCH.cpp"
+				RelativePath="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -522,7 +526,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+						PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -531,7 +535,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+						PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -540,7 +544,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+						PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -549,7 +553,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="..\..\src\server\shared\PCH\sharedPCH.h"
+						PrecompiledHeaderThrough="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h"
 					/>
 				</FileConfiguration>
 			</File>
@@ -581,27 +585,35 @@
 				Name="Implementation"
 				>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\CharDB.cpp"
+					RelativePath="..\..\src\server\shared\Database\Implementation\CharacterDatabase.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\CharDB.h"
+					RelativePath="..\..\src\server\shared\Database\Implementation\CharacterDatabase.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\RealmDB.cpp"
+					RelativePath="..\..\src\server\shared\Database\Implementation\ConfigDatabase.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\RealmDB.h"
+					RelativePath="..\..\src\server\shared\Database\Implementation\ConfigDatabase.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\WorldDB.cpp"
+					RelativePath="..\..\src\server\shared\Database\Implementation\LoginDatabase.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\shared\Database\Implementation\WorldDB.h"
+					RelativePath="..\..\src\server\shared\Database\Implementation\LoginDatabase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\shared\Database\Implementation\WorldDatabase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\shared\Database\Implementation\WorldDatabase.h"
 					>
 				</File>
 			</Filter>
@@ -610,27 +622,15 @@
 			Name="DataStores"
 			>
 			<File
-				RelativePath="..\..\src\server\shared\DataStores\DB2FileLoader.cpp"
+				RelativePath="..\..\src\server\shared\DataStores\StorageLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\shared\DataStores\DB2FileLoader.h"
+				RelativePath="..\..\src\server\shared\DataStores\StorageLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\shared\DataStores\DB2Store.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\shared\DataStores\DBCFileLoader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\shared\DataStores\DBCFileLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\shared\DataStores\DBCStore.h"
+				RelativePath="..\..\src\server\shared\DataStores\Storages.h"
 				>
 			</File>
 		</Filter>
