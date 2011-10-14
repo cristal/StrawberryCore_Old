@@ -1,7 +1,7 @@
-# Copyright (C) 2006 MySQL AB
+#
 # Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
 #
-# Copyright (C) 2010-2011 VoragineCore <http://www.projectvoragine.com/>
+# Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without

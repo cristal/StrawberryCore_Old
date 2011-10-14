@@ -1,11 +1,7 @@
 /*
- * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
- *
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2009-2011 CataProject 
- *
- * Copyright (C) 2010-2011 VoragineCore <http://www.projectvoragine.com/>
+ * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

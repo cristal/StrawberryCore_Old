@@ -1,6 +1,6 @@
-#################################################
-# Voragine Core World Server configuration file #
-#################################################
+###################################################
+# Strawberry Core World Server configuration file #
+###################################################
 [worldserver]
 
 ###################################################################################################
@@ -60,7 +60,7 @@ RealmID = 1
 # DataDir
 # Description: Data directory setting.
 # Important: DataDir needs to be quoted, as the string might contain space characters.
-# Example: "@prefix@/share/voraginecore"
+# Example: "@prefix@/share/Strawberrycore"
 # Default: "."
 
 DataDir = "."
@@ -1395,10 +1395,10 @@ BeepAtStart = 1
 # Motd
 # Description: Message of the Day, displayed at login.
 # Use '@' for a newline and be sure to escape special characters.
-# Example: "Welcome to John\'s Server@This server runs on Voragine Core."
-# Default: "Welcome to a Voragine Core server."
+# Example: "Welcome to John\'s Server@This server runs on Strawberry Core."
+# Default: "Welcome to a Strawberry Core server."
 
-Motd = "Welcome to a Voragine Core server."
+Motd = "Welcome to a Strawberry Core server."
 
 #
 # Server.LoginInfo

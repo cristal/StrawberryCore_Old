@@ -1,8 +1,7 @@
-# Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
 #
 # Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
 #
-# Copyright (C) 2010-2011 VoragineCore <http://www.projectvoragine.com/>
+# Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -13,7 +12,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 # Set projectname (must be done AFTER setting configurationtypes)
-project(VoragineCore)
+project(StrawberryCore)
 
 # CMake policies (can not be handled elsewhere)
 cmake_minimum_required(VERSION 2.6)

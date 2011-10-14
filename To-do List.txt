@@ -1,5 +1,3 @@
 ##########################################################
-##############  Voragine Project To-do List ##############
+#############  Strawberry Project To-do List #############
 ##########################################################
-
-Here we will put the Urgent core work to do
