@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2005 - 2011 MaNGOS <http://www.getmangos.org/>
- *
- * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 Project Voragine <http://www.projectvoragine.com/>
  *
  * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
  *
@@ -59,10 +57,11 @@ public:
 			 uiProtoBehemoth = 0 ;
 			 uiTimeWarden = 0;
              uiCyclonWinds = 0;
-             if (instance->IsHeroic())
-                 uiSinestra = 0;
+             uiInfernoRush = 0;
              uiAscendantCouncilPhase = 1;
 
+             if (instance->IsHeroic())
+                 uiSinestra = 0;
         }
 
 		bool IsEncounterInProgress() const
@@ -185,6 +184,9 @@ public:
                 case NPC_CYCLON_WIND:
                     uiCyclonWinds = pCreature->GetGUID();
                     break;
+                case NPC_INFERNO_RUSH:
+                    uiInfernoRush = pCreature->GetGUID();
+                    break;
 			}
 		}
         void SetData64(uint32 id, uint64 data)
@@ -217,6 +219,7 @@ public:
 					case NPC_TIME_WARDEN:					return uiTimeWarden;
 					case NPC_PROTO_BEHEMOTH:				return uiProtoBehemoth;
                     case NPC_CYCLON_WIND:                   return uiCyclonWinds;
+                    case NPC_INFERNO_RUSH:                  return uiInfernoRush;
 				}
 
 			return 0;
@@ -452,6 +455,7 @@ public:
 		uint64 uiTimeWarden;
         uint64 uiValionaTheralionHealth;
         uint64 uiCyclonWinds;
+        uint64 uiInfernoRush;
 		uint32 uiRandomDragons[3];
 		uint32 uiRandomNumber;
 		uint32 uiHalfusNormalTimer;

@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2005 - 2011 MaNGOS <http://www.getmangos.org/>
- *
- * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 Project Voragine <http://www.projectvoragine.com/>
  *
  * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
  *
@@ -90,7 +88,7 @@ class boss_theralion : public CreatureScript
                 switch (action)
                 {
                     case ACTION_THERALION_AIRBORNE:
-                        me->GetMotionMaster()->MoveTakeoff(POINT_THERALION_TAKEOFF,Positions[0],1.0f);
+                        //me->GetMotionMaster()->MoveTakeoff(POINT_THERALION_TAKEOFF,Positions[0],1.0f);
                         break;
                 }
             }
@@ -105,7 +103,7 @@ class boss_theralion : public CreatureScript
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
                         //case POINT_THERALION_LAND:
-                            
+
                     }
                 }
             }
@@ -246,7 +244,7 @@ class boss_valiona : public CreatureScript
                 {
                     switch (id)
                     {
-                        
+
                         case POINT_VALIONA_TAKEOFF:
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
@@ -323,7 +321,7 @@ class spell_dazzling_destruction : public SpellScriptLoader
 
             bool Load()
             {
-                spell_trigger = GetSpellInfo()->Effects[EFFECT_0].BasePoints;
+                spell_trigger = GetSpellInfo()->EffectBasePoints[EFFECT_0];
                 return true;
             }
 
@@ -348,11 +346,7 @@ class spell_dazzling_destruction : public SpellScriptLoader
 
             void Register()
             {
-<<<<<<< HEAD
                 OnEffect += SpellEffectFn(spell_dazzling_destructionSpellScript::HandleDummy,EFFECT_0,SPELL_EFFECT_DUMMY);
-=======
-                OnEffectHitTarget += SpellEffectFn(spell_dazzling_destructionSpellScript::HandleDummy,EFFECT_0,SPELL_EFFECT_DUMMY);
->>>>>>> 3fd82bba00882e8a5707315159488904f0e4dbf8
                 OnHit += SpellHitFn(spell_dazzling_destructionSpellScript::HandleOnHit);
             }
         };
@@ -363,7 +357,7 @@ class spell_dazzling_destruction : public SpellScriptLoader
         }
 };
 
-void AddSC_boss_theralion()
+void AddSC_boss_theralion_and_valiona()
 {
     new boss_theralion();
     new boss_valiona();
