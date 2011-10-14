@@ -1,14 +1,14 @@
 /** 
-  @file System.h
+  \file System.h
  
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
  
-  @cite Rob Wyatt http://www.gamasutra.com/features/wyatts_world/19990709/processor_detection_01.htm
-  @cite Benjamin Jurke http://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-ProcessorDetectionClass&forum=cotd&id=-1
-  @cite Michael Herf http://www.stereopsis.com/memcpy.html
+  \cite Rob Wyatt http://www.gamasutra.com/features/wyatts_world/19990709/processor_detection_01.htm
+  \cite Benjamin Jurke http://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-ProcessorDetectionClass&forum=cotd&id=-1
+  \cite Michael Herf http://www.stereopsis.com/memcpy.html
 
-  @created 2003-01-25
-  @edited  2008-10-14
+  \created 2003-01-25
+  \edited  2010-09-25
  */
 
 #ifndef G3D_System_h
@@ -21,6 +21,7 @@
 #include <string>
 
 #ifdef G3D_OSX
+#define Zone OSX_Zone
 #   include <CoreServices/CoreServices.h>
 #endif
 
@@ -375,10 +376,10 @@ public:
      // count now contains the cycle count for the intervening operation.
      </PRE>
      */
-    /* static void beginCycleCount(uint64& cycleCount);
+    static void beginCycleCount(uint64& cycleCount);
     static void endCycleCount(uint64& cycleCount);
 
-    static uint64 getCycleCount(); */
+    static uint64 getCycleCount();
 
     inline static void setOutOfMemoryCallback(OutOfMemoryCallback c) {
         instance().m_outOfMemoryCallback = c;
@@ -427,7 +428,13 @@ public:
      If found, returns the full path to the resource, otherwise
      returns the empty string.
      */    
-    static std::string findDataFile(const std::string& full, bool errorIfNotFound = true);
+    static std::string findDataFile(const std::string& full, bool errorIfNotFound = true, bool caseSensitive =
+#ifdef G3D_WIN32
+        false
+#else
+        true
+#endif
+        );
 
     /**
         Sets the path that the application is using as its data directory.
@@ -438,7 +445,7 @@ public:
 
 };
 
-/* don't need that for MaNGOS, not portable to Win64...
+
 #ifdef _MSC_VER
     inline uint64 System::getCycleCount() {
         uint32 timehi, timelo;
@@ -493,15 +500,20 @@ inline void System::endCycleCount(uint64& cycleCount) {
     cycleCount = getCycleCount() - cycleCount;
 #else
     AbsoluteTime end = UpTime();
-    Nanoseconds diffNS =
+    Nanoseconds diffNS = 
         AbsoluteDeltaToNanoseconds(end, UInt64ToUnsignedWide(cycleCount));
-    cycleCount =
-        (uint64) ((double) (instance().m_OSXCPUSpeed) *
+    cycleCount = 
+        (uint64) ((double) (instance().m_OSXCPUSpeed) * 
                   (double) UnsignedWideToUInt64(diffNS) * instance().m_secondsPerNS);
 #endif
 }
- */
+
 
 } // namespace
+
+
+#ifdef G3D_OSX
+#undef Zone
+#endif
 
 #endif

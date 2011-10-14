@@ -1,6 +1,6 @@
 // -*- C++ -*-
 //
-// $Id: OS_NS_unistd.inl 88515 2010-01-13 08:47:38Z johnnyw $
+// $Id: OS_NS_unistd.inl 93061 2011-01-12 21:06:07Z wotte $
 
 #include "ace/OS_NS_sys_utsname.h"
 #include "ace/OS_NS_string.h"
@@ -763,7 +763,6 @@ ACE_OS::read (ACE_HANDLE handle, void *buf, size_t len,
               ACE_OVERLAPPED *overlapped)
 {
   ACE_OS_TRACE ("ACE_OS::read");
-  overlapped = overlapped;
 #if defined (ACE_WIN32)
   DWORD ok_len;
   DWORD short_len = static_cast<DWORD> (len);
@@ -772,6 +771,7 @@ ACE_OS::read (ACE_HANDLE handle, void *buf, size_t len,
   else
     ACE_FAIL_RETURN (-1);
 #else
+  ACE_UNUSED_ARG (overlapped);
   return ACE_OS::read (handle, buf, len);
 #endif /* ACE_WIN32 */
 }
@@ -1209,7 +1209,6 @@ ACE_OS::write (ACE_HANDLE handle,
                ACE_OVERLAPPED *overlapped)
 {
   ACE_OS_TRACE ("ACE_OS::write");
-  overlapped = overlapped;
 #if defined (ACE_WIN32)
   DWORD bytes_written; // This is set to 0 byte WriteFile.
 
@@ -1219,6 +1218,7 @@ ACE_OS::write (ACE_HANDLE handle,
   else
     ACE_FAIL_RETURN (-1);
 #else
+  ACE_UNUSED_ARG (overlapped);
   return ACE_OS::write (handle, buf, nbyte);
 #endif /* ACE_WIN32 */
 }

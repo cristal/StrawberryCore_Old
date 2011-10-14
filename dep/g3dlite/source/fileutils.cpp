@@ -21,9 +21,7 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-    #include "zip.h"
-#endif
+//#include "zip.h"
 
 #ifdef G3D_WIN32
    // Needed for _getcwd
@@ -92,20 +90,19 @@ std::string resolveFilename(const std::string& filename) {
 }
 
 bool zipfileExists(const std::string& filename) {
-	std::string	outZipfile;
-	std::string	outInternalFile;
+    std::string    outZipfile;
+    std::string    outInternalFile;
     return zipfileExists(filename, outZipfile, outInternalFile);
 }
 
 std::string readWholeFile(
     const std::string& filename) {
 
-    _internal::currentFilesUsed.insert(filename);
-
     std::string s;
 
     debugAssert(filename != "");
     debugAssertM(FileSystem::exists(filename), filename + " not found");
+    FileSystem::markFileUsed(filename);
 
     if (! FileSystem::inZipfile(filename)) {
         int64 length = FileSystem::size(filename);
@@ -115,7 +112,7 @@ std::string readWholeFile(
         FILE* f = FileSystem::fopen(filename.c_str(), "rb");
         debugAssert(f);
         int ret = fread(buffer, 1, length, f);
-	    debugAssert(ret == length);(void)ret;
+        debugAssert(ret == length);(void)ret;
         FileSystem::fclose(f);
 
         buffer[length] = '\0';    
@@ -126,7 +123,7 @@ std::string readWholeFile(
     } else if (zipfileExists(filename)) {
 
         void* zipBuffer;
-        size_t length;
+        size_t length  = 0;
         zipRead(filename, zipBuffer, length);
 
         char* buffer = (char*)System::alignedMalloc(length + 1, 16);
@@ -145,9 +142,12 @@ std::string readWholeFile(
 void zipRead(const std::string& file,
              void*& data,
              size_t& length) {
-    std::string zip, desiredFile;
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */    
+    /*std::string zip, desiredFile;
+    
     if (zipfileExists(file, zip, desiredFile)) {
+        FileSystem::markFileUsed(file);
+        FileSystem::markFileUsed(zip);
+
         struct zip *z = zip_open( zip.c_str(), ZIP_CHECKCONS, NULL );
         {
             struct zip_stat info;
@@ -166,17 +166,14 @@ void zipRead(const std::string& file,
             zip_fclose( zf );
         }
         zip_close( z );
-    } else {
+    } else {*/
         data = NULL;
-    }
-#else
-    data = NULL;
-#endif
+    /*}*/
 }
 
 
 void zipClose(void* data) {
-	System::alignedFree(data);
+    System::alignedFree(data);
 }
 
 
@@ -185,29 +182,25 @@ int64 fileLength(const std::string& filename) {
     int result = _stat(filename.c_str(), &st);
     
     if (result == -1) {
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-		std::string zip, contents;
-		if(zipfileExists(filename, zip, contents)){
-			int64 requiredMem;
+        /*std::string zip, contents;
+        if(zipfileExists(filename, zip, contents)){
+            int64 requiredMem;
 
                         struct zip *z = zip_open( zip.c_str(), ZIP_CHECKCONS, NULL );
                         debugAssertM(z != NULL, zip + ": zip open failed.");
-			{
+            {
                                 struct zip_stat info;
                                 zip_stat_init( &info );    // TODO: Docs unclear if zip_stat_init is required.
                                 int success = zip_stat( z, contents.c_str(), ZIP_FL_NOCASE, &info );
-				(void)success;
+                (void)success;
                                 debugAssertM(success == 0, zip + ": " + contents + ": zip stat failed.");
                                 requiredMem = info.size;
-			}
+            }
                         zip_close( z );
-			return requiredMem;
-		} else {
+            return requiredMem;
+        } else {*/
         return -1;
-		}
-#else
-        return -1;
-#endif
+        //}
     }
 
     return st.st_size;
@@ -251,9 +244,9 @@ void writeWholeFile(
 void createDirectory(
     const std::string&  dir) {
     
-	if (dir == "") {
-		return;
-	}
+    if (dir == "") {
+        return;
+    }
 
     std::string d;
 
@@ -294,9 +287,9 @@ void createDirectory(
             // where as unix also requires the permissions.
 #           ifndef G3D_WIN32
                 mkdir(p.c_str(), 0777);
-#	        else
+#            else
                 _mkdir(p.c_str());
-#	        endif
+#            endif
         }
     }
 }
@@ -304,47 +297,46 @@ void createDirectory(
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
 /* Helper methods for zipfileExists()*/
 // Given a string (the drive) and an array (the path), computes the directory
-static void _zip_resolveDirectory(std::string& completeDir, const std::string& drive, const Array<std::string>& path, const int length){
-	completeDir = drive;
-	int tempLength;
-	// if the given length is longer than the array, we correct it
-	if(length > path.length()){
-		tempLength = path.length();
-	} else{
-		tempLength = length;
-	}
+/*static void _zip_resolveDirectory(std::string& completeDir, const std::string& drive, const Array<std::string>& path, const int length){
+    completeDir = drive;
+    int tempLength;
+    // if the given length is longer than the array, we correct it
+    if(length > path.length()){
+        tempLength = path.length();
+    } else{
+        tempLength = length;
+    }
 
-	for(int t = 0; t < tempLength; ++t){
-		if(t > 0){
-			completeDir += "/";
-		}
-		completeDir += path[t];
-	}
+    for(int t = 0; t < tempLength; ++t){
+        if(t > 0){
+            completeDir += "/";
+        }
+        completeDir += path[t];
+    }
 }
 
 
 // assumes that zipDir references a .zip file
 static bool _zip_zipContains(const std::string& zipDir, const std::string& desiredFile){
         struct zip *z = zip_open( zipDir.c_str(), ZIP_CHECKCONS, NULL );
-	//the last parameter, an int, determines case sensitivity:
-	//1 is sensitive, 2 is not, 0 is default
+    //the last parameter, an int, determines case sensitivity:
+    //1 is sensitive, 2 is not, 0 is default
         int test = zip_name_locate( z, desiredFile.c_str(), ZIP_FL_NOCASE );
         zip_close( z );
-	if(test == -1){
-		return false;
-	}
-	return true;
-}
-#endif
+    if(test == -1){
+        return false;
+    }
+    return true;
+}*/
+
 
 // If no zipfile exists, outZipfile and outInternalFile are unchanged
 bool zipfileExists(const std::string& filename, std::string& outZipfile,
                    std::string& outInternalFile){
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-    Array<std::string> path;
+   
+    /*Array<std::string> path;
     std::string drive, base, ext, zipfile, infile;
     parseFilename(filename, drive, path, base, ext);
     
@@ -404,12 +396,12 @@ bool zipfileExists(const std::string& filename, std::string& outZipfile,
             }
         }
         
-    }
-#endif
+    }*/
+    
     // not a valid directory structure ever, 
     // obviously no .zip was found within the path 
     return false;
-}	
+}    
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -576,9 +568,9 @@ void parseFilename(
  @param includePath     If true, the names include paths
  */
 static void getFileOrDirListNormal
-(const std::string&	filespec,
- Array<std::string>&	files,
- bool			wantFiles,
+(const std::string&    filespec,
+ Array<std::string>&    files,
+ bool            wantFiles,
  bool                   includePath) {
     
     bool test = wantFiles ? true : false;
@@ -687,18 +679,18 @@ static void getFileOrDirListNormal
 #   endif
 }
 
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
+
 /**
  @param path   The zipfile name (no trailing slash)
  @param prefix Directory inside the zipfile. No leading slash, must have trailing slash if non-empty.
  @param file   Name inside the zipfile that we are testing to see if it matches prefix + "*"
  */
-static void _zip_addEntry(const std::string& path,
+/*static void _zip_addEntry(const std::string& path,
                           const std::string& prefix,
-						  const std::string& file,
-						  Set<std::string>& files,
-						  bool wantFiles,
-						  bool includePath) {
+                          const std::string& file,
+                          Set<std::string>& files,
+                          bool wantFiles,
+                          bool includePath) {
 
     // Make certain we are within the desired parent folder (prefix)
     if (beginsWith(file, prefix)) {
@@ -737,16 +729,15 @@ static void _zip_addEntry(const std::string& path,
             }
         }
     }
-}
-#endif
+}*/
+
 
 static void getFileOrDirListZip(const std::string& path,
                                 const std::string& prefix,
                                 Array<std::string>& files,
                                 bool wantFiles,
                                 bool includePath){
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-    struct zip *z = zip_open( path.c_str(), ZIP_CHECKCONS, NULL );
+    /*struct zip *z = zip_open( path.c_str(), ZIP_CHECKCONS, NULL );
 
     Set<std::string> fileSet;
 
@@ -760,19 +751,18 @@ static void getFileOrDirListZip(const std::string& path,
     
     zip_close( z );
     
-    fileSet.getMembers(files);
-#endif
+    fileSet.getMembers(files);*/
 }
 
 
 static void determineFileOrDirList(
-	const std::string&			filespec,
-	Array<std::string>&			files,
-	bool						wantFiles,
-	bool						includePath) {
+    const std::string&            filespec,
+    Array<std::string>&            files,
+    bool                        wantFiles,
+    bool                        includePath) {
 
-	// if it is a .zip, prefix will specify the folder within
-	// whose contents we want to see
+    // if it is a .zip, prefix will specify the folder within
+    // whose contents we want to see
     std::string prefix = "";
     std::string path = filenamePath(filespec);
 
@@ -800,20 +790,20 @@ static void determineFileOrDirList(
 }
 
 
-void getFiles(const std::string&			filespec,
-              Array<std::string>&			files,
-              bool					includePath) {
+void getFiles(const std::string&            filespec,
+              Array<std::string>&            files,
+              bool                    includePath) {
     
     determineFileOrDirList(filespec, files, true, includePath);
 }
 
 
 void getDirs(
-	const std::string&			filespec,
-	Array<std::string>&			files,
-	bool						includePath) {
+    const std::string&            filespec,
+    Array<std::string>&            files,
+    bool                        includePath) {
 
-	determineFileOrDirList(filespec, files, false, includePath);
+    determineFileOrDirList(filespec, files, false, includePath);
 }
 
 
@@ -886,23 +876,23 @@ std::string filenamePath(const std::string& filename) {
 
 bool isZipfile(const std::string& filename) {
 
-	FILE* f = fopen(filename.c_str(), "r");
-	if (f == NULL) {
-		return false;
-	}
-	uint8 header[4];
-	fread(header, 4, 1, f);
-	
-	const uint8 zipHeader[4] = {0x50, 0x4b, 0x03, 0x04};
-	for (int i = 0; i < 4; ++i) {
-		if (header[i] != zipHeader[i]) {
-			fclose(f);
-			return false;
-		}
-	}
+    FILE* f = fopen(filename.c_str(), "r");
+    if (f == NULL) {
+        return false;
+    }
+    uint8 header[4];
+    fread(header, 4, 1, f);
+    
+    const uint8 zipHeader[4] = {0x50, 0x4b, 0x03, 0x04};
+    for (int i = 0; i < 4; ++i) {
+        if (header[i] != zipHeader[i]) {
+            fclose(f);
+            return false;
+        }
+    }
 
-	fclose(f);
-	return true;
+    fclose(f);
+    return true;
 }
 
 
@@ -926,13 +916,6 @@ bool fileIsNewer(const std::string& src, const std::string& dst) {
     bool dexists = _stat(dst.c_str(), &dts) != -1;
 
     return sexists && ((! dexists) || (sts.st_mtime > dts.st_mtime));
-}
-
-
-Array<std::string> filesUsed() {
-    Array<std::string> f;
-    _internal::currentFilesUsed.getMembers(f);
-    return f;
 }
 
 }

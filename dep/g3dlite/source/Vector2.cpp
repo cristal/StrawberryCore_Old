@@ -9,7 +9,7 @@
   at http://www.magic-software.com
  
  @created 2001-06-02
- @edited  2009-11-16
+ @edited  2010-11-16
  */
 
 #include "G3D/platform.h"
@@ -27,7 +27,7 @@ namespace G3D {
 
 
 Vector2::Vector2(const Any& any) {
-    any.verifyName("Vector2");
+    any.verifyName("Vector2", "Point2");
     any.verifyType(Any::TABLE, Any::ARRAY);
     any.verifySize(2);
 
@@ -42,7 +42,13 @@ Vector2::Vector2(const Any& any) {
 }
 
 
-Vector2::operator Any() const {
+Vector2& Vector2::operator=(const Any& a) {
+    *this = Vector2(a);
+    return *this;
+}
+
+
+Any Vector2::toAny() const {
     Any any(Any::ARRAY, "Vector2");
     any.append(x, y);
     return any;
@@ -70,26 +76,26 @@ const Vector2& Vector2::unitY() {
 }
 
 const Vector2& Vector2::inf() { 
-	static Vector2 v((float)G3D::finf(), (float)G3D::finf());
-	return v; 
+    static Vector2 v(G3D::finf(), G3D::finf());
+    return v; 
 }
 
 
 const Vector2& Vector2::nan() { 
-	static Vector2 v((float)G3D::fnan(), (float)G3D::fnan()); 
-	return v; 
+    static Vector2 v(G3D::fnan(), G3D::fnan()); 
+    return v; 
 }
 
 
 const Vector2& Vector2::minFinite() {
-	static Vector2 v(-FLT_MAX, -FLT_MAX); 
-	return v; 
+    static Vector2 v(-FLT_MAX, -FLT_MAX); 
+    return v; 
 }
 
 
 const Vector2& Vector2::maxFinite() {
-	static Vector2 v(FLT_MAX, FLT_MAX); 
-	return v; 
+    static Vector2 v(FLT_MAX, FLT_MAX); 
+    return v; 
 }
 
 
@@ -145,9 +151,7 @@ Vector2 Vector2::random(G3D::Random& r) {
 
     } while (result.squaredLength() >= 1.0f);
 
-    result.unitize();
-
-    return result;
+    return result.direction();
 }
 
 
@@ -161,20 +165,6 @@ Vector2& Vector2::operator/= (float k) {
     return *this;
 }
 
-//----------------------------------------------------------------------------
-float Vector2::unitize (float fTolerance) {
-	float fLength = length();
-
-    if (fLength > fTolerance) {
-		float fInvLength = 1.0f / fLength;
-        x *= fInvLength;
-        y *= fInvLength;
-    } else {
-        fLength = 0.0;
-    }
-
-    return fLength;
-}
 
 //----------------------------------------------------------------------------
 

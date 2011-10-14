@@ -47,10 +47,11 @@ private:
 public:
 
     /** \param any Must either Vector4(#, #, #, #) or Vector3 {x = #, y = #, z = #, w =#}*/
-    Vector4(const Any& any);
+    explicit Vector4(const Any& any);
     
+    Vector4& operator=(const Any& a);
     /** Converts the Vector4 to an Any. */
-    operator Any() const;
+    Any toAny() const;
 
     // construction
     Vector4();

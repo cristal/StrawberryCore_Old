@@ -1,11 +1,11 @@
 /**
-   @file PointHashGrid.h
+   \file PointHashGrid.h
 
-   @maintainer Morgan McGuire, http://graphics.cs.williams.edu
-   @created 2008-07-01
-   @edited  2009-05-28
+   \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+   \created 2008-07-01
+   \edited  2010-11-28
 
-   Copyright 2000-2010, Morgan McGuire.
+   Copyright 2000-2011, Morgan McGuire.
    All rights reserved.
 */
 #ifndef G3D_PointHashGrid_h
@@ -25,16 +25,20 @@
 namespace G3D {
 
 /** 
-    Storage of data in a sparse 3D grid of point-based data.  The
-    space cost for <I>n</I> elements is O(<I>n</I>).  For data with
+    \brief A sparse 3D grid of point-based data.  
+    
+    The space cost for <I>n</I> elements is O(<I>n</I>).  For data with
     approximately uniform density (with respect to the radius hint),
     the time cost of searching for neighbors is O(1).
+
+    You can move members of the data set by first removing them and then
+    adding them with a new location.
 
     <i>Value</i> must be supported by a G3D::PositionTrait and
     G3D::EqualsTrait.  Overloads are provided for
     common G3D classes like G3D::Vector3.  For example:
 
-   <pre>
+    \code
     class EqualsFunc {
     public:
         static bool equals(const Data& p, const Data& q) {
@@ -50,13 +54,35 @@ namespace G3D {
     };
 
     PointHashGrid<Data, Data::PosFunc, Data::EqualsFunc> grid;
-   </pre>
+   \endcode
 
-   If the Value class defines operator==, the Equalsfunc is optional:
+   If the <i>Value</i> class defines operator==, the Equalsfunc is optional:
 
-   <pre>
+   \code
     PointHashGrid<Data, Data::PosFunc> grid;
-   </pre>
+   \endcode
+
+   The simplest way to define these is often to make them both methods
+   of the parameter class itself, e.g.,
+
+   \code
+   
+    class Data {
+    public:
+        Point3     location;
+        ...
+
+        bool operator==(const Data& other) const {
+            return (location == other.location) && ...;
+        }
+
+        static void getPosition(const Data& p, Vector3& pos) {
+            pos = p.location;
+        } 
+   };
+
+   typedef PointHashGrid<Data, Data> DataGrid;
+   \endcode  
 
 */
 template<class Value,
@@ -146,13 +172,20 @@ private:
         return false;        
     }
 
-    /** Given a real-space position, returns the cell coord 
-        containing it.*/
+public:
+
+    /** \brief Compute the grid cell index of a real position. 
+        This is used extensively internally by PointHashGrid.
+        It is useful to calling code to determine when an object
+        is about to move between cells.
+     */
     inline void getCellCoord(const Vector3& pos, Vector3int32& cellCoord) const {
         for (int a = 0; a < 3; ++a) {
             cellCoord[a] = iFloor(pos[a] * m_invCellWidth);
         }
     }
+
+protected:
 
     /** Initializes m_offsetArray. */
     void initOffsetArray() {
@@ -179,9 +212,10 @@ private:
 public:
 
     /** 
-        @param radiusHint the radius that will typically be used with 
+        \param radiusHint the radius that will typically be used with 
         beginSphereIntersection and beginBoxIntersection. If two <i>Value</i>s are equal,
-        their positions must be within this radius as well.
+        their positions must be within this radius as well.  You can later change this
+        value with clearAndSetRadiusHint().
     */
     PointHashGrid(float radiusHint, const MemoryManager::Ref& m = MemoryManager::create()) : m_size(0), m_memoryManager(m) {
         initOffsetArray();
@@ -192,10 +226,26 @@ public:
         m_invCellWidth = 1.0f / m_cellWidth;
     }
 
+    /** \sa clearAndSetRadiusHint() */
+    float radiusHint() const {
+        return m_cellWidth;
+    }
+    
+
+    void clearAndSetRadiusHint(float radiusHint) {
+        debugAssertM(radiusHint > 0, "Cell radius must be positive");
+        clear();
+        m_cellWidth = radiusHint;
+        m_invCellWidth = 1.0f / m_cellWidth;
+    }
+
+
     /**
-       If radiusHint is negative, it is automatically chosen to put 
+       If \a radiusHint is negative, it is automatically chosen to put 
        about 5 values in each grid cell (which means about 27 * 5 
        values for each beginIntersection call).
+       
+       \sa clearAndSetRadiusHint()
     */
     PointHashGrid(const Array<Value>& init, float radiusHint = -1.0f, const MemoryManager::Ref& m = MemoryManager::create()) : m_size(0), m_memoryManager(m) {		
         initOffsetArray();
@@ -241,7 +291,7 @@ public:
     }
 
     /** Returns the number of elements. */
-    inline int size() const {
+    int size() const {
         return m_size;
     }
 
@@ -360,7 +410,7 @@ public:
                      m_arrayIndex(0), m_epoch(0) {}
 
         Iterator(const ThisType* grid) : 
-            m_isEnd(false),
+            m_isEnd(grid->size() == 0),
             m_grid(grid),
             m_tableIterator( grid->m_data.begin() ),
             m_arrayIndex(0),
@@ -385,6 +435,10 @@ public:
                     (m_tableIterator != other.m_tableIterator) || 
                     (m_arrayIndex    != other.m_arrayIndex);
             }
+        }
+
+        bool hasMore() const {
+            return ! m_isEnd;
         }
 
         bool operator==(const Iterator& other) const {
@@ -747,12 +801,21 @@ public:
         return it;
     }
 
+    
+    /** Appends results */
+    void getIntersectingMembers(const Sphere& sphere, Array<Value>& result) const {
+        for (SphereIterator it = beginSphereIntersection(sphere); it.hasMore(); ++it) {
+            result.append(*it);
+        }
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     /**
        Dereference to access the bounds() and size() [element count] of the underlying
-       cell objet.
+       cell object.
 
        Example:
        <pre>

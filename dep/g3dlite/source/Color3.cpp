@@ -6,7 +6,7 @@
  @author Morgan McGuire, http://graphics.cs.williams.edu
 
  @created 2001-06-02
- @edited  2010-01-28
+ @edited  2010-11-28
  */
 
 #include "G3D/platform.h"
@@ -22,10 +22,15 @@
 
 namespace G3D {
 
+Color3& Color3::operator=(const Any& a) {
+    *this = Color3(a);
+    return *this;
+}
+
+
 Color3::Color3(const Any& any) {
     *this = Color3::zero();
-    any.verifyName("Color3");
-    std::string name = toLower(any.name());
+    any.verifyNameBeginsWith("Color3", "Power3", "Radiance3", "Irradiance3");
 
     switch (any.type()) {
     case Any::TABLE:
@@ -45,21 +50,34 @@ Color3::Color3(const Any& any) {
         break;
 
     case Any::ARRAY:
-        if (name == "color3") {
-            any.verifySize(3);
-            r = any[0];
-            g = any[1];
-            b = any[2];
-        } else if (name == "color3::one") {
-            any.verifySize(0);
-            *this = one();
-        } else if (name == "color3::zero") {
-            any.verifySize(0);
-            *this = zero();
-        } else if (name == "color3::fromargb") {
-            *this = Color3::fromARGB((int)any[0].number());
-        } else {
-            any.verify(false, "Expected Color3 constructor");
+        {   
+            const std::string& name = any.name();
+            std::string factoryName;
+            int i = name.find("::");
+            if (i != -1 && i > 1) {
+                factoryName = name.substr(i + 2);
+            }
+
+            if (factoryName == "") {
+                if (any.size() == 1) {
+                    r = g = b = any[0];
+                } else {
+                    any.verifySize(3);
+                    r = any[0];
+                    g = any[1];
+                    b = any[2];
+                }
+            } else if (factoryName == "one") {
+                any.verifySize(0);
+                *this = one();
+            } else if (factoryName == "zero") {
+                any.verifySize(0);
+                *this = zero();
+            } else if (factoryName == "fromARGB") {
+                *this = Color3::fromARGB((int)any[0].number());
+            } else {
+                any.verify(false, "Expected Color3 constructor");
+            }
         }
         break;
 
@@ -69,7 +87,7 @@ Color3::Color3(const Any& any) {
 }
    
 
-Color3::operator Any() const {
+Any Color3::toAny() const {
     Any a(Any::ARRAY, "Color3");
     a.append(r, g, b);
     return a;

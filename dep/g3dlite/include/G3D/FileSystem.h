@@ -1,10 +1,10 @@
 /**
- @file FileSystem.h
+ \file FileSystem.h
  
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, http://graphics.cs.williams.edu
  
- @author  2002-06-06
- @edited  2010-02-05
+ \author  2002-06-06
+ \edited  2011-01-10
  */
 #ifndef G3D_FileSystem_h
 #define G3D_FileSystem_h
@@ -12,6 +12,7 @@
 #include "G3D/platform.h"
 #include "G3D/Array.h"
 #include "G3D/Table.h"
+#include "G3D/Set.h"
 
 namespace G3D {
 
@@ -33,6 +34,8 @@ namespace G3D {
    <li> The zipfile name contains an extension (e.g., map.pk3, files.zip)
    <li> There are no nested zipfiles
  </ul>
+
+ All FileSystem routines invoke FilePath::expandEnvironmentVariables if the input contains a '$'.
 
  The extension requirement allows G3D to quickly identify whether a path could enter a
  zipfile without forcing it to open all parent directories for reading.
@@ -111,8 +114,13 @@ private:
         /** When this entry was last updated */
         double                  lastChecked;
 
-        /** Case-independent comparison on Windows */
-        bool contains(const std::string& child) const;
+        bool contains(const std::string& child, bool caseSensitive =
+#ifdef G3D_WIN32
+            false
+#else
+            true
+#endif
+) const;
 
         /** Compute the contents of nodeArray from this zipfile. */
         void computeZipListing(const std::string& zipfile, const std::string& pathInsideZipfile);
@@ -178,12 +186,24 @@ private:
 
         \param f If \a f contains wildcards, the function returns true if any file 
         matches those wildcards.  Wildcards may only appear in the base or ext, not the
-        path.
+        path.  Environment variables beginning with dollar signs (e.g., in "$G3DDATA/cubemap"),
+         with optional parens ("$(G3DDATA)") are
+        automatically expanded in \a f. Default share names on Windows (e.g., "\\mycomputer\c$")
+        are correctly distinguished from empty environment variables.
 
         \param trustCache If true, uses the cache for optimizing repeated calls 
         in the same parent directory. 
+
+        \param caseSensitive If true, the match must have exactly the same case for the base and extension.  If false,
+        case is ignored.  The default on Windows is false and the default on other operating systems is true.
      */
-    bool _exists(const std::string& f, bool trustCache = true);
+    bool _exists(const std::string& f, bool trustCache = true, bool caseSensitive = 
+#ifdef G3D_WIN32
+        false
+#else
+        true
+#endif
+        );
 
     /** Known bug: does not work inside zipfiles */
     bool _isDirectory(const std::string& path);
@@ -263,8 +283,15 @@ private:
     to acknowledge the new file on a write operation. */
     FILE* _fopen(const char* filename, const char* mode);
 
-public:
+    /**
+       \brief Delete this file. 
+        No effect if \a path does not exist.
 
+        \param path May contain wildcards.  May not be inside a zipfile.
+     */
+    void _removeFile(const std::string& path);
+
+public:
 
     /** Create the common instance. */
     static void init();
@@ -298,8 +325,14 @@ public:
         ::fclose(f);
     }
 
+    /** \copydoc _inZipfile */
     static bool inZipfile(const std::string& path) {
         return instance()._inZipfile(path);
+    }
+
+    /** \copydoc _removeFile */
+    static void removeFile(const std::string& path) {
+        instance()._removeFile(path);
     }
 
     /** \copydoc isZipfile */
@@ -333,8 +366,14 @@ public:
     }
 
     /** \copydoc _exists */
-    static bool exists(const std::string& f, bool trustCache = true) {
-        return instance()._exists(f, trustCache);
+    static bool exists(const std::string& f, bool trustCache = true, bool caseSensitive = 
+#ifdef G3D_WIN32
+        false
+#else
+        true
+#endif
+        ) {
+        return instance()._exists(f, trustCache, caseSensitive);
     }
 
     /** \copydoc _isDirectory */
@@ -377,6 +416,14 @@ public:
     static void getDirectories(const std::string& spec, Array<std::string>& result, bool includeParentPath = false) {
         return instance()._getDirectories(spec, result, includeParentPath);
     }
+
+    /** Adds \a filename to usedFiles().  This is called automatically by open() and all 
+      G3D routines that open files. */
+    static void markFileUsed(const std::string& filename);
+
+    /** All files that have been marked by markFileUsed().  GApp automatically prints this list to log.txt.  It is useful
+        for finding the dependencies of your program automatically.*/
+    static const Set<std::string>& usedFiles();
 };
 
 
@@ -400,6 +447,11 @@ public:
     /** Appends file onto dirname, ensuring a / if needed. */
     static std::string concat(const std::string& a, const std::string& b);
 
+    /** Returns true if \a f specifies a path that parses as root of the filesystem.
+        On OS X and other Unix-based operating systems, "/" is the only root.
+        On Windows, drive letters and shares are roots, e.g., "c:\", "\\foo\".
+        Does not check on Windows to see if the root is actually mounted or a legal
+        drive letter--this is a purely string based test. */
     static bool isRoot(const std::string& f);
 
     /** Removes the trailing slash unless \a f is a filesystem root */
@@ -422,6 +474,11 @@ public:
 
     /** Convert all slashes to '/' */
     static std::string canonicalize(std::string x);
+
+    /** \brief Replaces <code>$VAR</code> and <code>$(VAR)</code> patterns with the corresponding environment variable.
+        Throws std::string if the environment variable is not defined.
+     */
+    static std::string expandEnvironmentVariables(const std::string& path);
 
     /**
       Parses a filename into four useful pieces.
@@ -454,11 +511,13 @@ public:
      std::string&        base,
      std::string&        ext);
 
-
     /**
       Returns true if \a path matches \a pattern, with standard filesystem wildcards.
      */
     static bool matches(const std::string& path, const std::string& pattern, bool caseSensitive = true);
+
+    /** Replaces characters that are illegal in a filename with legal equivalents.*/
+    static std::string makeLegalFilename(const std::string& f, int maxLength = 100000);
 };
 
 } // namespace G3D

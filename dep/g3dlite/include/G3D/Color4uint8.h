@@ -1,17 +1,17 @@
 /** 
-  @file Color4uint8.h
+  @file G3D/Color4uint8.h
  
   @maintainer Morgan McGuire, http://graphics.cs.williams.edu
  
   @created 2003-04-07
   @edited  2010-03-24
 
-  Copyright 2000-2010, Morgan McGuire.
+  Copyright 2000-2011, Morgan McGuire.
   All rights reserved.
  */
 
-#ifndef COLOR4UINT8_H
-#define COLOR4UINT8_H
+#ifndef G3D_COLOR4UINT8_H
+#define G3D_COLOR4UINT8_H
 
 #include "G3D/g3dmath.h"
 #include "G3D/platform.h"
@@ -32,7 +32,7 @@ namespace G3D {
 
  */
 G3D_BEGIN_PACKED_CLASS(1)
-class Color4uint8 {
+Color4uint8 {
 private:
     // Hidden operators
     bool operator<(const Color4uint8&) const;

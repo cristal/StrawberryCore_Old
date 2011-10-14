@@ -50,6 +50,7 @@ huge_malloc(size_t size, bool zero)
 	malloc_mutex_lock(&huge_mtx);
 	extent_tree_ad_insert(&huge, node);
 #ifdef JEMALLOC_STATS
+	stats_cactive_add(csize);
 	huge_nmalloc++;
 	huge_allocated += csize;
 #endif
@@ -83,7 +84,7 @@ huge_palloc(size_t size, size_t alignment, bool zero)
 	 * alignment, in order to assure the alignment can be achieved, then
 	 * unmap leading and trailing chunks.
 	 */
-	assert(alignment >= chunksize);
+	assert(alignment > chunksize);
 
 	chunk_size = CHUNK_CEILING(size);
 
@@ -134,6 +135,7 @@ huge_palloc(size_t size, size_t alignment, bool zero)
 	malloc_mutex_lock(&huge_mtx);
 	extent_tree_ad_insert(&huge, node);
 #ifdef JEMALLOC_STATS
+	stats_cactive_add(chunk_size);
 	huge_nmalloc++;
 	huge_allocated += chunk_size;
 #endif
@@ -192,7 +194,7 @@ huge_ralloc(void *ptr, size_t oldsize, size_t size, size_t extra,
 	 * different size class.  In that case, fall back to allocating new
 	 * space and copying.
 	 */
-	if (alignment != 0)
+	if (alignment > chunksize)
 		ret = huge_palloc(size + extra, alignment, zero);
 	else
 		ret = huge_malloc(size + extra, zero);
@@ -201,7 +203,7 @@ huge_ralloc(void *ptr, size_t oldsize, size_t size, size_t extra,
 		if (extra == 0)
 			return (NULL);
 		/* Try again, this time without extra. */
-		if (alignment != 0)
+		if (alignment > chunksize)
 			ret = huge_palloc(size, alignment, zero);
 		else
 			ret = huge_malloc(size, zero);
@@ -278,6 +280,7 @@ huge_dalloc(void *ptr, bool unmap)
 	extent_tree_ad_remove(&huge, node);
 
 #ifdef JEMALLOC_STATS
+	stats_cactive_sub(node->size);
 	huge_ndalloc++;
 	huge_allocated -= node->size;
 #endif

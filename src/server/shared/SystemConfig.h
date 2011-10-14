@@ -26,7 +26,7 @@
 #include "Define.h"
 #include "revision.h"
 
-#define _PACKAGENAME "VoragineCore "
+#define _PACKAGENAME "StrawberryCore "
 #define _CODENAME "RAINY_DAY_IN_MAELSTROM"
 
 #if TRINITY_ENDIAN == TRINITY_BIGENDIAN

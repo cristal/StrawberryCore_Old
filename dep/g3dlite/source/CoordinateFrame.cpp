@@ -8,7 +8,7 @@
  @created 2001-06-02
  @edited  2010-03-13
 
- Copyright 2000-2010, Morgan McGuire.
+ Copyright 2000-2011, Morgan McGuire.
  All rights reserved.
 */
 
@@ -46,7 +46,7 @@ CoordinateFrame::CoordinateFrame(const Any& any) {
 
     const std::string& n = toUpper(any.name());
 
-    if (beginsWith(n, "VECTOR3")) {
+    if (beginsWith(n, "VECTOR3") || beginsWith(n, "POINT3")) {
         translation = any;
     } else if (beginsWith(n, "MATRIX3")) {
         rotation = any;
@@ -57,16 +57,10 @@ CoordinateFrame::CoordinateFrame(const Any& any) {
             rotation    = any[0];
             translation = any[1];
         } else {
-            for (Any::AnyTable::Iterator it = any.table().begin(); it.hasMore(); ++it) {
-                const std::string& n = toLower(it->key);
-                if (n == "translation") {
-                    translation = Vector3(it->value);
-                } else if (n == "rotation") {
-                    rotation = Matrix3(it->value);
-                } else {
-                    any.verify(false, "Illegal table key: " + it->key);
-                }
-            }
+            AnyTableReader r(any);
+            r.getIfPresent("translation", translation);
+            r.getIfPresent("rotation", rotation);
+            r.verifyDone();
         }
     } else if (beginsWith(n, "PHYSICSFRAME") || beginsWith(n, "PFRAME")) {
         *this = PhysicsFrame(any);
@@ -85,11 +79,11 @@ CoordinateFrame::CoordinateFrame(const Any& any) {
 }
 
 
-CoordinateFrame::operator Any() const {
+Any CoordinateFrame::toAny() const {
     float x, y, z, yaw, pitch, roll;
     getXYZYPRDegrees(x, y, z, yaw, pitch, roll); 
     Any a(Any::ARRAY, "CFrame::fromXYZYPRDegrees");
-    a.append(x, y, z, yaw);
+    a.append(x, y, z);
     if ( ! G3D::fuzzyEq(yaw, 0.0f) || ! G3D::fuzzyEq(pitch, 0.0f) || ! G3D::fuzzyEq(roll, 0.0f)) {
         a.append(yaw);
         if (! G3D::fuzzyEq(pitch, 0.0f) || ! G3D::fuzzyEq(roll, 0.0f)) {
@@ -376,11 +370,11 @@ void CoordinateFrame::lookAt(
     }
 
     up -= look * look.dot(up);
-    up.unitize();
+    up = up.direction();
 
     Vector3 z = -look;
     Vector3 x = -z.cross(up);
-    x.unitize();
+    x = x.direction();
 
     Vector3 y = z.cross(x);
 

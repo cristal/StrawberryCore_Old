@@ -32,7 +32,7 @@
 namespace G3D {
 
 Vector3::Vector3(const Any& any) {
-    any.verifyName("Vector3");
+    any.verifyName("Vector3", "Point3");
     any.verifyType(Any::TABLE, Any::ARRAY);
     any.verifySize(3);
 
@@ -48,7 +48,14 @@ Vector3::Vector3(const Any& any) {
     }
 }
 
-Vector3::operator Any() const {
+
+Vector3& Vector3::operator=(const Any& a) {
+    *this = Vector3(a);
+    return *this;
+}
+
+
+Any Vector3::toAny() const {
     Any any(Any::ARRAY, "Vector3");
     any.append(x, y, z);
     return any;
@@ -105,7 +112,11 @@ Vector3::Axis Vector3::primaryAxis() const {
 
 
 size_t Vector3::hashCode() const {
-    return Vector4(*this, 0.0f).hashCode();
+    const uint32* u = (const uint32*)this;
+    return 
+        HashTrait<uint32>::hashCode(u[0]) ^ 
+        HashTrait<uint32>::hashCode(~u[1]) ^
+        HashTrait<uint32>::hashCode((u[2] << 16) | ~(u[2] >> 16));
 }
 
 std::ostream& operator<<(std::ostream& os, const Vector3& v) {
@@ -120,7 +131,7 @@ double frand() {
 }
 
 Vector3::Vector3(TextInput& t) {
-	deserialize(t);
+    deserialize(t);
 }
 
 Vector3::Vector3(BinaryInput& b) {
@@ -175,22 +186,6 @@ Vector3 Vector3::random(Random& r) {
     Vector3 result;
     r.sphere(result.x, result.y, result.z);
     return result;
-}
-
-
-float Vector3::unitize(float fTolerance) {
-    float fMagnitude = magnitude();
-
-    if (fMagnitude > fTolerance) {
-        float fInvMagnitude = 1.0f / fMagnitude;
-        x *= fInvMagnitude;
-        y *= fInvMagnitude;
-        z *= fInvMagnitude;
-    } else {
-        fMagnitude = 0.0f;
-    }
-
-    return fMagnitude;
 }
 
 
@@ -310,40 +305,20 @@ void Vector3::orthonormalize (Vector3 akVector[3]) {
     // product of vectors A and B.
 
     // compute u0
-    akVector[0].unitize();
+    akVector[0] = akVector[0].direction();
 
     // compute u1
-	float fDot0 = akVector[0].dot(akVector[1]);
+    float fDot0 = akVector[0].dot(akVector[1]);
     akVector[1] -= akVector[0] * fDot0;
-    akVector[1].unitize();
+    akVector[1] = akVector[1].direction();
 
     // compute u2
-	float fDot1 = akVector[1].dot(akVector[2]);
+    float fDot1 = akVector[1].dot(akVector[2]);
     fDot0 = akVector[0].dot(akVector[2]);
     akVector[2] -= akVector[0] * fDot0 + akVector[1] * fDot1;
-    akVector[2].unitize();
+    akVector[2] = akVector[2].direction();
 }
 
-//----------------------------------------------------------------------------
-void Vector3::generateOrthonormalBasis (Vector3& rkU, Vector3& rkV,
-                                        Vector3& rkW, bool bUnitLengthW) {
-    if ( !bUnitLengthW )
-        rkW.unitize();
-
-    if ( G3D::abs(rkW.x) >= G3D::abs(rkW.y)
-            && G3D::abs(rkW.x) >= G3D::abs(rkW.z) ) {
-        rkU.x = -rkW.y;
-        rkU.y = + rkW.x;
-        rkU.z = 0.0;
-    } else {
-        rkU.x = 0.0;
-        rkU.y = + rkW.z;
-        rkU.z = -rkW.y;
-    }
-
-    rkU.unitize();
-    rkV = rkW.cross(rkU);
-}
 
 //----------------------------------------------------------------------------
 

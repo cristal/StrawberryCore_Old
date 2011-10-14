@@ -1,10 +1,10 @@
 /**
- @file FileSystem.cpp
+ \file FileSystem.cpp
  
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, http://graphics.cs.williams.edu
  
- @author  2002-06-06
- @edited  2010-04-10
+ \author  2002-06-06
+ \edited  2010-10-10
  */
 #include "G3D/FileSystem.h"
 #include "G3D/System.h"
@@ -12,9 +12,6 @@
 #include "G3D/fileutils.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-    #include "zip.h"
-#endif
 #include "G3D/g3dfnmatch.h"
 #include "G3D/BinaryInput.h"
 #include "G3D/BinaryOutput.h"
@@ -33,6 +30,8 @@
 #   include <unistd.h>
 #   define _getcwd getcwd
 #   define _stat stat
+#   define stricmp strcasecmp 
+#   define strnicmp strncasecmp 
 #endif
 
 namespace G3D {
@@ -63,25 +62,24 @@ FileSystem::FileSystem() : m_cacheLifetime(10) {}
 
 /////////////////////////////////////////////////////////////
 
-bool FileSystem::Dir::contains(const std::string& f) const {
+    bool FileSystem::Dir::contains(const std::string& f, bool caseSensitive) const {
     
     for (int i = 0; i < nodeArray.size(); ++i) {
-#       ifdef G3D_WIN32
-            if (stricmp(f.c_str(), nodeArray[i].name.c_str()) == 0) {
-                return true;
-            }
-#       else
+        if (caseSensitive) {
             if (f == nodeArray[i].name) {
                 return true;
             }
-#       endif
+        } else if (stricmp(f.c_str(), nodeArray[i].name.c_str()) == 0) {
+            return true;
+        }
     }
     return false;
 }
+
     
 void FileSystem::Dir::computeZipListing(const std::string& zipfile, const std::string& pathInsideZipfile) {
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-    struct zip* z = zip_open( FilePath::removeTrailingSlash(zipfile).c_str(), ZIP_CHECKCONS, NULL );
+
+    /*struct zip* z = zip_open( FilePath::removeTrailingSlash(zipfile).c_str(), ZIP_CHECKCONS, NULL );
     debugAssert(z);
 
     int count = zip_get_num_files( z );
@@ -128,10 +126,8 @@ void FileSystem::Dir::computeZipListing(const std::string& zipfile, const std::s
     }
     
     zip_close(z);
-    z = NULL;
-#endif
+    z = NULL;*/
 }
-
 
 FileSystem::Dir& FileSystem::getContents(const std::string& path, bool forceUpdate) {
     const std::string& key = 
@@ -149,10 +145,17 @@ FileSystem::Dir& FileSystem::getContents(const std::string& path, bool forceUpda
 
         // Out of date: update
         dir.lastChecked = now;
-
-        struct _stat st;
-        const bool exists = _stat(key.c_str(), &st) != -1;
-        const bool isDirectory = (st.st_mode & S_IFDIR) != 0;
+#       ifdef G3D_WIN32
+            // On windows, we have to use GetFileAttributes (http://msdn.microsoft.com/en-us/library/aa364944(v=vs.85).aspx) instead of 
+            // stat in order to work with network shares
+            const DWORD st = GetFileAttributesA(key.c_str());
+            const bool exists = (st != INVALID_FILE_ATTRIBUTES);
+            const bool isDirectory = (st & FILE_ATTRIBUTE_DIRECTORY) != 0;
+#       else
+            struct _stat st;
+            const bool exists = _stat(key.c_str(), &st) != -1;
+            const bool isDirectory = (st.st_mode & S_IFDIR) != 0;
+#       endif
 
         // Does this path exist on the real filesystem?
         if (exists && isDirectory) {
@@ -241,7 +244,9 @@ FileSystem::Dir& FileSystem::getContents(const std::string& path, bool forceUpda
 }
 
 
-bool FileSystem::_inZipfile(const std::string& path, std::string& z) {
+bool FileSystem::_inZipfile(const std::string& _path, std::string& z) {
+    const std::string& path = FilePath::expandEnvironmentVariables(_path);
+
     // Reject trivial cases before parsing
     if (path.find('.') == std::string::npos) {
         // There is no zipfile possible, since G3D requires
@@ -279,7 +284,9 @@ bool FileSystem::_inZipfile(const std::string& path, std::string& z) {
 }
 
 
-bool FileSystem::_isZipfile(const std::string& filename) {
+bool FileSystem::_isZipfile(const std::string& _filename) {
+    const std::string& filename = FilePath::expandEnvironmentVariables(_filename);
+
     if (FilePath::ext(filename).empty()) {
         return false;
     }
@@ -304,7 +311,9 @@ bool FileSystem::_isZipfile(const std::string& filename) {
 }
 
 
-FILE* FileSystem::_fopen(const char* filename, const char* mode) {
+FILE* FileSystem::_fopen(const char* _filename, const char* mode) {
+    const std::string& filename = FilePath::expandEnvironmentVariables(_filename);
+
     for (const char* m = mode; *m != '\0'; ++m) {
         if (*m == 'w') {
             // Purge the cache entry for the parent of this directory
@@ -312,11 +321,15 @@ FILE* FileSystem::_fopen(const char* filename, const char* mode) {
             break;
         }
     }
-    return ::fopen(filename, mode);
+
+    markFileUsed(filename);
+    return ::fopen(filename.c_str(), mode);
 }
 
 
-void FileSystem::_clearCache(const std::string& path) {
+void FileSystem::_clearCache(const std::string& _path) {
+    const std::string& path = FilePath::expandEnvironmentVariables(_path);
+
     if ((path == "") || FilePath::isRoot(path)) {
         m_cache.clear();
     } else {
@@ -346,8 +359,9 @@ void FileSystem::_setCacheLifetime(float t) {
 }
 
 
-void FileSystem::_createDirectory(const std::string& dir) {
-    
+void FileSystem::_createDirectory(const std::string& _dir) {
+    const std::string& dir = FilePath::expandEnvironmentVariables(_dir);
+
     if (dir == "") {
         return;
     }
@@ -400,7 +414,9 @@ void FileSystem::_createDirectory(const std::string& dir) {
 }
 
 
-void FileSystem::_copyFile(const std::string& source, const std::string& dest) {
+void FileSystem::_copyFile(const std::string& _source, const std::string& _dest) {
+    const std::string& source = FilePath::expandEnvironmentVariables(_source);
+    const std::string& dest = FilePath::expandEnvironmentVariables(_dest);
 #   ifdef G3D_WIN32
         // TODO: handle case where srcPath is in a zipfile
         CopyFileA(source.c_str(), dest.c_str(), FALSE);
@@ -415,7 +431,8 @@ void FileSystem::_copyFile(const std::string& source, const std::string& dest) {
 }
 
 
-bool FileSystem::_exists(const std::string& f, bool trustCache) {
+bool FileSystem::_exists(const std::string& _f, bool trustCache, bool caseSensitive) {
+    const std::string& f = FilePath::expandEnvironmentVariables(_f);
 
     if (FilePath::isRoot(f)) {
 #       ifdef G3D_WIN32
@@ -426,10 +443,11 @@ bool FileSystem::_exists(const std::string& f, bool trustCache) {
 #       endif
     }
 
-    std::string path = FilePath::removeTrailingSlash(f);
-    std::string parentPath = FilePath::parent(path);
+    const std::string& path = FilePath::removeTrailingSlash(f);
+    const std::string& parentPath = FilePath::parent(path);
 
-    const Dir& entry = getContents(parentPath, ! trustCache);
+    const bool forceUpdate = ! trustCache;
+    const Dir& entry = getContents(parentPath, forceUpdate);
 
     if (FilePath::containsWildcards(f)) {
         if (! entry.exists) {
@@ -439,15 +457,9 @@ bool FileSystem::_exists(const std::string& f, bool trustCache) {
 
         const std::string& pattern = FilePath::baseExt(path);
 
-#       ifdef G3D_WIN32
-            static const int flags = FNM_CASEFOLD;
-#       else
-            static const int flags = 0;
-#       endif
-
         // See if any element of entry matches the wild card
         for (int i = 0; i < entry.nodeArray.size(); ++i) {
-            if (FilePath::matches(entry.nodeArray[i].name, pattern, flags)) {
+            if (FilePath::matches(entry.nodeArray[i].name, pattern, caseSensitive)) {
                 return true;
             }
         }
@@ -456,12 +468,13 @@ bool FileSystem::_exists(const std::string& f, bool trustCache) {
         return false;
 
     } else {
-        return entry.exists && entry.contains(FilePath::baseExt(path));
+        return entry.exists && entry.contains(FilePath::baseExt(path), caseSensitive);
     }
 }
 
 
-bool FileSystem::_isDirectory(const std::string& filename) {
+bool FileSystem::_isDirectory(const std::string& _filename) {
+    const std::string& filename = FilePath::expandEnvironmentVariables(_filename);
     // TODO: work with zipfiles and cache
     struct _stat st;
     const bool exists = _stat(FilePath::removeTrailingSlash(filename).c_str(), &st) != -1;
@@ -469,7 +482,26 @@ bool FileSystem::_isDirectory(const std::string& filename) {
 }
 
 
-std::string FileSystem::_resolve(const std::string& filename, const std::string& cwd) {
+void FileSystem::_removeFile(const std::string& path) {
+    alwaysAssertM(! inZipfile(path), "Cannot invoke removeFile() on files inside zipfiles.");
+    Array<std::string> files;
+    getFiles(path, files, true);
+
+    for (int i = 0; i < files.size(); ++i) {
+        const std::string& filename = files[i];
+        int retval = ::remove(filename.c_str());
+        (void)retval;
+    }
+    
+    // Remove from cache
+    _clearCache(FilePath::parent(path));
+}
+
+
+std::string FileSystem::_resolve(const std::string& _filename, const std::string& _cwd) {
+    const std::string& filename = FilePath::expandEnvironmentVariables(_filename);
+    const std::string& cwd = FilePath::expandEnvironmentVariables(_cwd);
+
     if (filename.size() >= 1) {
         if (isSlash(filename[0])) {
             // Already resolved
@@ -509,7 +541,22 @@ std::string FileSystem::_currentDirectory() {
 }
 
 
-bool FileSystem::_isNewer(const std::string& src, const std::string& dst) {
+static Set<std::string> _filesUsed;
+
+void FileSystem::markFileUsed(const std::string& filename) {
+    _filesUsed.insert(filename);
+}
+
+
+const Set<std::string>& FileSystem::usedFiles() {
+    return _filesUsed;
+}
+
+
+bool FileSystem::_isNewer(const std::string& _src, const std::string& _dst) {
+    const std::string& src = FilePath::expandEnvironmentVariables(_src);
+    const std::string& dst = FilePath::expandEnvironmentVariables(_dst);
+
     // TODO: work with cache and zipfiles
     struct _stat sts;
     bool sexists = _stat(src.c_str(), &sts) != -1;
@@ -521,13 +568,14 @@ bool FileSystem::_isNewer(const std::string& src, const std::string& dst) {
 }
 
 
-int64 FileSystem::_size(const std::string& filename) {
+int64 FileSystem::_size(const std::string& _filename) {
+    const std::string& filename = FilePath::expandEnvironmentVariables(_filename);
+
     struct stat64 st;
     int result = stat64(filename.c_str(), &st);
     
     if (result == -1) {
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-        std::string zip, contents;
+        /*std::string zip, contents;
         if (zipfileExists(filename, zip, contents)) {
             int64 requiredMem;
             
@@ -537,18 +585,16 @@ int64 FileSystem::_size(const std::string& filename) {
                 struct zip_stat info;
                 zip_stat_init( &info );    // Docs unclear if zip_stat_init is required.
                 int success = zip_stat( z, contents.c_str(), ZIP_FL_NOCASE, &info );
+                (void) success;
                 debugAssertM(success == 0, zip + ": " + contents + ": zip stat failed.");
                 requiredMem = info.size;
             }
             zip_close(z);
             return requiredMem;
-        } else {
-#endif
+        } else {*/
             return -1;
-#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
-        }
-#endif
-    }
+        }/*
+    }*/
     
     return st.st_size;
 }
@@ -590,7 +636,9 @@ void FileSystem::listHelper(const std::string& shortSpec, const std::string& par
 }
 
 
-void FileSystem::_list(const std::string& spec, Array<std::string>& result, const ListSettings& settings) {
+void FileSystem::_list(const std::string& _spec, Array<std::string>& result, const ListSettings& settings) {
+    const std::string& spec = FilePath::expandEnvironmentVariables(_spec);
+
     const std::string& shortSpec = FilePath::baseExt(spec);
     const std::string& parentPath = FilePath::parent(spec);
 
@@ -637,9 +685,17 @@ bool FilePath::isRoot(const std::string& f) {
             }
         }
 
-        if (isSlash(f[0]) && isSlash(f[1])) {        
-            // e.g., "\\foo\"
-            return true;
+        // Windows shares are considered roots, but only if this does not include a path inside the share
+        if (isSlash(f[0]) && isSlash(f[1])) {
+            int i = f.find("/", 3);
+            int j = f.find("\\", 3);
+
+            if (i == -1) {
+                i = j;
+            }
+
+            // e.g., "\\foo\", "\\foo"
+            return ((i == -1) || (i == f.length() - 1));
         }
 #   else
         if (f == "/") {
@@ -862,6 +918,88 @@ void FilePath::parse
         path.append(f.substr(prev, cur - prev));
         ++cur;
     }
+}
+
+
+std::string FilePath::expandEnvironmentVariables(const std::string& path) {
+    // Search for pattern
+    size_t end = path.find_first_of('$', 0);
+    if (end == std::string::npos) {
+        // Pattern does not exist
+        return path;
+    }
+
+    int start = 0;
+    std::string result;
+    while (end != std::string::npos) {
+        const std::string& before = path.substr(start, end - start);
+        result += before;
+        start = end + 1;
+        std::string var;
+        if (path[start] == '(') {
+            // Search for close paren
+            end = path.find_first_of(')', start + 1);
+            if (end == std::string::npos) {
+                throw std::string("Missing close paren in environment variable in \"") + path + "\"";
+            }
+            var = path.substr(start + 1, end - start - 1);
+        } else {
+            // Search for slash or end of string
+            end = path.find_first_of('/', start);
+            int i = path.find_first_of('\\', start);
+            if ((size_t(i) != std::string::npos) && ((end == std::string::npos) || (size_t(i) < end))) {
+                end = i;
+            }
+            if (end == std::string::npos) {
+                // If the varible goes to the end of the string, it is the rest of the string
+                end = path.size();
+            } else {
+                --end;
+            }
+            var = path.substr(start, end - start + 1);
+        }
+
+        if (! var.empty()) {
+            const char* value = getenv(var.c_str());
+
+            if (value == NULL) {
+                throw (std::string("Environment variable \"") + var + "\" not defined for path \"" + path + "\"");
+            } else {
+                result += value;
+            }
+        } else {
+            // We just parsed an "empty" variable, which was probably a default share on Windows, e.g.,
+            // "\\mycomputer\c$", and not a variable name.
+            result += "$";            
+        }
+
+        start = end + 1;
+        end = path.find_first_of('$', start);
+    }
+
+    // Paste on the remainder of the source path
+    if (start < int(path.size())) {
+        result += path.substr(start);
+    }
+
+    return result;
+}
+
+
+/** Generate a unique filename based on the provided hint */
+std::string FilePath::makeLegalFilename(const std::string& f, int maxLength) {
+    std::string tentative;
+    
+    for (int i = 0; i < iMin(maxLength, f.size()); ++i) {
+        const char c = f[i];
+        if (isLetter(c) || isDigit(c) || (c == '-') || (c == '+') || (c == '=') || (c == '(') || (c == ')')) {
+            tentative += c;
+        } else {
+            tentative += "_";
+        }
+    }
+
+    return tentative;
 }
 
 }

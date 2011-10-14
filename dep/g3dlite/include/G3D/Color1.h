@@ -71,6 +71,7 @@ public:
         return Color1(value + other.value);
     }
 
+    /** \deprecated */
     Color1 operator+ (const float other) const {
         return Color1(value + other);
     }
@@ -89,6 +90,7 @@ public:
         return Color1(value - other.value);
     }
 
+    /** \deprecated */
     Color1 operator- (const float other) const {
         return Color1(value - other);
     }
@@ -99,6 +101,26 @@ public:
 
     Color1 operator* (const Color1& other) const {
         return Color1(value * other.value);
+    }
+
+    Color1& operator*=(const Color1 other) {
+        value *= other.value;
+        return *this;
+    }
+
+    Color1& operator*=(const float other) {
+        value *= other;
+        return *this;
+    }
+
+    Color1& operator/=(const float other) {
+        value /= other;
+        return *this;
+    }
+
+    Color1& operator/=(const Color1 other) {
+        value /= other.value;
+        return *this;
     }
 
     Color1 operator* (const float other) const {
@@ -140,5 +162,8 @@ struct HashTrait<G3D::Color1> {
     }
 };
 
+inline G3D::Color1 operator*(float f, G3D::Color1 c) {
+    return c * f;
+}
 
 #endif

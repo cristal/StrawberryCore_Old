@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see copyright notice in zlib.h
  */
 
-/* @(#) $Id$ */
+/* @(#) $Id: zconf.h,v 1.2 2010/05/23 18:16:30 corey_taylor Exp $ */
 
 #ifndef ZCONF_H
 #define ZCONF_H
@@ -271,18 +271,8 @@
 #endif
 
 #if defined(WINDOWS) || defined(WIN32)
-   /* If building or using zlib as a DLL, define ZLIB_DLL.
-    * This is not mandatory, but it offers a little performance increase.
-    */
-#  ifdef ZLIB_DLL
-#    if defined(WIN32) && (!defined(__BORLANDC__) || (__BORLANDC__ >= 0x500))
-#      ifdef ZLIB_INTERNAL
-#        define ZEXTERN extern __declspec(dllexport)
-#      else
-#        define ZEXTERN extern __declspec(dllimport)
-#      endif
-#    endif
-#  endif  /* ZLIB_DLL */
+/* Corey -- Removed import/exports for static build */
+
    /* If building or using zlib with the WINAPI/WINAPIV calling convention,
     * define ZLIB_WINAPI.
     * Caution: the standard ZLIB1.DLL is NOT compiled using ZLIB_WINAPI.
@@ -356,7 +346,7 @@ typedef uLong FAR uLongf;
    typedef Byte       *voidp;
 #endif
 
-#ifdef HAVE_UNISTD_H    /* may be set to #if 1 by ./configure */
+#if 0    /* may be set to #if 1 by ./configure */
 #  define Z_HAVE_UNISTD_H
 #endif
 

@@ -4,7 +4,7 @@
 /**
  *  @file    Log_Msg.h
  *
- *  $Id: Log_Msg.h 92298 2010-10-21 11:15:17Z johnnyw $
+ *  $Id: Log_Msg.h 93117 2011-01-20 12:11:28Z mcorino $
  *
  *  @author Douglas C. Schmidt <schmidt@cs.wustl.edu>
  */
@@ -633,7 +633,7 @@ private:
   /**
    * If we're running in the context of an ACE_Thread_Manager this
    * will point to the thread descriptor adapter which holds the
-   * thread descriptor of the thread.  This can be used to repidly
+   * thread descriptor of the thread.  This can be used to rapidly
    * access all thread data kept in ACE_Thread_Descriptor.
    */
   ACE_Thread_Descriptor *thr_desc_;

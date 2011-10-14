@@ -4,13 +4,13 @@
   @maintainer Morgan McGuire, matrix@brown.edu
 
   @created 2003-04-07
-  @edited  2003-06-24
-  Copyright 2000-2004, Morgan McGuire.
+  @edited  2011-01-24
+  Copyright 2000-2011, Morgan McGuire.
   All rights reserved.
  */
 
-#ifndef VECTOR3INT16_H
-#define VECTOR3INT16_H
+#ifndef G3D_VECTOR3INT16_H
+#define G3D_VECTOR3INT16_H
 
 #include "G3D/platform.h"
 #include "G3D/g3dmath.h"
@@ -19,6 +19,7 @@
 #ifdef _MSC_VER
 // Turn off "conditional expression is constant" warning; MSVC generates this
 // for debug assertions in inlined methods.
+#pragma warning (push)
 #pragma warning (disable : 4127)
 #endif
 
@@ -30,7 +31,7 @@ namespace G3D {
  A Vector3 that packs its fields into uint16s.
  */
 G3D_BEGIN_PACKED_CLASS(2)
-class Vector3int16 {
+Vector3int16 {
 private:
     // Hidden operators
     bool operator<(const Vector3int16&) const;
@@ -45,8 +46,8 @@ public:
 
     Vector3int16() : x(0), y(0), z(0) {}
     Vector3int16(G3D::int16 _x, G3D::int16 _y, G3D::int16 _z) : x(_x), y(_y), z(_z) {}
-    Vector3int16(const class Vector3& v);
-    Vector3int16(class BinaryInput& bi);
+    explicit Vector3int16(const class Vector3& v);
+    explicit Vector3int16(class BinaryInput& bi);
 
     void serialize(class BinaryOutput& bo) const;
     void deserialize(class BinaryInput& bi);
@@ -118,10 +119,17 @@ public:
 }
 G3D_END_PACKED_CLASS(2)
 
-}
+typedef Vector3int16 Point3int16;
+
+} // namespace G3D
 
 template <> struct HashTrait<G3D::Vector3int16> {
     static size_t hashCode(const G3D::Vector3int16& key) { return static_cast<size_t>(key.x + ((int)key.y << 5) + ((int)key.z << 10)); }
 };
+
+
+#ifdef G3D_WIN32
+#pragma warning( pop )
+#endif
 
 #endif

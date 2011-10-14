@@ -13,10 +13,11 @@
 #define G3D_platform_h
 
 /**
+ \def G3D_VER
  The version number of G3D in the form: MmmBB -> 
  version M.mm [beta BB]
  */
-#define G3D_VER 80000
+#define G3D_VER 90002
 
 // fatal error for unsupported architectures
 #if defined(__powerpc__)
@@ -37,7 +38,9 @@
 #   define G3D_DEBUG
 #endif
 
-/** These control the version of Winsock used by G3D.
+/** 
+\def G3D_WINSOCK_MAJOR_VERSION
+These control the version of Winsock used by G3D.
     Version 2.0 is standard for G3D 6.09 and later.
     Version 1.1 is standard for G3D 6.08 and earlier.
  */
@@ -49,6 +52,11 @@
 #define __fastcall
 #endif
 
+/** \def G3D_WIN32*/
+/** \def G3D_FREEBSD2*/
+/** \def G3D_LINUX*/
+/** \def G3D_OSX */
+
 #ifdef _MSC_VER 
     #define G3D_WIN32
 #elif  defined(__FreeBSD__) || defined(__OpenBSD__)
@@ -57,30 +65,24 @@
 #elif defined(__linux__)
     #define G3D_LINUX
 #elif defined(__APPLE__)
-    #define G3D_LINUX
+    #define G3D_OSX
 
    // Prevent OS X fp.h header from being included; it defines
    // pi as a constant, which creates a conflict with G3D
 #define __FP__
 #else
-    #error Unknown platform
+    #error Unknown platform 
 #endif
+
+/** \def G3D_64BIT */
+/** \def G3D_32BIT */
 
 // Detect 64-bit under various compilers
 #if (defined(_M_X64) || defined(_WIN64) || defined(__LP64__) || defined(_LP64))
 #    define G3D_64BIT
-	#if defined(WIN32)
-        #include <intrin.h>
-    #endif
 #else
 #    define G3D_32BIT
 #endif
-
-// Strongly encourage inlining on gcc
-#ifdef __GNUC__
-#define inline __inline__
-#endif
-
 
 // Verify that the supported compilers are being used and that this is a known
 // processor.
@@ -108,6 +110,8 @@
 
 
 #ifdef _MSC_VER
+// Microsoft Visual C++ 10.0				  = 1600
+// Microsoft Visual C++ 9.0					  = 1500
 // Microsoft Visual C++ 8.0 ("Express")       = 1400
 // Microsoft Visual C++ 7.1	("2003") _MSC_VER = 1310
 // Microsoft Visual C++ 7.0	("2002") _MSC_VER = 1300
@@ -121,7 +125,7 @@
 // for debug assertions in inlined methods.
 #  pragma warning (disable : 4127)
 
-/** @def G3D_DEPRECATED()
+/** \def G3D_DEPRECATED()
     Creates deprecated warning. */
 #  define G3D_DEPRECATED __declspec(deprecated)
 
@@ -136,11 +140,13 @@
 // TODO: remove
 #   pragma warning (disable : 4244)
 
+#   define ZLIB_WINAPI
+
 #   define restrict
 
 /** @def G3D_CHECK_PRINTF_METHOD_ARGS()
     Enables printf parameter validation on gcc. */
-#   define G3D_CHECK_PRINTF_ARGS
+#   define G3D_CHECK_PRINTF_ARGS 
 
 /** @def G3D_CHECK_PRINTF_METHOD_ARGS()
     Enables printf parameter validation on gcc. */
@@ -179,29 +185,12 @@
 	    #undef _STATIC_CPPLIB
     #endif
 
-    #ifdef _DEBUG
-        #pragma comment (linker, "/NODEFAULTLIB:LIBCMTD.LIB")
-        #pragma comment (linker, "/NODEFAULTLIB:LIBCPMTD.LIB")
-        #pragma comment (linker, "/NODEFAULTLIB:LIBCPD.LIB")
-        #pragma comment (linker, "/DEFAULTLIB:MSVCPRTD.LIB")
-        #pragma comment(linker, "/NODEFAULTLIB:LIBCD.LIB")
-        #pragma comment(linker, "/DEFAULTLIB:MSVCRTD.LIB")
-    #else
-        #pragma comment(linker, "/NODEFAULTLIB:LIBC.LIB")
-        #pragma comment(linker, "/DEFAULTLIB:MSVCRT.LIB")
-        #pragma comment (linker, "/NODEFAULTLIB:LIBCMT.LIB")
-        #pragma comment (linker, "/NODEFAULTLIB:LIBCPMT.LIB")
-        #pragma comment(linker, "/NODEFAULTLIB:LIBCP.LIB")
-        #pragma comment (linker, "/DEFAULTLIB:MSVCPRT.LIB")
-    #endif
-
-    // Now set up external linking
-
-#    ifdef _DEBUG
-        // zlib was linked against the release MSVCRT; force
-        // the debug version.
-#        pragma comment(linker, "/NODEFAULTLIB:MSVCRT.LIB")
-#	 endif
+#ifdef _DEBUG
+	// Some of the support libraries are always built in Release.
+	// Make sure the debug runtime library is linked in
+	#pragma comment(linker, "/NODEFAULTLIB:MSVCRT.LIB")
+	#pragma comment(linker, "/NODEFAULTLIB:MSVCPRT.LIB")
+#endif
 
 
 #    ifndef WIN32_LEAN_AND_MEAN
@@ -223,8 +212,9 @@
 #   endif
 
 
-/** @def G3D_START_AT_MAIN()
-    Defines necessary wrapper around WinMain on Windows to allow transfer of execution to main(). */
+/** \def G3D_START_AT_MAIN()
+    Makes Windows programs using the WINDOWS subsystem invoke main() at program start by
+    defining a WinMain(). Does nothing on other operating systems.*/
 #   define G3D_START_AT_MAIN()\
 int WINAPI G3D_WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw);\
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw) {\
@@ -312,16 +302,29 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw) {\
 #    define PRAGMA(x) _Pragma(#x)
 #endif
 
-/** @def G3D_BEGIN_PACKED_CLASS(byteAlign)
-    Switch to tight alignment
+/** \def G3D_BEGIN_PACKED_CLASS(byteAlign)
+    Switch to tight alignment.
+    
+    \code
+    G3D_BEGIN_PACKED_CLASS(1)
+    ThreeBytes {
+    public:
+        uint8 a, b, c;
+    }
+    G3D_END_PACKED_CLASS(1)
+    \endcode
+
+
     See G3D::Color3uint8 for an example.*/
 #ifdef _MSC_VER
-#    define G3D_BEGIN_PACKED_CLASS(byteAlign)  PRAGMA( pack(push, byteAlign) )
+#    define G3D_BEGIN_PACKED_CLASS(byteAlign)  PRAGMA( pack(push, byteAlign) ) class
+#elif defined(__GNUC__)
+#    define G3D_BEGIN_PACKED_CLASS(byteAlign)  class __attribute((__packed__))
 #else
-#    define G3D_BEGIN_PACKED_CLASS(byteAlign)
+#    define G3D_BEGIN_PACKED_CLASS(byteAlign)  class
 #endif
 
-/** @def G3D_END_PACKED_CLASS(byteAlign)
+/** \def G3D_END_PACKED_CLASS(byteAlign)
     End switch to tight alignment
     See G3D::Color3uint8 for an example.*/
 #ifdef _MSC_VER

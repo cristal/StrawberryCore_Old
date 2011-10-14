@@ -6,9 +6,9 @@
  @author Morgan McGuire, graphics3d.com
 
  @created 2001-06-02
- @edited  2009-11-15
+ @edited  2010-08-15
 
-  Copyright 2000-2009, Morgan McGuire.
+  Copyright 2000-2011, Morgan McGuire.
   All rights reserved.
 */
 
@@ -32,7 +32,12 @@ Matrix3::Matrix3(const Any& any) {
 
     if (any.nameEquals("Matrix3::fromAxisAngle")) {
         any.verifySize(2);
-        *this = Matrix3::fromAxisAngle(any[0], any[1].number());
+        *this = fromAxisAngle(Vector3(any[0]), any[1].number());
+    } else if (any.nameEquals("Matrix3::diagonal")) {
+        any.verifySize(3);
+        *this = diagonal(any[0], any[1], any[2]);
+    } else if (any.nameEquals("Matrix3::identity")) {
+        *this = identity();
     } else {
         any.verifySize(9);
 
@@ -45,7 +50,7 @@ Matrix3::Matrix3(const Any& any) {
 }
 
 
-Matrix3::operator Any() const {
+Any Matrix3::toAny() const {
     Any any(Any::ARRAY, "Matrix3");
     any.resize(9);
     for (int r = 0; r < 3; ++r) {
@@ -116,7 +121,7 @@ bool Matrix3::isOrthonormal() const {
 //----------------------------------------------------------------------------
 Matrix3::Matrix3(const Quat& _q) {
     // Implementation from Watt and Watt, pg 362
-	// See also http://www.flipcode.com/documents/matrfaq.html#Q54
+    // See also http://www.flipcode.com/documents/matrfaq.html#Q54
     Quat q = _q;
     q.unitize();
     float xx = 2.0f * q.x * q.x;
@@ -1046,19 +1051,19 @@ void Matrix3::polarDecomposition(Matrix3 &R, Matrix3 &S) const{
       Xit = tmp.transpose();
       
       if (resid < BigEps) {
-	// close enough use simple iteration
-	X += Xit;
-	X *= 0.5f;
+    // close enough use simple iteration
+    X += Xit;
+    X *= 0.5f;
       }
       else {
-	// not close to convergence, compute acceleration factor
+    // not close to convergence, compute acceleration factor
         float gamma = sqrt( sqrt(
                   (Xit.l1Norm()* Xit.lInfNorm())/(X.l1Norm()*X.lInfNorm()) ) );
 
-	X *= 0.5f * gamma;
-	tmp = Xit;
-	tmp *= 0.5f / gamma;
-	X += tmp;
+    X *= 0.5f * gamma;
+    tmp = Xit;
+    tmp *= 0.5f / gamma;
+    X += tmp;
       }
       
       resid = X.diffOneNorm(Xit);
@@ -1215,7 +1220,7 @@ float Matrix3::l1Norm() const {
       float f = fabs(elt[0][c])+ fabs(elt[1][c]) + fabs(elt[2][c]);
       
       if (f > oneNorm) {
-	oneNorm = f;
+    oneNorm = f;
       }
     }
     return oneNorm;
@@ -1231,7 +1236,7 @@ float Matrix3::lInfNorm() const {
       float f = fabs(elt[r][0]) + fabs(elt[r][1])+ fabs(elt[r][2]);
       
       if (f > infNorm) {
-	infNorm = f;
+    infNorm = f;
       }
     }
     return infNorm;
@@ -1244,10 +1249,10 @@ float Matrix3::diffOneNorm(const Matrix3 &y) const{
     for (int c = 0; c < 3; ++c){
     
       float f = fabs(elt[0][c] - y[0][c]) + fabs(elt[1][c] - y[1][c])
-	+ fabs(elt[2][c] - y[2][c]);
+    + fabs(elt[2][c] - y[2][c]);
       
       if (f > oneNorm) {
-	oneNorm = f;
+    oneNorm = f;
       }
     }
     return oneNorm;
@@ -1287,7 +1292,7 @@ void Matrix3::toAxisAngle (Vector3& rkAxis, float& rfRadians) const {
             rkAxis.x = elt[2][1] - elt[1][2];
             rkAxis.y = elt[0][2] - elt[2][0];
             rkAxis.z = elt[1][0] - elt[0][1];
-            rkAxis.unitize();
+            rkAxis = rkAxis.direction();
         } else {
             // angle is PI
             float fHalfInverse;
@@ -1339,7 +1344,11 @@ void Matrix3::toAxisAngle (Vector3& rkAxis, float& rfRadians) const {
 
 //----------------------------------------------------------------------------
 Matrix3 Matrix3::fromAxisAngle (const Vector3& _axis, float fRadians) {
-    Vector3 axis = _axis.direction();
+    return fromUnitAxisAngle(_axis.direction(), fRadians);
+}
+
+Matrix3 Matrix3::fromUnitAxisAngle (const Vector3& axis, float fRadians) {
+    debugAssertM(axis.isUnit(), "Matrix3::fromUnitAxisAngle requires ||axis|| = 1");
 
     Matrix3 m;
     float fCos  = cos(fRadians);
@@ -1922,9 +1931,9 @@ void Matrix3::_transpose(const Matrix3& A, Matrix3& out) {
 //-----------------------------------------------------------------------------
 std::string Matrix3::toString() const {
     return G3D::format("[%g, %g, %g; %g, %g, %g; %g, %g, %g]", 
-			elt[0][0], elt[0][1], elt[0][2],
-			elt[1][0], elt[1][1], elt[1][2],
-			elt[2][0], elt[2][1], elt[2][2]);
+            elt[0][0], elt[0][1], elt[0][2],
+            elt[1][0], elt[1][1], elt[1][2],
+            elt[2][0], elt[2][1], elt[2][2]);
 }
 
 

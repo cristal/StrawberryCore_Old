@@ -6,7 +6,7 @@
   \created 2010-01-28
   \edited  2010-01-28
 
-  Copyright 2000-2010, Morgan McGuire.
+  Copyright 2000-2011, Morgan McGuire.
   All rights reserved.
  */
 
@@ -46,7 +46,7 @@ public:
 
     BumpMapPreprocess(const Any& any);
 
-    operator Any() const;
+    Any toAny() const;
 
     bool operator==(const BumpMapPreprocess& other) const {
         return 
