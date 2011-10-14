@@ -42,8 +42,8 @@
 
 #ifdef _WIN32
 #include "ServiceWin32.h"
-char serviceName[] = "VoragineAuth";
-char serviceLongName[] = "VoragineAuth service";
+char serviceName[] = "StrawberryAuth";
+char serviceLongName[] = "StrawberryAuth service";
 char serviceDescription[] = "Cataclysm Server";
 /*
  * -1 - not in service mode
