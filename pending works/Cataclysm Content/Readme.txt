@@ -4,4 +4,4 @@ This is still under high development
 This will be merged to master content after testing!
 
 Kind regards
-Voragine Project
+Strawberry Project

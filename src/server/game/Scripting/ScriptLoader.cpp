@@ -591,17 +591,40 @@ void AddSC_zangarmarsh();
 
 // Cataclysm Scripts
 
-void AddSC_the_stonecore();                     //Cata:TheStonecore
+void AddSC_instance_throne_of_the_tides();		// Throne of the Tides
+void AddSC_boss_commander_ulthok();
+void AddSC_boss_lady_nazjar();
+void AddSC_boss_erunak_stonespeaker();
+void AddSC_neptulon();
+
+void AddSC_the_stonecore();                     //The StoneCore
 void AddSC_instance_the_stonecore();
 
 void AddSC_instance_baradin_hold();             //Baradin Hold
 void AddSC_boss_argaloth();
 
-void AddSC_instance_throne_of_the_tides();
-void AddSC_boss_commander_ulthok();
-void AddSC_boss_lady_nazjar();
-void AddSC_boss_erunak_stonespeaker();
-void AddSC_neptulon();
+void AddSC_instance_the_vortex_pinnacle();		// The Vortex Pinacle
+
+void AddSC_boss_high_prophet_barim();			// Lost City of TolVir
+void AddSC_lost_city_of_the_tolvir();
+void AddSC_instance_lost_city_of_the_tolvir();
+void AddSC_boss_lockmaw();
+
+void AddSC_boss_earthrager_ptah();				// Halls of Origination
+void AddSC_boss_anraphet();
+void AddSC_instance_halls_of_origination();
+void AddSC_boss_temple_guardian_anhuur();
+
+void AddSC_general_umbriss();				// Grim Batol
+void AddSC_forgemaster_throngus();
+void AddSC_instance_grimbatol();
+
+void AddSC_instance_blackrock_caverns();		// Blackrock Cavern
+
+void AddSC_boss_ascendant_council();			// Bastion of Twinlight
+void AddSC_boss_halfus_wyrmbreaker();
+void AddSC_instance_the_bastion_of_twilight();
+void AddSC_boss_theralion_and_valiona();
 
 // battlegrounds
 
@@ -1230,15 +1253,41 @@ void AddNorthrendScripts()
     AddSC_isle_of_conquest();
 
     // Cataclysm Scripts
-    AddSC_the_stonecore();
-    AddSC_instance_the_stonecore();
-    AddSC_instance_baradin_hold();
-    AddSC_boss_argaloth();
-    AddSC_instance_throne_of_the_tides();
+
+    AddSC_instance_throne_of_the_tides();		// Throne of the Tides
     AddSC_boss_commander_ulthok();
     AddSC_boss_lady_nazjar();
     AddSC_boss_erunak_stonespeaker();
     AddSC_neptulon();
+
+    AddSC_the_stonecore();                     //The StoneCore
+    AddSC_instance_the_stonecore();
+
+    AddSC_instance_baradin_hold();             //Baradin Hold
+    AddSC_boss_argaloth();
+
+    AddSC_instance_the_vortex_pinnacle();		// The Vortex Pinacle
+
+    AddSC_boss_high_prophet_barim();			// Lost City of TolVir
+    AddSC_lost_city_of_the_tolvir();
+    AddSC_instance_lost_city_of_the_tolvir();
+    AddSC_boss_lockmaw();
+
+    AddSC_boss_earthrager_ptah();				// Halls of Origination
+    AddSC_boss_anraphet();
+    AddSC_instance_halls_of_origination();
+    AddSC_boss_temple_guardian_anhuur();
+
+    AddSC_general_umbriss();				// Grim Batol
+    AddSC_forgemaster_throngus();
+    AddSC_instance_grimbatol();
+
+    AddSC_instance_blackrock_caverns();		// Blackrock Cavern
+
+    AddSC_boss_ascendant_council();			// Bastion of Twinlight
+    AddSC_boss_halfus_wyrmbreaker();
+    AddSC_instance_the_bastion_of_twilight();
+    AddSC_boss_theralion_and_valiona();
 
 #endif
 }

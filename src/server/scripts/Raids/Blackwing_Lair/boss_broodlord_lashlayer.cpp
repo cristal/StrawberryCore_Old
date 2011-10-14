@@ -1,21 +1,19 @@
 /*
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -26,6 +24,7 @@ SDCategory: Blackwing Lair
 EndScriptData */
 
 #include "ScriptPCH.h"
+#include "blackwing_lair.h"
 
 #define SAY_AGGRO               -1469000
 #define SAY_LEASH               -1469001
@@ -40,14 +39,19 @@ class boss_broodlord : public CreatureScript
 public:
     boss_broodlord() : CreatureScript("boss_broodlord") { }
 
-    CreatureAI* GetAI(Creature* pCreature) const
+    CreatureAI* GetAI(Creature* creature) const
     {
-        return new boss_broodlordAI (pCreature);
+        return new boss_broodlordAI (creature);
     }
 
     struct boss_broodlordAI : public ScriptedAI
     {
-        boss_broodlordAI(Creature *c) : ScriptedAI(c) {}
+        boss_broodlordAI(Creature *c) : ScriptedAI(c)
+        {
+            pInstance = c->GetInstanceScript();
+        }
+
+        InstanceScript* pInstance;
 
         uint32 Cleave_Timer;
         uint32 BlastWave_Timer;
@@ -60,12 +64,24 @@ public:
             BlastWave_Timer = 12000;
             MortalStrike_Timer = 20000;
             KnockBack_Timer = 30000;
+
+        if(pInstance)
+            pInstance->SetData(ENCOUNTER_LASHLAYER,NOT_STARTED);
         }
 
-        void EnterCombat(Unit * /*who*/)
+        void EnterCombat(Unit* /*who*/)
         {
             DoScriptText(SAY_AGGRO, me);
             DoZoneInCombat();
+
+        if(pInstance)
+            pInstance->SetData(ENCOUNTER_LASHLAYER,IN_PROGRESS);
+    }
+
+    void JustDied(Unit *killer)
+    {
+        if(pInstance)
+            pInstance->SetData(ENCOUNTER_LASHLAYER,DONE);
         }
 
         void UpdateAI(const uint32 diff)
@@ -84,14 +100,14 @@ public:
             if (BlastWave_Timer <= diff)
             {
                 DoCast(me->getVictim(), SPELL_BLASTWAVE);
-                BlastWave_Timer = urand(8000,16000);
+                BlastWave_Timer = urand(8000, 16000);
             } else BlastWave_Timer -= diff;
 
             //MortalStrike_Timer
             if (MortalStrike_Timer <= diff)
             {
                 DoCast(me->getVictim(), SPELL_MORTALSTRIKE);
-                MortalStrike_Timer = urand(25000,35000);
+                MortalStrike_Timer = urand(25000, 35000);
             } else MortalStrike_Timer -= diff;
 
             if (KnockBack_Timer <= diff)
@@ -99,9 +115,9 @@ public:
                 DoCast(me->getVictim(), SPELL_KNOCKBACK);
                 //Drop 50% aggro
                 if (DoGetThreat(me->getVictim()))
-                    DoModifyThreatPercent(me->getVictim(),-50);
+                    DoModifyThreatPercent(me->getVictim(), -50);
 
-                KnockBack_Timer = urand(15000,30000);
+                KnockBack_Timer = urand(15000, 30000);
             } else KnockBack_Timer -= diff;
 
             if (EnterEvadeIfOutOfCombatArea(diff))

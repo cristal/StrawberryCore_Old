@@ -1,21 +1,19 @@
 /*
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -26,6 +24,7 @@ SDCategory: Blackwing Lair
 EndScriptData */
 
 #include "ScriptPCH.h"
+#include "blackwing_lair.h"
 
 #define SAY_LINE1           -1469026
 #define SAY_LINE2           -1469027
@@ -47,48 +46,52 @@ class boss_vaelastrasz : public CreatureScript
 public:
     boss_vaelastrasz() : CreatureScript("boss_vaelastrasz") { }
 
-    void SendDefaultMenu(Player* pPlayer, Creature* pCreature, uint32 uiAction)
+    void SendDefaultMenu(Player* player, Creature* creature, uint32 uiAction)
     {
         if (uiAction == GOSSIP_ACTION_INFO_DEF + 1)               //Fight time
         {
-            pPlayer->CLOSE_GOSSIP_MENU();
-            CAST_AI(boss_vaelastrasz::boss_vaelAI, pCreature->AI())->BeginSpeech(pPlayer);
+            player->CLOSE_GOSSIP_MENU();
+            CAST_AI(boss_vaelastrasz::boss_vaelAI, creature->AI())->BeginSpeech(player);
         }
     }
 
-    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction)
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 uiSender, uint32 uiAction)
     {
-        pPlayer->PlayerTalkClass->ClearMenus();
+        player->PlayerTalkClass->ClearMenus();
         if (uiSender == GOSSIP_SENDER_MAIN)
-            SendDefaultMenu(pPlayer, pCreature, uiAction);
+            SendDefaultMenu(player, creature, uiAction);
 
         return true;
     }
 
-    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    bool OnGossipHello(Player* player, Creature* creature)
     {
-        if (pCreature->isQuestGiver())
-            pPlayer->PrepareQuestMenu(pCreature->GetGUID());
+        if (creature->isQuestGiver())
+            player->PrepareQuestMenu(creature->GetGUID());
 
-        pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-        pPlayer->SEND_GOSSIP_MENU(907, pCreature->GetGUID());
+        player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+        player->SEND_GOSSIP_MENU(907, creature->GetGUID());
 
         return true;
     }
 
-    CreatureAI* GetAI(Creature* pCreature) const
+    CreatureAI* GetAI(Creature* creature) const
     {
-        return new boss_vaelAI (pCreature);
+        return new boss_vaelAI (creature);
     }
 
     struct boss_vaelAI : public ScriptedAI
     {
-        boss_vaelAI(Creature *c) : ScriptedAI(c)
+        boss_vaelAI(Creature* c) : ScriptedAI(c)
         {
             c->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
             c->setFaction(35);
             c->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+
+            pInstance = c->GetInstanceScript();
         }
+
+        InstanceScript *pInstance;
 
         uint64 PlayerGUID;
         uint32 SpeechTimer;
@@ -115,12 +118,15 @@ public:
             TailSwipe_Timer = 20000;
             HasYelled = false;
             DoingSpeech = false;
+
+            if(pInstance)
+                pInstance->SetData(ENCOUNTER_VAELASTRASZ,NOT_STARTED);
         }
 
-        void BeginSpeech(Unit *pTarget)
+        void BeginSpeech(Unit* target)
         {
             //Stand up and begin speach
-            PlayerGUID = pTarget->GetGUID();
+            PlayerGUID = target->GetGUID();
 
             //10 seconds
             DoScriptText(SAY_LINE1, me);
@@ -132,7 +138,7 @@ public:
             me->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
         }
 
-        void KilledUnit(Unit * victim)
+        void KilledUnit(Unit* victim)
         {
             if (rand()%5)
                 return;
@@ -140,11 +146,22 @@ public:
             DoScriptText(SAY_KILLTARGET, me, victim);
         }
 
-        void EnterCombat(Unit * /*who*/)
+        void EnterCombat(Unit* /*who*/)
         {
             DoCast(me, SPELL_ESSENCEOFTHERED);
             DoZoneInCombat();
             me->SetHealth(me->CountPctFromMaxHealth(30));
+            // now drop damage requirement to be able to take loot
+            me->ResetPlayerDamageReq();
+
+            if(pInstance)
+                pInstance->SetData(ENCOUNTER_VAELASTRASZ,IN_PROGRESS);
+        }
+
+        void JustDied(Unit *killer)
+        {
+            if(pInstance)
+                pInstance->SetData(ENCOUNTER_VAELASTRASZ,DONE);
         }
 
         void UpdateAI(const uint32 diff)
@@ -170,9 +187,9 @@ public:
                             break;
                         case 2:
                             me->setFaction(103);
-                            if (PlayerGUID && Unit::GetUnit((*me),PlayerGUID))
+                            if (PlayerGUID && Unit::GetUnit((*me), PlayerGUID))
                             {
-                                AttackStart(Unit::GetUnit((*me),PlayerGUID));
+                                AttackStart(Unit::GetUnit((*me), PlayerGUID));
                                 DoCast(me, SPELL_ESSENCEOFTHERED);
                             }
                             SpeechTimer = 0;
@@ -204,24 +221,24 @@ public:
             if (FlameBreath_Timer <= diff)
             {
                 DoCast(me->getVictim(), SPELL_FLAMEBREATH);
-                FlameBreath_Timer = urand(4000,8000);
+                FlameBreath_Timer = urand(4000, 8000);
             } else FlameBreath_Timer -= diff;
 
             //BurningAdrenalineCaster_Timer
             if (BurningAdrenalineCaster_Timer <= diff)
             {
-                Unit *pTarget = NULL;
+                Unit* target = NULL;
 
                 uint8 i = 0;
                 while (i < 3)                                   // max 3 tries to get a random target with power_mana
                 {
                     ++i;
-                    pTarget = SelectTarget(SELECT_TARGET_RANDOM, 1, 100, true); //not aggro leader
-                    if (pTarget && pTarget->getPowerType() == POWER_MANA)
+                    target = SelectTarget(SELECT_TARGET_RANDOM, 1, 100, true); //not aggro leader
+                    if (target && target->getPowerType() == POWER_MANA)
                             i = 3;
                 }
-                if (pTarget)                                     // cast on self (see below)
-                    pTarget->CastSpell(pTarget,SPELL_BURNINGADRENALINE,1);
+                if (target)                                     // cast on self (see below)
+                    target->CastSpell(target, SPELL_BURNINGADRENALINE, 1);
 
                 BurningAdrenalineCaster_Timer = 15000;
             } else BurningAdrenalineCaster_Timer -= diff;
@@ -231,7 +248,7 @@ public:
             {
                 // have the victim cast the spell on himself otherwise the third effect aura will be applied
                 // to Vael instead of the player
-                me->getVictim()->CastSpell(me->getVictim(),SPELL_BURNINGADRENALINE,1);
+                me->getVictim()->CastSpell(me->getVictim(), SPELL_BURNINGADRENALINE, 1);
 
                 BurningAdrenalineTank_Timer = 45000;
             } else BurningAdrenalineTank_Timer -= diff;

@@ -335,12 +335,33 @@ set(scripts_STAT_SRCS
   Instances/ZulGurub/boss_wushoolay.cpp
   Instances/ZulGurub/instance_zulgurub.cpp
   Instances/ZulGurub/zulgurub.h
+  Instances/TheStoneCore/instance_the_stonecore.cpp
+  Instances/TheStoneCore/the_stonecore.cpp
+  Instances/TheStoneCore/the_stonecore.h
   Instances/ThroneOfTheTides/instance_throne_of_the_tides.cpp
   Instances/ThroneOfTheTides/throne_of_the_tides.h
   Instances/ThroneOfTheTides/boss_commander_ulthok.cpp
   Instances/ThroneOfTheTides/boss_erunak_stonespeaker.cpp
   Instances/ThroneOfTheTides/boss_lady_nazjar.cpp
   Instances/ThroneOfTheTides/npc_neptulon.cpp
+  Instances/TheVortexPinnacle/instance_the_vortex_pinnacle.cpp
+  Instances/TheVortexPinnacle/the_vortex_pinnacle.h
+  Instances/HallsOfOrigination/boss_anraphet.cpp
+  Instances/HallsOfOrigination/boss_earthrager_ptah.cpp
+  Instances/HallsOfOrigination/boss_temple_guardian_anhuur.cpp
+  Instances/HallsOfOrigination/halls_of_origination.h
+  Instances/HallsOfOrigination/instance_halls_of_origination.cpp
+  Instances/BlackrockCaverns/blackrock_caverns.h
+  Instances/BlackrockCaverns/instance_blackrock_caverns.cpp
+  Instances/GrimBatol/instance_grimbatol.cpp
+  Instances/GrimBatol/grimbatol.h
+  Instances/GrimBatol/boss_forgemaster_throngus.cpp
+  Instances/GrimBatol/boss_general_umbriss.cpp
+  Instances/LostCityOfTheTolvir/boss_high_prophet_barim.cpp
+  Instances/LostCityOfTheTolvir/boss_lockmaw.cpp
+  Instances/LostCityOfTheTolvir/instance_lost_city_of_the_tolvir.cpp
+  Instances/LostCityOfTheTolvir/lost_city_of_the_tolvir.cpp
+  Instances/LostCityOfTheTolvir/lost_city_of_the_tolvir.h
 )
 
 message("  -> Prepared: Instances")

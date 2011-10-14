@@ -26,6 +26,7 @@ set(scripts_STAT_SRCS
   Raids/Black_Temple/boss_warlord_najentus.cpp
   Raids/Black_Temple/illidari_council.cpp
   Raids/Black_Temple/instance_black_temple.cpp
+  Raids/Blackwing_Lair/blackwing_lair.h
   Raids/Blackwing_Lair/boss_broodlord_lashlayer.cpp
   Raids/Blackwing_Lair/boss_chromaggus.cpp
   Raids/Blackwing_Lair/boss_ebonroc.cpp
@@ -197,6 +198,21 @@ set(scripts_STAT_SRCS
   Raids/BaradinHold/instance_baradin_hold.cpp
   Raids/BaradinHold/baradin_hold.h
   Raids/BaradinHold/boss_argaloth.cpp
+  Raids/BastionOfTwilight/bastion_of_twilight.h
+  Raids/BastionOfTwilight/boss_chogall.cpp
+  Raids/BastionOfTwilight/boss_council_of_ascendents.cpp
+  Raids/BastionOfTwilight/boss_halfus_wyrmbreaker.cpp
+  Raids/BastionOfTwilight/boss_sinestra.cpp
+  Raids/BastionOfTwilight/boss_theralion_and_valiona.cpp
+  Raids/BastionOfTwilight/instance_bastion_of_twilight.cpp
+  Raids/Blackwing_Descent/blackwing_descent.h
+  Raids/Blackwing_Descent/boss_atramedes.cpp
+  Raids/Blackwing_Descent/boss_chimaeron.cpp
+  Raids/Blackwing_Descent/boss_magmaw.cpp
+  Raids/Blackwing_Descent/boss_maloriak.cpp
+  Raids/Blackwing_Descent/boss_nefarians.cpp
+  Raids/Blackwing_Descent/boss_omnotron.cpp
+  Raids/Blackwing_Descent/instance_blackwing_descent.cpp
 )
 
 message("  -> Prepared: Raids")
