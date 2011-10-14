@@ -905,7 +905,7 @@ class ObjectMgr
         void ValidateSpellScripts();
 
         bool LoadVoragineStrings(char const* table, int32 min_value, int32 max_value);
-        bool LoadVoragineStrings() { return LoadVoragineStrings("voragine_string",MIN_VORAGINE_STRING_ID,MAX_VORAGINE_STRING_ID); }
+        bool LoadVoragineStrings() { return LoadVoragineStrings("strawberry_string",MIN_VORAGINE_STRING_ID,MAX_VORAGINE_STRING_ID); }
         void LoadDbScriptStrings();
         void LoadCreatureLevelStats();
         void LoadCreatureLocales();
