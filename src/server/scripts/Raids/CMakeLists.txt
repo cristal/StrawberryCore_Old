@@ -32,7 +32,7 @@ set(scripts_STAT_SRCS
   Raids/Blackwing_Lair/boss_ebonroc.cpp
   Raids/Blackwing_Lair/boss_firemaw.cpp
   Raids/Blackwing_Lair/boss_flamegor.cpp
-  Raids/Blackwing_Lair/boss_nefarians.cpp
+  Raids/Blackwing_Lair/boss_nefarian.cpp
   Raids/Blackwing_Lair/boss_razorgore.cpp
   Raids/Blackwing_Lair/boss_vaelastrasz.cpp
   Raids/Blackwing_Lair/boss_victor_nefarius.cpp
@@ -210,7 +210,7 @@ set(scripts_STAT_SRCS
   Raids/Blackwing_Descent/boss_chimaeron.cpp
   Raids/Blackwing_Descent/boss_magmaw.cpp
   Raids/Blackwing_Descent/boss_maloriak.cpp
-  Raids/Blackwing_Descent/boss_nefarian.cpp
+  Raids/Blackwing_Descent/boss_nefarians.cpp
   Raids/Blackwing_Descent/boss_omnotron.cpp
   Raids/Blackwing_Descent/instance_blackwing_descent.cpp
   Raids/ThroneOfTheFourWinds/boss_alakir.cpp
