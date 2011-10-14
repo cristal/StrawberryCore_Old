@@ -128,9 +128,9 @@ int Master::Run()
     sLog->outString("%s (core-daemon)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
 
-    sLog->outString("Welcome to Project Voragine Cataclysm");
-    sLog->outString("Portions of Voragine, SkyFire, Cactus, TrinityCore");
-    sLog->outString("http://www.projectvoragine.com/");
+    sLog->outString("Welcome to Project Strawberry Cataclysm");
+    sLog->outString("Portions of Voragine, Trillium, Cactus, TrinityCore");
+    sLog->outString("http://www.strawberry-pr0jcts.com/");
 
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
