@@ -138,8 +138,10 @@ class boss_ignacious : public CreatureScript
                 switch(action)
                 {
                     case ACTION_IGNACIOUS_JUMPS:
+                        {
                         Unit * Target = SelectTarget(SELECT_TARGET_RANDOM,NULL,40.0f);
                         me->GetMotionMaster()->MoveJump(Target->GetPositionX(),Target->GetPositionY(),Target->GetPositionZ(),1.0f,0.9f);
+                        }
                     case ACTION_INGACIOUS_CHARGE:
                         Creature * Inferno = ObjectAccessor::GetCreature(*me,pInstance->GetData64(NPC_INFERNO_RUSH));
                         DoCast(Inferno,82859);

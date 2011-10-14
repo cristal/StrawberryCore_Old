@@ -114,4 +114,3 @@ void AddSC_forgemaster_throngus()
 {
     new boss_forgemaster_throngus();
 }
-*/
