@@ -1239,12 +1239,10 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage *damageInfo, int32 dama
             // Spell weapon based damage CAN BE crit & blocked at same time
             if (blocked)
             {
-                damageInfo->blocked = victim->GetShieldBlockValue();
+                damageInfo->blocked = damage * 0.3f;
                 // double blocked amount if block is critical
                 if (victim->isBlockCritical())
                     damageInfo->blocked += damageInfo->blocked;
-                if (damage < int32(damageInfo->blocked))
-                    damageInfo->blocked = uint32(damage);
                 damage -= damageInfo->blocked;
             }
 
@@ -2938,12 +2936,11 @@ float Unit::GetUnitCriticalChance(WeaponAttackType attackType, const Unit* victi
         // Glyph of barkskin
         if (victim->HasAura(63057) && victim->HasAura(22812))
             crit -= 25.0f;
+		if (victim->HasAura(50365)) // Improved Blood Presence (Rank 1)
+            crit -= 3.0f;
+		if (victim->HasAura(50371)) // Improved Blood Presence (Rank 2)
+            crit -= 6.0f;
     }
-    else
-        ApplyResilience(victim, NULL);
-
-    // Apply crit chance from defence skill
-    crit += (int32(GetMaxSkillValueForLevel(victim)) - int32(victim->GetDefenseSkillValue(this))) * 0.04f;
 
     if (crit < 0.0f)
         crit = 0.0f;
