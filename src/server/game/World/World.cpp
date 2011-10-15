@@ -141,7 +141,7 @@ World::~World()
     VMAP::VMapFactory::clear();
 
     // Clean up character name data
-    for (std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.begin(); itr != m_CharacterNameDataMap.end(); ++itr)
+    for (std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.begin(); itr != m_CharacterNameDataMap.end(); ++itr)
         delete itr->second;
 
     //TODO free addSessQueue
@@ -3375,7 +3375,7 @@ void World::LoadCharacterNameData()
         data->m_gender = fields[3].GetUInt8();
         data->m_class = fields[4].GetUInt8();
 
-        m_CharacterNameDataMap[fields[0].GetUInt32()] = data;
+        m_CharacterNameDataMap[fields[0].GetUInt64()] = data;
         ++count;
     } while (result->NextRow());
 
@@ -3386,7 +3386,7 @@ void World::ReloadSingleCharacterNameData(uint32 guid)
 {
     ACE_Guard<ACE_Thread_Mutex> guard(m_CharacterNameDataMapMutex);
 
-    std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
+    std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
 
     if (itr != m_CharacterNameDataMap.end())
     {
@@ -3407,11 +3407,11 @@ void World::ReloadSingleCharacterNameData(uint32 guid)
     }
 }
 
-CharacterNameData* World::GetCharacterNameData(uint32 guid)
+CharacterNameData* World::GetCharacterNameData(uint64 guid)
 {
     ACE_Guard<ACE_Thread_Mutex> guard(m_CharacterNameDataMapMutex);
 
-    std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
+    std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
     if (itr != m_CharacterNameDataMap.end())
         return itr->second;
     else

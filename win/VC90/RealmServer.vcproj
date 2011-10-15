@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="RealmServer"
 	ProjectGUID="{563E9905-3657-460C-AE63-0AC39D162E23}"
 	RootNamespace="RealmServer"
@@ -46,7 +46,7 @@
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\shared;..\..\src\server\shared\Database;..\..\src\server\shared\Debugging;..\..\src\server\shared\Packets;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Logging;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\realmserver;..\..\src\server\realmserver\Auth;..\..\src\server\realmserver\Realms;..\..\src\server\realmserver\Server;..\..\dep\Ace;..\..\dep\MySql\extra\yassl\include;..\..\dep\MySql\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;_PRE_WIN"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

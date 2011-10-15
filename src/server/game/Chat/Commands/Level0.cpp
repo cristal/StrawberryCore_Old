@@ -29,7 +29,13 @@
 #include "Language.h"
 #include "AccountMgr.h"
 #include "SystemConfig.h"
-#include "revision.h"
+
+#ifdef _PRE_WIN
+    #include "revision_nr.h"
+#else
+    #include "revision.h"
+#endif
+
 #include "Util.h"
 
 bool ChatHandler::HandleHelpCommand(const char* args)

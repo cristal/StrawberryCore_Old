@@ -39,7 +39,13 @@
 
 #include "Common.h"
 #include "SystemConfig.h"
-#include "revision.h"
+
+#ifdef _PRE_WIN
+    #include "revision_nr.h"
+    #define _REVISION REVISION_NR
+#else
+    #include "revision.h"
+#endif
 
 #define CrashFolder _T("Crashes")
 #pragma comment(linker, "/DEFAULTLIB:dbghelp.lib")

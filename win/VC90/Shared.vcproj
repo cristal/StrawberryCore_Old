@@ -49,7 +49,7 @@
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Conditions;..\..\src\server\shared;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\shared\Collision\Maps;..\..\src\server\shared\Collision\Models;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\dep\mysqllite;..\..\dep\MersenneTwister;..\..\dep\utf8cpp;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\;..\..\dep\acelite;..\..\dep\mysqllite\include;..\..\dep\G3DLite\include;..\..\dep\G3DLite"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;_PRE_WIN"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

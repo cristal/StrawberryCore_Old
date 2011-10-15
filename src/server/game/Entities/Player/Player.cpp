@@ -22135,7 +22135,7 @@ void Player::ModifyMoney(int32 d)
 {
     sScriptMgr->OnPlayerMoneyChanged(this, d);
     if (d < 0)
-        SetMoney (GetMoney() > uint64(-d) ? GetMoney() + d : 0);
+        SetMoney(uint32(GetMoney() > uint64(-d) ? GetMoney() + d : 0));
     else
     {
         uint64 newAmount = 0;
@@ -22161,7 +22161,7 @@ void Player::ModifyMoney(int32 d)
                     //If we withdraw money from guild we don't get lootGUID, same in quests ;)
                     if (this->GetLootGUID())
                     {
-                        uint64 GuildMoney = (d * (GetGuildMoneyModifier() *0.01));
+                        uint64 GuildMoney = uint64((d * (GetGuildMoneyModifier() *0.01)));
 
                         if (GuildMoney < 1)
                             GuildMoney = 1;
@@ -22181,7 +22181,7 @@ void Player::ModifyMoney(int32 d)
                 SendEquipError(EQUIP_ERR_TOO_MUCH_GOLD, NULL, NULL);
         }
 
-        SetMoney(newAmount);
+        SetMoney(uint32(newAmount));
     }
 }
 

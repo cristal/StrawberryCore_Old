@@ -233,8 +233,8 @@ class WorldSession
 
          /*-------------Anti-Cheat--------------*/
         inline bool Anti__CheatOccurred(uint32 CurTime,const char* Reason,float Speed,const char* Op=NULL,
-        float Val1=0.0f,uint32 Val2=0,MovementInfo* MvInfo=NULL);
-        bool Anti__ReportCheat(const char* Reason,float Speed,const char* Op=NULL,float Val1=0.0f,uint32 Val2=0,MovementInfo* MvInfo=NULL);
+        float Val1=0.0f,float Val2=0.0,MovementInfo* MvInfo=NULL);
+        bool Anti__ReportCheat(const char* Reason,float Speed,const char* Op=NULL,float Val1=0.0f,float Val2=0.0,MovementInfo* MvInfo=NULL);
         /*-------------------------------------*///
 
         void SizeError(WorldPacket const& packet, uint32 size) const;

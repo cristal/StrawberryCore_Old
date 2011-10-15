@@ -39,7 +39,7 @@
 /*-------------Anti-Cheat--------------*/
 #include "World.h"
 
-bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* Op,float Val1,uint32 Val2,MovementInfo* MvInfo)
+bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* Op,float Val1,float Val2,MovementInfo* MvInfo)
 {
     if(!Reason)
     {
@@ -59,7 +59,7 @@ bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* 
     float endY = 0.0f;
     float endZ = 0.0f;
     uint32 fallTime = 0;
-    uint32 t_guid = 0;
+    uint64 t_guid = 0;
     uint32 flags = 0;
 
     MapEntry const* mapEntry = sMapStore.LookupEntry(GetPlayer()->GetMapId());
@@ -162,7 +162,7 @@ bool WorldSession::Anti__ReportCheat(const char* Reason,float Speed,const char* 
     return true;
 }
 
-bool WorldSession::Anti__CheatOccurred(uint32 CurTime,const char* Reason,float Speed,const char* Op, float Val1,uint32 Val2,MovementInfo* MvInfo)
+bool WorldSession::Anti__CheatOccurred(uint32 CurTime,const char* Reason,float Speed,const char* Op, float Val1,float Val2,MovementInfo* MvInfo)
 {
     if(!Reason)
     {
@@ -512,7 +512,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
     }
 
     /*-------------Anti-Cheat--------------*/
-    uint32 Anti_TeleTimeDiff=plMover ? time(NULL) - plMover->Anti__GetLastTeleTime() : time(NULL);
+    uint64 Anti_TeleTimeDiff=plMover ? time(NULL) - plMover->Anti__GetLastTeleTime() : time(NULL);
     static const uint32 Anti_TeleTimeIgnoreDiff = sWorld->GetMvAnticheatIgnoreAfterTeleport();
 
     if (plMover && (plMover->m_transport == 0) && sWorld->GetMvAnticheatEnable() && GetPlayer()->GetSession()->GetSecurity() <= sWorld->GetMvAnticheatGmLevel() && GetPlayer()->GetMotionMaster()->GetCurrentMovementGeneratorType()!=FLIGHT_MOTION_TYPE && Anti_TeleTimeDiff>Anti_TeleTimeIgnoreDiff)
@@ -611,7 +611,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
                     Anti__CheatOccurred(CurTime,"Fly Hack",
                     ((uint8)(GetPlayer()->HasAuraType(SPELL_AURA_FLY))) +
                     ((uint8)(GetPlayer()->HasAuraType(SPELL_AURA_MOD_INCREASE_FLIGHT_SPEED))*2),
-                    NULL,GetPlayer()->GetPositionZ()-Anti__MapZ);
+                    NULL, 0.0f, GetPlayer()->GetPositionZ()-Anti__MapZ);
                 }
         }
         /* I really don't care about movement-type yet (todo)
@@ -633,12 +633,12 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
         double XYtoplam = Xasil+Yasil;
         double X = sqrt(XYtoplam); // Geometry*/
 
-        double delta_x = int32(GetPlayer()->GetPositionX() - movementInfo.pos.GetPositionX());
-        double delta_y = int32(GetPlayer()->GetPositionY() - movementInfo.pos.GetPositionY());
-        double delta_z = int32(GetPlayer()->GetPositionZ() - movementInfo.pos.GetPositionZ());
-        double delta = sqrt(delta_x * delta_x + delta_y * delta_y); // Len of movement-vector via Pythagoras (a^2+b^2=Len^2)
-        double tg_z = 0.0f; //tangens
-        double delta_t = getMSTimeDiff(GetPlayer()->m_anti_lastmovetime,CurTime);
+        float delta_x = GetPlayer()->GetPositionX() - movementInfo.pos.GetPositionX();
+        float delta_y = GetPlayer()->GetPositionY() - movementInfo.pos.GetPositionY();
+        float delta_z = GetPlayer()->GetPositionZ() - movementInfo.pos.GetPositionZ();
+        float delta = sqrt(delta_x * delta_x + delta_y * delta_y); // Len of movement-vector via Pythagoras (a^2+b^2=Len^2)
+        float tg_z = 0.0f; //tangens
+        float delta_t = float(getMSTimeDiff(GetPlayer()->m_anti_lastmovetime,CurTime));
         GetPlayer()->m_anti_lastmovetime = CurTime;
         GetPlayer()->m_anti_MovedLen += delta;
 
@@ -658,7 +658,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
         {
             // Check every 500ms is a lot more advisable then 1000ms, because normal movment packet arrives every 500ms
             uint32 OldNextLenCheck=GetPlayer()->m_anti_NextLenCheck;
-            double delta_xyt=GetPlayer()->m_anti_MovedLen/(float)(getMSTimeDiff(OldNextLenCheck-500,CurTime));
+            float delta_xyt=GetPlayer()->m_anti_MovedLen/(float)(getMSTimeDiff(OldNextLenCheck-500,CurTime));
             GetPlayer()->m_anti_NextLenCheck = CurTime+500;
             GetPlayer()->m_anti_MovedLen = 0.0f;
 
@@ -753,7 +753,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
                     if (!GetPlayer()->IsUnderWater()/* && GetPlayer()->GetBaseMap()->IsUnderWater(movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-1) == true*/)
                         if (Creature* pSummon = GetPlayer()->SummonCreature(1, movementInfo.pos.GetPositionX(), movementInfo.pos.GetPositionY(), movementInfo.pos.GetPositionZ()-0.1f, 0, TEMPSUMMON_TIMED_DESPAWN, 550))
                             if(pSummon->IsInWater() && !GetPlayer()->HasAuraType(SPELL_AURA_WATER_WALK) && !GetPlayer()->IsInWater())
-                                Anti__CheatOccurred(CurTime,"Water Walking",0.0f,NULL,0.0f,(uint32)(movementInfo.flags));
+                                Anti__CheatOccurred(CurTime,"Water Walking", 0.0f, NULL, 0.0f, (float)movementInfo.flags);
 
         // Check for walking upwards a mountain while not beeing able to do that
         /*if ((tg_z > 85.0f))
