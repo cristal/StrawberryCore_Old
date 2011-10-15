@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2005 - 2011 MaNGOS <http://www.getmangos.org/>
- *
- * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 Project Voragine <http://www.projectvoragine.com/>
  *
  * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
  *
@@ -139,29 +137,17 @@ class boss_ignacious : public CreatureScript
             {
                 switch(action)
                 {
-                    ACTION_IGNACIOUS_JUMP:
+                    case ACTION_IGNACIOUS_JUMPS:
+                        {
                         Unit * Target = SelectTarget(SELECT_TARGET_RANDOM,NULL,40.0f);
                         me->GetMotionMaster()->MoveJump(Target->GetPositionX(),Target->GetPositionY(),Target->GetPositionZ(),1.0f,0.9f);
-                    //ACTION_IGNACIOUS_CHARGE:
-                        //Unit * Target = summons.
-                        //me->GetMotionMaster()->MoveCharge(
+                        }
+                    case ACTION_INGACIOUS_CHARGE:
+                        Creature * Inferno = ObjectAccessor::GetCreature(*me,pInstance->GetData64(NPC_INFERNO_RUSH));
+                        DoCast(Inferno,82859);
                 }
             }
 
-            void MovementInform(uint32 type, uint32 id)
-            {
-                if (type == POINT_MOTION_TYPE)
-                {
-                    switch(id)
-                    {
-                        case POINT_THERALION_TAKEOFF:
-                            me->GetMotionMaster()->Clear(false);
-                            me->GetMotionMaster()->MoveIdle();
-                        //case POINT_THERALION_LAND:
-                            
-                    }
-                }
-            }
 
             void UpdateAI(const uint32 uiDiff)
             {
@@ -221,7 +207,7 @@ class spell_inferno_ping : public SpellScriptLoader
         void HandlerDummy()
         {
             Summon(GetCaster());
-            
+
         }
 
         void Register()

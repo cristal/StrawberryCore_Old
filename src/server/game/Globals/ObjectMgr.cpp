@@ -124,7 +124,7 @@ std::string GetScriptCommandName(ScriptCommands command)
         case SCRIPT_COMMAND_LOAD_PATH: res = "SCRIPT_COMMAND_LOAD_PATH"; break;
         case SCRIPT_COMMAND_CALLSCRIPT_TO_UNIT: res = "SCRIPT_COMMAND_CALLSCRIPT_TO_UNIT"; break;
         case SCRIPT_COMMAND_KILL: res = "SCRIPT_COMMAND_KILL"; break;
-        // Voragine only
+        // Strawberry only
         case SCRIPT_COMMAND_ORIENTATION: res = "SCRIPT_COMMAND_ORIENTATION"; break;
         case SCRIPT_COMMAND_EQUIP: res = "SCRIPT_COMMAND_EQUIP"; break;
         case SCRIPT_COMMAND_MODEL: res = "SCRIPT_COMMAND_MODEL"; break;
@@ -8101,7 +8101,7 @@ bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 ma
     {
 
         if (min_value == MIN_VORAGINE_STRING_ID)              // error only in case internal strings
-            sLog->outErrorDb(">> Loaded 0 voragine strings. DB table `%s` is empty. Cannot continue.", table);
+            sLog->outErrorDb(">> Loaded 0 Strawberry strings. DB table `%s` is empty. Cannot continue.", table);
         else
             sLog->outString(">> Loaded 0 string templates. DB table `%s` is empty.", table);
         sLog->outString();
@@ -8165,10 +8165,10 @@ const char *ObjectMgr::GetVoragineString(int32 entry, LocaleConstant locale_idx)
     }
 
     if (entry > 0)
-        sLog->outErrorDb("Entry %i not found in `voragine_string` table.", entry);
+        sLog->outErrorDb("Entry %i not found in `strawberry_string` table.", entry);
     else
-        sLog->outErrorDb("Voragine string entry %i not found in DB.", entry);
-    return "<error missing string entry in voragine strings>";
+        sLog->outErrorDb("Strawberry string entry %i not found in DB.", entry);
+    return "<error missing string entry in strawberry strings>";
 }
 
 void ObjectMgr::LoadFishingBaseSkillLevel()
@@ -9010,7 +9010,7 @@ bool LoadVoragineStrings(char const* table, int32 start_value, int32 end_value)
     // start/end reversed for negative values
     if (start_value > MAX_DB_SCRIPT_STRING_ID || end_value >= start_value)
     {
-        sLog->outErrorDb("Table '%s' load attempted with range (%d - %d) reserved by Voragine, strings not loaded.", table, start_value, end_value+1);
+        sLog->outErrorDb("Table '%s' load attempted with range (%d - %d) reserved by Strawberry, strings not loaded.", table, start_value, end_value+1);
         return false;
     }
 

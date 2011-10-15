@@ -6458,7 +6458,7 @@ void AuraEffect::HandleAuraDummy(AuraApplication const *aurApp, uint8 mode, bool
                                target->ToPlayer()->SetSpeed(MOVE_RUN, 2.0f, true);
                        }
                        else target->ToPlayer()->SetSpeed(MOVE_RUN, 1.0f, true);
-                               target->ToPlayer()->setInWorgenForm(UNIT_FLAG2_WORGEN_TRANSFORM3);
+                               target->ToPlayer()->SetInWorgenForm(UNIT_FLAG2_WORGEN_TRANSFORM3);
                                target->GetAuraEffectsByType(SPELL_AURA_MOUNTED).front()->GetMiscValue();
                        break;
 

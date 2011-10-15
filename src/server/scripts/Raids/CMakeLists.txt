@@ -213,6 +213,19 @@ set(scripts_STAT_SRCS
   Raids/Blackwing_Descent/boss_nefarians.cpp
   Raids/Blackwing_Descent/boss_omnotron.cpp
   Raids/Blackwing_Descent/instance_blackwing_descent.cpp
+  Raids/ThroneOfTheFourWinds/boss_alakir.cpp
+  Raids/ThroneOfTheFourWinds/boss_conclave_of_wind.cpp
+  Raids/ThroneOfTheFourWinds/instance_throne_of_the_four_winds.cpp
+  Raids/ThroneOfTheFourWinds/throne_of_the_four_winds.h
+  Raids/Firelands/boss_alysrazar.cpp
+  Raids/Firelands/boss_baloroc_the_doorkeeper.cpp
+  Raids/Firelands/boss_bethtilac.cpp
+  Raids/Firelands/boss_majordomus.cpp
+  Raids/Firelands/boss_ragnaros.cpp
+  Raids/Firelands/boss_rhyolith.cpp
+  Raids/Firelands/boss_shannox.cpp
+  Raids/Firelands/instance_firelands.cpp
+  Raids/Firelands/firelands.h
 )
 
 message("  -> Prepared: Raids")
