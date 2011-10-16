@@ -29,6 +29,7 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "CellImpl.h"
+#include "DATAStructure.h"
 
 class gps_commandscript : public CommandScript
 {
@@ -110,11 +111,11 @@ public:
         }
         else handler->PSendSysMessage("no VMAP available for area info");
 
-        char unknown = 'Unk';
+        char unk = 'Unk';
         handler->PSendSysMessage(LANG_MAP_POSITION,
-            obj->GetMapId(), (mapEntry ? mapEntry->name[handler->GetSessionDbcLocale()] : unknown),
-            zone_id, (zoneEntry ? zoneEntry->area_name[handler->GetSessionDbcLocale()] : unknown),
-            area_id, (areaEntry ? areaEntry->area_name[handler->GetSessionDbcLocale()] : unknown),
+            obj->GetMapId(), (mapEntry ? mapEntry->name[handler->GetSessionDbcLocale()] : unk),
+            zone_id, (zoneEntry ? zoneEntry->area_name[handler->GetSessionDbcLocale()] : unk),
+            area_id, (areaEntry ? areaEntry->area_name[handler->GetSessionDbcLocale()] : unk),
             obj->GetPhaseMask(),
             obj->GetPositionX(), obj->GetPositionY(), obj->GetPositionZ(), obj->GetOrientation(),
             cell.GridX(), cell.GridY(), cell.CellX(), cell.CellY(), obj->GetInstanceId(),

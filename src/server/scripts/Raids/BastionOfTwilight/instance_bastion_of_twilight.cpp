@@ -368,7 +368,7 @@ public:
         void ChangeState(uint64 guid,bool active,bool finalphase)
         {
             Creature * pCreature = instance->GetCreature(guid);
-            uint16 talkid;
+            uint8 talkid;
             uint16 wayid;
             if (finalphase)
             {
@@ -458,7 +458,7 @@ public:
         uint64 uiInfernoRush;
 		uint32 uiRandomDragons[3];
 		uint32 uiRandomNumber;
-		uint32 uiHalfusNormalTimer;
+		uint64 uiHalfusNormalTimer;
 		uint32 uiTeamInInstance;
 		uint32 uiEncounter[MAX_ENCOUNTER];
         uint8  uiAscendantCouncilPhase;

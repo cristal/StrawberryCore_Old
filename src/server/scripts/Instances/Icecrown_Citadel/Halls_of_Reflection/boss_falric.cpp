@@ -76,7 +76,7 @@ public:
 
        uint8 SummonCount;
 
-       uint64 pSummon;
+       uint32 pSummon;
 
         void Reset()
         {

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="RealmServer"
+	Name="LogonServer"
 	ProjectGUID="{563E9905-3657-460C-AE63-0AC39D162E23}"
-	RootNamespace="RealmServer"
+	RootNamespace="LogonServer"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\RealmServer_$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\RealmServer_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\LogonServer_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\LogonServer_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -39,13 +39,13 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\RealmServer_$(PlatformName)_$(ConfigurationName)\realm.tlb"
+				TypeLibraryName=".\LogonServer_$(PlatformName)_$(ConfigurationName)\realm.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\shared;..\..\src\server\shared\Database;..\..\src\server\shared\Debugging;..\..\src\server\shared\Packets;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Logging;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\realmserver;..\..\src\server\realmserver\Auth;..\..\src\server\realmserver\Realms;..\..\src\server\realmserver\Server;..\..\dep\Ace;..\..\dep\MySql\extra\yassl\include;..\..\dep\MySql\include"
+				AdditionalIncludeDirectories="..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\shared;..\..\src\server\shared\Database;..\..\src\server\shared\Debugging;..\..\src\server\shared\Packets;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Logging;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\logonserver;..\..\src\server\logonserver\Authentication;..\..\src\server\logonserver\Realms;..\..\src\server\logonserver\Server;..\..\dep\acelite;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\mysqllite\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;_PRE_WIN"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -53,17 +53,17 @@
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
-				AssemblerListingLocation=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
+				AssemblerListingLocation=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="../../src/server/realmserver/PCH/realmPCH.h"
+				ForcedIncludeFiles="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -81,7 +81,7 @@
 				LinkLibraryDependencies="true"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\RealmServer.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\LogonServer.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName);..\..\dep\lib"
@@ -119,8 +119,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\RealmServer_$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\RealmServer_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\LogonServer_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\LogonServer_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -140,13 +140,13 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\RealmServer_$(PlatformName)_$(ConfigurationName)\realm.tlb"
+				TypeLibraryName=".\LogonServer_$(PlatformName)_$(ConfigurationName)\realm.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\src\server\shared;..\..\src\server\shared\Database;..\..\src\server\shared\Debugging;..\..\src\server\shared\Packets;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Logging;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\realmserver;..\..\src\server\realmserver\Auth;..\..\src\server\realmserver\Realms;..\..\src\server\realmserver\Server;..\..\dep\Ace;..\..\dep\MySql\extra\yassl\include;..\..\dep\MySql\include"
+				AdditionalIncludeDirectories="..\..\src\server\shared;..\..\src\server\shared\Database;..\..\src\server\shared\Debugging;..\..\src\server\shared\Packets;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Logging;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\logonserver;..\..\src\server\logonserver\Authentication;..\..\src\server\logonserver\Realms;..\..\src\server\logonserver\Server;..\..\dep\Ace;..\..\dep\MySql\extra\yassl\include;..\..\dep\MySql\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;STRAWBERRY_DEBUG;_CONSOLE"
 				IgnoreStandardIncludePath="false"
 				BasicRuntimeChecks="3"
@@ -154,17 +154,17 @@
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
-				AssemblerListingLocation=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\RealmServer_$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
+				AssemblerListingLocation=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\LogonServer_$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="../../src/server/realmserver/PCH/realmPCH.h"
+				ForcedIncludeFiles="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -181,14 +181,14 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="libmySQL.lib libeay32.lib ws2_32.lib winmm.lib odbc32.lib odbccp32.lib advapi32.lib dbghelp.lib"
-				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\RealmServer.exe"
+				OutputFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\LogonServer.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\dep\lib\$(PlatformName)_$(ConfigurationName);..\..\dep\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\RealmServer.pdb"
+				ProgramDatabaseFile="..\..\bin\$(PlatformName)_$(ConfigurationName)\LogonServer.pdb"
 				GenerateMapFile="true"
-				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)RealmServer.map"
+				MapFileName="..\..\bin\$(PlatformName)_$(ConfigurationName)LogonServer.map"
 				SubSystem="1"
 				LargeAddressAware="2"
 				RandomizedBaseAddress="1"
@@ -222,14 +222,14 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Auth"
+			Name="Authentication"
 			>
 			<File
-				RelativePath="..\..\src\server\realmserver\Auth\AuthCodes.cpp"
+				RelativePath="..\..\src\server\logonserver\Authentication\AuthCodes.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Auth\AuthCodes.h"
+				RelativePath="..\..\src\server\logonserver\Authentication\AuthCodes.h"
 				>
 			</File>
 		</Filter>
@@ -237,11 +237,11 @@
 			Name="Realms"
 			>
 			<File
-				RelativePath="..\..\src\server\realmserver\Realms\RealmList.cpp"
+				RelativePath="..\..\src\server\logonserver\Realms\RealmList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Realms\RealmList.h"
+				RelativePath="..\..\src\server\logonserver\Realms\RealmList.h"
 				>
 			</File>
 		</Filter>
@@ -249,32 +249,28 @@
 			Name="Server"
 			>
 			<File
-				RelativePath="..\..\src\server\realmserver\Server\AuthSocket.cpp"
+				RelativePath="..\..\src\server\logonserver\Server\AuthSocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Server\AuthSocket.h"
+				RelativePath="..\..\src\server\logonserver\Server\AuthSocket.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Server\RealmAcceptor.h"
+				RelativePath="..\..\src\server\logonserver\Server\RealmAcceptor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Server\RealmSocket.cpp"
+				RelativePath="..\..\src\server\logonserver\Server\RealmSocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\realmserver\Server\RealmSocket.h"
+				RelativePath="..\..\src\server\logonserver\Server\RealmSocket.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\src\server\realmserver\Main.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\src\server\realmserver\PCH\realmPCH.cpp"
+			RelativePath="..\..\src\server\logonserver\PrecompiledHeaders\authPCH.cpp"
 			>
 			<FileConfiguration
 				Name="Release|Win32"
@@ -282,7 +278,7 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
+					PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -291,7 +287,7 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
+					PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -300,7 +296,7 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
+					PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -309,9 +305,21 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="../../src/server/realmserver/PCH/realmPCH.h"
+					PrecompiledHeaderThrough="../../src/server/logonserver/PrecompiledHeaders/authPCH.h"
 				/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\..\src\server\logonserver\logonserver.rc"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\server\logonserver\Main.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\server\logonserver\resource.h"
+			>
 		</File>
 	</Files>
 	<Globals>

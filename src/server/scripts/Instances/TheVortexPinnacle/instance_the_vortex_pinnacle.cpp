@@ -43,9 +43,9 @@ public:
 
         uint32 uiEncounter[ENCOUNTERS];
 
-        uint32 uiGrandVizierErtan;
-        uint32 uiAltairus;
-        uint32 uiAsaad;
+        uint64 uiGrandVizierErtan;
+        uint64 uiAltairus;
+        uint64 uiAsaad;
 
         void Initialize()
         {

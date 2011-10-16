@@ -186,8 +186,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP /Zm200"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\src\server\scripts\;..\..\dep\G3DLite\include;..\..\dep\Recastnavigation\Detour\Include;..\..\dep\MersenneTwister;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\ZLib;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Conditions;..\..\src\server\game\Combat;..\..\src\server\game\DataStores;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\DynamicObject;..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Events;..\..\src\server\game\Globals;..\..\src\server\game\Grids;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\LookingForGroup;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Maps;..\..\src\server\game\Maps\MoveMaps;..\..\src\server\game\Movement;..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\PathFinding;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PrecompiledHeaders;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server;..\..\src\server\game\Server\Logs;..\..\src\server\game\Server\Sessions;..\..\src\server\game\Server\Sockets;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Server\Protocol\Handlers\Opcodes;..\..\src\server\game\Server\Protocol\Handlers\Packets;..\..\src\server\game\Skills;..\..\src\server\game\Spells;..\..\src\server\game\Spells/Auras;..\..\src\server\game\Texts;..\..\src\server\game\Tickets;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\scriptsPrecompiledHeaders;..\..\dep\acelite;..\..\dep\mysqllite\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0"
+				AdditionalIncludeDirectories="..\..\src\server\scripts\OutdoorPVP;..\..\src\server\scripts\;..\..\dep\G3DLite\include;..\..\dep\Recastnavigation\Detour\Include;..\..\dep\MersenneTwister;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\ZLib;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Conditions;..\..\src\server\game\Combat;..\..\src\server\game\DataStores;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\DynamicObject;..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Events;..\..\src\server\game\Globals;..\..\src\server\game\Grids;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\LookingForGroup;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Maps;..\..\src\server\game\Maps\MoveMaps;..\..\src\server\game\Movement;..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\PathFinding;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PrecompiledHeaders;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server;..\..\src\server\game\Server\Logs;..\..\src\server\game\Server\Sessions;..\..\src\server\game\Server\Sockets;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Server\Protocol\Handlers\Opcodes;..\..\src\server\game\Server\Protocol\Handlers\Packets;..\..\src\server\game\Skills;..\..\src\server\game\Spells;..\..\src\server\game\Spells/Auras;..\..\src\server\game\Texts;..\..\src\server\game\Tickets;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\scripts\PrecompiledHeaders;..\..\dep\acelite;..\..\dep\mysqllite\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;SCRIPTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -349,381 +349,553 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="World"
+			Name="Instances"
 			>
-			<File
-				RelativePath="..\..\src\server\scripts\World\achievement_scripts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\areatrigger_scripts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\boss_emeriss.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\boss_lethon.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\boss_taerar.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\boss_ysondre.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\chat_log.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\go_scripts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\guards.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\item_scripts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\mob_generic_creature.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\npc_innkeeper.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\npc_professions.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\npc_taxi.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\World\npcs_special.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="EasternKingdoms"
-			>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\alterac_mountains.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\arathi_highlands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\blasted_lands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\boss_kruul.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\burning_steppes.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\dun_morogh.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\duskwood.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\eastern_plaguelands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\elwynn_forest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\eversong_woods.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\ghostlands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\hinterlands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\ironforge.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\isle_of_queldanas.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\loch_modan.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\redridge_mountains.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\searing_gorge.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\silvermoon_city.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\silverpine_forest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\stormwind_city.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\stranglethorn_vale.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\swamp_of_sorrows.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\tirisfal_glades.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\undercity.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\western_plaguelands.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\westfall.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\EasternKingdoms\wetlands.cpp"
-				>
-			</File>
 			<Filter
-				Name="AlteracValley"
+				Name="Auchindoun"
+				>
+				<Filter
+					Name="Auchenai_Crypts"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_exarch_maladaar.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_shirrak_the_dead_watcher.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Mana-Tombs"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_nexusprince_shaffar.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_pandemonius.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Sethekk_Halls"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_ambassador_hellmaw.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_blackheart_the_inciter.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_grandmaster_vorpil.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_murmur.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\instance_shadow_labyrinth.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\shadow_labyrinth.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Shadow_Labyrinth"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_darkweaver_syth.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_tailonking_ikiss.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\instance_sethekk_halls.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\sethekk_halls.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Azjol-Nerub"
+				>
+				<Filter
+					Name="Ahnkahet"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\ahnkahet.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_amanitar.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_elder_nadox.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_herald_volazj.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_jedoga_shadowseeker.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_prince_taldaram.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\instance_ahnkahet.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Azjol-Nerub"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\azjol_nerub.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_anubarak.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_hadronox.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_krikthir_the_gatewatcher.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\instance_azjol_nerub.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Blackfathom_Deeps"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\AlteracValley\alterac_valley.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\AlteracValley\boss_balinda.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\AlteracValley\boss_drekthar.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_aku_mai.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\AlteracValley\boss_galvangar.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_gelihast.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\AlteracValley\boss_vanndar.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_kelris.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Blackfathom_Deeps\instance_blackfathom_deeps.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="BlackrockDepths"
+				Name="Blackrock_Depths"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\blackrock_depths.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\blackrock_depths.h"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_ambassador_flamelash.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_ambassador_flamelash.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_anubshiah.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_anubshiah.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_emperor_dagran_thaurissan.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_emperor_dagran_thaurissan.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_general_angerforge.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_general_angerforge.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_gorosh_the_dervish.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_gorosh_the_dervish.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_grizzle.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_grizzle.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_high_interrogator_gerstahn.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_high_interrogator_gerstahn.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_magmus.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_magmus.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_moira_bronzebeard.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_moira_bronzebeard.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\boss_tomb_of_seven.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_tomb_of_seven.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockDepths\instance_blackrock_depths.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Depths\instance_blackrock_depths.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="BlackrockSpire"
+				Name="Blackrock_Spire"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\blackrock_spire.h"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_drakkisath.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_drakkisath.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_gyth.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_gyth.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_halycon.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_halycon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_highlord_omokk.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_highlord_omokk.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_mother_smolderweb.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_mother_smolderweb.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_overlord_wyrmthalak.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_overlord_wyrmthalak.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_pyroguard_emberseer.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_pyroguard_emberseer.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_quartermaster_zigris.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_quartermaster_zigris.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_rend_blackhand.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_rend_blackhand.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_shadow_hunter_voshgajin.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_shadow_hunter_voshgajin.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_the_beast.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_the_beast.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\boss_warmaster_voone.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackrockSpire\instance_blackrock_spire.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_warmaster_voone.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="BlackwingLair"
+				Name="BlackrockCaverns"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_broodlord_lashlayer.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\BlackrockCaverns\blackrock_caverns.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_chromaggus.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\BlackrockCaverns\instance_blackrock_caverns.cpp"
 					>
 				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_ebonroc.cpp"
+			</Filter>
+			<Filter
+				Name="Caverns_of_Time"
+				>
+				<Filter
+					Name="Culling_of_Stratholme"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_firemaw.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_epoch.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_infinite.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_mal_ganis.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_meathook.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_salramm.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\instance_culling_of_stratholme.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Dark_Portal"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_flamegor.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_aeonus.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_chrono_lord_deja.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_temporus.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\instance_dark_portal.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Old_Hillsbrad_Foothills"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_nefarian.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_captain_skarloc.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_epoch_hunter.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_leutenant_drake.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\instance_old_hillsbrad.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Coilfang_Reservoir"
+				>
+				<Filter
+					Name="Serpent_Shrine"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_razorgore.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_fathomlord_karathress.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_hydross_the_unstable.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lady_vashj.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_leotheras_the_blind.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lurker_below.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_morogrim_tidewalker.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\instance_serpent_shrine.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\serpent_shrine.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Steamvault"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_vaelastrasz.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_hydromancer_thespia.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_mekgineer_steamrigger.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_warlord_kalithresh.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\instance_steam_vault.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\steam_vault.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Underbog"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\boss_victor_nefarius.cpp"
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_hungarfen.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_the_black_stalker.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Crusaders_Coliseum"
+				>
+				<Filter
+					Name="Trial_of_the_Champion"
 					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\BlackwingLair\instance_blackwing_lair.cpp"
-					>
-				</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_argent_challenge.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_black_knight.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_grand_champions.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\instance_trial_of_the_champion.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Deadmines"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Deadmines\boss_mr_smite.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Deadmines\boss_glubtok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Deadmines\deadmines.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Deadmines\boss_mr_smite.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Deadmines\deadmines.h"
+					RelativePath="..\..\src\server\scripts\Instances\Deadmines\deadmines.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Deadmines\instance_deadmines.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Deadmines\deadmines.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Deadmines\instance_deadmines.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Dire_Maul"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Dire_Maul\npc_pusillin.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DrakTharon_Keep"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_dred.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_novos.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_tharon_ja.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_trollgore.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\drak_tharon_keep.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\DrakTharon_Keep\instance_drak_tharon_keep.cpp"
 					>
 				</File>
 			</Filter>
@@ -731,1459 +903,327 @@
 				Name="Gnomeregan"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Gnomeregan\gnomeregan.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Gnomeregan\gnomeregan.h"
+					RelativePath="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Gnomeregan\instance_gnomeregan.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Karazhan"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_curator.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_maiden_of_virtue.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_midnight.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_moroes.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_netherspite.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_nightbane.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_prince_malchezaar.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_shade_of_aran.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\boss_terestian_illhoof.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\bosses_opera.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\instance_karazhan.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\karazhan.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Karazhan\karazhan.h"
+					RelativePath="..\..\src\server\scripts\Instances\Gnomeregan\instance_gnomeregan.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="MagistersTerrace"
+				Name="GrimBatol"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\boss_felblood_kaelthas.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\GrimBatol\boss_forgemaster_throngus.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\boss_priestess_delrissa.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\GrimBatol\boss_general_umbriss.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\boss_selin_fireheart.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\GrimBatol\grimbatol.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\boss_vexallus.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\GrimBatol\instance_grimbatol.cpp"
 					>
 				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\instance_magisters_terrace.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\magisters_terrace.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MagistersTerrace\magisters_terrace.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="MoltenCore"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_baron_geddon.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_garr.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_gehennas.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_golemagg.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_lucifron.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_magmadar.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_majordomo_executus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_ragnaros.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_shazzrah.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\boss_sulfuron_harbinger.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\instance_molten_core.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\molten_core.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\MoltenCore\molten_core.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ScarletEnclave"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletEnclave\chapter1.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletEnclave\chapter2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletEnclave\chapter5.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletEnclave\the_scarlet_enclave.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ScarletMonastery"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_arcanist_doan.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_azshir_the_sleepless.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_bloodmage_thalnos.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_headless_horseman.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_herod.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_high_inquisitor_fairbanks.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_houndmaster_loksey.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_interrogator_vishas.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_mograine_and_whitemane.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\boss_scorn.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\instance_scarlet_monastery.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ScarletMonastery\scarlet_monastery.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Scholomance"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_darkmaster_gandling.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_death_knight_darkreaver.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_doctor_theolen_krastinov.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_illucia_barov.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_instructor_malicia.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_jandice_barov.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_kormok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_lord_alexei_barov.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_lorekeeper_polkelt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_ras_frostwhisper.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_the_ravenian.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\boss_vectus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\instance_scholomance.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Scholomance\scholomance.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ShadowfangKeep"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ShadowfangKeep\instance_shadowfang_keep.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ShadowfangKeep\shadowfang_keep.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ShadowfangKeep\shadowfang_keep.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Stratholme"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_baron_rivendare.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_baroness_anastari.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_cannon_master_willey.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_dathrohan_balnazzar.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_magistrate_barthilas.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_maleki_the_pallid.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_nerubenkan.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_order_of_silver_hand.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_postmaster_malown.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_ramstein_the_gorger.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\boss_timmy_the_cruel.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\instance_stratholme.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\stratholme.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Stratholme\stratholme.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SunkenTemple"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunkenTemple\instance_sunken_temple.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunkenTemple\sunken_temple.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunkenTemple\sunken_temple.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SunwellPlateau"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_brutallus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_eredar_twins.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_felmyst.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_kalecgos.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_kiljaeden.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\boss_muru.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\instance_sunwell_plateau.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\sunwell_plateau.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\SunwellPlateau\sunwell_plateau.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Uldaman"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Uldaman\boss_archaedas.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Uldaman\boss_ironaya.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Uldaman\instance_uldaman.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Uldaman\uldaman.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\Uldaman\uldaman.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ZulAman"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_akilzon.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_halazzi.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_hexlord.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_janalai.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_nalorakk.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\boss_zuljin.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\instance_zulaman.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\zulaman.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulAman\zulaman.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ZulGurub"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_arlokk.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_gahzranka.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_grilek.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_hakkar.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_hazzarah.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_jeklik.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_jindo.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_mandokir.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_marli.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_renataki.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_thekal.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_venoxis.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\boss_wushoolay.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\instance_zulgurub.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\EasternKingdoms\ZulGurub\zulgurub.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Kalimdor"
-			>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\ashenvale.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\azshara.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\azuremyst_isle.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\bloodmyst_isle.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\boss_azuregos.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\darkshore.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\desolace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\durotar.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\dustwallow_marsh.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\felwood.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\feralas.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\moonglade.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\mulgore.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\orgrimmar.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\silithus.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\stonetalon_mountains.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\tanaris.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\teldrassil.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\the_barrens.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\thousand_needles.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\thunder_bluff.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\ungoro_crater.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Kalimdor\winterspring.cpp"
-				>
-			</File>
-			<Filter
-				Name="BlackfathomDeeps"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\blackfathom_deeps.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\blackfathom_deeps.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\boss_aku_mai.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\boss_gelihast.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\boss_kelris.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\BlackfathomDeeps\instance_blackfathom_deeps.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="CavernsOfTime"
-				>
-				<Filter
-					Name="BattleForMountHyjal"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\boss_anetheron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\boss_archimonde.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\boss_azgalor.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\boss_kazrogal.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\boss_rage_winterchill.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjal.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjal.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjal_trash.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjal_trash.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjalAI.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\hyjalAI.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\BattleForMountHyjal\instance_hyjal.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="CullingOfStratholme"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_epoch.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_infinite.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_mal_ganis.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_meathook.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_salramm.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\culling_of_stratholme.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\culling_of_stratholme.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\instance_culling_of_stratholme.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="DarkPortal"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\boss_aeonus.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\boss_chrono_lord_deja.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\boss_temporus.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\dark_portal.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\dark_portal.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\DarkPortal\instance_dark_portal.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="EscapeFromDurnholdeKeep"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\boss_captain_skarloc.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\boss_epoch_hunter.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\boss_leutenant_drake.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\instance_old_hillsbrad.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\old_hillsbrad.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Kalimdor\CavernsOfTime\EscapeFromDurnholdeKeep\old_hillsbrad.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Maraudon"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\Maraudon\boss_celebras_the_cursed.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\Maraudon\boss_landslide.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\Maraudon\boss_noxxion.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\Maraudon\boss_princess_theradras.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="OnyxiasLair"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\OnyxiasLair\boss_onyxia.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\OnyxiasLair\instance_onyxias_lair.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\OnyxiasLair\onyxias_lair.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="RazorfenDowns"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenDowns\boss_amnennar_the_coldbringer.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenDowns\instance_razorfen_downs.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenDowns\razorfen_downs.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenDowns\razorfen_downs.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="RazorfenKraul"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenKraul\instance_razorfen_kraul.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenKraul\razorfen_kraul.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RazorfenKraul\razorfen_kraul.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="RuinsOfAhnQiraj"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_ayamiss.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_buru.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_kurinnaxx.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_moam.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_ossirian.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\boss_rajaxx.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\instance_ruins_of_ahnqiraj.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\RuinsOfAhnQiraj\ruins_of_ahnqiraj.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="TempleOfAhnQiraj"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_bug_trio.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_cthun.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_fankriss.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_huhuran.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_ouro.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_sartura.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_skeram.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_twinemperors.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\boss_viscidus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\instance_temple_of_ahnqiraj.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\mob_anubisath_sentinel.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\TempleOfAhnQiraj\temple_of_ahnqiraj.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="WailingCaverns"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\WailingCaverns\instance_wailing_caverns.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\WailingCaverns\wailing_caverns.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\WailingCaverns\wailing_caverns.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ZulFarrak"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\ZulFarrak\instance_zulfarrak.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\ZulFarrak\zulfarrak.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Kalimdor\ZulFarrak\zulfarrak.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Northrend"
-			>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\borean_tundra.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\crystalsong_forest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\dalaran.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\dragonblight.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\grizzly_hills.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\howling_fjord.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\icecrown.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\isle_of_conquest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\sholazar_basin.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\storm_peaks.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Northrend\zuldrak.cpp"
-				>
-			</File>
-			<Filter
-				Name="AzjolNerub"
-				>
-				<Filter
-					Name="ahnkahet"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\ahnkahet.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\boss_amanitar.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\boss_elder_nadox.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\boss_herald_volazj.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\boss_jedoga_shadowseeker.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\boss_prince_taldaram.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\ahnkahet\instance_ahnkahet.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="AzjolNerub"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\AzjolNerub\azjol_nerub.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\AzjolNerub\boss_anubarak.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\AzjolNerub\boss_hadronox.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\AzjolNerub\boss_krikthir_the_gatewatcher.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\AzjolNerub\AzjolNerub\instance_azjol_nerub.cpp"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="CrusadersColiseum"
-				>
-				<Filter
-					Name="TrialOfTheChampion"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\boss_argent_challenge.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\boss_black_knight.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\boss_grand_champions.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\instance_trial_of_the_champion.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\trial_of_the_champion.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\trial_of_the_champion.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="TrialOfTheCrusader"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\boss_anubarak_trial.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\boss_faction_champions.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\boss_lord_jaraxxus.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\boss_northrend_beasts.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\boss_twin_valkyr.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\instance_trial_of_the_crusader.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\trial_of_the_crusader.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheCrusader\trial_of_the_crusader.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="DraktharonKeep"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\boss_dred.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\boss_novos.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\boss_tharon_ja.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\boss_trollgore.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\drak_tharon_keep.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\DraktharonKeep\instance_drak_tharon_keep.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="FrozenHalls"
-				>
-				<Filter
-					Name="ForgeOfSouls"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\ForgeOfSouls\boss_bronjahm.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\ForgeOfSouls\boss_devourer_of_souls.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\ForgeOfSouls\forge_of_souls.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\ForgeOfSouls\forge_of_souls.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\ForgeOfSouls\instance_forge_of_souls.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="HallsOfReflection"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\HallsOfReflection\boss_falric.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\HallsOfReflection\boss_marwyn.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\HallsOfReflection\halls_of_reflection.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\HallsOfReflection\halls_of_reflection.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\HallsOfReflection\instance_halls_of_reflection.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="PitOfSaron"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\boss_forgemaster_garfrost.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\boss_krickandick.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\boss_scourgelord_tyrannus.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\instance_pit_of_saron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\pit_of_saron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\FrozenHalls\PitOfSaron\pit_of_saron.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Gundrak"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\boss_drakkari_colossus.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\boss_drakkari_colossus.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\boss_eck.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\boss_eck.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\boss_gal_darah.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\boss_gal_darah.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\boss_moorabi.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\boss_moorabi.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\boss_slad_ran.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\boss_slad_ran.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\gundrak.h"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\gundrak.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Gundrak\instance_gundrak.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="IcecrownCitadel"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_blood_prince_council.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_blood_queen_lana_thel.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_deathbringer_saurfang.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_festergut.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_lady_deathwhisper.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_lord_marrowgar.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_professor_putricide.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_rotface.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\boss_sindragosa.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\icecrown_citadel.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\icecrown_citadel.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\icecrown_citadel_teleport.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\IcecrownCitadel\instance_icecrown_citadel.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Gundrak\instance_gundrak.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="Naxxramas"
+				Name="HallsOfOrigination"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_anubrekhan.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_anraphet.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_faerlina.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_earthrager_ptah.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_four_horsemen.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_temple_guardian_anhuur.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_gluth.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\HallsOfOrigination\halls_of_origination.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_gothik.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\HallsOfOrigination\instance_halls_of_origination.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Hellfire_Citadel"
+				>
+				<Filter
+					Name="Blood_Furnace"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\blood_furnace.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_broggok.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_kelidan_the_breaker.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_the_maker.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\instance_blood_furnace.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Hellfire_Ramparts"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_omor_the_unscarred.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_vazruden_the_herald.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_watchkeeper_gargolmar.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\hellfire_ramparts.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\instance_hellfire_ramparts.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Shattered_Halls"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_nethekurse.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warbringer_omrogg.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warchief_kargath_bladefist.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\instance_shattered_halls.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\shattered_halls.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Icecrown_Citadel"
+				>
+				<Filter
+					Name="Forge_of_Souls"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_bronjahm.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_devourer_of_souls.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\instance_forge_of_souls.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Halls_of_Reflection"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_falric.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_marwyn.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_the_lich_king_hor.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\instance_halls_of_reflection.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Pit_of_Saron"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_forgemaster_garfrost.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_krickandick.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_scourgelord_tyrannus.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\instance_pit_of_saron.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="LostCityOfTheTolvir"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_high_prophet_barim.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_grobbulus.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_lockmaw.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_heigan.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\instance_lost_city_of_the_tolvir.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_kelthuzad.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_loatheb.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Magisters_Terrace"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_felblood_kaelthas.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_maexxna.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_priestess_delrissa.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_noth.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_selin_fireheart.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_patchwerk.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_vexallus.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_razuvious.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\instance_magisters_terrace.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_sapphiron.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\boss_thaddius.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Maraudon"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Maraudon\boss_celebras_the_cursed.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\instance_naxxramas.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Maraudon\boss_landslide.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\Naxxramas\naxxramas.h"
+					RelativePath="..\..\src\server\scripts\Instances\Maraudon\boss_noxxion.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Maraudon\boss_princess_theradras.cpp"
 					>
 				</File>
 			</Filter>
@@ -2191,54 +1231,38 @@
 				Name="Nexus"
 				>
 				<Filter
-					Name="EyeOfEternity"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\EyeOfEternity\boss_malygos.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\EyeOfEternity\eye_of_eternity.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\EyeOfEternity\instance_eye_of_eternity.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
 					Name="Nexus"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\boss_anomalus.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_anomalus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\boss_keristrasza.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_keristrasza.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\boss_magus_telestra.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_magus_telestra.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\boss_ormorok.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_ormorok.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\commander_kolurg.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_kolurg.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\commander_stoutbeard.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_stoutbeard.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\instance_nexus.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\instance_nexus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Nexus\nexus.h"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Nexus\nexus.h"
 						>
 					</File>
 				</Filter>
@@ -2246,312 +1270,776 @@
 					Name="Oculus"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\boss_drakos.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_drakos.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\boss_eregos.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_eregos.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\boss_urom.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_urom.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\boss_varos.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_varos.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\instance_oculus.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\instance_oculus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\oculus.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Nexus\Oculus\oculus.h"
+						RelativePath="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.h"
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Razorfen_Downs"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Downs\boss_amnennar_the_coldbringer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Downs\instance_razorfen_downs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Razorfen_Kraul"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Kraul\instance_razorfen_kraul.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Scarlet_Monastery"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_arcanist_doan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_azshir_the_sleepless.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_bloodmage_thalnos.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_headless_horseman.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_herod.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_high_inquisitor_fairbanks.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_houndmaster_loksey.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_interrogator_vishas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_mograine_and_whitemane.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_scorn.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\instance_scarlet_monastery.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scarlet_Monastery\scarlet_monastery.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Scholomance"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_darkmaster_gandling.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_death_knight_darkreaver.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_doctor_theolen_krastinov.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_illucia_barov.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_instructor_malicia.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_jandice_barov.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_kormok.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_lord_alexei_barov.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_lorekeeper_polkelt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_ras_frostwhisper.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_the_ravenian.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\boss_vectus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\instance_scholomance.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Scholomance\scholomance.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ShadowFang_Keep"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ShadowFang_Keep\instance_shadowfang_keep.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Stratholme"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_baron_rivendare.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_baroness_anastari.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_cannon_master_willey.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_dathrohan_balnazzar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_magistrate_barthilas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_maleki_the_pallid.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_nerubenkan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_order_of_silver_hand.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_postmaster_malown.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_ramstein_the_gorger.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\boss_timmy_the_cruel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\instance_stratholme.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\stratholme.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Stratholme\stratholme.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sunken_Temple"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Sunken_Temple\instance_sunken_temple.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Tempest_Keep"
+				>
+				<Filter
+					Name="Arcatraz"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\boss_harbinger_skyriss.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\instance_arcatraz.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Botanica"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_high_botanist_freywinn.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_laj.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_warp_splinter.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Mechanar"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_gyrokill.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_ironhand.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_nethermancer_sepethrea.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_pathaleon_the_calculator.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\instance_mechanar.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\mechanar.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="TheStoneCore"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\TheStoneCore\instance_the_stonecore.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="TheVortexPinnacle"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\TheVortexPinnacle\instance_the_vortex_pinnacle.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\TheVortexPinnacle\the_vortex_pinnacle.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ThroneOfTheTides"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_commander_ulthok.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_erunak_stonespeaker.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_lady_nazjar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\instance_throne_of_the_tides.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\npc_neptulon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ThroneOfTheTides\throne_of_the_tides.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Uldaman"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Uldaman\boss_archaedas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Uldaman\boss_ironaya.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Uldaman\instance_uldaman.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Uldaman\uldaman.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Uldaman\uldaman.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Ulduar"
 				>
 				<Filter
-					Name="HallsOfLightning"
+					Name="Halls_of_Lightning"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\boss_bjarngrim.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_bjarngrim.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\boss_ionar.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_ionar.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\boss_loken.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_loken.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\boss_volkhan.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_volkhan.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\halls_of_lightning.h"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\halls_of_lightning.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfLightning\instance_halls_of_lightning.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\instance_halls_of_lightning.cpp"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="HallsOfStone"
+					Name="Halls_of_Stone"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\boss_krystallus.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_krystallus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\boss_maiden_of_grief.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_maiden_of_grief.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\boss_sjonnir.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_sjonnir.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\halls_of_stone.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\halls_of_stone.h"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\HallsOfStone\instance_halls_of_stone.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ulduar"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_algalon.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_assembly_of_iron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_auriaya.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_flame_leviathan.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_freya.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_general_vezax.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_hodir.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_ignis.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_kologarn.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_mimiron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_razorscale.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_thorim.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_xt002.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\boss_yoggsaron.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\instance_ulduar.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\ulduar.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Northrend\Ulduar\ulduar\ulduar_teleporter.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\instance_halls_of_stone.cpp"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="UtgardeKeep"
+				Name="Utgarde_Keep"
 				>
 				<Filter
-					Name="UtgardeKeep"
+					Name="Utgarde_Keep"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\boss_ingvar_the_plunderer.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_ingvar_the_plunderer.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\boss_keleseth.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_keleseth.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\boss_skarvald_dalronn.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_skarvald_dalronn.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\instance_utgarde_keep.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\instance_utgarde_keep.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\utgarde_keep.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardeKeep\utgarde_keep.h"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.h"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="UtgardePinnacle"
+					Name="Utgarde_Pinnacle"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\boss_palehoof.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_palehoof.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\boss_skadi.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_skadi.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\boss_svala.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_svala.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\boss_ymiron.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_ymiron.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\instance_pinnacle.cpp"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\instance_pinnacle.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Northrend\UtgardeKeep\UtgardePinnacle\utgarde_pinnacle.h"
+						RelativePath="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\utgarde_pinnacle.h"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="VaultOfArchavon"
+				Name="Violet_Hold"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\boss_archavon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_cyanigosa.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\boss_emalon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_erekem.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\boss_koralon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_ichoron.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\boss_toravon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_lavanthor.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\instance_vault_of_archavon.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_moragg.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VaultOfArchavon\vault_of_archavon.h"
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_xevozz.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\boss_zuramat.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\instance_violet_hold.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="VioletHold"
+				Name="Wailing_Caverns"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_cyanigosa.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Wailing_Caverns\instance_wailing_caverns.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_erekem.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_ichoron.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_lavanthor.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_moragg.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_xevozz.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\boss_zuramat.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\instance_violet_hold.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\violet_hold.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Northrend\VioletHold\violet_hold.h"
+					RelativePath="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="ObsidianSanctum"
+				Name="ZulAman"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\ObsidianSanctum\boss_sartharion.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_akilzon.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\ObsidianSanctum\instance_obsidian_sanctum.cpp"
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_halazzi.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Northrend\ObsidianSanctum\obsidian_sanctum.h"
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_hexlord.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_janalai.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_nalorakk.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\boss_zuljin.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\instance_zulaman.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\zulaman.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulAman\zulaman.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ZulFarrak"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulFarrak\instance_zulfarrak.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ZulGurub"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_arlokk.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_gahzranka.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_grilek.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_hakkar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_hazzarah.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_jeklik.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_jindo.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_mandokir.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_marli.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_renataki.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_thekal.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_venoxis.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\boss_wushoolay.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\instance_zulgurub.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Instances\ZulGurub\zulgurub.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Optional"
+			>
+			<File
+				RelativePath="..\..\src\server\scripts\Optional\npc_arena_theme.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Other"
+			>
+			<Filter
+				Name="AlteracValley"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\AlteracValley\alterac_valley.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\AlteracValley\boss_balinda.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\AlteracValley\boss_drekthar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\AlteracValley\boss_galvangar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\AlteracValley\boss_vanndar.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ScarletEnclave"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\ScarletEnclave\chapter1.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\ScarletEnclave\chapter2.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\ScarletEnclave\chapter5.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Other\ScarletEnclave\the_scarlet_enclave.cpp"
 					>
 				</File>
 			</Filter>
@@ -2600,6 +2088,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPZM.cpp"
 				>
 			</File>
@@ -2609,460 +2105,976 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Outland"
+			Name="Raids"
 			>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\blades_edge_mountains.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\boss_doomlord_kazzak.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\boss_doomwalker.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\hellfire_peninsula.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\nagrand.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\netherstorm.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\shadowmoon_valley.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\shattrath_city.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\terokkar_forest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\scripts\Outland\zangarmarsh.cpp"
-				>
-			</File>
 			<Filter
-				Name="Auchindoun"
+				Name="BaradinHold"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BaradinHold\baradin_hold.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BaradinHold\boss_argaloth.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BaradinHold\instance_baradin_hold.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BastionOfTwilight"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\bastion_of_twilight.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_chogall.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_council_of_ascendents.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_halfus_wyrmbreaker.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_sinestra.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_theralion_and_valiona.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\BastionOfTwilight\instance_bastion_of_twilight.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Black_Temple"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\black_temple.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\black_temple.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_bloodboil.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_illidan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_mother_shahraz.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_reliquary_of_souls.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_shade_of_akama.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_supremus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_teron_gorefiend.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\boss_warlord_najentus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\illidari_council.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Black_Temple\instance_black_temple.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Blackwing_Descent"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\blackwing_descent.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_atramedes.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_chimaeron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_magmaw.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_maloriak.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_nefarians.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_omnotron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Descent\instance_blackwing_descent.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Blackwing_Lair"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\blackwing_lair.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_broodlord_lashlayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_chromaggus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_ebonroc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_firemaw.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_flamegor.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_nefarian.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_razorgore.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_vaelastrasz.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_victor_nefarius.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Blackwing_Lair\instance_blackwing_lair.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Caverns_of_Time"
 				>
 				<Filter
-					Name="AuchenaiCrypts"
+					Name="Hyjal_Summit"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\AuchenaiCrypts\boss_exarch_maladaar.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_anetheron.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\AuchenaiCrypts\boss_shirrak_the_dead_watcher.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ManaTombs"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ManaTombs\boss_nexusprince_shaffar.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_archimonde.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ManaTombs\boss_pandemonius.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="SethekkHalls"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\SethekkHalls\boss_darkweaver_syth.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_azgalor.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\SethekkHalls\boss_tailonking_ikiss.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_kazrogal.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\SethekkHalls\instance_sethekk_halls.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_rage_winterchill.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\SethekkHalls\sethekk_halls.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ShadowLabyrinth"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\boss_ambassador_hellmaw.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\boss_blackheart_the_inciter.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\boss_grandmaster_vorpil.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\boss_murmur.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\instance_shadow_labyrinth.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\Auchindoun\ShadowLabyrinth\shadow_labyrinth.h"
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\instance_hyjal.cpp"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="BlackTemple"
-				>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\black_temple.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\black_temple.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_bloodboil.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_illidan.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_mother_shahraz.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_reliquary_of_souls.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_shade_of_akama.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_supremus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_teron_gorefiend.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\boss_warlord_najentus.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\illidari_council.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\server\scripts\Outland\BlackTemple\instance_black_temple.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="CoilfangReservoir"
+				Name="Crusaders_Coliseum"
 				>
 				<Filter
-					Name="SerpentShrine"
+					Name="Trial_of_the_Crusader"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_fathomlord_karathress.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_anubarak_trial.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_hydross_the_unstable.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_faction_champions.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_lady_vashj.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_lord_jaraxxus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_leotheras_the_blind.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_northrend_beasts.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_lurker_below.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_twin_valkyr.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\boss_morogrim_tidewalker.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\instance_trial_of_the_crusader.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\instance_serpent_shrine.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SerpentShrine\serpent_shrine.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="SteamVault"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SteamVault\boss_hydromancer_thespia.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SteamVault\boss_mekgineer_steamrigger.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SteamVault\boss_warlord_kalithresh.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SteamVault\instance_steam_vault.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\SteamVault\steam_vault.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="underbog"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\underbog\boss_hungarfen.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\CoilfangReservoir\underbog\boss_the_black_stalker.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.h"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="GruulsLair"
+				Name="Firelands"
 				>
 				<File
-					RelativePath="..\..\src\server\scripts\Outland\GruulsLair\boss_gruul.cpp"
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_alysrazar.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Outland\GruulsLair\boss_high_king_maulgar.cpp"
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_baloroc_the_doorkeeper.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Outland\GruulsLair\gruuls_lair.h"
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_bethtilac.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Outland\GruulsLair\instance_gruuls_lair.cpp"
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_majordomus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_ragnaros.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_rhyolith.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_shannox.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\firelands.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Firelands\instance_firelands.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="HellfireCitadel"
+				Name="Gruuls_Lair"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_gruul.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_high_king_maulgar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Gruuls_Lair\gruuls_lair.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Gruuls_Lair\instance_gruuls_lair.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Hellfire_Citadel"
 				>
 				<Filter
-					Name="BloodFurnace"
+					Name="Magtheridons_Lair"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\BloodFurnace\blood_furnace.h"
+						RelativePath="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\boss_magtheridon.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\BloodFurnace\boss_broggok.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\instance_magtheridons_lair.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\BloodFurnace\boss_kelidan_the_breaker.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\BloodFurnace\boss_the_maker.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\BloodFurnace\instance_blood_furnace.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="HellfireRamparts"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\HellfireRamparts\boss_omor_the_unscarred.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\HellfireRamparts\boss_vazruden_the_herald.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\HellfireRamparts\boss_watchkeeper_gargolmar.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\HellfireRamparts\hellfire_ramparts.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\HellfireRamparts\instance_hellfire_ramparts.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="MagtheridonsLair"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\MagtheridonsLair\boss_magtheridon.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\MagtheridonsLair\instance_magtheridons_lair.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\MagtheridonsLair\magtheridons_lair.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ShatteredHalls"
-					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\ShatteredHalls\boss_nethekurse.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\ShatteredHalls\boss_warbringer_omrogg.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\ShatteredHalls\boss_warchief_kargath_bladefist.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\ShatteredHalls\instance_shattered_halls.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\HellfireCitadel\ShatteredHalls\shattered_halls.h"
+						RelativePath="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\magtheridons_lair.h"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="TempestKeep"
+				Name="Icecrown_Citadel"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_prince_council.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_queen_lana_thel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_deathbringer_saurfang.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_festergut.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lady_deathwhisper.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lord_marrowgar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_professor_putricide.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_rotface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_sindragosa.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_valithria_dreamwalker.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel_teleport.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Icecrown_Citadel\instance_icecrown_citadel.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Karazhan"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_curator.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_maiden_of_virtue.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_midnight.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_moroes.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_netherspite.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_nightbane.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_prince_malchezaar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_shade_of_aran.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\boss_terestian_illhoof.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\bosses_opera.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\instance_karazhan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\karazhan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Karazhan\karazhan.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Molten_Core"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_baron_geddon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_garr.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_gehennas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_golemagg.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_lucifron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_magmadar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_majordomo_executus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_ragnaros.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_shazzrah.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\boss_sulfuron_harbinger.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\instance_molten_core.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\molten_core.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Molten_Core\molten_core.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Naxxramas"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_anubrekhan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_faerlina.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_four_horsemen.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_gluth.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_gothik.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_grobbulus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_heigan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_kelthuzad.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_loatheb.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_maexxna.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_noth.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_patchwerk.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_razuvious.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_sapphiron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\boss_thaddius.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\instance_naxxramas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Naxxramas\naxxramas.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Nexus"
 				>
 				<Filter
-					Name="arcatraz"
+					Name="Eye_of_Eternity"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\arcatraz\arcatraz.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\boss_malygos.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\arcatraz\arcatraz.h"
+						RelativePath="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\eye_of_eternity.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\arcatraz\boss_harbinger_skyriss.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\arcatraz\instance_arcatraz.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\instance_eye_of_eternity.cpp"
 						>
 					</File>
 				</Filter>
-				<Filter
-					Name="botanica"
+			</Filter>
+			<Filter
+				Name="Onyxia_Lair"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Onyxia_Lair\boss_onyxia.cpp"
 					>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\botanica\boss_high_botanist_freywinn.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\botanica\boss_laj.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\botanica\boss_warp_splinter.cpp"
-						>
-					</File>
-				</Filter>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Onyxia_Lair\instance_onyxias_lair.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Onyxia_Lair\onyxias_lair.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Ruins_of_AhnQiraj"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ayamiss.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_buru.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_kurinnaxx.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_moam.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ossirian.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_rajaxx.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\instance_ruins_of_ahnqiraj.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\ruins_of_ahnqiraj.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sunwell_Plateau"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_brutallus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_eredar_twins.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_felmyst.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kalecgos.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kiljaeden.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_muru.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\instance_sunwell_plateau.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Tempest_Keep"
+				>
 				<Filter
 					Name="Eye"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\boss_alar.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_alar.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\boss_astromancer.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_astromancer.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\boss_kaelthas.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_kaelthas.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\boss_void_reaver.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_void_reaver.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\instance_the_eye.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\instance_the_eye.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\the_eye.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Eye\the_eye.h"
+						RelativePath="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Temple_of_AhnQiraj"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_bug_trio.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_cthun.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_fankriss.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_huhuran.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_ouro.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_sartura.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_skeram.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_twinemperors.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_viscidus.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\instance_temple_of_ahnqiraj.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\mob_anubisath_sentinel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\temple_of_ahnqiraj.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ThroneOfTheFourWinds"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_alakir.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_conclave_of_wind.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\instance_throne_of_the_four_winds.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\throne_of_the_four_winds.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Ulduar"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_algalon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_assembly_of_iron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_auriaya.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_flame_leviathan.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_freya.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_general_vezax.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_hodir.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_ignis.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_kologarn.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_mimiron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_razorscale.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_thorim.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_xt002.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\boss_yoggsaron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\instance_ulduar.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\ulduar.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Ulduar\ulduar_teleporter.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Vault_of_Archavon"
+				>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_archavon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_emalon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_koralon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_toravon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\instance_vault_of_archavon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\server\scripts\Raids\Vault_of_Archavon\vault_of_archavon.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Wyrmrest_Temple"
+				>
+				<Filter
+					Name="Obsidian_Sanctum"
+					>
+					<File
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\boss_sartharion.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\instance_obsidian_sanctum.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\obsidian_sanctum.h"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="Mechanar"
+					Name="Ruby_Sanctum"
 					>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\boss_gatewatcher_gyrokill.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_baltharus.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\boss_gatewatcher_ironhand.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_halion.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\boss_nethermancer_sepethrea.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_ragefire.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\boss_pathaleon_the_calculator.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_zarithrian.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\instance_mechanar.cpp"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\instance_ruby_sanctum.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\server\scripts\Outland\TempestKeep\Mechanar\mechanar.h"
+						RelativePath="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\ruby_sanctum.h"
 						>
 					</File>
 				</Filter>
@@ -3121,6 +3133,406 @@
 			</File>
 			<File
 				RelativePath="..\..\src\server\scripts\Spells\spell_warrior.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="World"
+			>
+			<File
+				RelativePath="..\..\src\server\scripts\World\achievement_scripts.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\areatrigger_scripts.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\chat_log.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\go_scripts.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\guards.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\item_scripts.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\mob_generic_creature.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\npc_innkeeper.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\npc_professions.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\npc_spell_click_spells.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\npc_taxi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World\npcs_special.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="World_Bosses"
+			>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_azuregos.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_doomlord_kazzak.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_doomwalker.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_emeriss.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_kruul.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_lethon.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_taerar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\World_Bosses\boss_ysondre.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Zones"
+			>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\alterac_mountains.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\arathi_highlands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\ashenvale.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\azshara.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\azuremyst_isle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\blades_edge_mountains.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\blasted_lands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\bloodmyst_isle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\borean_tundra.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\burning_steppes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\crystalsong_forest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\dalaran.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\darkshore.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\desolace.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\dragonblight.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\dun_morogh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\durotar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\duskwood.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\dustwallow_marsh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\eastern_plaguelands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\elwynn_forest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\eversong_woods.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\felwood.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\feralas.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\ghostlands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\gilneas.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\grizzly_hills.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\hellfire_peninsula.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\hinterlands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\howling_fjord.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\icecrown.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\ironforge.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\isle_of_conquest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\isle_of_queldanas.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\loch_modan.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\moonglade.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\mount_hyjal.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\mulgore.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\nagrand.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\netherstorm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\orgrimmar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\redridge_mountains.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\searing_gorge.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\shadowmoon_valley.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\shattrath_city.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\sholazar_basin.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\silithus.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\silvermoon_city.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\silverpine_forest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\stonetalon_mountains.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\storm_peaks.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\stormwind_city.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\stranglethorn_vale.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\swamp_of_sorrows.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\tanaris.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\teldrassil.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\terokkar_forest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\the_barrens.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\thousand_needles.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\thunder_bluff.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\tirisfal_glades.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\undercity.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\ungoro_crater.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\western_plaguelands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\westfall.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\wetlands.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\wintergrasp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\winterspring.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\zangarmarsh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Zones\zuldrak.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Examples"
+			>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_commandscript.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_creature.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_escort.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_gossip_codebox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_misc.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\server\scripts\Examples\example_spell.cpp"
 				>
 			</File>
 		</Filter>

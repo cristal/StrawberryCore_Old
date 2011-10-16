@@ -282,7 +282,7 @@ class boss_valiona : public CreatureScript
                         if (uiTwilightMeteoriteTimer <= uiDiff)
                         {
                             uiTwilightMeteoriteTimer = 40000;
-                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM,500.0f);
+                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 500);
                             DoCast(Target,SPELL_TWILIGHT_METEORITE);
                         } else uiTwilightMeteoriteTimer -= uiDiff;
                 }

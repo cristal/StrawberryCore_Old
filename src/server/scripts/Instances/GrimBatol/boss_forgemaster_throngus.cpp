@@ -91,14 +91,13 @@ class boss_forgemaster_throngus : public CreatureScript
 
                 events.Update(diff);
 
-                while (uint32 eventId = events.ExecuteEvent())
+                /*while (uint32 eventId = events.ExecuteEvent())
                 {
                     switch (eventId)
                     {
-                        default:
-                            break;
+                        // ToDo: Add event ids
                     }
-                }
+                }*/
 
                 DoMeleeAttackIfReady();
             }
