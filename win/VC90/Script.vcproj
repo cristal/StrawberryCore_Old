@@ -2407,10 +2407,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_ragnaros.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\server\scripts\Raids\Firelands\boss_rhyolith.cpp"
 					>
 				</File>
