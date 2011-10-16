@@ -68,6 +68,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/dep/zlib
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/Collision
+  ${CMAKE_CURRENT_SOURCE_DIR}/Collision/Management
   ${CMAKE_CURRENT_SOURCE_DIR}/Collision/Maps
   ${CMAKE_CURRENT_SOURCE_DIR}/Collision/Models
   ${CMAKE_CURRENT_SOURCE_DIR}/Configuration
@@ -80,6 +81,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/Packets
   ${CMAKE_CURRENT_SOURCE_DIR}/Threading
   ${CMAKE_CURRENT_SOURCE_DIR}/Utilities
+  ${CMAKE_SOURCE_DIR}/src/server/game/Conditions
   ${CMAKE_SOURCE_DIR}/src/server/game/Entities/Object
   ${ACE_INCLUDE_DIR}
   ${MYSQL_INCLUDE_DIR}
