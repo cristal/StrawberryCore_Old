@@ -1223,11 +1223,11 @@ struct ItemRandomSuffixEntry
 
 struct ItemReforgeEntry
 {
-    uint32    ID;                                           // 0
-    uint32    oldstat;                                      // 1
-    float     oldstat_coef;                                 // 2
-    uint32    newstat;                                      // 2
-    float     newstat_coef;                                 // 3
+    uint32    ID;                                           // 0        m_ID
+    uint32    SourceStat;                                   // 1        m_SourceStat
+    float     Scaling1;                                     // 2        m_Scaling1 - always 0.4.
+    uint32    DestinationStat;                              // 3        m_DestinationStat
+    float     Scaling2;                                     // 4        m_Scaling2 - always 1.                                // 3
 };
 
 #define MAX_ITEM_SET_ITEMS 10

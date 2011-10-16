@@ -138,6 +138,7 @@ extern DATAStorage <ItemDamageEntry>                  sItemDamageWandStore;
 extern DATAStorage <ItemLimitCategoryEntry>           sItemLimitCategoryStore;
 extern DATAStorage <ItemRandomPropertiesEntry>        sItemRandomPropertiesStore;
 extern DATAStorage <ItemRandomSuffixEntry>            sItemRandomSuffixStore;
+extern DATAStorage <ItemReforgeEntry>                 sItemReforgeStore;
 extern DATAStorage <ItemSetEntry>                     sItemSetStore;
 extern DATAStorage <LFGDungeonEntry>                  sLFGDungeonStore;
 extern DATAStorage <LockEntry>                        sLockStore;
