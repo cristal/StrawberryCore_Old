@@ -6,21 +6,20 @@
   @maintainer Morgan McGuire, http://graphics.cs.williams.edu
  
   @created 2004-01-10
-  @edited  2011-02-10
+  @edited  2009-02-10
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2009, Morgan McGuire.
   All rights reserved.
  */
 
-#ifndef G3D_AABox_h
-#define G3D_AABox_h
+#ifndef G3D_AABOX_H
+#define G3D_AABOX_H
 
 #include "G3D/platform.h"
+#include "G3D/Vector3.h"
 #include "G3D/debug.h"
 #include "G3D/Array.h"
 #include "G3D/Plane.h"
-#include "G3D/Sphere.h"
-#include "G3D/Vector3.h"
 
 namespace G3D {
 
@@ -34,40 +33,32 @@ private:
     /** Optional argument placeholder */
     static int dummy;
 
-    Point3  lo;
-    Point3  hi;
+    Vector3  lo;
+    Vector3  hi;
 
 public:
 
-    /** Creates a zero-area box at the origin */
-    AABox() {}
+    /** Does not initialize the fields */
+    inline AABox() {}
 
     /**
      Constructs a zero-area AABox at v.
      */
-    explicit AABox(const Point3& v) {
+    inline explicit AABox(const Vector3& v) {
         lo = hi = v;
     }
-
-    /** Format is one of:
-       - AABox(lowpoint, highpoint)
-       - AABox(point)
-    */
-    explicit AABox(const class Any& a);
-
-    Any toAny() const;
 
     /** Assumes that low is less than or equal to high along each dimension.
         To have this automatically enforced, use
         <code>AABox(low.min(high), low.max(high));</code>
     */
-    AABox(const Point3& low, const Point3& high) {
+    inline AABox(const Vector3& low, const Vector3& high) {
         set(low, high);
     }
 
     /** Assumes that low is less than or equal to high along each dimension.
     */
-    inline void set(const Point3& low, const Point3& high) {
+    inline void set(const Vector3& low, const Vector3& high) {
         debugAssert(
             (low.x <= high.x) &&
             (low.y <= high.y) &&
@@ -84,7 +75,7 @@ public:
         hi = hi.max(a.hi);
     }
 
-    inline void merge(const Point3& a) {
+    inline void merge(const Vector3& a) {
         lo = lo.min(a);
         hi = hi.max(a);
     }
@@ -97,11 +88,11 @@ public:
         return lo.isFinite() && hi.isFinite();
     }
 
-    inline const Point3& low() const {
+    inline const Vector3& low() const {
         return lo;
     }
 
-    inline const Point3& high() const {
+    inline const Vector3& high() const {
         return hi;
     }
 
@@ -121,11 +112,11 @@ public:
     /**
       Returns the centroid of the box.
      */
-    inline Point3 center() const {
+    inline Vector3 center() const {
         return (lo + hi) * 0.5;
     }
 
-    Point3 corner(int index) const;
+    Vector3 corner(int index) const;
 
     /**
      Distance from corner(0) to the next corner along axis a.
@@ -201,7 +192,7 @@ public:
     }
 
     inline bool contains(
-        const Point3&      point) const {
+        const Vector3&      point) const {
         return
             (point.x >= lo.x) &&
             (point.y >= lo.y) &&
@@ -221,21 +212,21 @@ public:
         return diag.x * diag.y * diag.z;
     }
 
-    Point3 randomInteriorPoint() const;
+    Vector3 randomInteriorPoint() const;
 
-    Point3 randomSurfacePoint() const;
+    Vector3 randomSurfacePoint() const;
 
     /** Returns true if there is any overlap */
     bool intersects(const AABox& other) const;
 
     /** Returns true if there is any overlap.
         @cite Jim Arvo's algorithm from Graphics Gems II*/
-    bool intersects(const Sphere& other) const;
+    bool intersects(const class Sphere& other) const;
 
     /** Return the intersection of the two boxes */
     AABox intersect(const AABox& other) const {
-        Point3 H = hi.min(other.hi);
-        Point3 L = lo.max(other.lo).min(H);
+        Vector3 H = hi.min(other.hi);
+        Vector3 L = lo.max(other.lo).min(H);
         return AABox(L, H);
     }
 
@@ -268,8 +259,6 @@ public:
     void getBounds(AABox& out) const {
         out = *this;
     }
-
-    void getBounds(Sphere& out) const;
 };
 
 }

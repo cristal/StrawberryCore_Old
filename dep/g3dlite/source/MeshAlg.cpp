@@ -253,7 +253,7 @@ void MeshAlg::identifyBackfaces(
 
     backface.resize(faceArray.size());
 
-    if (fuzzyEq(HP.w, 0.0f)) {
+    if (fuzzyEq(HP.w, 0.0)) {
         // Infinite case
         for (int f = faceArray.size() - 1; f >= 0; --f) {
             const MeshAlg::Face& face = faceArray[f];
@@ -294,7 +294,7 @@ void MeshAlg::identifyBackfaces(
 
     backface.resize(faceArray.size());
 
-    if (fuzzyEq(HP.w, 0.0f)) {
+    if (fuzzyEq(HP.w, 0.0)) {
         // Infinite case
         for (int f = faceArray.size() - 1; f >= 0; --f) {
             const Vector3& N = faceNormals[f];
@@ -488,7 +488,7 @@ void MeshAlg::computeBounds(
             maxspan = zspan;
     	    dia1    = zmin;
             dia2    = zmax;
-        }
+	    }
     }
 
 
@@ -600,10 +600,7 @@ void MeshAlg::computeTangentSpaceBasis(
         float r = te1.x * te2.y - te1.y * te2.x;
         if (r == 0.0) {
             // degenerate case
-            if (! n.isFinite() || n.isZero()) {
-                n = Vector3::unitY();
-            }
-            n.getTangents(t, b);
+            Vector3::generateOrthonormalBasis(t, b, n, true);
         } else {
             r = 1.0f / r;        
             t = (te2.y * ve1 - te1.y * ve2) * r;

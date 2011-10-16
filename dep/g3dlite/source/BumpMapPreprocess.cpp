@@ -6,7 +6,7 @@
   \created 2010-01-28
   \edited  2010-01-28
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2010, Morgan McGuire.
   All rights reserved.
  */
 #include "G3D/BumpMapPreprocess.h"
@@ -32,7 +32,7 @@ BumpMapPreprocess::BumpMapPreprocess(const Any& any) {
 }
 
 
-Any BumpMapPreprocess::toAny() const {
+BumpMapPreprocess::operator Any() const {
     Any any(Any::TABLE, "BumpMapPreprocess");
     any["lowPassFilter"] = lowPassFilter;
     any["zExtentPixels"] = zExtentPixels;

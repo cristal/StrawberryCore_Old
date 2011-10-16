@@ -2,7 +2,7 @@
  @file BinaryOutput.cpp
  
  @author Morgan McGuire, http://graphics.cs.williams.edu
- Copyright 2002-2011, Morgan McGuire, All rights reserved.
+ Copyright 2002-2010, Morgan McGuire, All rights reserved.
  
  @created 2002-02-20
  @edited  2010-03-17
@@ -117,11 +117,10 @@ void BinaryOutput::reallocBuffer(size_t bytes, size_t oldBufferLen) {
     uint8* newBuffer = NULL;
 
     if ((m_filename == "<memory>") || (newBufferLen < MAX_BINARYOUTPUT_BUFFER_SIZE)) {
-        // We're either writing to memory (in which case we *have* to
-        // try and allocate) or we've been asked to allocate a
-        // reasonable size buffer.
+        // We're either writing to memory (in which case we *have* to try and allocate)
+        // or we've been asked to allocate a reasonable size buffer.
 
-        // debugPrintf("  realloc(%d)\n", newBufferLen); 
+        //debugPrintf("  realloc(%d)\n", newBufferLen); 
         newBuffer = (uint8*)System::realloc(m_buffer, newBufferLen);
         if (newBuffer != NULL) {
             m_maxBufferLen = newBufferLen;
@@ -131,11 +130,9 @@ void BinaryOutput::reallocBuffer(size_t bytes, size_t oldBufferLen) {
     if ((newBuffer == NULL) && (bytes > 0)) {
         // Realloc failed; we're probably out of memory.  Back out
         // the entire call and try to dump some data to disk.
-        alwaysAssertM(m_filename != "<memory>", "Realloc failed while writing to memory.");
         m_bufferLen = oldBufferLen;
         reserveBytesWhenOutOfMemory(bytes);
     } else {
-        // Realloc succeeded
         m_buffer = newBuffer;
         debugAssert(isValidHeapPointer(m_buffer));
     }
@@ -163,7 +160,6 @@ void BinaryOutput::reserveBytesWhenOutOfMemory(size_t bytes) {
         //debugPrintf("Writing %d bytes to disk\n", writeBytes);
 
         const char* mode = (m_alreadyWritten > 0) ? "ab" : "wb";
-        alwaysAssertM(m_filename != "<memory>", "Writing memory file");
         FILE* file = FileSystem::fopen(m_filename.c_str(), mode);
         debugAssert(file);
 
@@ -273,48 +269,45 @@ bool BinaryOutput::ok() const {
 }
 
 
-void BinaryOutput::compress(int level) {
+void BinaryOutput::compress() {
     if (m_alreadyWritten > 0) {
         throw "Cannot compress huge files (part of this file has already been written to disk).";
     }
-    debugAssertM(! m_committed, "Cannot compress after committing.");
 
-    // This is the worst-case size, as mandated by zlib
-    unsigned long compressedSize = iCeil(m_bufferLen * 1.001) + 12;
+    // Old buffer size
+    int L = m_bufferLen;
+    uint8* convert = (uint8*)&L;
 
-    // Save the old buffer and reallocate to the worst-case size
-    const uint8* src     = m_buffer;
-    const uint32 srcSize = m_bufferLen;
-
-    // add space for the 4-byte header
-    m_maxBufferLen = compressedSize + 4;
-    m_buffer = (uint8*)System::malloc(m_maxBufferLen);
-    
-    // Write the header containing the old buffer size, which is needed for decompression
-    {
-        const uint8* convert = (const uint8*)&srcSize;
-        if (m_swapBytes) {
-            m_buffer[0] = convert[3];
-            m_buffer[1] = convert[2];
-            m_buffer[2] = convert[1];
-            m_buffer[3] = convert[0];
-        } else {
-            m_buffer[0] = convert[0];
-            m_buffer[1] = convert[1];
-            m_buffer[2] = convert[2];
-            m_buffer[3] = convert[3];
-        }
-    }
-
-    // Compress and write after the header
-    int result = compress2(m_buffer + 4, &compressedSize, src, srcSize, iClamp(level, 0, 9));
+    // Zlib requires the output buffer to be this big
+    unsigned long newSize = iCeil(m_bufferLen * 1.01) + 12;
+    uint8* temp = (uint8*)System::malloc(newSize);
+    int result = compress2(temp, &newSize, m_buffer, m_bufferLen, 9); 
 
     debugAssert(result == Z_OK); (void)result;
-    m_bufferLen = compressedSize + 4;
+
+    // Write the header
+    if (m_swapBytes) {
+        m_buffer[0] = convert[3];
+        m_buffer[1] = convert[2];
+        m_buffer[2] = convert[1];
+        m_buffer[3] = convert[0];
+    } else {
+        m_buffer[0] = convert[0];
+        m_buffer[1] = convert[1];
+        m_buffer[2] = convert[2];
+        m_buffer[3] = convert[3];
+    }
+
+    // Write the data
+    if ((int64)newSize + 4 > (int64)m_maxBufferLen) {
+        m_maxBufferLen = newSize + 4;
+        m_buffer = (uint8*)System::realloc(m_buffer, m_maxBufferLen);
+    }
+    m_bufferLen = newSize + 4;
+    System::memcpy(m_buffer + 4, temp, newSize);
     m_pos = m_bufferLen;
 
-    // Free the old data
-    System::free((void*)src);
+    System::free(temp);
 }
 
 
@@ -322,10 +315,6 @@ void BinaryOutput::commit(bool flush) {
     debugAssertM(! m_committed, "Cannot commit twice");
     m_committed = true;
     debugAssertM(m_beginEndBits == 0, "Missing endBits before commit");
-
-    if (m_filename == "<memory>") {
-        return;
-    }
 
     // Make sure the directory exists.
     std::string root, base, ext, path;
@@ -339,7 +328,6 @@ void BinaryOutput::commit(bool flush) {
 
     const char* mode = (m_alreadyWritten > 0) ? "ab" : "wb";
 
-    alwaysAssertM(m_filename != "<memory>", "Writing to memory file");
     FILE* file = FileSystem::fopen(m_filename.c_str(), mode);
 
     if (! file) {

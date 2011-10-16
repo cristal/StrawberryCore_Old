@@ -34,7 +34,7 @@ public:
 
 
         Settings(const Any& any);
-        Any toAny() const;
+        operator Any() const;
     };
 
 /**

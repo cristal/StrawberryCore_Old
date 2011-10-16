@@ -32,7 +32,7 @@ namespace G3D {
 class Any;
 
 /**
-  A 3x3 matrix.  Do not subclass.  Data is unitializd when default constructed.
+  3x3 matrix.  Do not subclass.
  */
 class Matrix3 {
 private:
@@ -47,19 +47,13 @@ private:
 
 public:
 
-    /** Must be in one of the following forms:
-        -Matrix3(#, #, # .... #)
-        -Matrix3::fromAxisAngle(#, #)
-        -Matrix3::diagonal(#, #, #)
-        -Matrix3::identity()
-    */
     Matrix3(const Any& any);
 
-    Any toAny() const;
+    operator Any() const;
 
-    /** Initial values are undefined for performance. 
-        \sa Matrix3::zero, Matrix3::identity, Matrix3::fromAxisAngle, etc.*/
-    Matrix3() {}
+    /** Initial values are undefined for performance.  See also 
+        Matrix3::zero(), Matrix3::identity(), Matrix3::fromAxisAngle, etc.*/
+    inline Matrix3() {}
 
     Matrix3 (class BinaryInput& b);
     Matrix3 (const float aafEntry[3][3]);
@@ -68,18 +62,12 @@ public:
              float fEntry10, float fEntry11, float fEntry12,
              float fEntry20, float fEntry21, float fEntry22);
 
-    bool fuzzyEq(const Matrix3& b) const;
+	bool fuzzyEq(const Matrix3& b) const;
 
     /** Constructs a matrix from a quaternion.
         @cite Graphics Gems II, p. 351--354
  	    @cite Implementation from Watt and Watt, pg 362*/
     Matrix3(const class Quat& q);
-
-    static Matrix3 diagonal(float e00, float e11, float e22) {
-        return Matrix3(e00, 0, 0, 
-                       0, e11, 0,
-                       0, 0, e22);
-    }
 
     void serialize(class BinaryOutput& b) const;
     void deserialize(class BinaryInput& b);
@@ -279,11 +267,7 @@ public:
                        0, 0, d.z);
     }
 
-	/** \sa fromUnitAxisAngle */
     static Matrix3 fromAxisAngle(const Vector3& rkAxis, float fRadians);
-
-	/** Assumes that rkAxis has unit length */
-    static Matrix3 fromUnitAxisAngle(const Vector3& rkAxis, float fRadians);
 
     /**
      * The matrix must be orthonormal.  The decomposition is yaw*pitch*roll

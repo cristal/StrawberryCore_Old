@@ -1,12 +1,12 @@
 /** 
-  \file G3D/Color1uint8.h
+  @file Color1uint8.h
  
-  \maintainer Morgan McGuire
+  @maintainer Morgan McGuire, graphics3d.com
  
-  \created 2007-01-30
-  \edited  2011-01-30
+  @created 2007-01-30
+  @edited  2007-01-30
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2007, Morgan McGuire.
   All rights reserved.
  */
 
@@ -53,7 +53,7 @@ let s = 1/256
 and the intervals are all the same size, thus giving equal precision to all values.
  */
 G3D_BEGIN_PACKED_CLASS(1)
-Color1uint8 {
+class Color1uint8 {
 private:
     // Hidden operators
     bool operator<(const Color1uint8&) const;

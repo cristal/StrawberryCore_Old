@@ -9,7 +9,6 @@
 
 #include "GLG3D/glheaders.h"
 #include "G3D/ImageFormat.h"
-#include "G3D/stringutils.h"
 
 namespace G3D {
 
@@ -25,8 +24,8 @@ ImageFormat::ImageFormat(
     int             _blueBits,
     int             _depthBits,
     int             _stencilBits,
-    int             _openGLBitsPerPixel,
-    int             _cpuBitsPerPixel,
+    int             _hardwareBitsPerTexel,
+    int             _packedBitsPerTexel,
     int             glDataFormat,
     bool            _opaque,
     bool            _floatingPoint,
@@ -48,13 +47,15 @@ ImageFormat::ImageFormat(
     blueBits(_blueBits),
     stencilBits(_stencilBits),
     depthBits(_depthBits),
-    cpuBitsPerPixel(_cpuBitsPerPixel),
-    openGLBitsPerPixel(_openGLBitsPerPixel),
+    cpuBitsPerPixel(_packedBitsPerTexel),
+    packedBitsPerTexel(_packedBitsPerTexel),
+    openGLBitsPerPixel(_hardwareBitsPerTexel),
+    hardwareBitsPerTexel(_hardwareBitsPerTexel),
     openGLDataFormat(glDataFormat),
     opaque(_opaque),
     floatingPoint(_floatingPoint) {
 
-    debugAssert(cpuBitsPerPixel <= openGLBitsPerPixel);
+    debugAssert(_packedBitsPerTexel <= _hardwareBitsPerTexel);
 }
 
 const ImageFormat* ImageFormat::depth(int depthBits) {
@@ -202,10 +203,7 @@ const std::string& ImageFormat::name() const {
 
 
 const ImageFormat* ImageFormat::fromString(const std::string& s) {
-    if (toLower(s) == "auto") {
-        return NULL;
-    }
-
+    
     for (int i = 0; ! nameArray[i].empty(); ++i) {
         if (s == nameArray[i]) {
             return fromCode(ImageFormat::Code(i));
@@ -581,7 +579,7 @@ DEFINE_TEXTUREFORMAT_METHOD(STENCIL8,   1, UNCOMP_FORMAT,   GL_STENCIL_INDEX8_EX
 
 DEFINE_TEXTUREFORMAT_METHOD(STENCIL16,  1, UNCOMP_FORMAT,   GL_STENCIL_INDEX16_EXT,             GL_STENCIL_INDEX, 0, 0, 0, 0, 0, 0, 16, 16, 16,   GL_UNSIGNED_SHORT, CLEAR_FORMAT, INT_FORMAT, ImageFormat::CODE_STENCIL16, ImageFormat::COLOR_SPACE_NONE);
 
-DEFINE_TEXTUREFORMAT_METHOD(DEPTH24_STENCIL8,   2, UNCOMP_FORMAT,   GL_DEPTH24_STENCIL8_EXT,    GL_DEPTH_STENCIL_EXT,0, 0, 0, 0, 0, 24, 8, 32, 32,  GL_UNSIGNED_INT_24_8, CLEAR_FORMAT, INT_FORMAT, ImageFormat::CODE_DEPTH24_STENCIL8, ImageFormat::COLOR_SPACE_NONE);
+DEFINE_TEXTUREFORMAT_METHOD(DEPTH24_STENCIL8,   2, UNCOMP_FORMAT,   GL_DEPTH24_STENCIL8_EXT,    GL_DEPTH_STENCIL_EXT,0, 0, 0, 0, 0, 24, 8, 32, 32,  GL_UNSIGNED_INT, CLEAR_FORMAT, INT_FORMAT, ImageFormat::CODE_DEPTH24_STENCIL8, ImageFormat::COLOR_SPACE_NONE);
 
 DEFINE_TEXTUREFORMAT_METHOD(YUV420_PLANAR,  3, UNCOMP_FORMAT,   GL_NONE,    GL_NONE, 0, 0, 0, 0, 0, 0, 0, 12, 12,  GL_UNSIGNED_BYTE, OPAQUE_FORMAT, INT_FORMAT, ImageFormat::CODE_YUV420_PLANAR, ImageFormat::COLOR_SPACE_YUV);
 DEFINE_TEXTUREFORMAT_METHOD(YUV422,         3, UNCOMP_FORMAT,   GL_NONE,    GL_NONE, 0, 0, 0, 0, 0, 0, 0, 16, 16,  GL_UNSIGNED_BYTE, OPAQUE_FORMAT, INT_FORMAT, ImageFormat::CODE_YUV422, ImageFormat::COLOR_SPACE_YUV);

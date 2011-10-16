@@ -16,6 +16,7 @@
 
 #include "G3D/platform.h"
 #include "G3D/debug.h"
+#include "G3D/System.h"
 #include "G3D/MemoryManager.h"
 #ifdef G3D_DEBUG
 //   For formatting error messages

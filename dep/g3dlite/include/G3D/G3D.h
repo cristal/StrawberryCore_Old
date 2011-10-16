@@ -1,15 +1,15 @@
 /**
- \file G3D.h
+ @file G3D.h
 
  This header includes all of the G3D libraries in
  appropriate namespaces.
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
 
- \created 2001-08-25
- \edited  2010-12-01
+ @created 2001-08-25
+ @edited  2010-03-20
 
- Copyright 2000-2011, Morgan McGuire.
+ Copyright 2000-2010, Morgan McGuire.
  All rights reserved.
 */
 
@@ -25,18 +25,15 @@
 #endif
 
 #include "G3D/platform.h"
-#include "G3D/BIN.h"
 #include "G3D/units.h"
 #include "G3D/ParseError.h"
 #include "G3D/Random.h"
-#include "G3D/Noise.h"
 #include "G3D/Array.h"
 #include "G3D/SmallArray.h"
 #include "G3D/Queue.h"
 #include "G3D/Crypto.h"
 #include "G3D/format.h"
 #include "G3D/Vector2.h"
-#include "G3D/Vector2int32.h"
 #include "G3D/Vector3.h"
 #include "G3D/Vector4.h"
 #include "G3D/Color1.h"
@@ -64,7 +61,6 @@
 #include "G3D/FileSystem.h"
 #include "G3D/Set.h"
 #include "G3D/GUniqueID.h"
-#include "G3D/RayGridIterator.h"
 #include "G3D/BinaryFormat.h"
 #include "G3D/BinaryInput.h"
 #include "G3D/BinaryOutput.h"
@@ -79,10 +75,8 @@
 #include "G3D/GMutex.h"
 #include "G3D/PrecomputedRandom.h"
 #include "G3D/MemoryManager.h"
-#include "G3D/BlockPoolMemoryManager.h"
 #include "G3D/AreaMemoryManager.h"
 #include "G3D/BumpMapPreprocess.h"
-#include "G3D/CubeFace.h"
 
 template<class T> struct HashTrait< G3D::ReferenceCountedPointer<T> > {
     static size_t hashCode(G3D::ReferenceCountedPointer<T> key) { return reinterpret_cast<size_t>( key.pointer() ); }

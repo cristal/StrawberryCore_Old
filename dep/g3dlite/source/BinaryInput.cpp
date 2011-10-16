@@ -39,7 +39,9 @@
 #include "G3D/Log.h"
 #include "G3D/FileSystem.h"
 #include <zlib.h>
-//#include "zip.h"
+#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
+  #include "zip.h"
+#endif
 #include <cstring>
 
 namespace G3D {
@@ -238,13 +240,13 @@ BinaryInput::BinaryInput(
         debugAssert(result == Z_OK); (void)result;
 
     } else {
-        m_length = dataLen;
+    	m_length = dataLen;
         m_bufferLength = m_length;
         if (! copyMemory) {
-             debugAssert(!m_freeBuffer);
+ 	        debugAssert(!m_freeBuffer);
             m_buffer = const_cast<uint8*>(data);
         } else {
-            debugAssert(m_freeBuffer);
+	        debugAssert(m_freeBuffer);
             m_buffer = (uint8*)System::alignedMalloc(m_length, 16);
             System::memcpy(m_buffer, data, dataLen);
         }
@@ -268,14 +270,16 @@ BinaryInput::BinaryInput(
     m_freeBuffer(true) {
 
     setEndian(fileEndian);
+
+    // Update global file tracker
+    _internal::currentFilesUsed.insert(m_filename);
     
-    /*std::string zipfile;
+
+#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
+    std::string zipfile;
     if (FileSystem::inZipfile(m_filename, zipfile)) {
         // Load from zipfile
 //        zipRead(filename, v, s);
-
-        FileSystem::markFileUsed(m_filename);
-        FileSystem::markFileUsed(zipfile);
 
         std::string internalFile = m_filename.substr(zipfile.length() + 1);
         struct zip* z = zip_open(zipfile.c_str(), ZIP_CHECKCONS, NULL);
@@ -302,13 +306,14 @@ BinaryInput::BinaryInput(
         }
         m_freeBuffer = true;
         return;
-    }*/
+    }
+#endif
 
     // Figure out how big the file is and verify that it exists.
     m_length = FileSystem::size(m_filename);
 
     // Read the file into memory
-    FILE* file = FileSystem::fopen(m_filename.c_str(), "rb");
+    FILE* file = fopen(m_filename.c_str(), "rb");
 
     if (! file || (m_length == -1)) {
         throw format("File not found: \"%s\"", m_filename.c_str());
@@ -342,7 +347,7 @@ BinaryInput::BinaryInput(
     debugAssert(m_buffer);
     
     fread(m_buffer, m_bufferLength, sizeof(int8), file);
-    FileSystem::fclose(file);
+    fclose(file);
     file = NULL;
 
     if (compressed) {

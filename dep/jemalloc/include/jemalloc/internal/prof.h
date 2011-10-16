@@ -247,22 +247,8 @@ prof_sample_threshold_update(prof_tdata_t *prof_tdata)
 	double u;
 
 	/*
-	 * Compute sample threshold as a geometrically distributed random
+	 * Compute prof_sample_threshold as a geometrically distributed random
 	 * variable with mean (2^opt_lg_prof_sample).
-	 *
-	 *                         __        __
-	 *                         |  log(u)  |                     1
-	 * prof_tdata->threshold = | -------- |, where p = -------------------
-	 *                         | log(1-p) |             opt_lg_prof_sample
-	 *                                                 2
-	 *
-	 * For more information on the math, see:
-	 *
-	 *   Non-Uniform Random Variate Generation
-	 *   Luc Devroye
-	 *   Springer-Verlag, New York, 1986
-	 *   pp 500
-	 *   (http://cg.scs.carleton.ca/~luc/rnbookindex.html)
 	 */
 	prn64(r, 53, prof_tdata->prn_state,
 	    (uint64_t)6364136223846793005LLU, (uint64_t)1442695040888963407LLU);
@@ -348,7 +334,7 @@ prof_ctx_get(const void *ptr)
 	chunk = (arena_chunk_t *)CHUNK_ADDR2BASE(ptr);
 	if (chunk != ptr) {
 		/* Region. */
-		dassert(chunk->arena->magic == ARENA_MAGIC);
+		assert(chunk->arena->magic == ARENA_MAGIC);
 
 		ret = arena_prof_ctx_get(ptr);
 	} else
@@ -367,7 +353,7 @@ prof_ctx_set(const void *ptr, prof_ctx_t *ctx)
 	chunk = (arena_chunk_t *)CHUNK_ADDR2BASE(ptr);
 	if (chunk != ptr) {
 		/* Region. */
-		dassert(chunk->arena->magic == ARENA_MAGIC);
+		assert(chunk->arena->magic == ARENA_MAGIC);
 
 		arena_prof_ctx_set(ptr, ctx);
 	} else
@@ -388,7 +374,7 @@ prof_sample_accum_update(size_t size)
 	/* Take care to avoid integer overflow. */
 	if (size >= prof_tdata->threshold - prof_tdata->accum) {
 		prof_tdata->accum -= (prof_tdata->threshold - size);
-		/* Compute new sample threshold. */
+		/* Compute new prof_sample_threshold. */
 		prof_sample_threshold_update(prof_tdata);
 		while (prof_tdata->accum >= prof_tdata->threshold) {
 			prof_tdata->accum -= prof_tdata->threshold;

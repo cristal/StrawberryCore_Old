@@ -5,7 +5,7 @@
   @author Jeff Marsceill, 08jcm@williams.edu
  
   @created 2005-07-20
-  @edited  2010-07-31
+  @edited  2010-02-22
 */
 #include "G3D/GCamera.h"
 #include "G3D/platform.h"
@@ -47,12 +47,6 @@ GCamera::GCamera(const Any& any) {
             m_farPlaneZ = it->value;
         } else if (k == "PIXELOFFSET") {
             m_pixelOffset = it->value;
-        } else if (k == "LENSRADIUS") {
-            m_lensRadius = it->value;
-        } else if (k == "FOCUSPLANEZ") {
-            m_focusPlaneZ = it->value;
-        } else if (k == "EXPOSURETIME") {
-            m_exposureTime = it->value;
         } else {
             any.verify(false, std::string("Illegal key in table: ") + it->key);
         }
@@ -61,62 +55,22 @@ GCamera::GCamera(const Any& any) {
 }
 
 
-Any GCamera::toAny() const {
+GCamera::operator Any() const {
     Any any(Any::TABLE, "GCamera");
 
-    any["fovDirection"]     = std::string((m_direction == HORIZONTAL) ? "HORIZONTAL" : "VERTICAL");
-    any["fovDegrees"]       = toDegrees(m_fieldOfView);
-    any["nearPlaneZ"]       = nearPlaneZ();
-    any["farPlaneZ"]        = farPlaneZ();
-    any["coordinateFrame"]  = coordinateFrame();
-    any["pixelOffset"]      = pixelOffset();
-    any["focusPlaneZ"]      = m_focusPlaneZ;
-    any["lensRadius"]       = m_lensRadius;
-    any["exposureTime"]     = m_exposureTime;
+    any.set("fovDirection", std::string((m_direction == HORIZONTAL) ? "HORIZONTAL" : "VERTICAL"));
+    any.set("fovDegrees", toDegrees(m_fieldOfView));
+    any.set("nearPlaneZ", nearPlaneZ());
+    any.set("farPlaneZ", farPlaneZ());
+    any.set("coordinateFrame", coordinateFrame());
+    any.set("pixelOffset", pixelOffset());
 
     return any;
 }
 
-    
-float GCamera::circleOfConfusionRadius(float z, const class Rect2D& viewport) const {
-    debugAssert(z < 0);
-    
-    //              Actual position z
-    //                     |
-    //      ()-----______  |
-    //     (  )          --|---___| 
-    //     (  )    ______--|---   |          
-    //      ()-----        |      |
-    //                           
-    //      Lens                 Rays converge at m_focusPlaneZ
-    //
-    //                     |<---->|
-    //                 | focusPlaneZ - z |
-    //                            
-    //       |<------------------>| 
-    //          | focusPlaneZ |
-    //
-    // By similar triangles,
-    //
-    //   | focusPlaneZ - z |
-    //  --------------------- lensRadius = radius at z
-    //         -focusPlaneZ 
 
-    // Circle of confusion at z, in meters
-    const float rzmeters = fabs((m_focusPlaneZ - z) / m_focusPlaneZ) * m_lensRadius;
-
-    // Project
-    const float rimeters = rzmeters / -z;
-    
-    // Convert to pixels
-    const float ripixels = rimeters * imagePlanePixelsPerMeter(viewport);
-
-    return ripixels;
-}
-
-
-GCamera::GCamera() : m_lensRadius(0.0f), m_focusPlaneZ(-10.0f), m_exposureTime(0.0f) {
-    setNearPlaneZ(-0.15f);
+GCamera::GCamera() {
+    setNearPlaneZ(-0.2f);
     setFarPlaneZ(-150.0f);
     setFieldOfView((float)toRadians(90.0f), HORIZONTAL);
 }
@@ -132,10 +86,6 @@ GCamera::GCamera(const Matrix4& proj, const CFrame& frame) {
     // Assume horizontal field of view
     setFieldOfView(atan2(x, -m_nearPlaneZ) * 2.0f, HORIZONTAL);
     setCoordinateFrame(frame);
-
-    m_lensRadius = 0.0f;
-    m_focusPlaneZ = -10.0f;
-    m_exposureTime = 0.0f;
 }
 
 
@@ -161,7 +111,11 @@ void GCamera::setFieldOfView(float angle, FOVDirection dir) {
 }
 
  
-float GCamera::nearPlaneViewportWidth(const Rect2D& viewport) const {
+float GCamera::imagePlaneDepth() const{
+    return -m_nearPlaneZ;
+}
+
+float GCamera::viewportWidth(const Rect2D& viewport) const {
     // Compute the side of a square at the near plane based on our field of view
     float s = 2.0f * -m_nearPlaneZ * tan(m_fieldOfView * 0.5f);
 
@@ -173,7 +127,7 @@ float GCamera::nearPlaneViewportWidth(const Rect2D& viewport) const {
 }
 
 
-float GCamera::nearPlaneViewportHeight(const Rect2D& viewport) const {
+float GCamera::viewportHeight(const Rect2D& viewport) const {
     // Compute the side of a square at the near plane based on our field of view
     float s = 2.0f * -m_nearPlaneZ * tan(m_fieldOfView * 0.5f);
 
@@ -183,40 +137,6 @@ float GCamera::nearPlaneViewportHeight(const Rect2D& viewport) const {
     }
 
     return s;
-}
-
-
-float GCamera::imagePlanePixelsPerMeter(const class Rect2D& viewport) const {
-    const float scale = -2.0 * tan(m_fieldOfView * 0.5);
-    
-    if (m_direction == GCamera::HORIZONTAL) {
-        return viewport.width() / scale;        
-    } else {
-        return viewport.height() / scale;
-    }
-}
-
-
-Ray GCamera::worldRay(float x, float y, float u, float v, const class Rect2D &viewport) const {
-
-    // Pinhole ray
-    const Ray& ray = GCamera::worldRay(x, y, viewport);
-
-    // Find the point where all rays through this pixel will converge
-    // in the scene.
-    const Vector3& focusPoint = ray.origin() +
-        ray.direction() * (-m_focusPlaneZ / ray.direction().dot(m_cframe.lookVector()));
-
-    // Shift the ray origin
-    const Vector3& origin = 
-        m_cframe.rightVector() * (u * m_lensRadius) +
-        m_cframe.upVector()    * (v * m_lensRadius) +
-        ray.origin();
-
-    // Find the new direction to the focus point
-    const Vector3& direction = (focusPoint - origin).direction();
-
-    return Ray(origin, direction);
 }
 
 
@@ -230,8 +150,8 @@ Ray GCamera::worldRay(float x, float y, const Rect2D& viewport) const {
     float cx = screenWidth  / 2.0f;
     float cy = screenHeight / 2.0f;
 
-    float vw = nearPlaneViewportWidth(viewport);
-    float vh = nearPlaneViewportHeight(viewport);
+    float vw = viewportWidth(viewport);
+    float vh = viewportHeight(viewport);
 
 	Vector3 direction = Vector3( (x - cx) * vw / screenWidth,
                             -(y - cy) * vh / screenHeight,
@@ -300,11 +220,11 @@ Vector3 GCamera::projectUnit(const Vector3& point, const Rect2D& viewport) const
     return Vector3(screenSpacePoint.xyz() / screenSpacePoint.w);
 }
 
-
-Vector3 GCamera::project(const Vector3& point, const Rect2D&  viewport) const {
+Vector3 GCamera::project(const Vector3& point,
+                          const Rect2D&  viewport) const {
 
     // Find the point in the homogeneous cube
-    const Point3& cube = projectUnit(point, viewport);
+    const Vector3& cube = projectUnit(point, viewport);
 
     return convertFromUnitToNormal(cube, viewport);
 }
@@ -345,7 +265,7 @@ float GCamera::worldToScreenSpaceArea(float area, float z, const Rect2D& viewpor
     if (z >= 0) {
         return finf();
     }
-    return area * (float)square(-nearPlaneZ() / z);
+    return area * (float)square(imagePlaneDepth() / z);
 }
 
 
@@ -374,8 +294,8 @@ void GCamera::frustum(const Rect2D& viewport, Frustum& fr) const {
     // The volume is the convex hull of the vertices definining the view
     // frustum and the light source point at infinity.
 
-    const float x               = nearPlaneViewportWidth(viewport) / 2;
-    const float y               = nearPlaneViewportHeight(viewport) / 2;
+    const float x               = viewportWidth(viewport) / 2;
+    const float y               = viewportHeight(viewport) / 2;
     const float zn              = m_nearPlaneZ;
     const float zf              = m_farPlaneZ;
     float xx, zz, yy;
@@ -505,8 +425,8 @@ void GCamera::getNearViewportCorners
  Vector3&      outLR) const {
     
     // Must be kept in sync with getFrustum()
-    const float w  = nearPlaneViewportWidth(viewport) / 2.0f;
-    const float h  = nearPlaneViewportHeight(viewport) / 2.0f;
+    const float w  = viewportWidth(viewport) / 2.0f;
+    const float h  = viewportHeight(viewport) / 2.0f;
     const float z  = nearPlaneZ();
 
     // Compute the points
@@ -530,8 +450,8 @@ void GCamera::getFarViewportCorners(
     Vector3& outLR) const {
 
     // Must be kept in sync with getFrustum()
-    const float w = nearPlaneViewportWidth(viewport) * m_farPlaneZ / m_nearPlaneZ;
-    const float h = nearPlaneViewportHeight(viewport) * m_farPlaneZ / m_nearPlaneZ;
+    const float w = viewportWidth(viewport) * m_farPlaneZ / m_nearPlaneZ;
+    const float h = viewportHeight(viewport) * m_farPlaneZ / m_nearPlaneZ;
     const float z = m_farPlaneZ;
     
     // Compute the points
@@ -561,6 +481,7 @@ void GCamera::lookAt(const Vector3& position, const Vector3& up) {
 
 void GCamera::serialize(BinaryOutput& bo) const {
     bo.writeFloat32(m_fieldOfView);
+    bo.writeFloat32(imagePlaneDepth());
     debugAssert(nearPlaneZ() < 0.0f);
     bo.writeFloat32(nearPlaneZ());
     debugAssert(farPlaneZ() < 0.0f);
@@ -568,8 +489,6 @@ void GCamera::serialize(BinaryOutput& bo) const {
     m_cframe.serialize(bo);
     bo.writeInt8(m_direction);
     m_pixelOffset.serialize(bo);
-    bo.writeFloat32(m_lensRadius);
-    bo.writeFloat32(m_focusPlaneZ);
 }
 
 
@@ -582,13 +501,11 @@ void GCamera::deserialize(BinaryInput& bi) {
     m_cframe.deserialize(bi);
     m_direction = (FOVDirection)bi.readInt8();
     m_pixelOffset.deserialize(bi);
-    m_lensRadius = bi.readFloat32();
-    m_focusPlaneZ = bi.readFloat32();
 }
 
 
 Vector3 GCamera::convertFromUnitToNormal(const Vector3& in, const Rect2D& viewport) const{
-    return (in + Vector3(1.0f, 1.0f, 1.0f)) * 0.5f * Vector3(viewport.width(), viewport.height(), 1.0f) + 
-            Vector3(viewport.x0(), viewport.y0(), 0.0f);
+    return (in + Vector3(1,1,1)) * 0.5 * Vector3(viewport.width(), -viewport.height(), 1) + 
+           Vector3(viewport.x0(), viewport.y1(), 0);
 }
 } // namespace

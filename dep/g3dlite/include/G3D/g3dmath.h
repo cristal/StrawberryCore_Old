@@ -65,6 +65,8 @@ inline double __fastcall drand48() {
     return ::rand() / double(RAND_MAX);
 }
 
+#if !defined(_WIN64)
+
 /**
    Win32 implementation of the C99 fast rounding routines.
    
@@ -99,12 +101,23 @@ __inline long int lrintf(float flt) {
 
     return intgr;
 }
+
+#else
+
+    __inline long int lrint (double flt) {
+        return (long int)floor(flt+0.5f);
+    }
+
+    __inline long int lrintf(float flt) {
+        return (long int)floorf(flt+0.5f);
+    }
+
+#endif
+
 #endif
 
 
-#define fuzzyEpsilon64 (0.0000005)
-#define fuzzyEpsilon32 (0.00001f)
-
+#define fuzzyEpsilon (0.00001f)
 /** 
     This value should not be tested against directly, instead
     G3D::isNan() and G3D::isFinite() will return reliable results. */
@@ -325,7 +338,6 @@ int highestBit(uint32 x);
  occasions.
  */
 bool fuzzyEq(double a, double b);
-
 
 /** True if a is definitely not equal to b.  
     Guaranteed false if a == b. 
@@ -789,29 +801,10 @@ inline double eps(double a, double b) {
     (void)b;
     const double aa = abs(a) + 1.0;
     if (aa == inf()) {
-        return fuzzyEpsilon64;
+        return fuzzyEpsilon;
     } else {
-        return fuzzyEpsilon64 * aa;
+        return fuzzyEpsilon * aa;
     }
-}
-
-inline float eps(float a, float b) {
-    // For a and b to be nearly equal, they must have nearly
-    // the same magnitude.  This means that we can ignore b
-    // since it either has the same magnitude or the comparison
-    // will fail anyway.
-    (void)b;
-    const float aa = abs(a) + 1.0f;
-    if (aa == inf()) {
-        return fuzzyEpsilon32;
-    } else {
-        return fuzzyEpsilon32 * aa;
-    }
-}
-
-
-inline bool fuzzyEq(float a, float b) {
-    return (a == b) || (abs(a - b) <= eps(a, b));
 }
 
 inline bool fuzzyEq(double a, double b) {

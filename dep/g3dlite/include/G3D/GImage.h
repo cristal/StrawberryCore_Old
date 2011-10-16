@@ -16,7 +16,7 @@
   \created 2002-05-27
   \edited  2010-01-04
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2010, Morgan McGuire.
   All rights reserved.
  */
 
@@ -99,9 +99,9 @@ public:
 
     class Error {
     public:
-        Error
-        (const std::string& reason,
-         const std::string& filename = "") :
+        Error(
+            const std::string& reason,
+            const std::string& filename = "") :
         reason(reason), filename(filename) {}
         
         std::string reason;
@@ -109,40 +109,28 @@ public:
     };
 
     /** PGM, PPM, and PBM all come in two versions and are classified as PPM_* files */
-    enum Format {
-        JPEG, BMP, TGA, PCX, ICO, 
-        
-        /** 8-bit per channel PNG */
-        PNG, 
-        PNG8 = PNG,
-
-        /** 16-bit per channel PNG */
-        PNG16,
-
+    enum Format {JPEG, BMP, TGA, PCX, ICO, PNG, 
         PPM_BINARY, PGM_BINARY = PPM_BINARY,
         PPM_ASCII, PGM_ASCII = PPM_ASCII,
         AUTODETECT, UNKNOWN};
 
 
     /**
-     The number of channels; either 1 (luminance), 3 (RGB), or 4 (RGBA)
+     The number of channels; either 3 (RGB) or 4 (RGBA)
      */
-    int channels() const {
+    inline int channels() const {
         return m_channels;
     }
 
-    int width() const {
+    inline int width() const {
         return m_width;
     }
 
-    int height() const {
+    inline int height() const {
         return m_height;
     }
 
-    /** Pointer to the underlying data.
-        \deprecated
-        \sa rawData */
-    const uint8* byte() const {
+    inline const uint8* byte() const {
         return m_byte;
     }
 
@@ -454,14 +442,6 @@ public:
         uint8*&             outData,
         int&                outLength) const;
 
-    /** Encodes images as a 16-bit per channel PNG.  Channels must be 1, 3, or 4. \beta */
-    static void encodePNG16(BinaryOutput& out, int width, int height, int channels, const uint16* data);
-
-    /** Decodes 16-bit per channel PNG. \beta */
-    static void decodePNG16(BinaryInput& in, int& width, int& height, int& channels, 
-                            uint16*&            byte,
-                            MemoryManager::Ref  mman = MemoryManager::create());
-
     /**
      Does not commit the BinaryOutput when done.
      */
@@ -521,14 +501,6 @@ public:
     Win32 32-bit HDC format.
     */
     static void RGBtoBGRA(
-        const uint8*            in,
-        uint8*                  out,
-        int                     numPixels);
-
-    /**
-    Win32 32-bit HDC format.
-    */
-    static void RGBAtoBGRA(
         const uint8*            in,
         uint8*                  out,
         int                     numPixels);

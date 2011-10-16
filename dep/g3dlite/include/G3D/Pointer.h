@@ -1,12 +1,12 @@
 /** 
-  \file Pointer.h
+  @file Pointer.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
  
-  \created 2007-05-16
-  \edited  2010-11-10
+  @created 2007-05-16
+  @edited  2009-03-26
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2009, Morgan McGuire.
   All rights reserved.
  */
 #ifndef G3D_Pointer_h
@@ -56,8 +56,7 @@ namespace G3D {
    <i>Note:</i> Because of the way that dereference is implemented, you cannot pass <code>*p</code> through a function
    that takes varargs (...), e.g., <code>printf("%d", *p)</code> will produce a compile-time error.  Instead use
    <code>printf("%d",(bool)*p)</code> or <code>printf("%d", p.getValue())</code>.
-
-   \cite McGuire, GUIs for Real-time Programs, using Universal Pointers, SIGGRAPH 2008 Poster.
+   
  */
 template<class ValueType>
 class Pointer {
@@ -117,9 +116,7 @@ private:
         }
 
         virtual void set(ValueType v) {
-            if (setMethod) {
-                (object->*setMethod)(v);
-            }
+            (object->*setMethod)(v);
         }
 
         virtual ValueType get() const {
@@ -155,9 +152,7 @@ private:
         }
 
         virtual void set(ValueType v) {
-            if (setMethod) {
-                (object.pointer()->*setMethod)(v);
-            }
+            (object.pointer()->*setMethod)(v);
         }
 
         virtual ValueType get() const {
@@ -202,56 +197,48 @@ public:
         this[0] = p;
     }
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(const ReferenceCountedPointer<Class>& object,
             ValueType (Class::*getMethod)() const,
             void (Class::*setMethod)(ValueType)) : 
         m_interface(new RefAccessor<Class, ValueType (Class::*)() const, void (Class::*)(ValueType)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(const ReferenceCountedPointer<Class>& object,
             const ValueType& (Class::*getMethod)() const,
             void (Class::*setMethod)(ValueType)) : 
         m_interface(new RefAccessor<Class, const ValueType& (Class::*)() const, void (Class::*)(ValueType)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(const ReferenceCountedPointer<Class>& object,
             ValueType (Class::*getMethod)() const,
             void (Class::*setMethod)(const ValueType&)) : 
         m_interface(new RefAccessor<Class, ValueType (Class::*)() const, void (Class::*)(const ValueType&)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(const ReferenceCountedPointer<Class>& object,
             const ValueType& (Class::*getMethod)() const,
             void (Class::*setMethod)(const ValueType&)) : 
         m_interface(new RefAccessor<Class, const ValueType& (Class::*)() const, void (Class::*)(const ValueType&)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(Class* object,
             const ValueType& (Class::*getMethod)() const,
             void (Class::*setMethod)(const ValueType&)) : 
         m_interface(new Accessor<Class, const ValueType& (Class::*)() const, void (Class::*)(const ValueType&)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(Class* object,
             ValueType (Class::*getMethod)() const,
             void (Class::*setMethod)(const ValueType&)) : 
         m_interface(new Accessor<Class, ValueType (Class::*)() const, void (Class::*)(const ValueType&)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(Class* object,
             const ValueType& (Class::*getMethod)() const,
             void (Class::*setMethod)(ValueType)) : 
         m_interface(new Accessor<Class, const ValueType& (Class::*)() const, void (Class::*)(ValueType)>(object, getMethod, setMethod)) {}
 
-    /** \param setMethod May be NULL */
     template<class Class>
     Pointer(Class* object,
             ValueType (Class::*getMethod)() const,
@@ -267,8 +254,6 @@ public:
         return m_interface->get();
     }
 
-    /** \brief Assign a value to the referenced element.
-        If this Pointer was initialized with a NULL setMethod, the call is ignored */
     inline void setValue(const ValueType& v) {
         debugAssert(m_interface != NULL);
         m_interface->set(v);

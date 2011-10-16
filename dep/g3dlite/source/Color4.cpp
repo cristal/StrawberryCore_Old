@@ -26,15 +26,23 @@ namespace G3D {
 
 Color4::Color4(const Any& any) {
     *this = Color4::zero();
+    any.verifyName("Color4");
 
     if (any.type() == Any::TABLE) {
-        any.verifyName("Color4");
-        AnyTableReader atr(any);
-        atr.getIfPresent("r", r);
-        atr.getIfPresent("g", g);
-        atr.getIfPresent("b", b);
-        atr.getIfPresent("a", a);
-        atr.verifyDone();
+        for (Any::AnyTable::Iterator it = any.table().begin(); it.hasMore(); ++it) {
+            const std::string& key = toLower(it->key);
+            if (key == "r") {
+                r = it->value;
+            } else if (key == "g") {
+                g = it->value;
+            } else if (key == "b") {
+                b = it->value;
+            } else if (key == "a") {
+                a = it->value;
+            } else {
+                any.verify(false, "Illegal key: " + it->key);
+            }
+        }
     } else if (toLower(any.name()) == "color4") {
         r = any[0];
         g = any[1];
@@ -42,12 +50,12 @@ Color4::Color4(const Any& any) {
         a = any[3];
     } else {
         any.verifyName("Color4::fromARGB");
-        *this = Color4::fromARGB((uint32)any[0].number());
+        *this = Color4::fromARGB((int)any[0].number());
     }
 }
    
 
-Any Color4::toAny() const {
+Color4::operator Any() const {
     Any any(Any::ARRAY, "Color4");
     any.append(r, g, b, a);
     return any;

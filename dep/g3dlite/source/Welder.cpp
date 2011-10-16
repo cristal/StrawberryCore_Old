@@ -413,13 +413,12 @@ Welder::Settings::Settings(const Any& any) {
     }
 }
 
-
-Any Welder::Settings::toAny() const {
+Welder::Settings::operator Any() const {
     Any a(Any::TABLE, "Welder::Settings");
-    a["normalSmoothingAngle"]   = normalSmoothingAngle;
-    a["vertexWeldRadius"]       = vertexWeldRadius;
-    a["textureWeldRadius"]      = textureWeldRadius;
-    a["normalWeldRadius"]       = normalWeldRadius;
+    a.set("normalSmoothingAngle", normalSmoothingAngle);
+    a.set("vertexWeldRadius", vertexWeldRadius);
+    a.set("textureWeldRadius", textureWeldRadius);
+    a.set("normalWeldRadius", normalWeldRadius);
     return a;
 }
 

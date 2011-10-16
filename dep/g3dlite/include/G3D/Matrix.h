@@ -501,13 +501,10 @@ public:
     }
 
     /**     
-            \brief Computes the Moore-Penrose pseudo inverse, equivalent to
-            (A<SUP>T</SUP>A)<SUP>-1</SUP>A<SUP>T</SUP>).  The SVD method is used
-            for performance when the matrix has more than four rows or columns
+     (A<SUP>T</SUP>A)<SUP>-1</SUP>A<SUP>T</SUP>) computed 
+     using SVD.
 
-            \cite http://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
-
-            \param tolerance Use -1 for automatic tolerance.
+     @param tolerance Use -1 for automatic tolerance.
      */
     Matrix pseudoInverse(float tolerance = -1) const;
 

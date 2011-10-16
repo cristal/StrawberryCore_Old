@@ -129,32 +129,32 @@ Token TextInput::read() {
 
 
 std::string TextInput::readUntilNewlineAsString() {
-/*
-    // Reset the read position back to the start of that token
+    // Go to the front of the next token
+    Token t = read();
+
+    // Reset the position to the start of this token
     currentCharOffset = t.bytePosition();
-    lineNumber = t.line();
-    charNumber = t.character();
     stack.clear();
 
     if (currentCharOffset == buffer.size()) {
         // End of file
         return "";
     }
-    */
+
     std::string s;
 
     // Read until newline or eof
-    while (currentCharOffset < buffer.size()) {
-        const char c = buffer[currentCharOffset];
-        if ((c == '\r') || (c == '\n')) {
-            // Done
-            break;
-        } else {
-            s += c;
-            ++currentCharOffset;
-            ++charNumber;
-        }
-    } 
+    char c = '\0';
+    do {
+      c = buffer[currentCharOffset];
+      if (c == '\r' || c == '\n') {
+          // Done
+          break;
+      } else {
+          s += c;
+          ++currentCharOffset;
+      }
+    } while (currentCharOffset < buffer.size());
 
     return s;    
 }
@@ -654,7 +654,7 @@ numLabel:
             }
 
         } else {
-            // Non-hex number
+			// Non-hex number
 
             // Read the part before the decimal.
             while (isDigit(c)) {

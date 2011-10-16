@@ -68,16 +68,11 @@ public:
 
     static Ref fromGImage(const class GImage& im, WrapMode wrap = WrapMode::ERROR);
 
-    /** Loads from any of the file formats supported by G3D::GImage,
-        and in PNG16 format.  If there is an alpha channel on the
-        input, it is stripped. Values are automatically scaled to the
-        range [0, 1].*/
+    /** Loads from any of the file formats supported by G3D::GImage.  If there is an alpha channel on the input,
+        it is stripped. */
     void load(const std::string& filename, GImage::Format fmt = GImage::AUTODETECT);
 
-    /** Saves in any of the formats supported by G3D::GImage, and in PNG16 format. 
-
-        The data values are assumed to be on the range [0, 1] and will
-        be scaled appropriately for the save format.*/
+    /** Saves in any of the formats supported by G3D::GImage. */
     void save(const std::string& filename, GImage::Format fmt = GImage::AUTODETECT);
 };
 

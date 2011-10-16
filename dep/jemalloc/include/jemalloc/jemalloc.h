@@ -7,19 +7,19 @@ extern "C" {
 #include <limits.h>
 #include <strings.h>
 
-#define	JEMALLOC_VERSION "@jemalloc_version@"
-#define	JEMALLOC_VERSION_MAJOR @jemalloc_version_major@
-#define	JEMALLOC_VERSION_MINOR @jemalloc_version_minor@
-#define	JEMALLOC_VERSION_BUGFIX @jemalloc_version_bugfix@
-#define	JEMALLOC_VERSION_NREV @jemalloc_version_nrev@
-#define	JEMALLOC_VERSION_GID "@jemalloc_version_gid@"
+#define	JEMALLOC_VERSION "2.1.0-0-g1c4b088b08d3bc7617a34387e196ce03716160bf"
+#define	JEMALLOC_VERSION_MAJOR 2
+#define	JEMALLOC_VERSION_MINOR 1
+#define	JEMALLOC_VERSION_BUGFIX 0
+#define	JEMALLOC_VERSION_NREV 0
+#define	JEMALLOC_VERSION_GID "1c4b088b08d3bc7617a34387e196ce03716160bf"
 
-#include "jemalloc_defs@install_suffix@.h"
+#include "jemalloc_defs.h"
 #ifndef JEMALLOC_P
 #  define JEMALLOC_P(s) s
 #endif
 
-#define	ALLOCM_LG_ALIGN(la)	(la)
+#define	ALLOCM_LG_ALIGN	((int)0x3f)
 #if LG_SIZEOF_PTR == 2
 #define	ALLOCM_ALIGN(a)	(ffs(a)-1)
 #else

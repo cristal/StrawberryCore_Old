@@ -4,7 +4,7 @@
   @created 2009-04-26
   @edited  2010-02-26
 
-  Copyright 2000-2011, Morgan McGuire, http://graphics.cs.williams.edu
+  Copyright 2000-2010, Morgan McGuire, http://graphics.cs.williams.edu
   All rights reserved.
  */
 #ifndef G3D_SmallArray_h
@@ -81,17 +81,6 @@ public:
 
     inline void append(const T& v) {
         push(v);
-    }
-
-    /** Find the index of \a v or -1 if not found */
-    int findIndex(const T& v) {
-        for (int i = 0; i < N; ++i) {
-            if (m_embedded[i] == v) {
-                return i;
-            }
-        }
-
-        return m_rest.findIndex(v) + N;
     }
 
     void fastRemove(int i, bool shrinkIfNecessary = false) {

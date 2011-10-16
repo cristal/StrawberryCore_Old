@@ -182,6 +182,10 @@ public:
     /** Amount of CPU memory per pixel when packed into an array, discounting any end-of-row padding. */
     int                 cpuBitsPerPixel;
 
+    /** Amount of CPU memory per pixel when packed into an array, discounting any end-of-row padding. 
+     @deprecated Use cpuBitsPerPixel*/
+    int                 packedBitsPerTexel;
+    
     /**
       Amount of GPU memory per pixel on most graphics cards, for formats supported by OpenGL. This is
       only an estimate--the actual amount of memory may be different on your actual card.
@@ -191,6 +195,9 @@ public:
      4 bytes.
      */
     int                 openGLBitsPerPixel;
+
+    /** @deprecated Use openGLBitsPerPixel */
+    int                 hardwareBitsPerTexel;
 
     /** The OpenGL bytes (type) format of the data buffer used with this texture format, e.g., GL_UNSIGNED_BYTE */
     int                 openGLDataFormat;
@@ -221,8 +228,8 @@ private:
      int             blueBits,
      int             depthBits,
      int             stencilBits,
-     int             openGLBitsPerPixel,
-     int             cpuBitsPerPixel,
+     int             hardwareBitsPerTexel,
+     int             packedBitsPerTexel,
      int             glDataFormat,
      bool            opaque,
      bool            floatingPoint,

@@ -1,12 +1,12 @@
 /**
-  \file Rect2D.h
+  @file Rect2D.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
  
-  \created 2003-11-13
-  \created 2010-11-16
+  @created 2003-11-13
+  @created 2009-11-16
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2009, Morgan McGuire.
   All rights reserved.
  */
 
@@ -39,7 +39,7 @@ class Any;
  */
 class Rect2D {
 private:
-    Point2 min, max;
+    Vector2 min, max;
 
     /**
      Returns true if the whole polygon is clipped.
@@ -123,7 +123,7 @@ public:
     Rect2D(const Any& any);
     
     /** Converts the Rect2D to an Any. */
-    Any toAny() const;
+    operator Any() const;
 
     Rect2D() : min(0, 0), max(0, 0) {}
 
@@ -137,13 +137,9 @@ public:
         max = a.max.max(b.max);
     }
 
-    Vector2 extent() const {
-        return max - min;
-    }
-
     /** @brief Uniformly random point on the interior */
-    Point2 randomPoint() const {
-        return Point2(uniformRandom(0, max.x - min.x) + min.x,
+    Vector2 randomPoint() const {
+        return Vector2(uniformRandom(0, max.x - min.x) + min.x,
                        uniformRandom(0, max.y - min.y) + min.y);
     }
 
@@ -172,20 +168,20 @@ public:
     }
 
     /** Min, min corner */
-    Point2 x0y0() const {
+    Vector2 x0y0() const {
         return min;
     }
 
-    Point2 x1y0() const {
-        return Point2(max.x, min.y);
+    Vector2 x1y0() const {
+        return Vector2(max.x, min.y);
     }
 
-    Point2 x0y1() const {
-        return Point2(min.x, max.y);
+    Vector2 x0y1() const {
+        return Vector2(min.x, max.y);
     }
 
     /** Max,max corner */
-    Point2 x1y1() const {
+    Vector2 x1y1() const {
         return max;
     }
 
@@ -194,7 +190,7 @@ public:
         return max - min;
     }
 
-    Point2 center() const {
+    Vector2 center() const {
         return (max + min) * 0.5;
     }
 
@@ -226,7 +222,7 @@ public:
         return r;
     }
 
-    static Rect2D xyxy(const Point2& v0, const Point2& v1) {
+    static Rect2D xyxy(const Vector2& v0, const Vector2& v1) {
         Rect2D r;
 
         r.min = v0.min(v1);
@@ -239,7 +235,7 @@ public:
         return xyxy(x, y, x + w, y + h);
     }
 
-    static Rect2D xywh(const Point2& v, const Vector2& w) {
+    static Rect2D xywh(const Vector2& v, const Vector2& w) {
         return xyxy(v.x, v.y, v.x + w.x, v.y + w.y);
     }
 
@@ -250,7 +246,7 @@ public:
         return xyxy(Vector2::inf(), Vector2::inf());
     }
 
-    bool contains(const Point2& v) const {
+    bool contains(const Vector2& v) const {
         return (v.x >= min.x) && (v.y >= min.y) && (v.x <= max.x) && (v.y <= max.y);
     }
 
@@ -301,25 +297,21 @@ public:
         return (min != other.min) || (max != other.max);
     }
 
-    void serialize(class BinaryOutput& b) const;
-
-    void deserialize(class BinaryInput& b);
-
     /** Returns the corners in the order: (min,min), (max,min), (max,max), (min,max). */
-    Point2 corner(int i) const {
+    Vector2 corner(int i) const {
         debugAssert(i >= 0 && i < 4);
         switch (i & 3) {
         case 0:
-            return Point2(min.x, min.y);
+            return Vector2(min.x, min.y);
         case 1:
-            return Point2(max.x, min.y);
+            return Vector2(max.x, min.y);
         case 2:
-            return Point2(max.x, max.y);
+            return Vector2(max.x, max.y);
         case 3:
-            return Point2(min.x, max.y);
+            return Vector2(min.x, max.y);
         default:
             // Should never get here
-            return Point2(0, 0);
+            return Vector2(0, 0);
         }
     }
 

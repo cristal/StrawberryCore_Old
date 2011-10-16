@@ -1067,7 +1067,7 @@ class ScriptMgr
                                 sLog->outError("Script '%s' already assigned with the same script name, so the script can't work.",
                                     script->GetName().c_str());
 
-                                ASSERT(false); // Error that should be fixed ASAP.
+                                //ASSERT(false); // Error that should be fixed ASAP.
                             }
                         }
                         else

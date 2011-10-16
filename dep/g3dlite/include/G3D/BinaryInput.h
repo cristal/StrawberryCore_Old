@@ -6,7 +6,7 @@
  @created 2001-08-09
  @edited  2010-03-19
 
- Copyright 2000-2011, Morgan McGuire.
+ Copyright 2000-2010, Morgan McGuire.
  All rights reserved.
  */
 
@@ -370,7 +370,7 @@ public:
      */
     std::string readString();
 
-    /** Reads until newline ("&#92;r", "&#92;r&#92;n", "&#92;n&#92;r", "&#92;n") or the end of the file is encountered. Consumes the newline.*/
+    /** Reads until \r, \r\n, \n\r, \n or the end of the file is encountered. Consumes the newline.*/
     std::string readStringNewline();
 
     /**

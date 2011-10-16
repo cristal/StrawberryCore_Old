@@ -1,7 +1,11 @@
 /**
-  \file UprightFrame.cpp
+  @file UprightFrame.cpp
+  Box class
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+  @created 2007-05-02
+  @edited  2007-05-05
 */
 
 #include "G3D/UprightFrame.h"
@@ -19,30 +23,6 @@ UprightFrame::UprightFrame(const CoordinateFrame& cframe) {
     translation = cframe.translation;
 }
 
-UprightFrame::UprightFrame(const Any& any) {
-    any.verifyName("UprightFrame");
-    any.verifyType(Any::TABLE);
-
-    translation = any["translation"];
-    pitch = any["pitch"];
-    yaw = any["yaw"];
-}
-
-
-Any UprightFrame::toAny() const {
-    Any any(Any::TABLE, "UprightFrame");
-
-    any["translation"] = translation;
-    any["pitch"] = pitch;
-    any["yaw"] = yaw;
-
-    return any;
-}
-
-UprightFrame& UprightFrame::operator=(const Any& any) {
-    *this = UprightFrame(any);
-    return *this;
-}
     
 CoordinateFrame UprightFrame::toCoordinateFrame() const {
     CoordinateFrame cframe;
@@ -97,6 +77,7 @@ void UprightFrame::unwrapYaw(UprightFrame* a, int N) {
     }
 }
 
+
 void UprightFrame::serialize(class BinaryOutput& b) const {
     translation.serialize(b);
     b.writeFloat32(pitch);
@@ -108,62 +89,6 @@ void UprightFrame::deserialize(class BinaryInput& b) {
     translation.deserialize(b);
     pitch = b.readFloat32();
     yaw = b.readFloat32();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-UprightSpline::UprightSpline() : Spline<UprightFrame>() {
-}
-
-
-UprightSpline::UprightSpline(const Any& any) {
-    any.verifyName("UprightSpline");
-    any.verifyType(Any::TABLE);
-
-    cyclic = any["cyclic"];
-
-    const Any& controlsAny = any["control"];
-    controlsAny.verifyType(Any::ARRAY);
-
-    control.resize(controlsAny.length());
-    for (int controlIndex = 0; controlIndex < control.length(); ++controlIndex) {
-        control[controlIndex] = controlsAny[controlIndex];
-    }
-
-    const Any& timesAny = any["time"];
-    timesAny.verifyType(Any::ARRAY);
-
-    time.resize(timesAny.length());
-    for (int timeIndex = 0; timeIndex < time.length(); ++timeIndex) {
-        time[timeIndex] = timesAny[timeIndex];
-    }
-}
-
-
-Any UprightSpline::toAny() const {
-    Any any(Any::TABLE, "UprightSpline");
-
-    any["cyclic"] = cyclic;
-
-    Any controlsAny(Any::ARRAY);
-    for (int controlIndex = 0; controlIndex < control.length(); ++controlIndex) {
-        controlsAny.append(control[controlIndex]);
-    }
-    any["control"] = controlsAny;
-
-    Any timesAny(Any::ARRAY);
-    for (int timeIndex = 0; timeIndex < time.length(); ++timeIndex) {
-        timesAny.append(Any(time[timeIndex]));
-    }
-    any["time"] = timesAny;
-
-    return any;
-}
-
-
-UprightSpline& UprightSpline::operator=(const Any& any) {
-    *this = UprightSpline(any);
-    return *this;
 }
 
 

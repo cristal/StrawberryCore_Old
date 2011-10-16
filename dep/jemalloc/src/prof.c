@@ -3,13 +3,13 @@
 #ifdef JEMALLOC_PROF
 /******************************************************************************/
 
+#ifdef JEMALLOC_PROF_LIBGCC
+#include <unwind.h>
+#endif
+
 #ifdef JEMALLOC_PROF_LIBUNWIND
 #define	UNW_LOCAL_ONLY
 #include <libunwind.h>
-#endif
-
-#ifdef JEMALLOC_PROF_LIBGCC
-#include <unwind.h>
 #endif
 
 /******************************************************************************/
@@ -169,7 +169,39 @@ prof_leave(void)
 		prof_gdump();
 }
 
-#ifdef JEMALLOC_PROF_LIBUNWIND
+#ifdef JEMALLOC_PROF_LIBGCC
+static _Unwind_Reason_Code
+prof_unwind_init_callback(struct _Unwind_Context *context, void *arg)
+{
+
+	return (_URC_NO_REASON);
+}
+
+static _Unwind_Reason_Code
+prof_unwind_callback(struct _Unwind_Context *context, void *arg)
+{
+	prof_unwind_data_t *data = (prof_unwind_data_t *)arg;
+
+	if (data->nignore > 0)
+		data->nignore--;
+	else {
+		data->bt->vec[data->bt->len] = (void *)_Unwind_GetIP(context);
+		data->bt->len++;
+		if (data->bt->len == data->max)
+			return (_URC_END_OF_STACK);
+	}
+
+	return (_URC_NO_REASON);
+}
+
+void
+prof_backtrace(prof_bt_t *bt, unsigned nignore, unsigned max)
+{
+	prof_unwind_data_t data = {bt, nignore, max};
+
+	_Unwind_Backtrace(prof_unwind_callback, &data);
+}
+#elif defined(JEMALLOC_PROF_LIBUNWIND)
 void
 prof_backtrace(prof_bt_t *bt, unsigned nignore, unsigned max)
 {
@@ -204,41 +236,7 @@ prof_backtrace(prof_bt_t *bt, unsigned nignore, unsigned max)
 			break;
 	}
 }
-#endif
-#ifdef JEMALLOC_PROF_LIBGCC
-static _Unwind_Reason_Code
-prof_unwind_init_callback(struct _Unwind_Context *context, void *arg)
-{
-
-	return (_URC_NO_REASON);
-}
-
-static _Unwind_Reason_Code
-prof_unwind_callback(struct _Unwind_Context *context, void *arg)
-{
-	prof_unwind_data_t *data = (prof_unwind_data_t *)arg;
-
-	if (data->nignore > 0)
-		data->nignore--;
-	else {
-		data->bt->vec[data->bt->len] = (void *)_Unwind_GetIP(context);
-		data->bt->len++;
-		if (data->bt->len == data->max)
-			return (_URC_END_OF_STACK);
-	}
-
-	return (_URC_NO_REASON);
-}
-
-void
-prof_backtrace(prof_bt_t *bt, unsigned nignore, unsigned max)
-{
-	prof_unwind_data_t data = {bt, nignore, max};
-
-	_Unwind_Backtrace(prof_unwind_callback, &data);
-}
-#endif
-#ifdef JEMALLOC_PROF_GCC
+#else
 void
 prof_backtrace(prof_bt_t *bt, unsigned nignore, unsigned max)
 {
@@ -434,7 +432,6 @@ prof_lookup(prof_bt_t *bt)
 			prof_ctx_t	*p;
 			void		*v;
 		} ctx;
-		bool new_ctx;
 
 		/*
 		 * This thread's cache lacks bt.  Look for it in the global
@@ -471,14 +468,12 @@ prof_lookup(prof_bt_t *bt)
 				idalloc(ctx.v);
 				return (NULL);
 			}
-			/*
-			 * Artificially raise curobjs, in order to avoid a race
-			 * condition with prof_ctx_merge()/prof_ctx_destroy().
-			 */
-			ctx.p->cnt_merged.curobjs++;
-			new_ctx = true;
-		} else
-			new_ctx = false;
+		}
+		/*
+		 * Acquire ctx's lock before releasing bt2ctx_mtx, in order to
+		 * avoid a race condition with prof_ctx_destroy().
+		 */
+		malloc_mutex_lock(&ctx.p->lock);
 		prof_leave();
 
 		/* Link a prof_thd_cnt_t into ctx for this thread. */
@@ -503,11 +498,7 @@ prof_lookup(prof_bt_t *bt)
 			/* Allocate and partially initialize a new cnt. */
 			ret.v = imalloc(sizeof(prof_thr_cnt_t));
 			if (ret.p == NULL) {
-				if (new_ctx) {
-					malloc_mutex_lock(&ctx.p->lock);
-					ctx.p->cnt_merged.curobjs--;
-					malloc_mutex_unlock(&ctx.p->lock);
-				}
+				malloc_mutex_unlock(&ctx.p->lock);
 				return (NULL);
 			}
 			ql_elm_new(ret.p, cnts_link);
@@ -518,19 +509,12 @@ prof_lookup(prof_bt_t *bt)
 		ret.p->epoch = 0;
 		memset(&ret.p->cnts, 0, sizeof(prof_cnt_t));
 		if (ckh_insert(&prof_tdata->bt2cnt, btkey.v, ret.v)) {
-			if (new_ctx) {
-				malloc_mutex_lock(&ctx.p->lock);
-				ctx.p->cnt_merged.curobjs--;
-				malloc_mutex_unlock(&ctx.p->lock);
-			}
+			malloc_mutex_unlock(&ctx.p->lock);
 			idalloc(ret.v);
 			return (NULL);
 		}
 		ql_head_insert(&prof_tdata->lru_ql, ret.p, lru_link);
-		malloc_mutex_lock(&ctx.p->lock);
 		ql_tail_insert(&ctx.p->cnts_ql, ret.p, cnts_link);
-		if (new_ctx)
-			ctx.p->cnt_merged.curobjs--;
 		malloc_mutex_unlock(&ctx.p->lock);
 	} else {
 		/* Move ret to the front of the LRU. */

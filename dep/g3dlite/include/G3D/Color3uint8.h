@@ -6,7 +6,7 @@
   @created 2003-04-07
   @edited  2010-03-24
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2010, Morgan McGuire.
   All rights reserved.
  */
 
@@ -38,7 +38,8 @@ namespace G3D {
  */
 
 G3D_BEGIN_PACKED_CLASS(1)
-Color3uint8 {
+
+class Color3uint8 {
 private:
     // Hidden operators
     bool operator<(const Color3uint8&) const;

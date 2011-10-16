@@ -7,7 +7,7 @@
  @created 2006-06-11
  @edited  2010-07-24
 
- Copyright 2000-2011, Morgan McGuire.
+ Copyright 2000-2010, Morgan McGuire.
  All rights reserved.
  */
 
@@ -34,34 +34,6 @@ std::string Any::resolveStringAsFilename() const {
         } else {
             return s;
         }
-    }
-}
-
-
-void Any::remove(const std::string& key) {
-    verifyType(TABLE);
-    ensureMutable();
-    m_data->value.t->remove(key);
-}
-
-
-void Any::remove(int i) {
-    verifyType(ARRAY);
-    ensureMutable();
-    m_data->value.a->remove(i);
-}
-
-
-Any Any::fromFile(const std::string& filename) {
-    Any a;
-    a.load(filename);
-    return a;
-}
-
-
-void Any::loadIfExists(const std::string& filename) {
-    if (FileSystem::exists(filename)) {
-        load(filename);
     }
 }
 
@@ -114,11 +86,16 @@ void Any::beforeRead() const {
     if (isPlaceholder()) {
         // Tried to read from a placeholder--throw an exception as if
         // the original operator[] had failed.
+        KeyNotFound e;
         alwaysAssertM(m_data, "Corrupt placeholder");
-        KeyNotFound e(m_data);
 
+        e.filename  = m_data->source.filename;
+        e.line      = m_data->source.line;
+        e.character = m_data->source.character;
         e.key       = m_placeholderName;
-        e.message   = "Key \"" + m_placeholderName + "\" not found in operator[] lookup.";
+        e.message   = 
+            "This exception may have been thrown later than "
+            "the actual operator[] invocation.";
 
         throw e;
     } 
@@ -297,14 +274,6 @@ Any::Any(double x) : m_type(NUMBER), m_simpleValue(x), m_data(NULL) {
 }
 
 
-Any::Any(float x) : m_type(NUMBER), m_simpleValue(double(x)), m_data(NULL) {
-}
-
-
-Any::Any(char x) : m_type(NUMBER), m_simpleValue(double(x)), m_data(NULL) {
-}
-
-
 #ifdef G3D_32BIT
 Any::Any(int64 x) : m_type(NUMBER), m_simpleValue((double)x), m_data(NULL) {
 }
@@ -360,7 +329,7 @@ Any::~Any() {
 void Any::beforeWrite() {
     if (isPlaceholder()) {
         // This is no longer a placeholder
-        m_placeholderName.clear();
+        m_placeholderName = "";
     }
 }
 
@@ -383,6 +352,35 @@ Any& Any::operator=(const Any& x) {
         m_data = x.m_data;
     }
 
+    return *this;
+}
+
+
+Any& Any::operator=(double x) {
+    *this = Any(x);
+    return *this;
+}
+
+
+Any& Any::operator=(int x) {
+    return (*this = Any(x));
+}
+
+
+Any& Any::operator=(bool x) {
+    *this = Any(x);
+    return *this;
+}
+
+
+Any& Any::operator=(const std::string& x) {
+    *this = Any(x);
+    return *this;
+}
+
+
+Any& Any::operator=(const char* x) {
+    *this = Any(x);
     return *this;
 }
 
@@ -528,9 +526,6 @@ const Any& Any::operator[](int i) const {
     verifyType(ARRAY);
     debugAssert(m_data != NULL);
     Array<Any>& array = *(m_data->value.a);
-    if (i < 0 || i >= array.size()) {
-        throw IndexOutOfBounds(m_data, i, array.size());
-    }
     return array[i];
 }
 
@@ -549,9 +544,6 @@ Any& Any::operator[](int i) {
     verifyType(ARRAY);
     debugAssert(m_data != NULL);
     Array<Any>& array = *(m_data->value.a);
-    if (i < 0 || i >= array.size()) {
-        throw IndexOutOfBounds(m_data, i, array.size());
-    }
     return array[i];
 }
 
@@ -564,7 +556,7 @@ const Array<Any>& Any::array() const {
 }
 
 
-void Any::_append(const Any& x0) {
+void Any::append(const Any& x0) {
     beforeRead();
     verifyType(ARRAY);
     debugAssert(m_data != NULL);
@@ -572,14 +564,14 @@ void Any::_append(const Any& x0) {
 }
 
 
-void Any::_append(const Any& x0, const Any& x1) {
+void Any::append(const Any& x0, const Any& x1) {
     beforeRead();
     append(x0);
     append(x1);
 }
 
 
-void Any::_append(const Any& x0, const Any& x1, const Any& x2) {
+void Any::append(const Any& x0, const Any& x1, const Any& x2) {
     beforeRead();
     append(x0);
     append(x1);
@@ -587,7 +579,7 @@ void Any::_append(const Any& x0, const Any& x1, const Any& x2) {
 }
 
 
-void Any::_append(const Any& x0, const Any& x1, const Any& x2, const Any& x3) {
+void Any::append(const Any& x0, const Any& x1, const Any& x2, const Any& x3) {
     beforeRead();
     append(x0);
     append(x1);
@@ -611,9 +603,13 @@ const Any& Any::operator[](const std::string& x) const {
     const Table<std::string, Any>& table = *(m_data->value.t);
     Any* value = table.getPointer(x);
     if (value == NULL) {
-        KeyNotFound e(m_data);
+        KeyNotFound e;
+        if (m_data) {
+            e.filename  = m_data->source.filename;
+            e.line      = m_data->source.line;
+            e.character = m_data->source.character;
+        }
         e.key = x;
-        e.message = "Key not found in operator[] lookup.";
         throw e;
     }
     return *value;
@@ -641,7 +637,7 @@ Any& Any::operator[](const std::string& key) {
 }
 
 
-void Any::_set(const std::string& k, const Any& v) {
+void Any::set(const std::string& k, const Any& v) {
     beforeRead();
     v.beforeRead();
     verifyType(TABLE);
@@ -651,7 +647,7 @@ void Any::_set(const std::string& k, const Any& v) {
 }
 
 
-Any Any::_get(const std::string& x, const Any& defaultVal) const {
+const Any& Any::get(const std::string& x, const Any& defaultVal) const {
     beforeRead();
     defaultVal.beforeRead();
     try {
@@ -691,17 +687,14 @@ bool Any::operator==(const Any& x) const {
         if (m_data->name != x.m_data->name) {
             return false;
         }
-        const Table<std::string, Any>& table1 = table();
-        const Table<std::string, Any>& table2 = x.table();
-        for (Table<std::string, Any>::Iterator it = table1.begin(); it.hasMore(); ++it) {
-            const Any* p2 = table2.getPointer(it->key);
-            if (p2 == NULL) {
-                // Key not found
+        Table<std::string, Any>& cmptable  = *(  m_data->value.t);
+        Table<std::string, Any>& xcmptable = *(x.m_data->value.t);
+        for (Table<std::string,Any>::Iterator it1 = cmptable.begin(), it2 = xcmptable.begin();
+             it1 != cmptable.end() && it2 != xcmptable.end();
+             ++it1, ++it2) {
+             if (*it1 != *it2) {
                 return false;
-            } else if (*p2 != it->value) {
-                // Different value
-                return false;
-            }                
+             }
         }
         return true;
     }
@@ -735,6 +728,8 @@ bool Any::operator==(const Any& x) const {
 
 
 bool Any::operator!=(const Any& x) const {
+    beforeRead();
+    x.beforeRead();
     return !operator==(x);
 }
 
@@ -819,6 +814,7 @@ static bool needsQuotes(const std::string& s) {
 }
 
 
+// TODO: if the output will fit on one line, compress tables and arrays into a single line
 void Any::serialize(TextOutput& to) const {
     beforeRead();
     if (m_data && ! m_data->comment.empty()) {
@@ -862,18 +858,16 @@ void Any::serialize(TextOutput& to) const {
 
         for (int i = 0; i < keys.size(); ++i) {
 
-            int prevLine = to.line();
             to.writeSymbol(keys[i]);
             to.writeSymbol("=");
             table[keys[i]].serialize(to);
 
-            to.writeSymbol(";");
-
-            // Skip an extra line between table entries that are longer than a line
-            if (prevLine != to.line()) {
-                to.writeNewline();
+            if (i < keys.size() - 1) {
+                to.writeSymbol(",");
             }
+            to.writeNewline();
 
+            // Skip a line between table entries
             to.writeNewline();
         }
 
@@ -884,32 +878,20 @@ void Any::serialize(TextOutput& to) const {
 
     case ARRAY: {
         debugAssert(m_data != NULL);
-        
         if (! m_data->name.empty()) {
             // For arrays, leave no trailing space between the name and the paren
             to.writeSymbol(format("%s(", m_data->name.c_str()));
         } else {
             to.writeSymbol("(");
         }
-        const Array<Any>& array = *(m_data->value.a);
-        const bool longForm = (array.size() > 0) && ((array[0].type() == ARRAY) || (array[0].type() == TABLE));
-
-        if (longForm) {
-            to.writeNewline();
-        }
-
+        to.writeNewline();
         to.pushIndent();
+        Array<Any>& array = *(m_data->value.a);
         for (int ii = 0; ii < size(); ++ii) {
             array[ii].serialize(to);
             if (ii < size() - 1) {
-                if (longForm) {
-                    // Probably a long-form array
-                    to.writeSymbol(";");
-                    to.writeNewline();
-                } else {
-                    // Probably a short-form array
-                    to.writeSymbol(",");
-                }
+                to.writeSymbol(",");
+                to.writeNewline();
             }
             
             // Put the close paren on an array right behind the last element
@@ -1141,7 +1123,7 @@ void Any::readUntilCommaOrClose(TextInput& ti, Token& token) {
                 "Expected a comma or close paren");
         }
 
-    // Update checks
+	// Update checks
         atComma = isSeparator(token.string()[0]);
         atClose = (token.type() == Token::SYMBOL) && isClose(token.string()[0]);
     }
@@ -1180,7 +1162,7 @@ void Any::deserializeBody(TextInput& ti, Token& token) {
         }
 
         // Pointer the value being read
-        Any a;
+        Any a = NULL;
         std::string key;
         
         if (m_type == TABLE) {
@@ -1231,12 +1213,6 @@ void Any::deserializeBody(TextInput& ti, Token& token) {
 Any::operator int() const {
     beforeRead();
     return iRound(number());
-}
-
-
-Any::operator uint32() const {
-    beforeRead();
-    return uint32(number() + 0.5);
 }
 
 
@@ -1310,67 +1286,15 @@ void Any::verify(bool value, const std::string& message) const {
 
 void Any::verifyName(const std::string& n) const {
     beforeRead();
-    verify(name() == n, "Name must be " + n);
+    verify(beginsWith(toUpper(name()), toUpper(n)), "Name must begin with " + n);
 }
 
 
 void Any::verifyName(const std::string& n, const std::string& m) const {
     beforeRead();
-    const std::string& x = name();
-    verify(x == n ||
-           x == m, "Name must be " + n + " or " + m);
-}
-
-
-void Any::verifyName(const std::string& n, const std::string& m, const std::string& p) const {
-    beforeRead();
-    const std::string& x = name();
-    verify(x == n ||
-           x == m ||
-           x == p, "Name must be " + n + ", " + m + ", or " + p);
-}
-
-
-void Any::verifyName(const std::string& n, const std::string& m, const std::string& p, const std::string& q) const {
-    beforeRead();
-    const std::string& x = name();
-    verify(x == n ||
-           x == m ||
-           x == p ||
-           x == q, "Name must be " + n + ", " + m + ", " + p + ", or " + q);
-}
-
-
-void Any::verifyNameBeginsWith(const std::string& n) const {
-    beforeRead();
-    verify(beginsWith(name(), n), "Name must begin with " + n);
-}
-
-
-void Any::verifyNameBeginsWith(const std::string& n, const std::string& m) const {
-    beforeRead();
-    const std::string& x = name();
-    verify(beginsWith(x, n) ||
-           beginsWith(x, m), "Name must be " + n + " or " + m);
-}
-
-
-void Any::verifyNameBeginsWith(const std::string& n, const std::string& m, const std::string& p) const {
-    beforeRead();
-    const std::string& x = name();
-    verify(beginsWith(x, n) ||
-           beginsWith(x, m) ||
-           beginsWith(x, p), "Name must be " + n + ", " + m + ", or " + p);
-}
-
-
-void Any::verifyNameBeginsWith(const std::string& n, const std::string& m, const std::string& p, const std::string& q) const {
-    beforeRead();
-    const std::string& x = name();
-    verify(beginsWith(x, n) ||
-           beginsWith(x, m) ||
-           beginsWith(x, p) ||
-           beginsWith(x, q), "Name must be " + n + ", " + m + ", " + p + ", or " + q);
+    const std::string& x = toUpper(name());
+    verify(beginsWith(x, toUpper(n)) ||
+           beginsWith(x, toUpper(m)), "Name must begin with " + n + " or " + m);
 }
 
 

@@ -28,9 +28,9 @@ namespace G3D {
 class Any;
 
 /**
-  A 4x4 matrix.  Do not subclass.  Data is initialized to 0 when default constructed.
+  A 4x4 matrix.
 
-  \sa G3D::CoordinateFrame, G3D::Matrix3, G3D::Quat
+  See also G3D::CoordinateFrame, G3D::Matrix3, G3D::Quat
  */
 class Matrix4 {
 private:
@@ -50,17 +50,10 @@ private:
     bool operator>=(const Matrix4&) const;
 
 public:
-
-    /** Must be in one of the following forms:
-        -Matrix4(#, #, # .... #)
-        -Matrix4::scale(#)
-        -Matrix4::scale(#, #, #)
-        -Matrix4::translation(#, #, #)
-        -Matrix4::identity()
-    */
+    /** Must be of the form: <code>Matrix4(#, #, # .... #)</code>*/
     Matrix4(const Any& any);
 
-    Any toAny() const;
+    operator Any() const;
 
     Matrix4(
         float r1c1, float r1c2, float r1c3, float r1c4,
@@ -83,13 +76,6 @@ public:
     Matrix4(const double* init);
 
     Matrix4();
-
-    static Matrix4 diagonal(float e00, float e11, float e22, float e33) {
-        return Matrix4(e00, 0, 0, 0,
-                       0, e11, 0, 0,
-                       0, 0, e22, 0,
-                       0, 0, 0, e33);
-    }
 
     /** Produces an RT transformation that nearly matches this Matrix4.
         Because a Matrix4 may not be precisely a rotation and translation,

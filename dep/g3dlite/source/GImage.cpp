@@ -1,7 +1,7 @@
 /**
   \file GImage.cpp
   \author Morgan McGuire, http://graphics.cs.williams.edu
-  Copyright 2002-2011, Morgan McGuire
+  Copyright 2002-2010, Morgan McGuire
 
   \created 2002-05-27
   \edited  2010-01-04
@@ -110,22 +110,6 @@ void GImage::RGBtoBGRA(
         out[i4 + 1] = in[i3 + 1]; 
         out[i4 + 0] = in[i3 + 2]; 
         out[i4 + 3] = 255; 
-    }
-}
-
-
-void GImage::RGBAtoBGRA(
-    const uint8*    in,
-    uint8*          out,
-    int                     numPixels) {
-
-    for (int i = 0; i < numPixels; ++i) {
-        int i4 = i * 4;
-
-        out[i4 + 0] = in[i4 + 2]; 
-        out[i4 + 1] = in[i4 + 1]; 
-        out[i4 + 2] = in[i4 + 0]; 
-        out[i4 + 3] = in[i4 + 3]; 
     }
 }
 

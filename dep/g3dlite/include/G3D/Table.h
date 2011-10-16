@@ -6,7 +6,7 @@
   @maintainer Morgan McGuire, http://graphics.cs.williams.edu
   @created 2001-04-22
   @edited  2010-01-28
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2010, Morgan McGuire.
   All rights reserved.
  */
 
@@ -86,7 +86,7 @@ namespace G3D {
 
   <PRE>
     template<> struct HashTrait<MyEnum> {
-        static size_t hashCode(const MyEnum& key) const { return reinterpret_cast<size_t>( key ); }
+        static size_t equals(const MyEnum& key) const { return reinterpret_cast<size_t>( key ); }
     };
   </PRE>
 
@@ -133,12 +133,10 @@ private:
         // Private to require use of the allocator
         Node(const Key& k, const Value& v, size_t h, Node* n) 
             : entry(k, v), hashCode(h), next(n) {
-                debugAssert((next == NULL) || isValidHeapPointer(next));
         }
 
         Node(const Key& k, size_t h, Node* n) 
             : entry(k), hashCode(h), next(n) {
-                debugAssert((next == NULL) || isValidHeapPointer(next));
         }
 
     public:
@@ -431,7 +429,7 @@ public:
          Linked list node.
          */
         Node*               node;
-
+        ThisType*           table;
         size_t              m_numBuckets;
         Node**              m_bucket;
         bool                isDone;
@@ -439,14 +437,13 @@ public:
         /**
          Creates the end iterator.
          */
-        Iterator() : index(0), node(NULL), m_bucket(NULL) {
+        Iterator(const ThisType* table) : table(const_cast<ThisType*>(table)) {
             isDone = true;
         }
 
-        Iterator(size_t numBuckets, Node** m_bucket) :
-            index(0), 
-            node(NULL),
-            m_numBuckets(numBuckets),
+        Iterator(const ThisType* table, size_t m_numBuckets, Node** m_bucket) :
+            table(const_cast<ThisType*>(table)),
+            m_numBuckets(m_numBuckets),
             m_bucket(m_bucket) {
             
             if (m_numBuckets == 0) {
@@ -455,38 +452,26 @@ public:
                 return;
             }
 
-#           ifdef G3D_DEBUG
-                for (unsigned int i = 0; i < m_numBuckets; ++i) {
-                    debugAssert((m_bucket[i] == NULL) || isValidHeapPointer(m_bucket[i]));
-                }
-#           endif
-
             index = 0;
             node = m_bucket[index];
-            debugAssert((node == NULL) || isValidHeapPointer(node));
             isDone = false;
             findNext();
-            debugAssert((node == NULL) || isValidHeapPointer(node));
         }
 
         /**
-         If node is NULL, then finds the next element by searching through the bucket array.
-         Sets isDone if no more nodes are available.
+         Finds the next element, setting isDone if one can't be found.
+         Looks at the current element first.
          */
         void findNext() {
             while (node == NULL) {
-                ++index;
+                index++;
                 if (index >= m_numBuckets) {
-                    m_bucket = NULL;
-                    index = 0;
                     isDone = true;
-                    return;
+                    break;
                 } else {
                     node = m_bucket[index];
-                    debugAssert((node == NULL) || isValidHeapPointer(node));
                 }
             }
-            debugAssert(isValidHeapPointer(node));
         }
 
     public:
@@ -497,9 +482,12 @@ public:
         bool operator==(const Iterator& other) const {
             if (other.isDone || isDone) {
                 // Common case; check against isDone.
-                return (isDone == other.isDone);
+                return (isDone == other.isDone) && (other.table == table);
             } else {
-                return (node == other.node) && (index == other.index);
+                return
+                    (table == other.table) &&
+                    (node == other.node) && 
+                    (index == other.index);
             }
         }
 
@@ -507,13 +495,8 @@ public:
          Pre increment.
          */
         Iterator& operator++() {
-            debugAssert(! isDone);
-            debugAssert(node != NULL);
-            debugAssert(isValidHeapPointer(node));
-            debugAssert((node->next == NULL) || isValidHeapPointer(node->next));
             node = node->next;
             findNext();
-            debugAssert(isDone || isValidHeapPointer(node));
             return *this;
         }
 
@@ -531,16 +514,13 @@ public:
         }
 
         Entry* operator->() const {
-            debugAssert(isValidHeapPointer(node));
             return &(node->entry);
         }
 
         operator Entry*() const {
-            debugAssert(isValidHeapPointer(node));
             return &(node->entry);
         }
 
-        /** False if this entry is invalid */
 		bool hasMore() const {
 			return ! isDone;
 		}
@@ -553,7 +533,7 @@ public:
      the next element.  Do not modify the table while iterating.
      */
     Iterator begin() const {
-        return Iterator(m_numBuckets, m_bucket);
+        return Iterator(this, m_numBuckets, m_bucket);
     }
 
     /**
@@ -561,7 +541,7 @@ public:
      element.
      */
     const Iterator end() const {
-        return Iterator();
+        return Iterator(this);
     }
 
     /**
@@ -599,21 +579,20 @@ private:
         if (m_numBuckets == 0) {
             return false;
         }
-       
-        const size_t code = HashFunc::hashCode(key);
-        const size_t b = code % m_numBuckets;
+       size_t code = HashFunc::hashCode(key);
+       size_t b = code % m_numBuckets;
 
-        // Go to the m_bucket
-        Node* n = m_bucket[b];
+       // Go to the m_bucket
+       Node* n = m_bucket[b];
 
-        if (n == NULL) {
-            return false;
-        }
+       if (n == NULL) {
+           return false;
+       }
 
-        Node* previous = NULL;
+       Node* previous = NULL;
       
-        // Try to find the node
-        do {
+       // Try to find the node
+       do {
           if ((code == n->hashCode) && EqualsFunc::equals(n->entry.key, key)) {
               // This is the node; remove it
 
@@ -631,8 +610,6 @@ private:
               // Delete the node
               Node::destroy(n, m_memoryManager);
               --m_size;
-
-              //checkIntegrity();
               return true;
           }
 
@@ -640,8 +617,8 @@ private:
           n = n->next;
       } while (n != NULL);
 
-      //checkIntegrity();
       return false;
+      //alwaysAssertM(false, "Tried to remove a key that was not in the table.");
    }
 
 public:
@@ -682,7 +659,7 @@ private:
            node = node->next;
        }
 
-       return NULL;
+        return NULL;
    }
 
 public:
@@ -757,6 +734,7 @@ public:
    }
 
 
+
     /** Called by getCreate() and set() 
         
         \param created Set to true if the entry was created by this method.
@@ -779,7 +757,6 @@ public:
             m_bucket[b] = Node::create(key, code, NULL, m_memoryManager);
             ++m_size;
             created = true;
-            //checkIntegrity();
             return m_bucket[b]->entry;
         }
 
@@ -796,7 +773,6 @@ public:
 
             if ((code == n->hashCode) && EqualsFunc::equals(n->entry.key, key)) {
                // This is the a pre-existing node
-               //checkIntegrity();
                return n->entry;
             }
 
@@ -832,10 +808,8 @@ public:
         m_bucket[b] = Node::create(key, code, m_bucket[b], m_memoryManager);
         ++m_size;
         created = true;
-
-        //checkIntegrity();
         return m_bucket[b]->entry;
-    }
+   }
 
     Entry& getCreateEntry(const Key& key) {
         bool ignore;
@@ -915,7 +889,6 @@ public:
            Node* node = m_bucket[i];
            while (node != NULL) {
                delete node->entry.key;
-               node->entry.key = NULL;
                node = node->next;
            }
        }

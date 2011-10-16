@@ -1,5 +1,5 @@
 /**
-  \file CollisionDetection.h
+  @file CollisionDetection.h
 
 
   Moving collision detection for simple primitives.
@@ -12,15 +12,15 @@
   Thanks to Max McGuire of Iron Lore for various bug fixes.
   Box-Triangle by Tomas Akenine-Moller
 
-  \created 2001-11-19
-  \edited  2010-11-10
+  @created 2001-11-19
+  @edited  2008-12-19
 
-  Copyright 2000-2011, Morgan McGuire.
+  Copyright 2000-2009, Morgan McGuire.
   All rights reserved.
  */
 
-#ifndef G3D_CollisionDetection_h
-#define G3D_CollisionDetection_h
+#ifndef G3D_COLLISIONDETECTION_H
+#define G3D_COLLISIONDETECTION_H
 
 #include "G3D/platform.h"
 #include "G3D/Vector3.h"
@@ -68,17 +68,16 @@ namespace G3D {
   <b>Static Collision Detection:</b> (Neither object is moving)
 
   <table>
-  <tr><td></td><td><b>Point3</b></td><td><b>LineSegment</b></td><td><b>Ray *</b></td><td><b>Line</b></td><td><b>Plane</b></td><td><b>Triangle</b></td><td><b>Sphere</b></td><td><b>Cylinder</b></td><td><b>Capsule</b></td><td><b>AABox</b></td><td><b>Box</b></td></tr>
-  <tr><td><b>Point3</b></td><td>\link Vector3::operator== P3::==\endlink \link Vector3::fuzzyEq V3::fuzzy \endlink \link G3D::distance distance \endlink</td><td bgcolor=#C0C0C0 colspan=10 ></td></tr>
+  <tr><td></td><td><b>Vector3</b></td><td><b>LineSegment</b></td><td><b>Ray *</b></td><td><b>Line</b></td><td><b>Plane</b></td><td><b>Triangle</b></td><td><b>Sphere</b></td><td><b>Cylinder</b></td><td><b>Capsule</b></td><td><b>AABox</b></td><td><b>Box</b></td></tr>
+  <tr><td><b>Vector3</b></td><td>\link Vector3::operator== V3::==\endlink \link Vector3::fuzzyEq V3::fuzzy \endlink \link G3D::distance distance \endlink</td><td bgcolor=#C0C0C0 colspan=10 ></td></tr>
   <tr><td><b>LineSegment</b></td><td>\link LineSegment::closestPoint LS::closestPoint\endlink \link LineSegment::distance LS::distance\endlink \link CollisionDetection::closestPointOnLineSegment CD\endlink</td><td></td><td bgcolor=#C0C0C0 colspan=9 ></td></tr>
   <tr><td><b>Ray *</b></td><td>Ray::closestPoint Ray::distance</td><td></td><td></td><td bgcolor=#C0C0C0 colspan=8 ></td></tr>
   <tr><td><b>Line</b></td><td>Line::closestPoint Line::distance</td><td></td><td>\link CollisionDetection::closestPointsBetweenLineAndLine CD\endlink</td><td></td><td bgcolor=#C0C0C0 colspan=7 ></td></tr>
   <tr><td><b>Plane</b></td><td></td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=6 ></td></tr>
   <tr><td><b>Triangle</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=5 ></td></tr>
-  <tr><td><b>Sphere</b></td><td>Sphere::contains</td><td></td><td>\link CollisionDetection::collisionTimeForMovingPointFixedSphere CD \endlink, \link Ray::intersectionTime R::time\endlink</td><td></td><td></td><td>\link G3D::CollisionDetection::fixedSolidSphereIntersectsFixedTriangle CD\endlink</td><td>
-\link G3D::CollisionDetection::penetrationDepthForFixedSphereFixedSphere CD\endlink</td><td bgcolor=#C0C0C0 colspan=4 ></td></tr>
+  <tr><td><b>Sphere</b></td><td>Sphere::contains</td><td></td><td>\link CollisionDetection::collisionTimeForMovingPointFixedSphere CD \endlink, \link Ray::intersectionTime R::time\endlink</td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=4 ></td></tr>
   <tr><td><b>Cylinder</b></td><td>Cylinder::contains</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=3 ></td></tr>
-  <tr><td><b>Capsule</b></td><td>Capsule::contains</td> <td></td> <td></td> <td></td> <td></td> <td>\link G3D::CollisionDetection::collisionTimeForMovingSphereFixedTriangle CD\endlink</td> <td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=2 ></td></tr>
+  <tr><td><b>Capsule</b></td><td>Capsule::contains</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=2 ></td></tr>
   <tr><td><b>AABox</b></td><td>AABox::contains</td><td></td><td></td><td></td><td></td><td>\link CollisionDetection::fixedSolidBoxIntersectsFixedTriangle CD\endlink</td><td></td><td></td><td></td><td></td><td bgcolor=#C0C0C0 colspan=1 ></td></tr>
   <tr><td><b>Box</b></td><td>Box::contains</td><td>(treat as Ray)</td><td>\link CollisionDetection::collisionTimeForMovingPointFixedBox CD\endlink</td><td>(treat as Ray)</td><td>\link CollisionDetection::penetrationDepthForFixedBoxFixedPlane CD \endlink</td><td>\link CollisionDetection::penetrationDepthForFixedBoxFixedPlane CD\endlink</td><td>\link CollisionDetection::penetrationDepthForFixedSphereFixedBox CD\endlink</td><td>None (use OPCODE)</td><td>\link CollisionDetection::movingSpherePassesThroughFixedBox CD \endlink</td><td>\link CollisionDetection::penetrationDepthForFixedBoxFixedBox CD\endlink</td><td>\link CollisionDetection::penetrationDepthForFixedBoxFixedBox CD\endlink</td></tr>
   </table>
@@ -89,28 +88,29 @@ namespace G3D {
   <i>* Note: Moving collision detection against certain primitives is equivalent to static collision
    detection against a bigger primitive.  Ray, Line Segment == ``moving Point''; Capsule ==``moving Sphere''; Plane == ``moving Line''</i>
 
-   @deprecated Routines moving to the G3D::Intersect class in G3D 9.0
+   @deprecated Routines moving to the G3D::Intersect class in G3D 8.0
  */
 class CollisionDetection {
 private:
 
-    /**
-       Default parameter if value passed to a function as reference is
-       not to be calculated.  Must be explicitly supported by function.
-    */
-    static Vector3 ignore;
-    
-    /**
-       Default parameter if value passed to a function as reference is
-       not to be calculated.  Must be explicitly supported by function.
-    */
+	/**
+	 Default parameter if value passed to a function as reference is
+	 not to be calculated.  Must be explicitly supported by function.
+	 */
+	static Vector3 ignore;
+
+	/**
+	 Default parameter if value passed to a function as reference is
+	 not to be calculated.  Must be explicitly supported by function.
+	 */
     static bool    ignoreBool;
 
-    /**
-       Default parameter if value passed to a function as reference is
-       not to be calculated.  Must be explicitly supported by function.
-    */
+	/**
+	 Default parameter if value passed to a function as reference is
+	 not to be calculated.  Must be explicitly supported by function.
+	 */
     static Array<Vector3> ignoreArray;
+
 
     // Static class!
     CollisionDetection() {}
@@ -784,16 +784,16 @@ public:
 	 Calculates time between the intersection of a moving sphere and a fixed
 	 triangle.
 
-	 @param sphere		The moving sphere.
-	 @param velocity	The sphere's velocity.
-	 @param triangle	Single-sided fixed triangle. 
+	 @param sphere		Moving sphere.
+	 @param velocity	Sphere's velocity.
+	 @param triangle	Fixed Triangle.  (collisions can happen on the back side of the triangle)
 	 @param outLocation	Location of collision, if collision occurs -- not center position of sphere
 	 					at the collision time. If there is interpenetration at the start, this point may be inside
                         the sphere.
      @param b           Barycentric coordinates. These are not valid unless collision occurs.
 
-	 @return Time until collision.  If there is no collision then the return
-	         value will be finf().
+	 @return Time til collision.  If there is no collision then the return
+	         value will be inf().
 	*/
     static float collisionTimeForMovingSphereFixedTriangle(
         const class Sphere&		sphere,

@@ -48,10 +48,10 @@ public:
     float y;
 
     /** \param any Must either Vector2(#, #) or Vector2 {x = #, y = #}*/
-    explicit Vector2(const Any& any);
+    Vector2(const Any& any);
     
     /** Converts the Vector2 to an Any. */
-    Any toAny() const;
+    operator Any() const;
 
     /** Creates the zero vector */
     Vector2();
@@ -62,8 +62,6 @@ public:
     Vector2(double coordinate[2]);
     Vector2(const Vector2& other);
     Vector2(const Vector2int16& other); 
-
-    Vector2& operator=(const Any& a);
 
     void serialize(class BinaryOutput& b) const;
     void deserialize(class BinaryInput& b);
@@ -140,18 +138,11 @@ public:
 
     // vector operations
 
-    /** Magnitude of the vector */
+    /**  */
     float length() const;
     
-    /**
-     Returns a unit-length version of this vector.
-     Returns nan if length is almost zero.
-     */
+    /** Returns a unit-length vector */
     Vector2 direction() const;
-
-    /** Returns Vector2::zero() is magnitude is almost zero,
-        otherwise returns unit-length vector. */
-    Vector2 directionOrZero() const;
 
     /**
      Potentially less accurate but faster than direction().
@@ -163,6 +154,12 @@ public:
 
     float squaredLength() const;
     float dot(const Vector2& s) const;
+
+    /**
+     Make this vector have unit length and return the old length.
+     If the vector length was less than tolerance, do not normalize.
+     */
+    float unitize(float fTolerance = 1e-06);
 
     Vector2 min(const Vector2& v) const;
     Vector2 max(const Vector2& v) const;
@@ -388,16 +385,6 @@ inline Vector2 Vector2::direction () const {
     }
 }
 
-inline Vector2 Vector2::directionOrZero() const {
-    float mag = length();
-    if (mag < 0.0000001f) {
-        return Vector2::zero();
-    } else if (mag < 1.00001f && mag > 0.99999f) {
-        return *this;
-    } else {
-        return *this * (1.0f / mag);
-    }
-}
 
 
 inline float Vector2::dot (const Vector2& rkVector) const {
@@ -437,16 +424,14 @@ inline bool Vector2::isFinite() const {
 
 
 inline bool Vector2::isZero() const {
-    return G3D::fuzzyEq(fabsf(x) + fabsf(y), 0.0f);
+    return (x == 0.0f) && (y == 0.0f);
 }
 
 
 
 inline bool Vector2::isUnit() const {
-    return G3D::fuzzyEq(squaredLength(), 1.0f);
+    return squaredLength() == 1.0f;
 }
-
-typedef Vector2 Point2;
 
 } // namespace G3D
 
