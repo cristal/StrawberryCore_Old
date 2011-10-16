@@ -67,6 +67,8 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/dep/zlib
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/Collision
+  ${CMAKE_CURRENT_SOURCE_DIR}/Collision/Maps
+  ${CMAKE_CURRENT_SOURCE_DIR}/Collision/Models
   ${CMAKE_CURRENT_SOURCE_DIR}/Configuration
   ${CMAKE_CURRENT_SOURCE_DIR}/Cryptography
   ${CMAKE_CURRENT_SOURCE_DIR}/Database
