@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -677,14 +677,14 @@ void Creature::DoFleeToGetAssistance()
     {
         Creature* pCreature = NULL;
 
-        CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
-        Voragine::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
-        Voragine::CreatureLastSearcher<Voragine::NearestAssistCreatureInCreatureRangeCheck> searcher(this, pCreature, u_check);
+        Strawberry::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
+        Strawberry::CreatureLastSearcher<Strawberry::NearestAssistCreatureInCreatureRangeCheck> searcher(this, pCreature, u_check);
 
-        TypeContainerVisitor<Voragine::CreatureLastSearcher<Voragine::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer > grid_creature_searcher(searcher);
+        TypeContainerVisitor<Strawberry::CreatureLastSearcher<Strawberry::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer > grid_creature_searcher(searcher);
 
         cell.Visit(p, grid_creature_searcher, *GetMap(), *this, radius);
 
@@ -1821,7 +1821,7 @@ SpellEntry const *Creature::reachWithSpellCure(Unit *pVictim)
 // select nearest hostile unit within the given distance (regardless of threat list).
 Unit* Creature::SelectNearestTarget(float dist) const
 {
-    CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -1832,11 +1832,11 @@ Unit* Creature::SelectNearestTarget(float dist) const
         if (dist == 0.0f)
             dist = MAX_VISIBILITY_DISTANCE;
 
-        Voragine::NearestHostileUnitCheck u_check(this, dist);
-        Voragine::UnitLastSearcher<Voragine::NearestHostileUnitCheck> searcher(this, target, u_check);
+        Strawberry::NearestHostileUnitCheck u_check(this, dist);
+        Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitCheck> searcher(this, target, u_check);
 
-        TypeContainerVisitor<Voragine::UnitLastSearcher<Voragine::NearestHostileUnitCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
-        TypeContainerVisitor<Voragine::UnitLastSearcher<Voragine::NearestHostileUnitCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+        TypeContainerVisitor<Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
+        TypeContainerVisitor<Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
         cell.Visit(p, world_unit_searcher, *GetMap(), *this, dist);
         cell.Visit(p, grid_unit_searcher, *GetMap(), *this, dist);
@@ -1848,7 +1848,7 @@ Unit* Creature::SelectNearestTarget(float dist) const
 // select nearest hostile unit within the given attack distance (i.e. distance is ignored if > than ATTACK_DISTANCE), regardless of threat list.
 Unit* Creature::SelectNearestTargetInAttackDistance(float dist) const
 {
-    CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -1861,11 +1861,11 @@ Unit* Creature::SelectNearestTargetInAttackDistance(float dist) const
         dist = ATTACK_DISTANCE;
     }
 
-    Voragine::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
-    Voragine::UnitLastSearcher<Voragine::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
+    Strawberry::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
+    Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
 
-    TypeContainerVisitor<Voragine::UnitLastSearcher<Voragine::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
-    TypeContainerVisitor<Voragine::UnitLastSearcher<Voragine::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+    TypeContainerVisitor<Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
+    TypeContainerVisitor<Strawberry::UnitLastSearcher<Strawberry::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
     cell.Visit(p, world_unit_searcher, *GetMap(), *this, ATTACK_DISTANCE > dist ? ATTACK_DISTANCE : dist);
     cell.Visit(p, grid_unit_searcher, *GetMap(), *this, ATTACK_DISTANCE > dist ? ATTACK_DISTANCE : dist);
@@ -1876,8 +1876,8 @@ Unit* Creature::SelectNearestTargetInAttackDistance(float dist) const
 Player* Creature::SelectNearestPlayer(float distance) const
 {
     Player* target = NULL;
-    Voragine::NearestPlayerInObjectRangeCheck checker(this, distance);
-    Voragine::PlayerLastSearcher<Voragine::NearestPlayerInObjectRangeCheck> searcher(this, target, checker);
+    Strawberry::NearestPlayerInObjectRangeCheck checker(this, distance);
+    Strawberry::PlayerLastSearcher<Strawberry::NearestPlayerInObjectRangeCheck> searcher(this, target, checker);
     VisitNearbyObject(distance, searcher);
     return target;
 }
@@ -1907,15 +1907,15 @@ void Creature::CallAssistance()
             std::list<Creature*> assistList;
 
             {
-                CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+                CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
                 Cell cell(p);
                 cell.data.Part.reserved = ALL_DISTRICT;
                 cell.SetNoCreate();
 
-                Voragine::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
-                Voragine::CreatureListSearcher<Voragine::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
+                Strawberry::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
+                Strawberry::CreatureListSearcher<Strawberry::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
 
-                TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+                TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
                 cell.Visit(p, grid_creature_searcher, *GetMap(), *this, radius);
             }
@@ -1940,15 +1940,15 @@ void Creature::CallForHelp(float fRadius)
     if (fRadius <= 0.0f || !getVictim() || isPet() || isCharmed())
         return;
 
-    CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), fRadius);
-    Voragine::CreatureWorker<Voragine::CallOfHelpCreatureInRangeDo> worker(this, u_do);
+    Strawberry::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), fRadius);
+    Strawberry::CreatureWorker<Strawberry::CallOfHelpCreatureInRangeDo> worker(this, u_do);
 
-    TypeContainerVisitor<Voragine::CreatureWorker<Voragine::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer >  grid_creature_searcher(worker);
+    TypeContainerVisitor<Strawberry::CreatureWorker<Strawberry::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer >  grid_creature_searcher(worker);
 
     cell.Visit(p, grid_creature_searcher, *GetMap(), *this, fRadius);
 }

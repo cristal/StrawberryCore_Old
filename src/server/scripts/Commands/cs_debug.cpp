@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -788,8 +788,8 @@ class debug_commandscript : public CommandScript
             else
             {
                 Creature *passenger = NULL;
-                Voragine::AllCreaturesOfEntryInRange check(handler->GetSession()->GetPlayer(), entry, 20.0f);
-                Voragine::CreatureSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(handler->GetSession()->GetPlayer(), passenger, check);
+                Strawberry::AllCreaturesOfEntryInRange check(handler->GetSession()->GetPlayer(), entry, 20.0f);
+                Strawberry::CreatureSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(handler->GetSession()->GetPlayer(), passenger, check);
                 handler->GetSession()->GetPlayer()->VisitNearbyObject(30.0f, searcher);
                 if (!passenger || passenger == target)
                     return false;
@@ -1024,14 +1024,14 @@ class debug_commandscript : public CommandScript
             if (isint32)
             {
                 iValue = (uint32)atoi(py);
-                sLog->outDebug(handler->GetVoragineString(LANG_SET_UINT), GUID_LOPART(guid), Opcode, iValue);
+                sLog->outDebug(handler->GetStrawberryString(LANG_SET_UINT), GUID_LOPART(guid), Opcode, iValue);
                 target->SetUInt32Value(Opcode , iValue);
                 handler->PSendSysMessage(LANG_SET_UINT_FIELD, GUID_LOPART(guid), Opcode,iValue);
             }
             else
             {
                 fValue = (float)atof(py);
-                sLog->outDebug(handler->GetVoragineString(LANG_SET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
+                sLog->outDebug(handler->GetStrawberryString(LANG_SET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
                 target->SetFloatValue(Opcode , fValue);
                 handler->PSendSysMessage(LANG_SET_FLOAT_FIELD, GUID_LOPART(guid), Opcode,fValue);
             }
@@ -1075,13 +1075,13 @@ class debug_commandscript : public CommandScript
             if (isint32)
             {
                 iValue = target->GetUInt32Value(Opcode);
-                sLog->outDebug(handler->GetVoragineString(LANG_GET_UINT), GUID_LOPART(guid), Opcode, iValue);
+                sLog->outDebug(handler->GetStrawberryString(LANG_GET_UINT), GUID_LOPART(guid), Opcode, iValue);
                 handler->PSendSysMessage(LANG_GET_UINT_FIELD, GUID_LOPART(guid), Opcode,    iValue);
             }
             else
             {
                 fValue = target->GetFloatValue(Opcode);
-                sLog->outDebug(handler->GetVoragineString(LANG_GET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
+                sLog->outDebug(handler->GetStrawberryString(LANG_GET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
                 handler->PSendSysMessage(LANG_GET_FLOAT_FIELD, GUID_LOPART(guid), Opcode, fValue);
             }
 
@@ -1108,7 +1108,7 @@ class debug_commandscript : public CommandScript
                 return false;
             }
 
-            sLog->outDebug(handler->GetVoragineString(LANG_CHANGE_32BIT), Opcode, Value);
+            sLog->outDebug(handler->GetStrawberryString(LANG_CHANGE_32BIT), Opcode, Value);
 
             int CurrentValue = (int)handler->GetSession()->GetPlayer()->GetUInt32Value(Opcode);
 
@@ -1194,7 +1194,7 @@ class debug_commandscript : public CommandScript
             if (Value > 32)                                         //uint32 = 32 bits
                 return false;
 
-            sLog->outDebug(handler->GetVoragineString(LANG_SET_32BIT), Opcode, Value);
+            sLog->outDebug(handler->GetStrawberryString(LANG_SET_32BIT), Opcode, Value);
 
             uint32 iValue = Value ? 1 << (Value - 1) : 0;
             target->SetUInt32Value(Opcode ,  iValue);

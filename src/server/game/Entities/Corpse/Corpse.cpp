@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ bool Corpse::Create(uint32 guidlow, Player *owner)
     SetFloatValue(OBJECT_FIELD_SCALE_X, 1);
     SetUInt64Value(CORPSE_FIELD_OWNER, owner->GetGUID());
 
-    m_grid = Voragine::ComputeGridPair(GetPositionX(), GetPositionY());
+    m_grid = Strawberry::ComputeGridPair(GetPositionX(), GetPositionY());
 
     return true;
 }
@@ -208,7 +208,7 @@ bool Corpse::LoadFromDB(uint32 guid, Field *fields)
         return false;
     }
 
-    m_grid = Voragine::ComputeGridPair(GetPositionX(), GetPositionY());
+    m_grid = Strawberry::ComputeGridPair(GetPositionX(), GetPositionY());
     return true;
 }
 

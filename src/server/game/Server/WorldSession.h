@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -379,7 +379,7 @@ class WorldSession
         // Locales
         LocaleConstant GetSessionDbcLocale() const { return m_sessionDbcLocale; }
         LocaleConstant GetSessionDbLocaleIndex() const { return m_sessionDbLocaleIndex; }
-        const char *GetVoragineString(int32 entry) const;
+        const char *GetStrawberryString(int32 entry) const;
 
         uint32 GetLatency() const { return m_latency; }
         void SetLatency(uint32 latency) { m_latency = latency; }

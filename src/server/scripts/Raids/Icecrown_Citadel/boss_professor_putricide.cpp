@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -396,7 +396,7 @@ class boss_professor_putricide : public CreatureScript
                             GetCreatureListWithEntryInGrid(list, rotface, NPC_PUDDLE_STALKER, 36.0f);
                             if (list.size() > 4)
                             {
-                                list.sort(Voragine::ObjectDistanceOrderPred(rotface));
+                                list.sort(Strawberry::ObjectDistanceOrderPred(rotface));
                                 do
                                 {
                                     list.pop_back();
@@ -1100,7 +1100,7 @@ class spell_putricide_eat_ooze : public SpellScriptLoader
                 if (targets.empty())
                     return;
 
-                targets.sort(Voragine::ObjectDistanceOrderPred(GetCaster()));
+                targets.sort(Strawberry::ObjectDistanceOrderPred(GetCaster()));
                 Unit* target = targets.front();
                 targets.clear();
                 targets.push_back(target);

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_DISABLEMGR_H
-#define TRINITY_DISABLEMGR_H
+#ifndef STRAWBERRY_DISABLEMGR_H
+#define STRAWBERRY_DISABLEMGR_H
 
 #include <ace/Singleton.h>
 
@@ -86,4 +86,4 @@ class DisableMgr
 
 #define sDisableMgr ACE_Singleton<DisableMgr, ACE_Null_Mutex>::instance()
 
-#endif //TRINITY_DISABLEMGR_H
+#endif //STRAWBERRY_DISABLEMGR_H

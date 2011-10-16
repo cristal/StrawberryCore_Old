@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -340,14 +340,14 @@ enum SpellTargets
     SPELL_TARGETS_GO
 };
 
-namespace Voragine
+namespace Strawberry
 {
     struct SpellNotifierCreatureAndPlayer;
 }
 
 class Spell
 {
-    friend struct Voragine::SpellNotifierCreatureAndPlayer;
+    friend struct Strawberry::SpellNotifierCreatureAndPlayer;
     friend void Unit::SetCurrentCastedSpell(Spell * pSpell);
     friend class SpellScript;
     public:
@@ -811,7 +811,7 @@ class Spell
 #endif
 };
 
-namespace Voragine
+namespace Strawberry
 {
     struct SpellNotifierCreatureAndPlayer
     {

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -122,8 +122,8 @@ public:
 
                 //Get all immediatly nearby floors
                 std::list<GameObject*> nearFloorList;
-                Voragine::GameObjectInRangeCheck check(pFloorEruption->GetPositionX(), pFloorEruption->GetPositionY(), pFloorEruption->GetPositionZ(), 15);
-                Voragine::GameObjectListSearcher<Voragine::GameObjectInRangeCheck> searcher(pFloorEruption, nearFloorList, check);
+                Strawberry::GameObjectInRangeCheck check(pFloorEruption->GetPositionX(), pFloorEruption->GetPositionY(), pFloorEruption->GetPositionZ(), 15);
+                Strawberry::GameObjectListSearcher<Strawberry::GameObjectInRangeCheck> searcher(pFloorEruption, nearFloorList, check);
                 pFloorEruption->VisitNearbyGridObject(999, searcher);
                 //remove all that are not present on FloorEruptionGUID[1] and update treeLen on each GUID
                 for (std::list<GameObject*>::const_iterator itr = nearFloorList.begin(); itr != nearFloorList.end(); ++itr)

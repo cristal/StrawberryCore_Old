@@ -317,10 +317,6 @@
 			RelativePath="..\..\src\server\logonserver\Main.cpp"
 			>
 		</File>
-		<File
-			RelativePath="..\..\src\server\logonserver\resource.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

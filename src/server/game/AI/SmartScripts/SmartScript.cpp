@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2083,8 +2083,8 @@ ObjectList* SmartScript::GetWorldObjectsInDist(float dist)
     WorldObject* obj = GetBaseObject();
     if (obj)
     {
-        Voragine::AllWorldObjectsInRange u_check(obj, dist);
-        Voragine::WorldObjectListSearcher<Voragine::AllWorldObjectsInRange> searcher(obj, *targets, u_check);
+        Strawberry::AllWorldObjectsInRange u_check(obj, dist);
+        Strawberry::WorldObjectListSearcher<Strawberry::AllWorldObjectsInRange> searcher(obj, *targets, u_check);
         obj->VisitNearbyObject(dist, searcher);
     }
     return targets;
@@ -2651,7 +2651,7 @@ void SmartScript::FillScript(SmartAIEventList e, WorldObject* obj, AreaTriggerEn
     }
     for (SmartAIEventList::iterator i = e.begin(); i != e.end(); ++i)
     {
-        #ifndef TRINITY_DEBUG
+        #ifndef STRAWBERRY_DEBUG
             if ((*i).event.event_flags & SMART_EVENT_FLAG_DEBUG_ONLY)
                 continue;
         #endif
@@ -2801,17 +2801,17 @@ uint32 SmartScript::DoChat(int8 id, uint64 whisperGuid)
 Unit* SmartScript::DoSelectLowestHpFriendly(float range, uint32 MinHPDiff)
 {
     if (!me) return NULL;
-    CellPair p(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
     Unit* pUnit = NULL;
 
-    Voragine::MostHPMissingInRange u_check(me, range, MinHPDiff);
-    Voragine::UnitLastSearcher<Voragine::MostHPMissingInRange> searcher(me, pUnit, u_check);
+    Strawberry::MostHPMissingInRange u_check(me, range, MinHPDiff);
+    Strawberry::UnitLastSearcher<Strawberry::MostHPMissingInRange> searcher(me, pUnit, u_check);
 
-    TypeContainerVisitor<Voragine::UnitLastSearcher<Voragine::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+    TypeContainerVisitor<Strawberry::UnitLastSearcher<Strawberry::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
     cell.Visit(p, grid_unit_searcher, *me->GetMap(), *me, range);
     return pUnit;
@@ -2820,15 +2820,15 @@ Unit* SmartScript::DoSelectLowestHpFriendly(float range, uint32 MinHPDiff)
 void SmartScript::DoFindFriendlyCC(std::list<Creature*>& _list, float range)
 {
     if (!me) return;
-    CellPair p(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::FriendlyCCedInRange u_check(me, range);
-    Voragine::CreatureListSearcher<Voragine::FriendlyCCedInRange> searcher(me, _list, u_check);
+    Strawberry::FriendlyCCedInRange u_check(me, range);
+    Strawberry::CreatureListSearcher<Strawberry::FriendlyCCedInRange> searcher(me, _list, u_check);
 
-    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     cell.Visit(p, grid_creature_searcher, *me->GetMap());
 }
@@ -2836,15 +2836,15 @@ void SmartScript::DoFindFriendlyCC(std::list<Creature*>& _list, float range)
 void SmartScript::DoFindFriendlyMissingBuff(std::list<Creature*>& _list, float range, uint32 spellid)
 {
     if (!me) return;
-    CellPair p(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::FriendlyMissingBuffInRange u_check(me, range, spellid);
-    Voragine::CreatureListSearcher<Voragine::FriendlyMissingBuffInRange> searcher(me, _list, u_check);
+    Strawberry::FriendlyMissingBuffInRange u_check(me, range, spellid);
+    Strawberry::CreatureListSearcher<Strawberry::FriendlyMissingBuffInRange> searcher(me, _list, u_check);
 
-    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     cell.Visit(p, grid_creature_searcher, *me->GetMap());
 }

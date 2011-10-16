@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -936,17 +936,17 @@ void hyjalAI::JustDied(Unit* /*killer*/)
 }
 void hyjalAI::HideNearPos(float x, float y)
 {
-    CellPair pair(Voragine::ComputeCellPair(x, y));
+    CellPair pair(Strawberry::ComputeCellPair(x, y));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
     // First get all creatures.
     std::list<Creature*> creatures;
-    Voragine::AllFriendlyCreaturesInGrid creature_check(me);
-    Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+    Strawberry::AllFriendlyCreaturesInGrid creature_check(me);
+    Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
     TypeContainerVisitor
-        <Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid>,
+        <Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid>,
         GridTypeMapContainer> creature_visitor(creature_searcher);
 
                                                             // Get Creatures
@@ -963,14 +963,14 @@ void hyjalAI::HideNearPos(float x, float y)
 }
 void hyjalAI::RespawnNearPos(float x, float y)
 {
-    CellPair p(Voragine::ComputeCellPair(x, y));
+    CellPair p(Strawberry::ComputeCellPair(x, y));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::RespawnDo u_do;
-    Voragine::WorldObjectWorker<Voragine::RespawnDo> worker(me, u_do);
-    TypeContainerVisitor<Voragine::WorldObjectWorker<Voragine::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
+    Strawberry::RespawnDo u_do;
+    Strawberry::WorldObjectWorker<Strawberry::RespawnDo> worker(me, u_do);
+    TypeContainerVisitor<Strawberry::WorldObjectWorker<Strawberry::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
     cell.Visit(p, obj_worker, *me->GetMap());
 }
 void hyjalAI::WaypointReached(uint32 i)
@@ -994,17 +994,17 @@ void hyjalAI::WaypointReached(uint32 i)
         }
         //do some talking
         //all alive guards walk near here
-        CellPair pair(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+        CellPair pair(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
         Cell cell(pair);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
 
         // First get all creatures.
         std::list<Creature*> creatures;
-        Voragine::AllFriendlyCreaturesInGrid creature_check(me);
-        Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+        Strawberry::AllFriendlyCreaturesInGrid creature_check(me);
+        Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
         TypeContainerVisitor
-            <Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid>,
+            <Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid>,
             GridTypeMapContainer> creature_visitor(creature_searcher);
 
         cell.Visit(pair, creature_visitor, *(me->GetMap()));
@@ -1036,16 +1036,16 @@ void hyjalAI::DoOverrun(uint32 faction, const uint32 diff)
     {
         if (TeleportTimer <= diff)
         {
-            CellPair pair(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+            CellPair pair(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
             std::list<Creature*> creatures;
-            Voragine::AllFriendlyCreaturesInGrid creature_check(me);
-            Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+            Strawberry::AllFriendlyCreaturesInGrid creature_check(me);
+            Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
             TypeContainerVisitor
-                <Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid>,
+                <Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid>,
                 GridTypeMapContainer> creature_visitor(creature_searcher);
 
             cell.Visit(pair, creature_visitor, *(me->GetMap()));

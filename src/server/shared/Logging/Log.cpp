@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -221,8 +221,8 @@ FILE* Log::openGmlogPerAccount(uint32 account)
     if(m_gmlog_filename_format.empty())
         return NULL;
 
-    char namebuf[TRINITY_PATH_MAX];
-    snprintf(namebuf,TRINITY_PATH_MAX,m_gmlog_filename_format.c_str(),account);
+    char namebuf[STRAWBERRY_PATH_MAX];
+    snprintf(namebuf,STRAWBERRY_PATH_MAX,m_gmlog_filename_format.c_str(),account);
     return fopen(namebuf, "a");
 }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -195,7 +195,7 @@ class boss_akilzon : public CreatureScript
                     for (uint8 i = 2; i < StormCount; ++i)
                         bp0 *= 2;
 
-                    CellPair p(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+                    CellPair p(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
                     Cell cell(p);
                     cell.data.Part.reserved = ALL_DISTRICT;
                     cell.SetNoCreate();
@@ -203,11 +203,11 @@ class boss_akilzon : public CreatureScript
                     std::list<Unit *> tempUnitMap;
 
                     {
-                        Voragine::AnyAoETargetUnitInObjectRangeCheck u_check(me, me, 999);
-                        Voragine::UnitListSearcher<Voragine::AnyAoETargetUnitInObjectRangeCheck> searcher(me, tempUnitMap, u_check);
+                        Strawberry::AnyAoETargetUnitInObjectRangeCheck u_check(me, me, 999);
+                        Strawberry::UnitListSearcher<Strawberry::AnyAoETargetUnitInObjectRangeCheck> searcher(me, tempUnitMap, u_check);
 
-                        TypeContainerVisitor<Voragine::UnitListSearcher<Voragine::AnyAoETargetUnitInObjectRangeCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
-                        TypeContainerVisitor<Voragine::UnitListSearcher<Voragine::AnyAoETargetUnitInObjectRangeCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+                        TypeContainerVisitor<Strawberry::UnitListSearcher<Strawberry::AnyAoETargetUnitInObjectRangeCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
+                        TypeContainerVisitor<Strawberry::UnitListSearcher<Strawberry::AnyAoETargetUnitInObjectRangeCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
                         cell.Visit(p, world_unit_searcher, *(me->GetMap()));
                         cell.Visit(p, grid_unit_searcher, *(me->GetMap()));

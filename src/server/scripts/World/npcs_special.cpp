@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1966,8 +1966,8 @@ public:
             despawnTimer = 0;
             // Find victim of Summon Gargoyle spell
             std::list<Unit*> targets;
-            Voragine::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 30);
-            Voragine::UnitListSearcher<Voragine::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+            Strawberry::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 30);
+            Strawberry::UnitListSearcher<Strawberry::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
             me->VisitNearbyObject(30, searcher);
             for (std::list<Unit*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
                 if ((*iter)->GetAura(49206,owner->GetGUID()))
@@ -2747,16 +2747,16 @@ public:
 
             // Remove other ring spawned by the player
             {
-            CellPair pair(Voragine::ComputeCellPair(owner->GetPositionX(), owner->GetPositionY()));
+            CellPair pair(Strawberry::ComputeCellPair(owner->GetPositionX(), owner->GetPositionY()));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
             std::list<Creature*> templist;
-            Voragine::AllCreaturesOfEntryInGrid check(owner, me->GetEntry());
-            Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInGrid> searcher(owner, templist, check);
+            Strawberry::AllCreaturesOfEntryInGrid check(owner, me->GetEntry());
+            Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInGrid> searcher(owner, templist, check);
 
-            TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInGrid>, GridTypeMapContainer> visitor(searcher);
+            TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInGrid>, GridTypeMapContainer> visitor(searcher);
             cell.Visit(pair, visitor, *(owner->GetMap()));
 
             if (!templist.empty())
@@ -2792,8 +2792,8 @@ public:
 
             // Find all the enemies
             std::list<Unit*> targets;
-            Voragine::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 5.0f);
-            Voragine::UnitListSearcher<Voragine::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+            Strawberry::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 5.0f);
+            Strawberry::UnitListSearcher<Strawberry::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
             me->VisitNearbyObject(5.0f, searcher);
             for (std::list<Unit*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
                 CheckIfMoveInRing(*iter);
@@ -2869,8 +2869,8 @@ public:
 
 		   //Check friendly entities
            std::list<Unit*> targets;
-            Voragine::AnyFriendlyUnitInObjectRangeCheck u_check(me, me, 7.0f);
-            Voragine::UnitListSearcher<Voragine::AnyFriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+            Strawberry::AnyFriendlyUnitInObjectRangeCheck u_check(me, me, 7.0f);
+            Strawberry::UnitListSearcher<Strawberry::AnyFriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
             
             me->VisitNearbyObject(7.0f, searcher);
             for (std::list<Unit*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
@@ -3043,8 +3043,8 @@ public:
 
         void GetTargets()
         {
-            Voragine::AnyUnitInObjectRangeCheck u_check(me, 100.0f);
-            Voragine::UnitListSearcher<Voragine::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+            Strawberry::AnyUnitInObjectRangeCheck u_check(me, 100.0f);
+            Strawberry::UnitListSearcher<Strawberry::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
             me->VisitNearbyObject(100.0f, searcher);
             if (!targets.empty())
                 for (std::list<Unit*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)

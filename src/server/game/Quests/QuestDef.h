@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITYCORE_QUEST_H
-#define TRINITYCORE_QUEST_H
+#ifndef STRAWBERRYCORE_QUEST_H
+#define STRAWBERRYCORE_QUEST_H
 
 #include "Define.h"
 #include "DatabaseEnv.h"
@@ -151,12 +151,12 @@ enum QuestFlags
 
 enum QuestSpecialFlags
 {
-    // Voragine flags for set SpecialFlags in DB if required but used only at server
+    // Strawberry flags for set SpecialFlags in DB if required but used only at server
     QUEST_SPECIAL_FLAGS_REPEATABLE           = 0x001,  // Set by 1 in SpecialFlags from DB
     QUEST_SPECIAL_FLAGS_EXPLORATION_OR_EVENT = 0x002,  // Set by 2 in SpecialFlags from DB (if reequired area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script)
     //QUEST_SPECIAL_FLAGS_MONTHLY              = 0x004,  // Set by 4 in SpecialFlags. Quest reset for player at beginning of month.
 
-    // Voragine flags for internal use only
+    // Strawberry flags for internal use only
     QUEST_SPECIAL_FLAGS_DELIVER              = 0x008,  // Internal flag computed only
     QUEST_SPECIAL_FLAGS_SPEAKTO              = 0x010,  // Internal flag computed only
     QUEST_SPECIAL_FLAGS_KILL_OR_CAST         = 0x020,  // Internal flag computed only

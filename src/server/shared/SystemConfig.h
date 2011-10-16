@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_SYSTEMCONFIG_H
-#define TRINITY_SYSTEMCONFIG_H
+#ifndef STRAWBERRY_SYSTEMCONFIG_H
+#define STRAWBERRY_SYSTEMCONFIG_H
 
 #include "Define.h"
 
@@ -32,7 +32,7 @@
 #define _PACKAGENAME "StrawberryCore "
 #define _CODENAME "RAINY_DAY_IN_MAELSTROM"
 
-#if TRINITY_ENDIAN == TRINITY_BIGENDIAN
+#if STRAWBERRY_ENDIAN == STRAWBERRY_BIGENDIAN
 # define _ENDIAN_STRING "big-endian"
 #else
 # define _ENDIAN_STRING "little-endian"

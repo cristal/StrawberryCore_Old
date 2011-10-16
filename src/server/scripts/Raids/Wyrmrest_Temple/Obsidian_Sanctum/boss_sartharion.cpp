@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -553,8 +553,8 @@ public:
         void CastLavaStrikeOnTarget(Unit* target)
         {
             std::list<Creature*> pFireCyclonesList;
-            Voragine::AllCreaturesOfEntryInRange checker(me, NPC_FIRE_CYCLONE, 200.0f);
-            Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(me, pFireCyclonesList, checker);
+            Strawberry::AllCreaturesOfEntryInRange checker(me, NPC_FIRE_CYCLONE, 200.0f);
+            Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(me, pFireCyclonesList, checker);
             me->VisitNearbyObject(200.0f, searcher);
 
             if(pFireCyclonesList.empty())

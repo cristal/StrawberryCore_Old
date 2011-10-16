@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,8 +83,8 @@ TotemAI::UpdateAI(const uint32 /*diff*/)
         me->IsFriendlyTo(victim) || !me->canSeeOrDetect(victim))
     {
         victim = NULL;
-        Voragine::NearestAttackableUnitInObjectRangeCheck u_check(me, me, max_range);
-        Voragine::UnitLastSearcher<Voragine::NearestAttackableUnitInObjectRangeCheck> checker(me, victim, u_check);
+        Strawberry::NearestAttackableUnitInObjectRangeCheck u_check(me, me, max_range);
+        Strawberry::UnitLastSearcher<Strawberry::NearestAttackableUnitInObjectRangeCheck> checker(me, victim, u_check);
         me->VisitNearbyObject(max_range, checker);
     }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1065,7 +1065,7 @@ class npc_crok_scourgebane : public CreatureScript
                         // get all nearby vrykul
                         std::list<Creature*> temp;
                         FrostwingVrykulSearcher check(me, 80.0f);
-                        Voragine::CreatureListSearcher<FrostwingVrykulSearcher> searcher(me, temp, check);
+                        Strawberry::CreatureListSearcher<FrostwingVrykulSearcher> searcher(me, temp, check);
                         me->VisitNearbyGridObject(80.0f, searcher);
 
                         _aliveTrash.clear();
@@ -1091,8 +1091,8 @@ class npc_crok_scourgebane : public CreatureScript
                 {
                     _wipeCheckTimer = 1000;
                     Player* player = NULL;
-                    Voragine::AnyPlayerInObjectRangeCheck check(me, 60.0f);
-                    Voragine::PlayerSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
+                    Strawberry::AnyPlayerInObjectRangeCheck check(me, 60.0f);
+                    Strawberry::PlayerSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
                     me->VisitNearbyWorldObject(60.0f, searcher);
                     // wipe
                     if (!player)
@@ -1101,7 +1101,7 @@ class npc_crok_scourgebane : public CreatureScript
                         if (damage >= me->GetHealth())
                         {
                             FrostwingGauntletRespawner respawner;
-                            Voragine::CreatureWorker<FrostwingGauntletRespawner> worker(me, respawner);
+                            Strawberry::CreatureWorker<FrostwingGauntletRespawner> worker(me, respawner);
                             me->VisitNearbyGridObject(333.0f, worker);
                             Talk(SAY_CROK_DEATH);
                         }
@@ -1401,8 +1401,8 @@ class npc_captain_arnath : public CreatureScript
             Creature* FindFriendlyCreature() const
             {
                 Creature* target = NULL;
-                Voragine::MostHPMissingInRange u_check(me, 60.0f, 0);
-                Voragine::CreatureLastSearcher<Voragine::MostHPMissingInRange> searcher(me, target, u_check);
+                Strawberry::MostHPMissingInRange u_check(me, 60.0f, 0);
+                Strawberry::CreatureLastSearcher<Strawberry::MostHPMissingInRange> searcher(me, target, u_check);
                 me->VisitNearbyGridObject(60.0f, searcher);
                 return target;
             }
@@ -1752,7 +1752,7 @@ class spell_icc_sprit_alarm : public SpellScriptLoader
 
                 std::list<Creature*> wards;
                 GetCaster()->GetCreatureListWithEntryInGrid(wards, NPC_DEATHBOUND_WARD, 150.0f);
-                wards.sort(Voragine::ObjectDistanceOrderPred(GetCaster()));
+                wards.sort(Strawberry::ObjectDistanceOrderPred(GetCaster()));
                 for (std::list<Creature*>::iterator itr = wards.begin(); itr != wards.end(); ++itr)
                 {
                     if ((*itr)->isAlive() && (*itr)->HasAura(SPELL_STONEFORM))
@@ -1917,7 +1917,7 @@ class spell_svalna_revive_champion : public SpellScriptLoader
             void RemoveAliveTarget(std::list<Unit*>& unitList)
             {
                 unitList.remove_if(AliveCheck());
-                Voragine::RandomResizeList(unitList, 2);
+                Strawberry::RandomResizeList(unitList, 2);
             }
 
             void Register()
@@ -1981,7 +1981,7 @@ class at_icc_saurfang_portal : public AreaTriggerScript
                 instance->SetData(DATA_COLDFLAME_JETS, IN_PROGRESS);
                 std::list<Creature*> traps;
                 GetCreatureListWithEntryInGrid(traps, player, NPC_FROST_FREEZE_TRAP, 120.0f);
-                traps.sort(Voragine::ObjectDistanceOrderPred(player));
+                traps.sort(Strawberry::ObjectDistanceOrderPred(player));
                 bool instant = false;
                 for (std::list<Creature*>::iterator itr = traps.begin(); itr != traps.end(); ++itr)
                 {

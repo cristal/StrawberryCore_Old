@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_MAPMANAGER_H
-#define TRINITY_MAPMANAGER_H
+#ifndef STRAWBERRY_MAPMANAGER_H
+#define STRAWBERRY_MAPMANAGER_H
 
 #include "Define.h"
 #include <ace/Singleton.h>
@@ -90,17 +90,17 @@ class MapManager
 
         static bool IsValidMapCoord(uint32 mapid, float x, float y)
         {
-            return IsValidMAP(mapid, false) && Voragine::IsValidMapCoord(x, y);
+            return IsValidMAP(mapid, false) && Strawberry::IsValidMapCoord(x, y);
         }
 
         static bool IsValidMapCoord(uint32 mapid, float x, float y, float z)
         {
-            return IsValidMAP(mapid, false) && Voragine::IsValidMapCoord(x, y, z);
+            return IsValidMAP(mapid, false) && Strawberry::IsValidMapCoord(x, y, z);
         }
 
         static bool IsValidMapCoord(uint32 mapid, float x, float y, float z, float o)
         {
-            return IsValidMAP(mapid, false) && Voragine::IsValidMapCoord(x, y, z, o);
+            return IsValidMAP(mapid, false) && Strawberry::IsValidMapCoord(x, y, z, o);
         }
 
         static bool IsValidMapCoord(WorldLocation const& loc)

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 //add here most rarely modified headers to speed up debug build compilation
 #ifndef _GAMEPCH_H
 #define _GAMEPCH_H
-#ifdef TRINITY_COREPCH
+#ifdef STRAWBERRY_COREPCH
 #include "WorldSocket.h"        // must be first to make ACE happy with ACE includes in it
 
 #include "Common.h"
@@ -36,5 +36,5 @@
 #include "ObjectMgr.h"
 #include "Util.h"
 
-#endif /* TRINITY_COREPCH */
+#endif /* STRAWBERRY_COREPCH */
 #endif  /* _GAMEPCH_H */

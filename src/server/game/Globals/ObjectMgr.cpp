@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1565,7 +1565,7 @@ void ObjectMgr::AddCreatureToGrid(uint32 guid, CreatureData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Voragine::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = Strawberry::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid, i)][cell_id];
@@ -1581,7 +1581,7 @@ void ObjectMgr::RemoveCreatureFromGrid(uint32 guid, CreatureData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Voragine::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = Strawberry::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid, i)][cell_id];
@@ -1877,7 +1877,7 @@ void ObjectMgr::AddGameobjectToGrid(uint32 guid, GameObjectData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Voragine::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = Strawberry::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid, i)][cell_id];
@@ -1893,7 +1893,7 @@ void ObjectMgr::RemoveGameobjectFromGrid(uint32 guid, GameObjectData const* data
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Voragine::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = Strawberry::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid, i)][cell_id];
@@ -4709,7 +4709,7 @@ void ObjectMgr::LoadScripts(ScriptsType type)
                     continue;
                 }
 
-                if (!Voragine::IsValidMapCoord(tmp.TeleportTo.DestX, tmp.TeleportTo.DestY, tmp.TeleportTo.DestZ, tmp.TeleportTo.Orientation))
+                if (!Strawberry::IsValidMapCoord(tmp.TeleportTo.DestX, tmp.TeleportTo.DestY, tmp.TeleportTo.DestZ, tmp.TeleportTo.Orientation))
                 {
                     sLog->outErrorDb("Table `%s` has invalid coordinates (X: %f Y: %f Z: %f O: %f) in SCRIPT_COMMAND_TELEPORT_TO for script id %u",
                         tableName.c_str(), tmp.TeleportTo.DestX, tmp.TeleportTo.DestY, tmp.TeleportTo.DestZ, tmp.TeleportTo.Orientation, tmp.id);
@@ -4807,7 +4807,7 @@ void ObjectMgr::LoadScripts(ScriptsType type)
 
             case SCRIPT_COMMAND_TEMP_SUMMON_CREATURE:
             {
-                if (!Voragine::IsValidMapCoord(tmp.TempSummonCreature.PosX, tmp.TempSummonCreature.PosY, tmp.TempSummonCreature.PosZ, tmp.TempSummonCreature.Orientation))
+                if (!Strawberry::IsValidMapCoord(tmp.TempSummonCreature.PosX, tmp.TempSummonCreature.PosY, tmp.TempSummonCreature.PosZ, tmp.TempSummonCreature.Orientation))
                 {
                     sLog->outErrorDb("Table `%s` has invalid coordinates (X: %f Y: %f Z: %f O: %f) in SCRIPT_COMMAND_TEMP_SUMMON_CREATURE for script id %u",
                         tableName.c_str(), tmp.TempSummonCreature.PosX, tmp.TempSummonCreature.PosY, tmp.TempSummonCreature.PosZ, tmp.TempSummonCreature.Orientation, tmp.id);
@@ -7356,7 +7356,7 @@ void ObjectMgr::LoadPointsOfInterest()
         POI.data                 = fields[5].GetUInt32();
         POI.icon_name            = fields[6].GetString();
 
-        if (!Voragine::IsValidMapCoord(POI.x, POI.y))
+        if (!Strawberry::IsValidMapCoord(POI.x, POI.y))
         {
             sLog->outErrorDb("Table `points_of_interest` (Entry: %u) have invalid coordinates (X: %f Y: %f), ignored.", point_id, POI.x, POI.y);
             continue;
@@ -8057,7 +8057,7 @@ void ObjectMgr::LoadGameObjectForQuests()
     sLog->outString();
 }
 
-bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 max_value)
+bool ObjectMgr::LoadStrawberryStrings(char const* table, int32 min_value, int32 max_value)
 {
     uint32 oldMSTime = getMSTime();
 
@@ -8087,10 +8087,10 @@ bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 ma
     }
 
     // cleanup affected map part for reloading case
-    for (VoragineStringLocaleMap::iterator itr = mVoragineStringLocaleMap.begin(); itr != mVoragineStringLocaleMap.end();)
+    for (StrawberryStringLocaleMap::iterator itr = mStrawberryStringLocaleMap.begin(); itr != mStrawberryStringLocaleMap.end();)
     {
         if (itr->first >= start_value && itr->first < end_value)
-            mVoragineStringLocaleMap.erase(itr++);
+            mStrawberryStringLocaleMap.erase(itr++);
         else
             ++itr;
     }
@@ -8127,7 +8127,7 @@ bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 ma
             continue;
         }
 
-        VoragineStringLocale& data = mVoragineStringLocaleMap[entry];
+        StrawberryStringLocale& data = mStrawberryStringLocaleMap[entry];
 
         if (!data.Content.empty())
         {
@@ -8146,7 +8146,7 @@ bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 ma
     } while (result->NextRow());
 
     if (min_value == MIN_VORAGINE_STRING_ID)
-        sLog->outString(">> Loaded %u Voragine strings from table %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
+        sLog->outString(">> Loaded %u Strawberry strings from table %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
     else
         sLog->outString(">> Loaded %u string templates from %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
 
@@ -8154,9 +8154,9 @@ bool ObjectMgr::LoadVoragineStrings(char const* table, int32 min_value, int32 ma
     return true;
 }
 
-const char *ObjectMgr::GetVoragineString(int32 entry, LocaleConstant locale_idx) const
+const char *ObjectMgr::GetStrawberryString(int32 entry, LocaleConstant locale_idx) const
 {
-    if (VoragineStringLocale const *msl = GetVoragineStringLocale(entry))
+    if (StrawberryStringLocale const *msl = GetStrawberryStringLocale(entry))
     {
         if (msl->Content.size() > size_t(locale_idx) && !msl->Content[locale_idx].empty())
             return msl->Content[locale_idx].c_str();
@@ -8968,7 +8968,7 @@ void ObjectMgr::CheckScripts(ScriptsType type, std::set<int32>& ids)
             {
                 case SCRIPT_COMMAND_TALK:
                 {
-                    if (!GetVoragineStringLocale (itrM->second.Talk.TextID))
+                    if (!GetStrawberryStringLocale (itrM->second.Talk.TextID))
                         sLog->outErrorDb("Table `db_script_string` not has string id  %u used db script (ID: %u)", itrM->second.Talk.TextID, itrMM->first);
 
                     if (ids.find(itrM->second.Talk.TextID) != ids.end())
@@ -8983,12 +8983,12 @@ void ObjectMgr::CheckScripts(ScriptsType type, std::set<int32>& ids)
 
 void ObjectMgr::LoadDbScriptStrings()
 {
-    LoadVoragineStrings("db_script_string", MIN_DB_SCRIPT_STRING_ID, MAX_DB_SCRIPT_STRING_ID);
+    LoadStrawberryStrings("db_script_string", MIN_DB_SCRIPT_STRING_ID, MAX_DB_SCRIPT_STRING_ID);
 
     std::set<int32> ids;
 
     for (int32 i = MIN_DB_SCRIPT_STRING_ID; i < MAX_DB_SCRIPT_STRING_ID; ++i)
-        if (GetVoragineStringLocale(i))
+        if (GetStrawberryStringLocale(i))
             ids.insert(i);
 
     for (int type = SCRIPTS_FIRST; type < SCRIPTS_LAST; ++type)
@@ -9004,7 +9004,7 @@ uint32 GetAreaTriggerScriptId(uint32 trigger_id)
     return sObjectMgr->GetAreaTriggerScriptId(trigger_id);
 }
 
-bool LoadVoragineStrings(char const* table, int32 start_value, int32 end_value)
+bool LoadStrawberryStrings(char const* table, int32 start_value, int32 end_value)
 {
     // MAX_DB_SCRIPT_STRING_ID is max allowed negative value for scripts (scrpts can use only more deep negative values
     // start/end reversed for negative values
@@ -9014,7 +9014,7 @@ bool LoadVoragineStrings(char const* table, int32 start_value, int32 end_value)
         return false;
     }
 
-    return sObjectMgr->LoadVoragineStrings(table, start_value, end_value);
+    return sObjectMgr->LoadStrawberryStrings(table, start_value, end_value);
 }
 
 uint32 GetScriptId(const char *name)

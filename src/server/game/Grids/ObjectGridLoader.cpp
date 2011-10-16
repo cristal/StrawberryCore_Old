@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ ObjectGridRespawnMover::Visit(CreatureMapType &m)
 
         float resp_x, resp_y, resp_z;
         c->GetRespawnCoord(resp_x, resp_y, resp_z);
-        CellPair resp_val = Voragine::ComputeCellPair(resp_x, resp_y);
+        CellPair resp_val = Strawberry::ComputeCellPair(resp_x, resp_y);
         Cell resp_cell(resp_val);
 
         if (cur_cell.DiffGrid(resp_cell))

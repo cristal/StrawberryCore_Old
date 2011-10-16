@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -160,8 +160,8 @@ FleeingMovementGenerator<T>::_getPoint(T &owner, float &x, float &y, float &z)
         }
         temp_x = x + distance * cos(angle);
         temp_y = y + distance * sin(angle);
-        Voragine::NormalizeMapCoord(temp_x);
-        Voragine::NormalizeMapCoord(temp_y);
+        Strawberry::NormalizeMapCoord(temp_x);
+        Strawberry::NormalizeMapCoord(temp_y);
         if (owner.IsWithinLOS(temp_x,temp_y,z))
         {
             bool is_water_now = _map->IsInWater(x,y,z);

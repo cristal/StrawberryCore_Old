@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -388,8 +388,8 @@ void ScriptedAI::DoTeleportAll(float fX, float fY, float fZ, float fO)
 Unit* ScriptedAI::DoSelectLowestHpFriendly(float fRange, uint32 uiMinHPDiff)
 {
     Unit* pUnit = NULL;
-    Voragine::MostHPMissingInRange u_check(me, fRange, uiMinHPDiff);
-    Voragine::UnitLastSearcher<Voragine::MostHPMissingInRange> searcher(me, pUnit, u_check);
+    Strawberry::MostHPMissingInRange u_check(me, fRange, uiMinHPDiff);
+    Strawberry::UnitLastSearcher<Strawberry::MostHPMissingInRange> searcher(me, pUnit, u_check);
     me->VisitNearbyObject(fRange, searcher);
 
     return pUnit;
@@ -398,8 +398,8 @@ Unit* ScriptedAI::DoSelectLowestHpFriendly(float fRange, uint32 uiMinHPDiff)
 std::list<Creature*> ScriptedAI::DoFindFriendlyCC(float fRange)
 {
     std::list<Creature*> pList;
-    Voragine::FriendlyCCedInRange u_check(me, fRange);
-    Voragine::CreatureListSearcher<Voragine::FriendlyCCedInRange> searcher(me, pList, u_check);
+    Strawberry::FriendlyCCedInRange u_check(me, fRange);
+    Strawberry::CreatureListSearcher<Strawberry::FriendlyCCedInRange> searcher(me, pList, u_check);
     me->VisitNearbyObject(fRange, searcher);
     return pList;
 }
@@ -407,8 +407,8 @@ std::list<Creature*> ScriptedAI::DoFindFriendlyCC(float fRange)
 std::list<Creature*> ScriptedAI::DoFindFriendlyMissingBuff(float fRange, uint32 uiSpellid)
 {
     std::list<Creature*> pList;
-    Voragine::FriendlyMissingBuffInRange u_check(me, fRange, uiSpellid);
-    Voragine::CreatureListSearcher<Voragine::FriendlyMissingBuffInRange> searcher(me, pList, u_check);
+    Strawberry::FriendlyMissingBuffInRange u_check(me, fRange, uiSpellid);
+    Strawberry::CreatureListSearcher<Strawberry::FriendlyMissingBuffInRange> searcher(me, pList, u_check);
     me->VisitNearbyObject(fRange, searcher);
     return pList;
 }
@@ -417,14 +417,14 @@ Player* ScriptedAI::GetPlayerAtMinimumRange(float fMinimumRange)
 {
     Player* pPlayer = NULL;
 
-    CellPair pair(Voragine::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
+    CellPair pair(Strawberry::ComputeCellPair(me->GetPositionX(), me->GetPositionY()));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::PlayerAtMinimumRangeAway check(me, fMinimumRange);
-    Voragine::PlayerSearcher<Voragine::PlayerAtMinimumRangeAway> searcher(me, pPlayer, check);
-    TypeContainerVisitor<Voragine::PlayerSearcher<Voragine::PlayerAtMinimumRangeAway>, GridTypeMapContainer> visitor(searcher);
+    Strawberry::PlayerAtMinimumRangeAway check(me, fMinimumRange);
+    Strawberry::PlayerSearcher<Strawberry::PlayerAtMinimumRangeAway> searcher(me, pPlayer, check);
+    TypeContainerVisitor<Strawberry::PlayerSearcher<Strawberry::PlayerAtMinimumRangeAway>, GridTypeMapContainer> visitor(searcher);
 
     cell.Visit(pair, visitor, *(me->GetMap()));
 

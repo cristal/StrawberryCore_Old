@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_DEFINE_H
-#define TRINITY_DEFINE_H
+#ifndef STRAWBERRY_DEFINE_H
+#define STRAWBERRY_DEFINE_H
 
 #include <sys/types.h>
 
@@ -28,19 +28,19 @@
 
 #include "CompilerDefs.h"
 
-#define TRINITY_LITTLEENDIAN 0
-#define TRINITY_BIGENDIAN    1
+#define STRAWBERRY_LITTLEENDIAN 0
+#define STRAWBERRY_BIGENDIAN    1
 
-#if !defined(TRINITY_ENDIAN)
+#if !defined(STRAWBERRY_ENDIAN)
 #  if defined (ACE_BIG_ENDIAN)
-#    define TRINITY_ENDIAN TRINITY_BIGENDIAN
+#    define STRAWBERRY_ENDIAN STRAWBERRY_BIGENDIAN
 #  else //ACE_BYTE_ORDER != ACE_BIG_ENDIAN
-#    define TRINITY_ENDIAN TRINITY_LITTLEENDIAN
+#    define STRAWBERRY_ENDIAN STRAWBERRY_LITTLEENDIAN
 #  endif //ACE_BYTE_ORDER
-#endif //TRINITY_ENDIAN
+#endif //STRAWBERRY_ENDIAN
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  define TRINITY_PATH_MAX MAX_PATH
+#  define STRAWBERRY_PATH_MAX MAX_PATH
 #  ifndef DECLSPEC_NORETURN
 #    define DECLSPEC_NORETURN __declspec(noreturn)
 #  endif //DECLSPEC_NORETURN
@@ -48,18 +48,18 @@
 #    define DECLSPEC_DEPRECATED __declspec(deprecated)
 #  endif //DECLSPEC_DEPRECATED
 #else //PLATFORM != PLATFORM_WINDOWS
-#  define TRINITY_PATH_MAX PATH_MAX
+#  define STRAWBERRY_PATH_MAX PATH_MAX
 #  define DECLSPEC_NORETURN
 #  define DECLSPEC_DEPRECATED
 #endif //PLATFORM
 
 #if !defined(COREDEBUG)
-#  define TRINITY_INLINE inline
+#  define STRAWBERRY_INLINE inline
 #else //COREDEBUG
-#  if !defined(TRINITY_DEBUG)
-#    define TRINITY_DEBUG
-#  endif //TRINITY_DEBUG
-#  define TRINITY_INLINE
+#  if !defined(STRAWBERRY_DEBUG)
+#    define STRAWBERRY_DEBUG
+#  endif //STRAWBERRY_DEBUG
+#  define STRAWBERRY_INLINE
 #endif //!COREDEBUG
 
 #if COMPILER == COMPILER_GNU
@@ -81,4 +81,4 @@ typedef ACE_UINT32 uint32;
 typedef ACE_UINT16 uint16;
 typedef ACE_UINT8 uint8;
 
-#endif //TRINITY_DEFINE_H
+#endif //STRAWBERRY_DEFINE_H

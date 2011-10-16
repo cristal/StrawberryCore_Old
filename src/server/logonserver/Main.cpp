@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ bool stopEvent = false;                                     ///< Setting it to t
 LoginDatabaseWorkerPool LoginDatabase;                      ///< Accessor to the realm server database
 
 /// Handle realmd's termination signals
-class RealmdSignalHandler : public Voragine::SignalHandler
+class RealmdSignalHandler : public Strawberry::SignalHandler
 {
     public:
         virtual void HandleSignal(int SigNum)
@@ -220,7 +220,7 @@ extern int main(int argc, char **argv)
 
     if (acceptor.open(bind_addr, ACE_Reactor::instance(), ACE_NONBLOCK) == -1)
     {
-        sLog->outError("VoragineLogon can not bind to %s:%d", bind_ip.c_str(), rmport);
+        sLog->outError("StrawberryLogon can not bind to %s:%d", bind_ip.c_str(), rmport);
         return 1;
     }
 
@@ -268,7 +268,7 @@ extern int main(int argc, char **argv)
         if (Prio)
         {
             if (SetPriorityClass(hProcess, HIGH_PRIORITY_CLASS))
-                sLog->outString("VoragineLogon process priority class set to HIGH");
+                sLog->outString("StrawberryLogon process priority class set to HIGH");
             else
                 sLog->outError("Can't set realmd process priority class.");
             sLog->outString();

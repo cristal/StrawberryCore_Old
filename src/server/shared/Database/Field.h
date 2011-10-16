@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetUInt8() on non-numeric field.");
@@ -60,7 +60,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GeInt8() on non-numeric field.");
@@ -77,7 +77,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetUInt16() on non-numeric field.");
@@ -94,7 +94,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetInt16() on non-numeric field.");
@@ -111,7 +111,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetUInt32() on non-numeric field.");
@@ -128,7 +128,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetInt32() on non-numeric field.");
@@ -145,7 +145,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetUInt64() on non-numeric field.");
@@ -162,7 +162,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetInt64() on non-numeric field.");
@@ -179,7 +179,7 @@ class Field
             if (!data.value)
                 return 0.0f;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetFloat() on non-numeric field.");
@@ -196,7 +196,7 @@ class Field
             if (!data.value)
                 return 0.0f;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (!IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetDouble() on non-numeric field.");
@@ -213,7 +213,7 @@ class Field
             if (!data.value)
                 return NULL;
 
-            #ifdef TRINITY_DEBUG
+            #ifdef STRAWBERRY_DEBUG
             if (IsNumeric())
             {
                 sLog->outSQLDriver("Error: GetCString() on numeric field.");

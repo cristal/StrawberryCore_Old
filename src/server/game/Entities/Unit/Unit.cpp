@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1830,7 +1830,7 @@ void Unit::CalcAbsorbResist(Unit* victim, SpellSchoolMask schoolMask, DamageEffe
     // We're going to call functions which can modify content of the list during iteration over it's elements
     // Let's copy the list so we can prevent iterator invalidation
     AuraEffectList vSchoolAbsorbCopy(victim->GetAuraEffectsByType(SPELL_AURA_SCHOOL_ABSORB));
-    vSchoolAbsorbCopy.sort(Voragine::AbsorbAuraOrderPred());
+    vSchoolAbsorbCopy.sort(Strawberry::AbsorbAuraOrderPred());
 
     // absorb without mana cost
     for (AuraEffectList::iterator itr = vSchoolAbsorbCopy.begin(); (itr != vSchoolAbsorbCopy.end()) && (dmgInfo.GetDamage() > 0); ++itr)
@@ -15533,8 +15533,8 @@ void Unit::UpdateReactives(uint32 p_time)
 Unit* Unit::SelectNearbyTarget(float dist) const
 {
     std::list<Unit *> targets;
-    Voragine::AnyUnfriendlyUnitInObjectRangeCheck u_check(this, this, dist);
-    Voragine::UnitListSearcher<Voragine::AnyUnfriendlyUnitInObjectRangeCheck> searcher(this, targets, u_check);
+    Strawberry::AnyUnfriendlyUnitInObjectRangeCheck u_check(this, this, dist);
+    Strawberry::UnitListSearcher<Strawberry::AnyUnfriendlyUnitInObjectRangeCheck> searcher(this, targets, u_check);
     VisitNearbyObject(dist, searcher);
 
     // remove current target
@@ -17191,7 +17191,7 @@ void Unit::UpdateObjectVisibility(bool forced)
     {
         WorldObject::UpdateObjectVisibility(true);
         // call MoveInLineOfSight for nearby creatures
-        Voragine::AIRelocationNotifier notifier(*this);
+        Strawberry::AIRelocationNotifier notifier(*this);
         VisitNearbyObject(GetVisibilityRange(), notifier);
     }
 }
@@ -18086,7 +18086,7 @@ void Unit::NearTeleportTo(float x, float y, float z, float orientation, bool cas
 bool Unit::SetPosition(float x, float y, float z, float orientation, bool teleport)
 {
     // prevent crash when a bad coord is sent by the client
-    if (!Voragine::IsValidMapCoord(x, y, z, orientation))
+    if (!Strawberry::IsValidMapCoord(x, y, z, orientation))
     {
         sLog->outDebug("Unit::SetPosition(%f, %f, %f) .. bad coordinates!", x, y, z);
         return false;

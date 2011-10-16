@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2470,11 +2470,11 @@ void Guild::_CreateDefaultGuildRanks(LocaleConstant loc)
     stmt->setUInt32(0, m_id);
     CharacterDatabase.Execute(stmt);
 
-    _CreateRank(sObjectMgr->GetVoragineString(LANG_GUILD_MASTER,   loc), GR_RIGHT_ALL);
-    _CreateRank(sObjectMgr->GetVoragineString(LANG_GUILD_OFFICER,  loc), GR_RIGHT_ALL);
-    _CreateRank(sObjectMgr->GetVoragineString(LANG_GUILD_VETERAN,  loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
-    _CreateRank(sObjectMgr->GetVoragineString(LANG_GUILD_MEMBER,   loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
-    _CreateRank(sObjectMgr->GetVoragineString(LANG_GUILD_INITIATE, loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    _CreateRank(sObjectMgr->GetStrawberryString(LANG_GUILD_MASTER,   loc), GR_RIGHT_ALL);
+    _CreateRank(sObjectMgr->GetStrawberryString(LANG_GUILD_OFFICER,  loc), GR_RIGHT_ALL);
+    _CreateRank(sObjectMgr->GetStrawberryString(LANG_GUILD_VETERAN,  loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    _CreateRank(sObjectMgr->GetStrawberryString(LANG_GUILD_MEMBER,   loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    _CreateRank(sObjectMgr->GetStrawberryString(LANG_GUILD_INITIATE, loc), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
 }
 
 void Guild::_CreateRank(const std::string& name, uint32 rights)

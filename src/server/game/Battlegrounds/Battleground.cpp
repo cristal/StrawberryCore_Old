@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@
 #include "SpellAuraEffects.h"
 #include "Util.h"
 
-namespace Voragine
+namespace Strawberry
 {
     class BattlegroundChatBuilder
     {
@@ -49,7 +49,7 @@ namespace Voragine
 
             void operator()(WorldPacket& data, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetVoragineString(_textId, loc_idx);
+                char const* text = sObjectMgr->GetStrawberryString(_textId, loc_idx);
                 if (_args)
                 {
                     // we need copy va_list before use or original va_list will corrupted
@@ -95,9 +95,9 @@ namespace Voragine
 
             void operator()(WorldPacket& data, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetVoragineString(_textId, loc_idx);
-                char const* arg1str = _arg1 ? sObjectMgr->GetVoragineString(_arg1, loc_idx) : "";
-                char const* arg2str = _arg2 ? sObjectMgr->GetVoragineString(_arg2, loc_idx) : "";
+                char const* text = sObjectMgr->GetStrawberryString(_textId, loc_idx);
+                char const* arg1str = _arg1 ? sObjectMgr->GetStrawberryString(_arg1, loc_idx) : "";
+                char const* arg2str = _arg2 ? sObjectMgr->GetStrawberryString(_arg2, loc_idx) : "";
 
                 char str[2048];
                 snprintf(str, 2048, text, arg1str, arg2str);
@@ -121,7 +121,7 @@ namespace Voragine
             int32 _arg1;
             int32 _arg2;
     };
-}                                                           // namespace Voragine
+}                                                           // namespace Strawberry
 
 template<class Do>
 void Battleground::BroadcastWorker(Do& _do)
@@ -867,7 +867,7 @@ uint32 Battleground::GetBonusHonorFromKill(uint32 kills) const
 {
     //variable kills means how many honorable kills you scored (so we need kills * honor_for_one_kill)
     uint32 maxLevel = std::min(GetMaxLevel(), 80U);
-    return Voragine::Honor::hk_honor_at_level(maxLevel, float(kills));
+    return Strawberry::Honor::hk_honor_at_level(maxLevel, float(kills));
 }
 
 uint32 Battleground::GetBattlemasterEntry() const
@@ -1620,8 +1620,8 @@ bool Battleground::AddSpiritGuide(uint32 type, float x, float y, float z, float 
 
 void Battleground::SendMessageToAll(int32 entry, ChatMsg type, Player const* source)
 {
-    Voragine::BattlegroundChatBuilder bg_builder(type, entry, source);
-    Voragine::LocalizedPacketDo<Voragine::BattlegroundChatBuilder> bg_do(bg_builder);
+    Strawberry::BattlegroundChatBuilder bg_builder(type, entry, source);
+    Strawberry::LocalizedPacketDo<Strawberry::BattlegroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -1630,8 +1630,8 @@ void Battleground::PSendMessageToAll(int32 entry, ChatMsg type, Player const* so
     va_list ap;
     va_start(ap, source);
 
-    Voragine::BattlegroundChatBuilder bg_builder(type, entry, source, &ap);
-    Voragine::LocalizedPacketDo<Voragine::BattlegroundChatBuilder> bg_do(bg_builder);
+    Strawberry::BattlegroundChatBuilder bg_builder(type, entry, source, &ap);
+    Strawberry::LocalizedPacketDo<Strawberry::BattlegroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 
     va_end(ap);
@@ -1639,7 +1639,7 @@ void Battleground::PSendMessageToAll(int32 entry, ChatMsg type, Player const* so
 
 void Battleground::SendWarningToAll(int32 entry, ...)
 {
-    const char *format = sObjectMgr->GetVoragineStringForDBCLocale(entry);
+    const char *format = sObjectMgr->GetStrawberryStringForDBCLocale(entry);
 
     char str[1024];
     va_list ap;
@@ -1668,8 +1668,8 @@ void Battleground::SendWarningToAll(int32 entry, ...)
 
 void Battleground::SendMessage2ToAll(int32 entry, ChatMsg type, Player const* source, int32 arg1, int32 arg2)
 {
-    Voragine::Battleground2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
-    Voragine::LocalizedPacketDo<Voragine::Battleground2ChatBuilder> bg_do(bg_builder);
+    Strawberry::Battleground2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
+    Strawberry::LocalizedPacketDo<Strawberry::Battleground2ChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -1681,10 +1681,10 @@ void Battleground::EndNow()
 }
 
 // To be removed
-const char* Battleground::GetVoragineString(int32 entry)
+const char* Battleground::GetStrawberryString(int32 entry)
 {
     // FIXME: now we have different DBC locales and need localized message for each target client
-    return sObjectMgr->GetVoragineStringForDBCLocale(entry);
+    return sObjectMgr->GetStrawberryStringForDBCLocale(entry);
 }
 
 // IMPORTANT NOTICE:

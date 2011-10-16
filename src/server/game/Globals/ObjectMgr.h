@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -378,18 +378,18 @@ typedef UNORDERED_MAP<uint32/*(mapid, spawnMode) pair*/, CellObjectGuidsMap> Map
 
 typedef UNORDERED_MAP<uint64/*(instance, guid) pair*/, time_t> RespawnTimes;
 
-// Voragine string ranges
-#define MIN_VORAGINE_STRING_ID           1                    // 'voragine_string'
+// Strawberry string ranges
+#define MIN_VORAGINE_STRING_ID           1                    // 'strawberry_string'
 #define MAX_VORAGINE_STRING_ID           2000000000
 #define MIN_DB_SCRIPT_STRING_ID        MAX_VORAGINE_STRING_ID // 'db_script_string'
 #define MAX_DB_SCRIPT_STRING_ID        2000010000
 #define MIN_CREATURE_AI_TEXT_STRING_ID (-1)                 // 'creature_ai_texts'
 #define MAX_CREATURE_AI_TEXT_STRING_ID (-1000000)
 
-// Voragine Trainer Reference start range
+// Strawberry Trainer Reference start range
 #define VORAGINE_TRAINER_START_REF      200000
 
-struct VoragineStringLocale
+struct StrawberryStringLocale
 {
     StringVector Content;
 };
@@ -404,7 +404,7 @@ typedef UNORDERED_MAP<uint32, ItemSetNameLocale> ItemSetNameLocaleMap;
 typedef UNORDERED_MAP<uint32, QuestLocale> QuestLocaleMap;
 typedef UNORDERED_MAP<uint32, NpcTextLocale> NpcTextLocaleMap;
 typedef UNORDERED_MAP<uint32, PageTextLocale> PageTextLocaleMap;
-typedef UNORDERED_MAP<int32,VoragineStringLocale> VoragineStringLocaleMap;
+typedef UNORDERED_MAP<int32,StrawberryStringLocale> StrawberryStringLocaleMap;
 typedef UNORDERED_MAP<uint32, GossipMenuItemsLocale> GossipMenuItemsLocaleMap;
 typedef UNORDERED_MAP<uint32, PointOfInterestLocale> PointOfInterestLocaleMap;
 
@@ -904,8 +904,8 @@ class ObjectMgr
         void LoadSpellScriptNames();
         void ValidateSpellScripts();
 
-        bool LoadVoragineStrings(char const* table, int32 min_value, int32 max_value);
-        bool LoadVoragineStrings() { return LoadVoragineStrings("strawberry_string",MIN_VORAGINE_STRING_ID,MAX_VORAGINE_STRING_ID); }
+        bool LoadStrawberryStrings(char const* table, int32 min_value, int32 max_value);
+        bool LoadStrawberryStrings() { return LoadStrawberryStrings("strawberry_string",MIN_VORAGINE_STRING_ID,MAX_VORAGINE_STRING_ID); }
         void LoadDbScriptStrings();
         void LoadCreatureLevelStats();
         void LoadCreatureLocales();
@@ -1111,14 +1111,14 @@ class ObjectMgr
         GameObjectData& NewGOData(uint32 guid) { return mGameObjectDataMap[guid]; }
         void DeleteGOData(uint32 guid);
 
-        VoragineStringLocale const* GetVoragineStringLocale(int32 entry) const
+        StrawberryStringLocale const* GetStrawberryStringLocale(int32 entry) const
         {
-            VoragineStringLocaleMap::const_iterator itr = mVoragineStringLocaleMap.find(entry);
-            if (itr == mVoragineStringLocaleMap.end()) return NULL;
+            StrawberryStringLocaleMap::const_iterator itr = mStrawberryStringLocaleMap.find(entry);
+            if (itr == mStrawberryStringLocaleMap.end()) return NULL;
             return &itr->second;
         }
-        const char *GetVoragineString(int32 entry, LocaleConstant locale_idx) const;
-        const char *GetVoragineStringForDBCLocale(int32 entry) const { return GetVoragineString(entry,DBCLocaleIndex); }
+        const char *GetStrawberryString(int32 entry, LocaleConstant locale_idx) const;
+        const char *GetStrawberryStringForDBCLocale(int32 entry) const { return GetStrawberryString(entry,DBCLocaleIndex); }
         LocaleConstant GetDBCLocaleIndex() const { return DBCLocaleIndex; }
         void SetDBCLocaleIndex(LocaleConstant locale) { DBCLocaleIndex = locale; }
 
@@ -1410,7 +1410,7 @@ class ObjectMgr
         QuestLocaleMap mQuestLocaleMap;
         NpcTextLocaleMap mNpcTextLocaleMap;
         PageTextLocaleMap mPageTextLocaleMap;
-        VoragineStringLocaleMap mVoragineStringLocaleMap;
+        StrawberryStringLocaleMap mStrawberryStringLocaleMap;
         GossipMenuItemsLocaleMap mGossipMenuItemsLocaleMap;
         PointOfInterestLocaleMap mPointOfInterestLocaleMap;
         RespawnTimes mCreatureRespawnTimes;
@@ -1438,7 +1438,7 @@ class ObjectMgr
 #define sObjectMgr ACE_Singleton<ObjectMgr, ACE_Null_Mutex>::instance()
 
 // scripting access functions
- bool LoadVoragineStrings(char const* table,int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
+ bool LoadStrawberryStrings(char const* table,int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
 uint32 GetScriptId(const char *name);
 
 #endif

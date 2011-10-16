@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -241,15 +241,15 @@ class boss_janalai : public CreatureScript
                 me->GetPosition(x, y, z);
 
                 {
-                    CellPair pair(Voragine::ComputeCellPair(x, y));
+                    CellPair pair(Strawberry::ComputeCellPair(x, y));
                     Cell cell(pair);
                     cell.data.Part.reserved = ALL_DISTRICT;
                     cell.SetNoCreate();
 
-                    Voragine::AllCreaturesOfEntryInRange check(me, MOB_EGG, 100);
-                    Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(me, templist, check);
+                    Strawberry::AllCreaturesOfEntryInRange check(me, MOB_EGG, 100);
+                    Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(me, templist, check);
 
-                    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+                    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
                     cell.Visit(pair, cSearcher, *(me->GetMap()));
                 }
@@ -275,15 +275,15 @@ class boss_janalai : public CreatureScript
                 me->GetPosition(x, y, z);
 
                 {
-                    CellPair pair(Voragine::ComputeCellPair(x, y));
+                    CellPair pair(Strawberry::ComputeCellPair(x, y));
                     Cell cell(pair);
                     cell.data.Part.reserved = ALL_DISTRICT;
                     cell.SetNoCreate();
 
-                    Voragine::AllCreaturesOfEntryInRange check(me, MOB_FIRE_BOMB, 100);
-                    Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(me, templist, check);
+                    Strawberry::AllCreaturesOfEntryInRange check(me, MOB_FIRE_BOMB, 100);
+                    Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(me, templist, check);
 
-                    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+                    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
                     cell.Visit(pair, cSearcher, *(me->GetMap()));
                 }
@@ -528,15 +528,15 @@ class mob_janalai_hatcher : public CreatureScript
                 me->GetPosition(x, y, z);
 
                 {
-                    CellPair pair(Voragine::ComputeCellPair(x, y));
+                    CellPair pair(Strawberry::ComputeCellPair(x, y));
                     Cell cell(pair);
                     cell.data.Part.reserved = ALL_DISTRICT;
                     cell.SetNoCreate();
 
-                    Voragine::AllCreaturesOfEntryInRange check(me, 23817, 50);
-                    Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(me, templist, check);
+                    Strawberry::AllCreaturesOfEntryInRange check(me, 23817, 50);
+                    Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(me, templist, check);
 
-                    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+                    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
                     cell.Visit(pair, cSearcher, *(me->GetMap()));
                 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ void SystemMgr::LoadVersion()
 void SystemMgr::LoadScriptTexts()
 {
     sLog->outString("TSCR: Loading Script Texts...");
-    LoadVoragineStrings("script_texts",TEXT_SOURCE_RANGE,1+(TEXT_SOURCE_RANGE*2));
+    LoadStrawberryStrings("script_texts",TEXT_SOURCE_RANGE,1+(TEXT_SOURCE_RANGE*2));
     
     sLog->outString("TSCR: Loading Script Texts additional data...");
     uint32 oldMSTime = getMSTime();
@@ -110,7 +110,7 @@ void SystemMgr::LoadScriptTexts()
 void SystemMgr::LoadScriptTextsCustom()
 {
     sLog->outString("TSCR: Loading Custom Texts...");
-    LoadVoragineStrings("custom_texts",TEXT_SOURCE_RANGE*2,1+(TEXT_SOURCE_RANGE*3));
+    LoadStrawberryStrings("custom_texts",TEXT_SOURCE_RANGE*2,1+(TEXT_SOURCE_RANGE*3));
 
     sLog->outString("TSCR: Loading Custom Texts additional data...");
 

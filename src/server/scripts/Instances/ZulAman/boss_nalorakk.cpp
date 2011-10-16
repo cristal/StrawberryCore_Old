@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -164,15 +164,15 @@ class boss_nalorakk : public CreatureScript
                 me->GetPosition(x, y, z);
 
                 {
-                    CellPair pair(Voragine::ComputeCellPair(x, y));
+                    CellPair pair(Strawberry::ComputeCellPair(x, y));
                     Cell cell(pair);
                     cell.data.Part.reserved = ALL_DISTRICT;
                     cell.SetNoCreate();
 
-                    Voragine::AllFriendlyCreaturesInGrid check(me);
-                    Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid> searcher(me, templist, check);
+                    Strawberry::AllFriendlyCreaturesInGrid check(me);
+                    Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid> searcher(me, templist, check);
 
-                    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> cSearcher(searcher);
+                    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> cSearcher(searcher);
 
                     cell.Visit(pair, cSearcher, *(me->GetMap()));
                 }

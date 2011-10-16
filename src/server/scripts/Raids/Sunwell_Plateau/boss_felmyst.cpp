@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -498,14 +498,14 @@ public:
             float x, y, z;
             me->GetPosition(x, y, z);
 
-            CellPair pair(Voragine::ComputeCellPair(x, y));
+            CellPair pair(Strawberry::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Voragine::AllCreaturesOfEntryInRange check(me, entry, 100);
-            Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(me, templist, check);
-            TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            Strawberry::AllCreaturesOfEntryInRange check(me, entry, 100);
+            Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(me, templist, check);
+            TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
             cell.Visit(pair, cSearcher, *(me->GetMap()));
 
             for (std::list<Creature*>::const_iterator i = templist.begin(); i != templist.end(); ++i)

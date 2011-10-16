@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -449,8 +449,8 @@ void GameObject::Update(uint32 diff)
                     // search unfriendly creature
                     if (owner)                    // hunter trap
                     {
-                        Voragine::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
-                        Voragine::UnitSearcher<Voragine::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, ok, checker);
+                        Strawberry::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
+                        Strawberry::UnitSearcher<Strawberry::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, ok, checker);
                         VisitNearbyGridObject(radius, searcher);
                         if (!ok) VisitNearbyWorldObject(radius, searcher);
                     }
@@ -459,8 +459,8 @@ void GameObject::Update(uint32 diff)
                         // environmental damage spells already have around enemies targeting but this not help in case not existed GO casting support
                         // affect only players
                         Player* player = NULL;
-                        Voragine::AnyPlayerInObjectRangeCheck checker(this, radius);
-                        Voragine::PlayerSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
+                        Strawberry::AnyPlayerInObjectRangeCheck checker(this, radius);
+                        Strawberry::PlayerSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
                         VisitNearbyWorldObject(radius, searcher);
                         ok = player;
                     }
@@ -976,14 +976,14 @@ void GameObject::TriggeringLinkedGameObject(uint32 trapEntry, Unit* target)
     GameObject* trapGO = NULL;
     {
         // using original GO distance
-        CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
-        Voragine::NearestGameObjectEntryInObjectRangeCheck go_check(*target,trapEntry,range);
-        Voragine::GameObjectLastSearcher<Voragine::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO,go_check);
+        Strawberry::NearestGameObjectEntryInObjectRangeCheck go_check(*target,trapEntry,range);
+        Strawberry::GameObjectLastSearcher<Strawberry::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO,go_check);
 
-        TypeContainerVisitor<Voragine::GameObjectLastSearcher<Voragine::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<Strawberry::GameObjectLastSearcher<Strawberry::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
         cell.Visit(p, object_checker, *GetMap(), *target, range);
     }
 
@@ -996,13 +996,13 @@ GameObject* GameObject::LookupFishingHoleAround(float range)
 {
     GameObject* ok = NULL;
 
-    CellPair p(Voragine::ComputeCellPair(GetPositionX(),GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(GetPositionX(),GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
-    Voragine::NearestGameObjectFishingHole u_check(*this, range);
-    Voragine::GameObjectSearcher<Voragine::NearestGameObjectFishingHole> checker(this, ok, u_check);
+    Strawberry::NearestGameObjectFishingHole u_check(*this, range);
+    Strawberry::GameObjectSearcher<Strawberry::NearestGameObjectFishingHole> checker(this, ok, u_check);
 
-    TypeContainerVisitor<Voragine::GameObjectSearcher<Voragine::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
+    TypeContainerVisitor<Strawberry::GameObjectSearcher<Strawberry::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
     cell.Visit(p, grid_object_checker, *GetMap(), *this, range);
 
     return ok;

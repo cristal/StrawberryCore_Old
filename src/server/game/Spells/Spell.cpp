@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -593,7 +593,7 @@ WorldObject* Spell::FindCorpseUsing()
     // non-standard target selection
     float max_range = GetSpellMaxRange(m_spellInfo, false);
 
-    CellPair p(Voragine::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -601,14 +601,14 @@ WorldObject* Spell::FindCorpseUsing()
     WorldObject* result = NULL;
 
     T u_check(m_caster, max_range);
-    Voragine::WorldObjectSearcher<T> searcher(m_caster, result, u_check);
+    Strawberry::WorldObjectSearcher<T> searcher(m_caster, result, u_check);
 
-    TypeContainerVisitor<Voragine::WorldObjectSearcher<T>, GridTypeMapContainer > grid_searcher(searcher);
+    TypeContainerVisitor<Strawberry::WorldObjectSearcher<T>, GridTypeMapContainer > grid_searcher(searcher);
     cell.Visit(p, grid_searcher, *m_caster->GetMap(), *m_caster, max_range);
 
     if (!result)
     {
-        TypeContainerVisitor<Voragine::WorldObjectSearcher<T>, WorldTypeMapContainer > world_searcher(searcher);
+        TypeContainerVisitor<Strawberry::WorldObjectSearcher<T>, WorldTypeMapContainer > world_searcher(searcher);
         cell.Visit(p, world_searcher, *m_caster->GetMap(), *m_caster, max_range);
     }
 
@@ -669,9 +669,9 @@ void Spell::SelectSpellTargets()
                         {
                             WorldObject* result = NULL;
                             if (m_spellInfo->Id == 20577)
-                                result = FindCorpseUsing<Voragine::CannibalizeObjectCheck>();
+                                result = FindCorpseUsing<Strawberry::CannibalizeObjectCheck>();
                             else
-                                result = FindCorpseUsing<Voragine::CarrionFeederObjectCheck>();
+                                result = FindCorpseUsing<Strawberry::CarrionFeederObjectCheck>();
 
                             if (result)
                             {
@@ -1827,7 +1827,7 @@ void Spell::SearchChainTarget(std::list<Unit*> &TagUnitMap, float max_range, uin
         }
         else
         {
-            tempUnitMap.sort(Voragine::ObjectDistanceOrderPred(cur));
+            tempUnitMap.sort(Strawberry::ObjectDistanceOrderPred(cur));
             next = tempUnitMap.begin();
 
             if (cur->GetDistance(*next) > CHAIN_SPELL_JUMP_RADIUS)      // Don't search beyond the max jump radius
@@ -1885,7 +1885,7 @@ void Spell::SearchAreaTarget(std::list<Unit*> &TagUnitMap, float radius, SpellNo
             break;
     }
 
-    Voragine::SpellNotifierCreatureAndPlayer notifier(m_caster, TagUnitMap, radius, type, TargetType, pos, entry, m_spellInfo);
+    Strawberry::SpellNotifierCreatureAndPlayer notifier(m_caster, TagUnitMap, radius, type, TargetType, pos, entry, m_spellInfo);
     if ((m_spellInfo->AttributesEx3 & SPELL_ATTR3_PLAYERS_ONLY) || (TargetType == SPELL_TARGETS_ENTRY && !entry))
         m_caster->GetMap()->VisitWorld(pos->m_positionX, pos->m_positionY, radius, notifier);
     else
@@ -1916,8 +1916,8 @@ void Spell::SearchGOAreaTarget(std::list<GameObject*> &TagGOMap, float radius, S
             break;
     }
 
-    Voragine::GameObjectInRangeCheck check(pos->m_positionX, pos->m_positionY, pos->m_positionZ, radius, entry);
-    Voragine::GameObjectListSearcher<Voragine::GameObjectInRangeCheck> searcher(m_caster, TagGOMap, check);
+    Strawberry::GameObjectInRangeCheck check(pos->m_positionX, pos->m_positionY, pos->m_positionZ, radius, entry);
+    Strawberry::GameObjectListSearcher<Strawberry::GameObjectInRangeCheck> searcher(m_caster, TagGOMap, check);
     m_caster->GetMap()->VisitGrid(pos->m_positionX, pos->m_positionY, radius, searcher);
 }
 
@@ -2003,16 +2003,16 @@ WorldObject* Spell::SearchNearbyTarget(float range, SpellTargets TargetType, Spe
         case SPELL_TARGETS_ENEMY:
         {
             Unit *target = NULL;
-            Voragine::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
-            Voragine::UnitLastSearcher<Voragine::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
+            Strawberry::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
+            Strawberry::UnitLastSearcher<Strawberry::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
             m_caster->VisitNearbyObject(range, searcher);
             return target;
         }
         case SPELL_TARGETS_ALLY:
         {
             Unit *target = NULL;
-            Voragine::AnyFriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
-            Voragine::UnitLastSearcher<Voragine::AnyFriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
+            Strawberry::AnyFriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
+            Strawberry::UnitLastSearcher<Strawberry::AnyFriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
             m_caster->VisitNearbyObject(range, searcher);
             return target;
         }
@@ -2565,7 +2565,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                     {
                         case 46584: // Raise Dead
                         {
-                            if (WorldObject* result = FindCorpseUsing<Voragine::RaiseDeadObjectCheck> ())
+                            if (WorldObject* result = FindCorpseUsing<Strawberry::RaiseDeadObjectCheck> ())
                             {
                                 switch(result->GetTypeId())
                                 {
@@ -2594,7 +2594,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                             {
                                 CleanupTargetList();
 
-                                WorldObject* result = FindCorpseUsing <Voragine::ExplodeCorpseObjectCheck> ();
+                                WorldObject* result = FindCorpseUsing <Strawberry::ExplodeCorpseObjectCheck> ();
 
                                 if (result)
                                 {
@@ -2815,7 +2815,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                 {
                     if (unitList.size() > maxSize)
                     {
-                        unitList.sort(Voragine::HealthPctOrderPred());
+                        unitList.sort(Strawberry::HealthPctOrderPred());
                         unitList.resize(maxSize);
                     }
                 }
@@ -2829,7 +2829,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
 
                     if (unitList.size() > maxSize)
                     {
-                        unitList.sort(Voragine::PowerPctOrderPred((Powers)power));
+                        unitList.sort(Strawberry::PowerPctOrderPred((Powers)power));
                         unitList.resize(maxSize);
                     }
                 }
@@ -2845,7 +2845,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
 
                 if (m_spellInfo->Id == 5246) //Intimidating Shout
                     unitList.remove(m_targets.GetUnitTarget());
-                Voragine::RandomResizeList(unitList, maxTargets);
+                Strawberry::RandomResizeList(unitList, maxTargets);
             }
             else
             {
@@ -2873,7 +2873,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                     case 69782: case 69796:                 // Ooze Flood
                     case 69798: case 69801:                 // Ooze Flood
                         // get 2 targets except 2 nearest
-                        unitList.sort(Voragine::ObjectDistanceOrderPred(m_caster));
+                        unitList.sort(Strawberry::ObjectDistanceOrderPred(m_caster));
                         unitList.resize(4);
                         while (unitList.size() > 2)
                             unitList.pop_front();
@@ -2962,7 +2962,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                     if ((*j)->IsAffectedOnSpell(m_spellInfo))
                         maxTargets += (*j)->GetAmount();
 
-                Voragine::RandomResizeList(gobjectList, maxTargets);
+                Strawberry::RandomResizeList(gobjectList, maxTargets);
             }
             for (std::list<GameObject*>::iterator itr = gobjectList.begin(); itr != gobjectList.end(); ++itr)
                 AddGOTarget(*itr, i);
@@ -6285,15 +6285,15 @@ SpellCastResult Spell::CheckItems()
     // check spell focus object
     if (m_spellInfo->GetRequiresSpellFocus())
     {
-        CellPair p(Voragine::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+        CellPair p(Strawberry::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
         GameObject* ok = NULL;
-        Voragine::GameObjectFocusCheck go_check(m_caster,m_spellInfo->RequiresSpellFocus);
-        Voragine::GameObjectSearcher<Voragine::GameObjectFocusCheck> checker(m_caster, ok, go_check);
+        Strawberry::GameObjectFocusCheck go_check(m_caster,m_spellInfo->RequiresSpellFocus);
+        Strawberry::GameObjectSearcher<Strawberry::GameObjectFocusCheck> checker(m_caster, ok, go_check);
 
-        TypeContainerVisitor<Voragine::GameObjectSearcher<Voragine::GameObjectFocusCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<Strawberry::GameObjectSearcher<Strawberry::GameObjectFocusCheck>, GridTypeMapContainer > object_checker(checker);
         Map& map = *m_caster->GetMap();
         cell.Visit(p, object_checker, map, *m_caster, m_caster->GetVisibilityRange());
 
@@ -7342,7 +7342,7 @@ void Spell::SelectTrajTargets()
     if (unitList.empty())
         return;
 
-    unitList.sort(Voragine::ObjectDistanceOrderPred(m_caster));
+    unitList.sort(Strawberry::ObjectDistanceOrderPred(m_caster));
 
     float b = tangent(m_targets.GetElevation());
     float a = (dz - dist2d * b) / (dist2d * dist2d);

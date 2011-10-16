@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ enum SpellModType
     SPELLMOD_PCT          = 108                             // SPELL_AURA_ADD_PCT_MODIFIER
 };
 
-// 2^n values, Player::m_isunderwater is a bitmask. These are Voragine internal values, they are never send to any client
+// 2^n values, Player::m_isunderwater is a bitmask. These are Strawberry internal values, they are never send to any client
 enum PlayerUnderwaterState
 {
     UNDERWATER_NONE                     = 0x00,

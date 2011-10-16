@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2013,14 +2013,14 @@ bool OutdoorPvPWG::Update(uint32 diff)
         {
             if (m_timer != 1) // 1 = forceStopBattle
             {
-                sWorld->SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr->GetVoragineStringForDBCLocale(entry), sObjectMgr->GetVoragineStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE)));
+                sWorld->SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr->GetStrawberryStringForDBCLocale(entry), sObjectMgr->GetStrawberryStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE)));
                 if (Defended)
                     SendWarningToAllInZone(WG_TEXT_DEFENDED_FORTRESS, getDefenderTeam() == TEAM_ALLIANCE ? "The Alliance" : "The Horde");
             }
             EndBattle();
         } else {
             if (m_timer != 1)
-                sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetVoragineStringForDBCLocale(LANG_BG_WG_BATTLE_STARTS));
+                sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetStrawberryStringForDBCLocale(LANG_BG_WG_BATTLE_STARTS));
             StartBattle();
         }
 
@@ -2054,7 +2054,7 @@ void OutdoorPvPWG::forceStartBattle()
     if (m_timer != 1)
     {
         m_timer = 1;
-        sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetVoragineStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_START));
+        sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetStrawberryStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_START));
     }
     sWorld->SendWintergraspState();
 }
@@ -2067,7 +2067,7 @@ void OutdoorPvPWG::forceStopBattle()
     if (m_timer != 1)
     {
         m_timer = 1;
-        sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetVoragineStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_STOP));
+        sWorld->SendZoneText(ZONE_WINTERGRASP, sObjectMgr->GetStrawberryStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_STOP));
     }
        sWorld->SendWintergraspState();
 }
@@ -2080,7 +2080,7 @@ void OutdoorPvPWG::forceChangeTeam()
     m_changeHorde = true;
     if (Captured == true)
         SendWarningToAllInZone(WG_TEXT_CAPTURED_FORTRESS, getAttackerTeam() == TEAM_ALLIANCE ? "The Alliance" : "The Horde");
-    sWorld->SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr->GetVoragineStringForDBCLocale(LANG_BG_WG_SWITCH_FACTION), sObjectMgr->GetVoragineStringForDBCLocale(getAttackerTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE)));
+    sWorld->SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr->GetStrawberryStringForDBCLocale(LANG_BG_WG_SWITCH_FACTION), sObjectMgr->GetStrawberryStringForDBCLocale(getAttackerTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE)));
     if (isWarTime())
         forceStartBattle();
     else
@@ -2266,7 +2266,7 @@ void OutdoorPvPWG::PlayerAnsweredForInviteToQueue(Player* plr, bool Answer)
 
 void OutdoorPvPWG::SendWarningToPlayer(Player* plr,int32 entry, ...)
 {
-    const char *format = sObjectMgr->GetVoragineStringForDBCLocale(entry);
+    const char *format = sObjectMgr->GetStrawberryStringForDBCLocale(entry);
     va_list ap;
     char str [1024];
     va_start(ap, entry);
@@ -2282,7 +2282,7 @@ void OutdoorPvPWG::SendWarningToPlayer(Player* plr,int32 entry, ...)
 
 void OutdoorPvPWG::SendWarningToAllInZone(int32 entry, const char *text, ...)
 {
-    const char *format = fmtstring(sObjectMgr->GetVoragineStringForDBCLocale(entry), text);
+    const char *format = fmtstring(sObjectMgr->GetStrawberryStringForDBCLocale(entry), text);
     va_list ap;
     char str [1024];
     va_start(ap, entry);

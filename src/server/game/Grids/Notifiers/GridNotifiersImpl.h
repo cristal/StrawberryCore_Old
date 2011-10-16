@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_GRIDNOTIFIERSIMPL_H
-#define TRINITY_GRIDNOTIFIERSIMPL_H
+#ifndef STRAWBERRY_GRIDNOTIFIERSIMPL_H
+#define STRAWBERRY_GRIDNOTIFIERSIMPL_H
 
 #include "GridNotifiers.h"
 #include "WorldPacket.h"
@@ -32,7 +32,7 @@
 
 template<class T>
 inline void
-Voragine::VisibleNotifier::Visit(GridRefManager<T> &m)
+Strawberry::VisibleNotifier::Visit(GridRefManager<T> &m)
 {
     for (typename GridRefManager<T>::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
@@ -42,7 +42,7 @@ Voragine::VisibleNotifier::Visit(GridRefManager<T> &m)
 }
 
 inline void
-Voragine::ObjectUpdater::Visit(CreatureMapType &m)
+Strawberry::ObjectUpdater::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator iter = m.begin(); iter != m.end(); ++iter)
         if (iter->getSource()->IsInWorld())
@@ -54,7 +54,7 @@ Voragine::ObjectUpdater::Visit(CreatureMapType &m)
 // WorldObject searchers & workers
 
 template<class Check>
-void Voragine::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
+void Strawberry::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -74,7 +74,7 @@ void Voragine::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -94,7 +94,7 @@ void Voragine::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -114,7 +114,7 @@ void Voragine::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
+void Strawberry::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
 {
     // already found
     if (i_object)
@@ -134,7 +134,7 @@ void Voragine::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
+void Strawberry::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -154,7 +154,7 @@ void Voragine::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -163,7 +163,7 @@ void Voragine::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -172,7 +172,7 @@ void Voragine::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
+void Strawberry::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
 {
     for (CorpseMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -181,7 +181,7 @@ void Voragine::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
+void Strawberry::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -190,7 +190,7 @@ void Voragine::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Voragine::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
+void Strawberry::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
 {
     for (DynamicObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -201,7 +201,7 @@ void Voragine::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
 // Gameobject searchers
 
 template<class Check>
-void Voragine::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
+void Strawberry::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -221,7 +221,7 @@ void Voragine::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Voragine::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
+void Strawberry::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -234,7 +234,7 @@ void Voragine::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Voragine::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
+void Strawberry::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -245,7 +245,7 @@ void Voragine::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 // Unit searchers
 
 template<class Check>
-void Voragine::UnitSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::UnitSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -265,7 +265,7 @@ void Voragine::UnitSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::UnitSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::UnitSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -285,7 +285,7 @@ void Voragine::UnitSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -298,7 +298,7 @@ void Voragine::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -311,7 +311,7 @@ void Voragine::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::UnitListSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::UnitListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -320,7 +320,7 @@ void Voragine::UnitListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::UnitListSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::UnitListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -331,7 +331,7 @@ void Voragine::UnitListSearcher<Check>::Visit(CreatureMapType &m)
 // Creature searchers
 
 template<class Check>
-void Voragine::CreatureSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::CreatureSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -351,7 +351,7 @@ void Voragine::CreatureSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -364,7 +364,7 @@ void Voragine::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
+void Strawberry::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -373,7 +373,7 @@ void Voragine::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Voragine::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -382,7 +382,7 @@ void Voragine::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::PlayerSearcher<Check>::Visit(PlayerMapType &m)
+void Strawberry::PlayerSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -402,7 +402,7 @@ void Voragine::PlayerSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Voragine::PlayerLastSearcher<Check>::Visit(PlayerMapType& m)
+void Strawberry::PlayerLastSearcher<Check>::Visit(PlayerMapType& m)
 {
     for (PlayerMapType::iterator itr = m.begin(); itr != m.end(); ++itr)
     {
@@ -415,7 +415,7 @@ void Voragine::PlayerLastSearcher<Check>::Visit(PlayerMapType& m)
 }
 
 template<class Builder>
-void Voragine::LocalizedPacketDo<Builder>::operator()(Player* p)
+void Strawberry::LocalizedPacketDo<Builder>::operator()(Player* p)
 {
     LocaleConstant loc_idx = p->GetSession()->GetSessionDbLocaleIndex();
     uint32 cache_idx = loc_idx+1;
@@ -440,7 +440,7 @@ void Voragine::LocalizedPacketDo<Builder>::operator()(Player* p)
 }
 
 template<class Builder>
-void Voragine::LocalizedPacketListDo<Builder>::operator()(Player* p)
+void Strawberry::LocalizedPacketListDo<Builder>::operator()(Player* p)
 {
     LocaleConstant loc_idx = p->GetSession()->GetSessionDbLocaleIndex();
     uint32 cache_idx = loc_idx+1;
@@ -463,4 +463,4 @@ void Voragine::LocalizedPacketListDo<Builder>::operator()(Player* p)
         p->SendDirectMessage((*data_list)[i]);
 }
 
-#endif                                                      // TRINITY_GRIDNOTIFIERSIMPL_H
+#endif                                                      // STRAWBERRY_GRIDNOTIFIERSIMPL_H

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITYCORE_CHAT_H
-#define TRINITYCORE_CHAT_H
+#ifndef STRAWBERRYCORE_CHAT_H
+#define STRAWBERRYCORE_CHAT_H
 
 #include "SharedDefines.h"
 #include "Player.h"
@@ -68,7 +68,7 @@ class ChatHandler
         static char* LineFromMessage(char*& pos) { char* start = strtok(pos, "\n"); pos = NULL; return start; }
 
         // function with different implementation for chat/console
-        virtual const char *GetVoragineString(int32 entry) const;
+        virtual const char *GetStrawberryString(int32 entry) const;
         virtual void SendSysMessage(const char *str);
 
         void SendSysMessage(int32     entry);
@@ -478,7 +478,7 @@ class CliHandler : public ChatHandler
         explicit CliHandler(void* callbackArg, Print* zprint) : m_callbackArg(callbackArg), m_print(zprint) {}
 
         // overwrite functions
-        const char *GetVoragineString(int32 entry) const;
+        const char *GetStrawberryString(int32 entry) const;
         bool isAvailable(ChatCommand const& cmd) const;
         void SendSysMessage(const char *str);
         std::string GetNameLink() const;

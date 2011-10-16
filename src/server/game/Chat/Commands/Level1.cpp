@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -241,7 +241,7 @@ bool ChatHandler::HandleAnnounceCommand(const char* args)
         return false;
 
     char buff[2048];
-    sprintf(buff, GetVoragineString(LANG_SYSTEMMESSAGE), args);
+    sprintf(buff, GetStrawberryString(LANG_SYSTEMMESSAGE), args);
     sWorld->SendServerMessage(SERVER_MSG_STRING, buff);
     return true;
 }
@@ -262,7 +262,7 @@ bool ChatHandler::HandleNotifyCommand(const char* args)
     if (!*args)
         return false;
 
-    std::string str = GetVoragineString(LANG_GLOBAL_NOTIFY);
+    std::string str = GetStrawberryString(LANG_GLOBAL_NOTIFY);
     str += args;
 
     WorldPacket data(SMSG_NOTIFICATION, (str.size()+1));
@@ -278,7 +278,7 @@ bool ChatHandler::HandleGMNotifyCommand(const char* args)
     if (!*args)
         return false;
 
-    std::string str = GetVoragineString(LANG_GM_NOTIFY);
+    std::string str = GetStrawberryString(LANG_GM_NOTIFY);
     str += args;
 
     WorldPacket data(SMSG_NOTIFICATION, (str.size()+1));
@@ -369,7 +369,7 @@ bool ChatHandler::HandleGMVisibleCommand(const char* args)
 {
     if (!*args)
     {
-        PSendSysMessage(LANG_YOU_ARE, m_session->GetPlayer()->isGMVisible() ?  GetVoragineString(LANG_VISIBLE) : GetVoragineString(LANG_INVISIBLE));
+        PSendSysMessage(LANG_YOU_ARE, m_session->GetPlayer()->isGMVisible() ?  GetStrawberryString(LANG_VISIBLE) : GetStrawberryString(LANG_INVISIBLE));
         return true;
     }
 
@@ -497,7 +497,7 @@ bool ChatHandler::HandleSummonCommand(const char* args)
 
         std::string nameLink = playerLink(target_name);
 
-        PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), GetVoragineString(LANG_OFFLINE));
+        PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), GetStrawberryString(LANG_OFFLINE));
 
         // in point where GM stay
         Player::SavePositionInDB(m_session->GetPlayer()->GetMapId(),
@@ -918,7 +918,7 @@ bool ChatHandler::HandleWhispersCommand(const char* args)
 {
     if (!*args)
     {
-        PSendSysMessage(LANG_COMMAND_WHISPERACCEPTING, m_session->GetPlayer()->isAcceptWhispers() ?  GetVoragineString(LANG_ON) : GetVoragineString(LANG_OFF));
+        PSendSysMessage(LANG_COMMAND_WHISPERACCEPTING, m_session->GetPlayer()->isAcceptWhispers() ?  GetStrawberryString(LANG_ON) : GetStrawberryString(LANG_OFF));
         return true;
     }
 
@@ -1070,7 +1070,7 @@ bool ChatHandler::HandleTeleNameCommand(const char * args)
 
         std::string nameLink = playerLink(target_name);
 
-        PSendSysMessage(LANG_TELEPORTING_TO, nameLink.c_str(), GetVoragineString(LANG_OFFLINE), tele->name.c_str());
+        PSendSysMessage(LANG_TELEPORTING_TO, nameLink.c_str(), GetStrawberryString(LANG_OFFLINE), tele->name.c_str());
         Player::SavePositionInDB(tele->mapId,tele->position_x,tele->position_y,tele->position_z,tele->orientation,
             sMapMgr->GetZoneId(tele->mapId,tele->position_x,tele->position_y,tele->position_z),target_guid);
     }

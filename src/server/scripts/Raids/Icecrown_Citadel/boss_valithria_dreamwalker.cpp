@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -224,7 +224,7 @@ class ValithriaDespawner : public BasicEvent
 
         bool Execute(uint64 /*currTime*/, uint32 /*diff*/)
         {
-            Voragine::CreatureWorker<ValithriaDespawner> worker(_creature, *this);
+            Strawberry::CreatureWorker<ValithriaDespawner> worker(_creature, *this);
             _creature->VisitNearbyGridObject(333.0f, worker);
             return true;
         }
@@ -701,7 +701,7 @@ class npc_risen_archmage : public CreatureScript
                 {
                     std::list<Creature*> archmages;
                     RisenArchmageCheck check;
-                    Voragine::CreatureListSearcher<RisenArchmageCheck> searcher(me, archmages, check);
+                    Strawberry::CreatureListSearcher<RisenArchmageCheck> searcher(me, archmages, check);
                     me->VisitNearbyGridObject(100.0f, searcher);
                     for (std::list<Creature*>::iterator itr = archmages.begin(); itr != archmages.end(); ++itr)
                         (*itr)->AI()->DoAction(ACTION_ENTER_COMBAT);
@@ -1075,8 +1075,8 @@ class npc_dream_cloud : public CreatureScript
                         case EVENT_CHECK_PLAYER:
                         {
                             Player* player = NULL;
-                            Voragine::AnyPlayerInObjectRangeCheck check(me, 5.0f);
-                            Voragine::PlayerSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
+                            Strawberry::AnyPlayerInObjectRangeCheck check(me, 5.0f);
+                            Strawberry::PlayerSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
                             me->VisitNearbyWorldObject(7.5f, searcher);
                             _events.ScheduleEvent(player ? EVENT_EXPLODE : EVENT_CHECK_PLAYER, 1000);
                             break;
@@ -1190,7 +1190,7 @@ class spell_dreamwalker_summoner : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& targets)
             {
-                targets.remove_if(Voragine::UnitAuraCheck(true, SPELL_RECENTLY_SPAWNED));
+                targets.remove_if(Strawberry::UnitAuraCheck(true, SPELL_RECENTLY_SPAWNED));
                 if (targets.empty())
                     return;
 
@@ -1239,8 +1239,8 @@ class spell_dreamwalker_summon_suppresser : public SpellScriptLoader
 
                 std::list<Creature*> summoners;
                 GetCreatureListWithEntryInGrid(summoners, caster, 22515, 100.0f);
-                summoners.remove_if(Voragine::UnitAuraCheck(true, SPELL_RECENTLY_SPAWNED));
-                Voragine::RandomResizeList(summoners, 2);
+                summoners.remove_if(Strawberry::UnitAuraCheck(true, SPELL_RECENTLY_SPAWNED));
+                Strawberry::RandomResizeList(summoners, 2);
                 if (summoners.empty())
                     return;
 

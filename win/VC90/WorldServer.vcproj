@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\dep\GSoap2;..\..\dep\MersenneTwister;..\..\dep\Recastnavigation\Detour\Include;..\..\dep\G3DLite\include;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\game;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;..\..\src\server\game\AuctionHouse\AuctionHouseBot;..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Chat\Commands;..\..\src\server\game\Combat;..\..\src\server\game\Conditions;..\..\src\server\game\DataStores;..\..\src\server\game\DataStores\Structs;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\DynamicObject;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Totem;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Events;..\..\src\server\game\Globals;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Grids;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Maps;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Movement;..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PCH;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers\Opcodes;..\..\src\server\game\Server\Protocol\Handlers\Packets;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Server\Sockets;..\..\src\server\game\Server\Sessions;..\..\src\server\game\Server\Logs;..\..\src\server\game\Server;..\..\src\server\game\Skills;..\..\src\server\game\Spells;..\..\src\server\game\Spells\Auras;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\realmserver\Server;..\..\src\server\worldserver;..\..\src\server\worldserver\CommandLine;..\..\src\server\worldserver\RA;..\..\src\server\worldserver\Soap;..\..\src\server\worldserver\WorldThread;..\..\dep\Ace;..\..\dep\MySql\include;..\..\dep\MySql\extra\yassl\include"
+				AdditionalIncludeDirectories="..\..\dep\gsoap;..\..\dep\MersenneTwister;..\..\dep\Recastnavigation\Detour\Include;..\..\dep\G3DLite\include;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\game;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;..\..\src\server\game\AuctionHouse\AuctionHouseBot;..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Chat\Commands;..\..\src\server\game\Combat;..\..\src\server\game\Conditions;..\..\src\server\game\DataStores;..\..\src\server\game\DataStores\Structs;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\DynamicObject;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Totem;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Events;..\..\src\server\game\Globals;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Grids;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Maps;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Movement;..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PrecompiledHeaders;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers\Opcodes;..\..\src\server\game\Server\Protocol\Handlers\Packets;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Server\Sockets;..\..\src\server\game\Server\Sessions;..\..\src\server\game\Server\Logs;..\..\src\server\game\Server;..\..\src\server\game\Skills;..\..\src\server\game\Spells;..\..\src\server\game\Spells\Auras;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\logonserver\Server;..\..\src\server\worldserver;..\..\src\server\worldserver\CommandLine;..\..\src\server\worldserver\RemoteAccess;..\..\src\server\worldserver\TCSoap;..\..\src\server\worldserver\WorldThread;..\..\dep\acelite;..\..\dep\mysqllite\include;..\..\dep\mysqllite\extra\yassl\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;ENABLE_CLI;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;_PRE_WIN;SCRIPTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -53,7 +53,7 @@
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+				PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 				PrecompiledHeaderFile=".\WorldServer_$(PlatformName)_$(ConfigurationName)\world.pch"
 				AssemblerListingLocation=".\WorldServer_$(PlatformName)_$(ConfigurationName)\"
 				ObjectFile=".\WorldServer_$(PlatformName)_$(ConfigurationName)\"
@@ -64,7 +64,7 @@
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="../../src/server/worldserver/PCH/worldPCH.h"
+				ForcedIncludeFiles="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -157,7 +157,7 @@
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+				PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 				AssemblerListingLocation=".\WorldServer_$(PlatformName)_$(ConfigurationName)\"
 				ObjectFile=".\WorldServer_$(PlatformName)_$(ConfigurationName)\"
 				ProgramDataBaseFileName=".\WorldServer_$(PlatformName)_$(ConfigurationName)\"
@@ -167,7 +167,7 @@
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="../../src/server/worldserver/PCH/worldPCH.h"
+				ForcedIncludeFiles="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -238,7 +238,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\worldserver\PCH\worldPCH.cpp"
+				RelativePath="..\..\src\server\worldserver\PrecompiledHeaders\worldPCH.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -246,7 +246,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+						PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -255,7 +255,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+						PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -264,7 +264,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+						PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -273,68 +273,64 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="../../src/server/worldserver/PCH/worldPCH.h"
+						PrecompiledHeaderThrough="../../src/server/worldserver/PrecompiledHeaders/worldPCH.h"
 					/>
 				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="RA"
+			Name="RemoteAccess"
 			>
 			<File
-				RelativePath="..\..\src\server\worldserver\RA\RARunnable.cpp"
+				RelativePath="..\..\src\server\worldserver\RemoteAccess\RARunnable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\worldserver\RA\RARunnable.h"
+				RelativePath="..\..\src\server\worldserver\RemoteAccess\RARunnable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\worldserver\RA\RASocket.cpp"
+				RelativePath="..\..\src\server\worldserver\RemoteAccess\RASocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\worldserver\RA\RASocket.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\server\worldserver\RA\SocketDefines.h"
+				RelativePath="..\..\src\server\worldserver\RemoteAccess\RASocket.h"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Soap"
+			Name="TCSoap"
 			>
 			<File
-				RelativePath="..\..\src\server\worldserver\Soap\Soap.cpp"
+				RelativePath="..\..\dep\gsoap\soapC.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\server\worldserver\Soap\Soap.h"
+				RelativePath="..\..\dep\gsoap\soapH.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\soapC.cpp"
+				RelativePath="..\..\dep\gsoap\soapServer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\soapH.h"
+				RelativePath="..\..\dep\gsoap\soapStub.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\soapServer.cpp"
+				RelativePath="..\..\dep\gsoap\stdsoap2.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\soapStub.h"
+				RelativePath="..\..\dep\gsoap\stdsoap2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\stdsoap2.cpp"
+				RelativePath="..\..\src\server\worldserver\TCSoap\TCSoap.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\dep\GSoap2\stdsoap2.h"
+				RelativePath="..\..\src\server\worldserver\TCSoap\TCSoap.h"
 				>
 			</File>
 		</Filter>
@@ -364,6 +360,10 @@
 		</File>
 		<File
 			RelativePath="..\..\src\server\shared\Debugging\WheatyExceptionReport.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\server\worldserver\worldserver.rc"
 			>
 		</File>
 	</Files>

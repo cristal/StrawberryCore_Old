@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_OBJECTACCESSOR_H
-#define TRINITY_OBJECTACCESSOR_H
+#ifndef STRAWBERRY_OBJECTACCESSOR_H
+#define STRAWBERRY_OBJECTACCESSOR_H
 
 #include "Define.h"
 #include <ace/Singleton.h>
@@ -157,14 +157,14 @@ class ObjectAccessor
             if (!obj || obj->GetMapId() != mapid)
                 return NULL;
 
-            CellPair p = Voragine::ComputeCellPair(x, y);
+            CellPair p = Strawberry::ComputeCellPair(x, y);
             if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
             {
                 sLog->outError("ObjectAccessor::GetObjectInWorld: invalid coordinates supplied X:%f Y:%f grid cell [%u:%u]", x, y, p.x_coord, p.y_coord);
                 return NULL;
             }
 
-            CellPair q = Voragine::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+            CellPair q = Strawberry::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
             if (q.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || q.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
             {
                 sLog->outError("ObjectAccessor::GetObjecInWorld: object (GUID: %u TypeId: %u) has invalid coordinates X:%f Y:%f grid cell [%u:%u]", obj->GetGUIDLow(), obj->GetTypeId(), obj->GetPositionX(), obj->GetPositionY(), q.x_coord, q.y_coord);

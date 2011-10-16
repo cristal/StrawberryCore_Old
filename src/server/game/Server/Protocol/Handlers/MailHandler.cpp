@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data)
 
     if (pl->getLevel() < sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ))
     {
-        SendNotification(GetVoragineString(LANG_MAIL_SENDER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
+        SendNotification(GetStrawberryString(LANG_MAIL_SENDER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
         return;
     }
 
@@ -172,7 +172,7 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data)
 
     if (receiveLevel < sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ))
     {
-        SendNotification(GetVoragineString(LANG_MAIL_RECEIVER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
+        SendNotification(GetStrawberryString(LANG_MAIL_RECEIVER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
         return;
     }
 
@@ -464,7 +464,7 @@ void WorldSession::HandleMailTakeItem(WorldPacket & recv_data)
                     sender_accId = sObjectMgr->GetPlayerAccountIdByGUID(sender_guid);
 
                     if (!sObjectMgr->GetPlayerNameByGUID(sender_guid,sender_name))
-                        sender_name = sObjectMgr->GetVoragineStringForDBCLocale(LANG_UNKNOWN);
+                        sender_name = sObjectMgr->GetStrawberryStringForDBCLocale(LANG_UNKNOWN);
                 }
                 sLog->outCommand(GetAccountId(),"GM %s (Account: %u) receive mail item: %s (Entry: %u Count: %u) and send COD money:  "UI64FMTD" to player: %s (Account: %u)",
                     GetPlayerName(),GetAccountId(),it->GetTemplate()->Name1,it->GetEntry(),it->GetCount(),m->COD,sender_name.c_str(),sender_accId);

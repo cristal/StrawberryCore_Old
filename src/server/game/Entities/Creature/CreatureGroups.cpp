@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -248,8 +248,8 @@ void CreatureGroup::LeaderMoveTo(float x, float y, float z)
         float dy = y + sin(angle + pathangle) * dist;
         float dz = z;
 
-        Voragine::NormalizeMapCoord(dx);
-        Voragine::NormalizeMapCoord(dy);
+        Strawberry::NormalizeMapCoord(dx);
+        Strawberry::NormalizeMapCoord(dy);
 
         member->UpdateGroundPositionZ(dx, dy, dz);
 
