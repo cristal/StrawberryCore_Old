@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1529,8 +1529,8 @@ void WorldObject::GetRandomPoint(const Position &pos, float distance, float &ran
     rand_y = pos.m_positionY + new_dist * sin(angle);
     rand_z = pos.m_positionZ;
 
-    Voragine::NormalizeMapCoord(rand_x);
-    Voragine::NormalizeMapCoord(rand_y);
+    Strawberry::NormalizeMapCoord(rand_x);
+    Strawberry::NormalizeMapCoord(rand_y);
     UpdateGroundPositionZ(rand_x, rand_y, rand_z);            // update to LOS height if available
 }
 
@@ -1543,7 +1543,7 @@ void WorldObject::UpdateGroundPositionZ(float x, float y, float &z) const
 
 bool Position::IsPositionValid() const
 {
-    return Voragine::IsValidMapCoord(m_positionX, m_positionY, m_positionZ, m_orientation);
+    return Strawberry::IsValidMapCoord(m_positionX, m_positionY, m_positionZ, m_orientation);
 }
 
 bool WorldObject::isValid() const
@@ -1802,7 +1802,7 @@ void Object::ForceValuesUpdateAtIndex(uint32 i)
     }
 }
 
-namespace Voragine
+namespace Strawberry
 {
     class MonsterChatBuilder
     {
@@ -1811,7 +1811,7 @@ namespace Voragine
                 : i_object(obj), i_msgtype(msgtype), i_textId(textId), i_language(language), i_targetGUID(targetGUID) {}
             void operator()(WorldPacket& data, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetVoragineString(i_textId, loc_idx);
+                char const* text = sObjectMgr->GetStrawberryString(i_textId, loc_idx);
 
                 // TODO: i_object.GetName() also must be localized?
                 i_object.BuildMonsterChat(&data, i_msgtype, text, i_language, i_object.GetNameForLocaleIdx(loc_idx), i_targetGUID);
@@ -1843,72 +1843,72 @@ namespace Voragine
             uint32 i_language;
             uint64 i_targetGUID;
     };
-}                                                           // namespace Voragine
+}                                                           // namespace Strawberry
 
 void WorldObject::MonsterSay(const char* text, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::MonsterCustomChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, text, language, TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> say_do(say_build);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> > say_worker(this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY), say_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    Strawberry::MonsterCustomChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, text, language, TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> say_do(say_build);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> > say_worker(this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY), say_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     cell.Visit(p, message, *GetMap(), *this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY));
 }
 
 void WorldObject::MonsterSay(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, textId,language,TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> say_do(say_build);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    Strawberry::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, textId,language,TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> say_do(say_build);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     cell.Visit(p, message, *GetMap(), *this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY));
 }
 
 void WorldObject::MonsterYell(const char* text, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::MonsterCustomChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, text, language, TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> say_do(say_build);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> > say_worker(this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL), say_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterCustomChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    Strawberry::MonsterCustomChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, text, language, TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> say_do(say_build);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> > say_worker(this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL), say_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterCustomChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     cell.Visit(p, message, *GetMap(), *this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL));
 }
 
 void WorldObject::MonsterYell(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> say_do(say_build);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL),say_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    Strawberry::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> say_do(say_build);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL),say_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     cell.Visit(p, message, *GetMap(), *this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_YELL));
 }
 
 void WorldObject::MonsterYellToZone(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    Voragine::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> say_do(say_build);
+    Strawberry::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> say_do(say_build);
 
     uint32 zoneid = GetZoneId();
 
@@ -1927,16 +1927,16 @@ void WorldObject::MonsterTextEmote(const char* text, uint64 TargetGuid, bool IsB
 
 void WorldObject::MonsterTextEmote(int32 textId, uint64 TargetGuid, bool IsBossEmote)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::MonsterChatBuilder say_build(*this, IsBossEmote ? CHAT_MSG_RAID_BOSS_EMOTE : CHAT_MSG_MONSTER_EMOTE, textId,LANG_UNIVERSAL,TargetGuid);
-    Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> say_do(say_build);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),say_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    Strawberry::MonsterChatBuilder say_build(*this, IsBossEmote ? CHAT_MSG_RAID_BOSS_EMOTE : CHAT_MSG_MONSTER_EMOTE, textId,LANG_UNIVERSAL,TargetGuid);
+    Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> say_do(say_build);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> > say_worker(this,sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),say_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     cell.Visit(p, message, *GetMap(), *this, sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE));
 }
 
@@ -1961,7 +1961,7 @@ void WorldObject::MonsterWhisper(int32 textId, uint64 receiver, bool IsBossWhisp
         return;
 
     LocaleConstant loc_idx = player->GetSession()->GetSessionDbLocaleIndex();
-    char const* text = sObjectMgr->GetVoragineString(textId, loc_idx);
+    char const* text = sObjectMgr->GetStrawberryString(textId, loc_idx);
 
     WorldPacket data(SMSG_MESSAGECHAT, 200);
     BuildMonsterChat(&data, IsBossWhisper ? CHAT_MSG_RAID_BOSS_WHISPER : CHAT_MSG_MONSTER_WHISPER, text, LANG_UNIVERSAL, GetNameForLocaleIdx(loc_idx), receiver);
@@ -1997,13 +1997,13 @@ void Unit::BuildHeartBeatMsg(WorldPacket *data) const
 
 void WorldObject::SendMessageToSetInRange(WorldPacket *data, float dist, bool /*self*/)
 {
-    Voragine::MessageDistDeliverer notifier(this, data, dist);
+    Strawberry::MessageDistDeliverer notifier(this, data, dist);
     VisitNearbyWorldObject(dist, notifier);
 }
 
 void WorldObject::SendMessageToSet(WorldPacket *data, Player const* skipped_rcvr)
 {
-    Voragine::MessageDistDeliverer notifier(this, data, GetVisibilityRange(), false, skipped_rcvr);
+    Strawberry::MessageDistDeliverer notifier(this, data, GetVisibilityRange(), false, skipped_rcvr);
     VisitNearbyWorldObject(GetVisibilityRange(), notifier);
 }
 
@@ -2353,8 +2353,8 @@ Creature* WorldObject::SummonTrigger(float x, float y, float z, float ang, uint3
 Creature* WorldObject::FindNearestCreature(uint32 entry, float range, bool alive)
 {
     Creature *creature = NULL;
-    Voragine::NearestCreatureEntryWithLiveStateInObjectRangeCheck checker(*this, entry, alive, range);
-    Voragine::CreatureLastSearcher<Voragine::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(this, creature, checker);
+    Strawberry::NearestCreatureEntryWithLiveStateInObjectRangeCheck checker(*this, entry, alive, range);
+    Strawberry::CreatureLastSearcher<Strawberry::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(this, creature, checker);
     VisitNearbyObject(range, searcher);
     return creature;
 }
@@ -2362,8 +2362,8 @@ Creature* WorldObject::FindNearestCreature(uint32 entry, float range, bool alive
 GameObject* WorldObject::FindNearestGameObject(uint32 entry, float range)
 {
     GameObject *go = NULL;
-    Voragine::NearestGameObjectEntryInObjectRangeCheck checker(*this, entry, range);
-    Voragine::GameObjectLastSearcher<Voragine::NearestGameObjectEntryInObjectRangeCheck> searcher(this, go, checker);
+    Strawberry::NearestGameObjectEntryInObjectRangeCheck checker(*this, entry, range);
+    Strawberry::GameObjectLastSearcher<Strawberry::NearestGameObjectEntryInObjectRangeCheck> searcher(this, go, checker);
     VisitNearbyGridObject(range, searcher);
     return go;
 }
@@ -2371,42 +2371,42 @@ GameObject* WorldObject::FindNearestGameObject(uint32 entry, float range)
 Player* WorldObject::FindNearestPlayer(float range, bool alive)
 {
     Player* player = NULL;
-    Voragine::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange());
-    Voragine::PlayerSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(this, player, check);
+    Strawberry::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange());
+    Strawberry::PlayerSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(this, player, check);
     VisitNearbyWorldObject(range, searcher);
     return player;
 }
 
 void WorldObject::GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange)
 {
-    CellPair pair(Voragine::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));
+    CellPair pair(Strawberry::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::AllGameObjectsWithEntryInRange check(this, uiEntry, fMaxSearchRange);
-    Voragine::GameObjectListSearcher<Voragine::AllGameObjectsWithEntryInRange> searcher(this, lList, check);
-    TypeContainerVisitor<Voragine::GameObjectListSearcher<Voragine::AllGameObjectsWithEntryInRange>, GridTypeMapContainer> visitor(searcher);
+    Strawberry::AllGameObjectsWithEntryInRange check(this, uiEntry, fMaxSearchRange);
+    Strawberry::GameObjectListSearcher<Strawberry::AllGameObjectsWithEntryInRange> searcher(this, lList, check);
+    TypeContainerVisitor<Strawberry::GameObjectListSearcher<Strawberry::AllGameObjectsWithEntryInRange>, GridTypeMapContainer> visitor(searcher);
 
     cell.Visit(pair, visitor, *(this->GetMap()));
 }
 
 void WorldObject::GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float fMaxSearchRange)
 {
-    CellPair pair(Voragine::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));
+    CellPair pair(Strawberry::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::AllCreaturesOfEntryInRange check(this, uiEntry, fMaxSearchRange);
-    Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange> searcher(this, lList, check);
-    TypeContainerVisitor<Voragine::CreatureListSearcher<Voragine::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
+    Strawberry::AllCreaturesOfEntryInRange check(this, uiEntry, fMaxSearchRange);
+    Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange> searcher(this, lList, check);
+    TypeContainerVisitor<Strawberry::CreatureListSearcher<Strawberry::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
 
     cell.Visit(pair, visitor, *(this->GetMap()));
 }
 
 /*
-namespace Voragine
+namespace Strawberry
 {
     class NearUsedPosDo
     {
@@ -2475,7 +2475,7 @@ namespace Voragine
             float              i_angle;
             ObjectPosSelector& i_selector;
     };
-}                                                           // namespace Voragine
+}                                                           // namespace Strawberry
 */
 
 //===================================================================================================
@@ -2485,8 +2485,8 @@ void WorldObject::GetNearPoint2D(float &x, float &y, float distance2d, float abs
     x = GetPositionX() + (GetObjectSize() + distance2d) * cos(absAngle);
     y = GetPositionY() + (GetObjectSize() + distance2d) * sin(absAngle);
 
-    Voragine::NormalizeMapCoord(x);
-    Voragine::NormalizeMapCoord(y);
+    Strawberry::NormalizeMapCoord(x);
+    Strawberry::NormalizeMapCoord(y);
 }
 
 void WorldObject::GetNearPoint(WorldObject const* /*searcher*/, float &x, float &y, float &z, float searcher_size, float distance2d, float absAngle) const
@@ -2513,16 +2513,16 @@ void WorldObject::GetNearPoint(WorldObject const* /*searcher*/, float &x, float 
 
     // adding used positions around object
     {
-        CellPair p(Voragine::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(Strawberry::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
 
-        Voragine::NearUsedPosDo u_do(*this,searcher,absAngle,selector);
-        Voragine::WorldObjectWorker<Voragine::NearUsedPosDo> worker(this,u_do);
+        Strawberry::NearUsedPosDo u_do(*this,searcher,absAngle,selector);
+        Strawberry::WorldObjectWorker<Strawberry::NearUsedPosDo> worker(this,u_do);
 
-        TypeContainerVisitor<Voragine::WorldObjectWorker<Voragine::NearUsedPosDo>, GridTypeMapContainer  > grid_obj_worker(worker);
-        TypeContainerVisitor<Voragine::WorldObjectWorker<Voragine::NearUsedPosDo>, WorldTypeMapContainer > world_obj_worker(worker);
+        TypeContainerVisitor<Strawberry::WorldObjectWorker<Strawberry::NearUsedPosDo>, GridTypeMapContainer  > grid_obj_worker(worker);
+        TypeContainerVisitor<Strawberry::WorldObjectWorker<Strawberry::NearUsedPosDo>, WorldTypeMapContainer > world_obj_worker(worker);
 
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, grid_obj_worker,  *GetMap(), *this, distance2d);
@@ -2620,8 +2620,8 @@ void WorldObject::MovePosition(Position &pos, float dist, float angle)
     angle += m_orientation;
     pos.m_positionX += dist * cos(angle);
     pos.m_positionY += dist * sin(angle);
-    Voragine::NormalizeMapCoord(pos.m_positionX);
-    Voragine::NormalizeMapCoord(pos.m_positionY);
+    Strawberry::NormalizeMapCoord(pos.m_positionX);
+    Strawberry::NormalizeMapCoord(pos.m_positionY);
     UpdateGroundPositionZ(pos.m_positionX, pos.m_positionY, pos.m_positionZ);
     pos.m_orientation = m_orientation;
 }
@@ -2669,8 +2669,8 @@ void WorldObject::MovePositionToFirstCollision(Position &pos, float dist, float 
         }
     }
 
-    Voragine::NormalizeMapCoord(pos.m_positionX);
-    Voragine::NormalizeMapCoord(pos.m_positionY);
+    Strawberry::NormalizeMapCoord(pos.m_positionX);
+    Strawberry::NormalizeMapCoord(pos.m_positionY);
     UpdateGroundPositionZ(pos.m_positionX, pos.m_positionY, pos.m_positionZ);
     pos.m_orientation = m_orientation;
 }
@@ -2710,8 +2710,8 @@ void WorldObject::DestroyForNearbyPlayers()
         return;
 
     std::list<Player*> targets;
-    Voragine::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange(), false);
-    Voragine::PlayerListSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(this, targets, check);
+    Strawberry::AnyPlayerInObjectRangeCheck check(this, GetVisibilityRange(), false);
+    Strawberry::PlayerListSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(this, targets, check);
     VisitNearbyWorldObject(GetVisibilityRange(), searcher);
     for (std::list<Player*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
     {
@@ -2734,7 +2734,7 @@ void WorldObject::DestroyForNearbyPlayers()
 void WorldObject::UpdateObjectVisibility(bool /*forced*/)
 {
     //updates object's visibility for nearby players
-    Voragine::VisibleChangesNotifier notifier(*this);
+    Strawberry::VisibleChangesNotifier notifier(*this);
     VisitNearbyWorldObject(GetVisibilityRange(), notifier);
 }
 
@@ -2799,7 +2799,7 @@ struct WorldObjectChangeAccumulator
 
 void WorldObject::BuildUpdate(UpdateDataMapType& data_map)
 {
-    CellPair p = Voragine::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPositionX(), GetPositionY());
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();

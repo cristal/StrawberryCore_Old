@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 VoragineCore <http://www.projectvoragine.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  * Copyright (C) 2009-2011 CataProject 
  *
  * This program is free software; you can redistribute it and/or modify it

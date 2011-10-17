@@ -1,6 +1,6 @@
 /* -*- C++ -*- */
 // Testing TANDEM
-// $Id: config-tandem.h 91781 2010-09-15 12:49:15Z johnnyw $
+// $Id: config-tandem.h 93117 2011-01-20 12:11:28Z mcorino $
 
 // The following configuration file is designed to work for Tandems NonStop-UX
 // 4.2MP  platforms using the NCC 3.20 compiler.
@@ -87,7 +87,6 @@
 //#else
 // ...
 //#endif
-//#define ACE_HAS_CONSISTENT_SIGNAL_PROTOTYPES
 #define ACE_HAS_TANDEM_SIGNALS
 //Compiler/platform defines the sig_atomic_t typedef
 #define ACE_HAS_SIG_ATOMIC_T

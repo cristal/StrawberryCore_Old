@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -531,8 +531,8 @@ public:
         {
             float radius = 50.0f;
             std::list<Player*> players;
-            Voragine::AnyPlayerInObjectRangeCheck checker(me, radius);
-            Voragine::PlayerListSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
+            Strawberry::AnyPlayerInObjectRangeCheck checker(me, radius);
+            Strawberry::PlayerListSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
             me->VisitNearbyWorldObject(radius, searcher);
 
             for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)

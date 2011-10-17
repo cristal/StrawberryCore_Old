@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_MAP_H
-#define TRINITY_MAP_H
+#ifndef STRAWBERRY_MAP_H
+#define STRAWBERRY_MAP_H
 
 #include "Define.h"
 #include <ace/RW_Thread_Mutex.h>
@@ -52,7 +52,7 @@ struct Position;
 class Battleground;
 class MapInstanced;
 class InstanceMap;
-namespace Voragine { struct ObjectUpdater; }
+namespace Strawberry { struct ObjectUpdater; }
 
 struct ScriptAction
 {
@@ -272,7 +272,7 @@ class Map : public GridRefManager<NGridType>
         template<class T> void Add(T *);
         template<class T> void Remove(T *, bool);
 
-        void VisitNearbyCellsOf(WorldObject* obj, TypeContainerVisitor<Voragine::ObjectUpdater, GridTypeMapContainer> &gridVisitor, TypeContainerVisitor<Voragine::ObjectUpdater, WorldTypeMapContainer> &worldVisitor);
+        void VisitNearbyCellsOf(WorldObject* obj, TypeContainerVisitor<Strawberry::ObjectUpdater, GridTypeMapContainer> &gridVisitor, TypeContainerVisitor<Strawberry::ObjectUpdater, WorldTypeMapContainer> &worldVisitor);
         virtual void Update(const uint32&);
 
         float GetVisibilityRange() const { return m_VisibleDistance; }
@@ -286,13 +286,13 @@ class Map : public GridRefManager<NGridType>
 
         bool IsRemovalGrid(float x, float y) const
         {
-            GridPair p = Voragine::ComputeGridPair(x, y);
+            GridPair p = Strawberry::ComputeGridPair(x, y);
             return !getNGrid(p.x_coord, p.y_coord) || getNGrid(p.x_coord, p.y_coord)->GetGridState() == GRID_STATE_REMOVAL;
         }
 
         bool IsLoaded(float x, float y) const
         {
-            GridPair p = Voragine::ComputeGridPair(x, y);
+            GridPair p = Strawberry::ComputeGridPair(x, y);
             return loaded(p);
         }
 
@@ -662,7 +662,7 @@ template<class NOTIFIER>
 inline void
 Map::VisitAll(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
-    CellPair p(Voragine::ComputeCellPair(x, y));
+    CellPair p(Strawberry::ComputeCellPair(x, y));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -677,7 +677,7 @@ template<class NOTIFIER>
 inline void
 Map::VisitWorld(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
-    CellPair p(Voragine::ComputeCellPair(x, y));
+    CellPair p(Strawberry::ComputeCellPair(x, y));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -690,7 +690,7 @@ template<class NOTIFIER>
 inline void
 Map::VisitGrid(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
-    CellPair p(Voragine::ComputeCellPair(x, y));
+    CellPair p(Strawberry::ComputeCellPair(x, y));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();

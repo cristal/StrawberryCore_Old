@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,14 @@
 
 #include "Common.h"
 #include "SystemConfig.h"
-#include "revision.h"
+
+#ifdef _PRE_WIN
+    #include "revision_nr.h"
+    #define _REVISION REVISION_NR
+#else
+    #include "revision_nr.h"
+    #include "revision.h"
+#endif
 
 #define CrashFolder _T("Crashes")
 #pragma comment(linker, "/DEFAULTLIB:dbghelp.lib")

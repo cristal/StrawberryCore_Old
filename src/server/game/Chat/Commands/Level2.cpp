@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -738,7 +738,7 @@ bool ChatHandler::HandleGameObjectAddCommand(const char* args)
         return false;
     }
 
-    sLog->outDebug(GetVoragineString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
+    sLog->outDebug(GetStrawberryString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
 
     map->Add(pGameObj);
 
@@ -1014,11 +1014,11 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         Class = fields[5].GetUInt8();
     }
 
-    std::string username = GetVoragineString(LANG_ERROR);
-    std::string email = GetVoragineString(LANG_ERROR);
-    std::string last_ip = GetVoragineString(LANG_ERROR);
+    std::string username = GetStrawberryString(LANG_ERROR);
+    std::string email = GetStrawberryString(LANG_ERROR);
+    std::string last_ip = GetStrawberryString(LANG_ERROR);
     uint32 security = 0;
-    std::string last_login = GetVoragineString(LANG_ERROR);
+    std::string last_login = GetStrawberryString(LANG_ERROR);
 
     QueryResult result = LoginDatabase.PQuery("SELECT a.username,aa.gmlevel,a.email,a.last_ip,a.last_login "
                                                 "FROM account a "
@@ -1049,7 +1049,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
 
     std::string nameLink = playerLink(target_name);
 
-    PSendSysMessage(LANG_PINFO_ACCOUNT, (target?"":GetVoragineString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
+    PSendSysMessage(LANG_PINFO_ACCOUNT, (target?"":GetStrawberryString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
 
     std::string race_s, Class_s;
     switch(race)
@@ -2224,7 +2224,7 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         char const* Notfound = "#Not found#";
         char const* factionName = factionEntry ? (const char*)factionEntry->name[loc] : Notfound;
         ReputationRank rank = target->GetReputationMgr().GetRank(factionEntry);
-        std::string rankName = GetVoragineString(ReputationRankStrIndex[rank]);
+        std::string rankName = GetStrawberryString(ReputationRankStrIndex[rank]);
         std::ostringstream ss;
         if (m_session)
             ss << itr->second.ID << " - |cffffffff|Hfaction:" << itr->second.ID << "|h[" << factionName << " " << localeNames[loc] << "]|h|r";
@@ -2234,17 +2234,17 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         ss << " " << rankName << " (" << target->GetReputationMgr().GetReputation(factionEntry) << ")";
 
         if (itr->second.Flags & FACTION_FLAG_VISIBLE)
-            ss << GetVoragineString(LANG_FACTION_VISIBLE);
+            ss << GetStrawberryString(LANG_FACTION_VISIBLE);
         if (itr->second.Flags & FACTION_FLAG_AT_WAR)
-            ss << GetVoragineString(LANG_FACTION_ATWAR);
+            ss << GetStrawberryString(LANG_FACTION_ATWAR);
         if (itr->second.Flags & FACTION_FLAG_PEACE_FORCED)
-            ss << GetVoragineString(LANG_FACTION_PEACE_FORCED);
+            ss << GetStrawberryString(LANG_FACTION_PEACE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_HIDDEN)
-            ss << GetVoragineString(LANG_FACTION_HIDDEN);
+            ss << GetStrawberryString(LANG_FACTION_HIDDEN);
         if (itr->second.Flags & FACTION_FLAG_INVISIBLE_FORCED)
-            ss << GetVoragineString(LANG_FACTION_INVISIBLE_FORCED);
+            ss << GetStrawberryString(LANG_FACTION_INVISIBLE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_INACTIVE)
-            ss << GetVoragineString(LANG_FACTION_INACTIVE);
+            ss << GetStrawberryString(LANG_FACTION_INACTIVE);
 
         SendSysMessage(ss.str().c_str());
     }
@@ -2346,7 +2346,7 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
                 return true;
             }
 
-            char const* active = activeEvents.find(id) != activeEvents.end() ? GetVoragineString(LANG_ACTIVE) : "";
+            char const* active = activeEvents.find(id) != activeEvents.end() ? GetStrawberryString(LANG_ACTIVE) : "";
 
             if (m_session)
                 PSendSysMessage(LANG_EVENT_ENTRY_LIST_CHAT,id,id,eventData.description.c_str(),active);
@@ -2371,7 +2371,7 @@ bool ChatHandler::HandleEventActiveListCommand(const char* /*args*/)
     GameEventMgr::GameEventDataMap const& events = sGameEventMgr->GetEventMap();
     GameEventMgr::ActiveEvents const& activeEvents = sGameEventMgr->GetActiveEventList();
 
-    char const* active = GetVoragineString(LANG_ACTIVE);
+    char const* active = GetStrawberryString(LANG_ACTIVE);
 
     for (GameEventMgr::ActiveEvents::const_iterator itr = activeEvents.begin(); itr != activeEvents.end(); ++itr)
     {
@@ -2423,7 +2423,7 @@ bool ChatHandler::HandleEventInfoCommand(const char* args)
 
     GameEventMgr::ActiveEvents const& activeEvents = sGameEventMgr->GetActiveEventList();
     bool active = activeEvents.find(event_id) != activeEvents.end();
-    char const* activeStr = active ? GetVoragineString(LANG_ACTIVE) : "";
+    char const* activeStr = active ? GetStrawberryString(LANG_ACTIVE) : "";
 
     std::string startTimeStr = TimeToTimestampStr(eventData.start);
     std::string endTimeStr = TimeToTimestampStr(eventData.end);
@@ -2968,7 +2968,7 @@ bool ChatHandler::HandleWintergraspStatusCommand(const char* /*args*/)
         return false;
     }
 
-    PSendSysMessage(LANG_BG_WG_STATUS, sObjectMgr->GetVoragineStringForDBCLocale(
+    PSendSysMessage(LANG_BG_WG_STATUS, sObjectMgr->GetStrawberryStringForDBCLocale(
         pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE),
         secsToTimeString(pvpWG->GetTimer(), true).c_str(),
         pvpWG->isWarTime() ? "Yes" : "No",
@@ -3098,7 +3098,7 @@ bool ChatHandler::HandleWintergraspSwitchTeamCommand(const char* /*args*/)
     uint32 timer = pvpWG->GetTimer();
     pvpWG->forceChangeTeam();
     pvpWG->setTimer(timer);
-    PSendSysMessage(LANG_BG_WG_SWITCH_FACTION, GetVoragineString(pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE));
+    PSendSysMessage(LANG_BG_WG_SWITCH_FACTION, GetStrawberryString(pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_AB_ALLY : LANG_BG_AB_HORDE));
     return true;
 }
 
@@ -3520,10 +3520,10 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
                     return true;
                 }
 
-                char const* knownStr = target && target->HasTitle(titleInfo) ? GetVoragineString(LANG_KNOWN) : "";
+                char const* knownStr = target && target->HasTitle(titleInfo) ? GetStrawberryString(LANG_KNOWN) : "";
 
                 char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->bit_index
-                    ? GetVoragineString(LANG_ACTIVE)
+                    ? GetStrawberryString(LANG_ACTIVE)
                     : "";
 
                 char titleNameStr[80];

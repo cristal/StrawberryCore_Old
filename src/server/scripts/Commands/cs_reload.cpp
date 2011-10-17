@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -143,7 +143,7 @@ public:
             { "spell_threats",                SEC_ADMINISTRATOR, true,  &HandleReloadSpellThreatsCommand,               "", NULL },
             { "spell_stats",                  SEC_ADMINISTRATOR, true,  &HandleReloadSpellStatsCommand,                 "", NULL },
             { "spell_group_stack_rules",      SEC_ADMINISTRATOR, true,  &HandleReloadSpellGroupStackRulesCommand,       "", NULL },
-            { "voragine_string",              SEC_ADMINISTRATOR, true,  &HandleReloadVoragineStringCommand,              "", NULL },
+            { "strawberry_string",            SEC_ADMINISTRATOR, true,  &HandleReloadStrawberryStringCommand,              "", NULL },
             { "waypoint_scripts",             SEC_ADMINISTRATOR, true,  &HandleReloadWpScriptsCommand,                  "", NULL },
             { NULL,                           0,                 false, NULL,                                           "", NULL }
         };
@@ -181,7 +181,7 @@ public:
         HandleReloadMailLevelRewardCommand(handler,"");
         HandleReloadCommandCommand(handler,"");
         HandleReloadReservedNameCommand(handler,"");
-        HandleReloadVoragineStringCommand(handler,"");
+        HandleReloadStrawberryStringCommand(handler,"");
         HandleReloadGameTeleCommand(handler,"");
         HandleReloadItemTemplateCommand(handler, "");
 
@@ -698,11 +698,11 @@ public:
         return true;
     }
 
-    static bool HandleReloadVoragineStringCommand(ChatHandler* handler, const char* /*args*/)
+    static bool HandleReloadStrawberryStringCommand(ChatHandler* handler, const char* /*args*/)
     {
-        sLog->outString("Re-Loading voragine_string Table!");
-        sObjectMgr->LoadVoragineStrings();
-        handler->SendGlobalGMSysMessage("DB table `voragine_string` reloaded.");
+        sLog->outString("Re-Loading strawberry_string Table!");
+        sObjectMgr->LoadStrawberryStrings();
+        handler->SendGlobalGMSysMessage("DB table `strawberry_string` reloaded.");
         return true;
     }
 

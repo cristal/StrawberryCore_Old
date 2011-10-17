@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -117,8 +117,8 @@ DATAStorage <ItemDamageEntry>                        sItemDamageWandStore(Lookup
 DATAStorage <ItemLimitCategoryEntry>                 sItemLimitCategoryStore(LookupFormat(ItemLimitCategoryEntryfmt));
 DATAStorage <ItemRandomPropertiesEntry>              sItemRandomPropertiesStore(LookupFormat(ItemRandomPropertiesfmt));
 DATAStorage <ItemRandomSuffixEntry>                  sItemRandomSuffixStore(LookupFormat(ItemRandomSuffixfmt));
-DATAStorage <ItemSetEntry>                           sItemSetStore(LookupFormat(ItemSetEntryfmt));
 DATAStorage <ItemReforgeEntry>                       sItemReforgeStore(LookupFormat(ItemReforgefmt));
+DATAStorage <ItemSetEntry>                           sItemSetStore(LookupFormat(ItemSetEntryfmt));
 DATAStorage <LFGDungeonEntry>                        sLFGDungeonStore(LookupFormat(LFGDungeonEntryfmt));
 DATAStorage <LockEntry>                              sLockStore(LookupFormat(LockEntryfmt));
 DATAStorage <MailTemplateEntry>                      sMailTemplateStore(LookupFormat(MailTemplateEntryfmt));

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ extern int m_ServiceStatus;
 #endif
 
 /// Handle cored's termination signals
-class CoredSignalHandler : public Voragine::SignalHandler
+class CoredSignalHandler : public Strawberry::SignalHandler
 {
     public:
         virtual void HandleSignal(int SigNum)
@@ -129,7 +129,6 @@ int Master::Run()
     sLog->outString("<Ctrl-C> to stop.\n");
 
     sLog->outString("Welcome to Project Strawberry Cataclysm");
-    sLog->outString("Portions of Voragine, Trillium, Cactus, TrinityCore");
     sLog->outString("http://www.strawberry-pr0jcts.com/");
 
 #ifdef USE_SFMT_FOR_RNG
@@ -231,9 +230,9 @@ int Master::Run()
         if (Prio)
         {
             if (SetPriorityClass(hProcess, HIGH_PRIORITY_CLASS))
-                sLog->outString("VoragineCore process priority class set to HIGH");
+                sLog->outString("Strawberry worldserver process priority class set to HIGH");
             else
-                sLog->outError("Can't set Voragine process priority class.");
+                sLog->outError("Can't set Strawberry worldserver process priority class.");
             sLog->outString("");
         }
     }
@@ -448,7 +447,7 @@ bool Master::_StartDB()
     clearOnlineAccounts();
 
     ///- Insert version info into DB
-    WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, _REVISION);
+    WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, REVISION_NR);
 
     sWorld->LoadDBVersion();
 

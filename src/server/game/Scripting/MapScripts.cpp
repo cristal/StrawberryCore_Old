@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -272,14 +272,14 @@ inline GameObject* Map::_FindGameObject(WorldObject* pSearchObject, uint32 guid)
 {
     GameObject *pGameObject = NULL;
 
-    CellPair p(Voragine::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
+    CellPair p(Strawberry::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
 
-    Voragine::GameObjectWithDbGUIDCheck goCheck(*pSearchObject, guid);
-    Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck> checker(pSearchObject, pGameObject, goCheck);
+    Strawberry::GameObjectWithDbGUIDCheck goCheck(*pSearchObject, guid);
+    Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck> checker(pSearchObject, pGameObject, goCheck);
 
-    TypeContainerVisitor<Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > objectChecker(checker);
+    TypeContainerVisitor<Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > objectChecker(checker);
     cell.Visit(p, objectChecker, *pSearchObject->GetMap());
 
     return pGameObject;
@@ -384,7 +384,7 @@ void Map::ScriptsProcess()
                     if (Player *pSource = _GetScriptPlayerSourceOrTarget(source, target, step.script))
                     {
                         LocaleConstant loc_idx = pSource->GetSession()->GetSessionDbLocaleIndex();
-                        std::string text(sObjectMgr->GetVoragineString(step.script->Talk.TextID, loc_idx));
+                        std::string text(sObjectMgr->GetStrawberryString(step.script->Talk.TextID, loc_idx));
 
                         switch (step.script->Talk.ChatType)
                         {
@@ -824,14 +824,14 @@ void Map::ScriptsProcess()
                 {
                     WorldObject* wSource = dynamic_cast <WorldObject*> (source);
 
-                    CellPair p(Voragine::ComputeCellPair(wSource->GetPositionX(), wSource->GetPositionY()));
+                    CellPair p(Strawberry::ComputeCellPair(wSource->GetPositionX(), wSource->GetPositionY()));
                     Cell cell(p);
                     cell.data.Part.reserved = ALL_DISTRICT;
 
-                    Voragine::CreatureWithDbGUIDCheck target_check(wSource, step.script->CallScript.CreatureEntry);
-                    Voragine::CreatureSearcher<Voragine::CreatureWithDbGUIDCheck> checker(wSource, cTarget, target_check);
+                    Strawberry::CreatureWithDbGUIDCheck target_check(wSource, step.script->CallScript.CreatureEntry);
+                    Strawberry::CreatureSearcher<Strawberry::CreatureWithDbGUIDCheck> checker(wSource, cTarget, target_check);
 
-                    TypeContainerVisitor<Voragine::CreatureSearcher <Voragine::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
+                    TypeContainerVisitor<Strawberry::CreatureSearcher <Strawberry::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
                     cell.Visit(p, unit_checker, *wSource->GetMap());
                 }
                 else //check hashmap holders

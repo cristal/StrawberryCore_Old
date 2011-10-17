@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,8 +73,8 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
         ny = Y + distanceY;
 
         // prevent invalid coordinates generation
-        Voragine::NormalizeMapCoord(nx);
-        Voragine::NormalizeMapCoord(ny);
+        Strawberry::NormalizeMapCoord(nx);
+        Strawberry::NormalizeMapCoord(ny);
 
         dist = (nx - X)*(nx - X) + (ny - Y)*(ny - Y);
 

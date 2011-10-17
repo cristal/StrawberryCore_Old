@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,7 +179,7 @@ public:
                 if (pUnit && pUnit->isAlive())
                     targets.push_back(pUnit);
             }
-            targets.sort(Voragine::ObjectDistanceOrderPred(me));
+            targets.sort(Strawberry::ObjectDistanceOrderPred(me));
             Unit *pTarget = targets.front();
             if (pTarget && me->IsWithinDistInMap(pTarget, me->GetAttackDistance(pTarget)))
             {

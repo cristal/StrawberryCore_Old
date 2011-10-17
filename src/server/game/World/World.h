@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -825,7 +825,7 @@ class World
 
         bool isEventKillStart;
 
-        CharacterNameData* GetCharacterNameData(uint32 guid);
+        CharacterNameData* GetCharacterNameData(uint64 guid);
         void ReloadSingleCharacterNameData(uint32 guid);
 
         uint32 GetCleaningFlags() { return m_CleaningFlags; }
@@ -971,7 +971,7 @@ class World
 
         std::list<std::string> m_Autobroadcasts;
 
-        std::map<uint32, CharacterNameData*> m_CharacterNameDataMap;
+        std::map<uint64, CharacterNameData*> m_CharacterNameDataMap;
         ACE_Thread_Mutex m_CharacterNameDataMapMutex;
         void LoadCharacterNameData();
 

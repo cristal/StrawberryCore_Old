@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -259,7 +259,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         if (!sender->CanSpeak())
         {
             std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-            SendNotification(GetVoragineString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
+            SendNotification(GetStrawberryString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
             recv_data.rfinish(); // Prevent warnings
             return;
         }
@@ -270,7 +270,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
 
     if (sender->HasAura(1852) && type != CHAT_MSG_WHISPER)
     {
-        SendNotification(GetVoragineString(LANG_GM_SILENCE), sender->GetName());
+        SendNotification(GetStrawberryString(LANG_GM_SILENCE), sender->GetName());
         return;
     }
 
@@ -282,7 +282,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         {
             if (sender->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ))
             {
-                SendNotification(GetVoragineString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
+                SendNotification(GetStrawberryString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
                 return;
             }
 
@@ -297,7 +297,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         {
             if (sender->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ))
             {
-                SendNotification(GetVoragineString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
+                SendNotification(GetStrawberryString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
                 return;
             }
 
@@ -325,7 +325,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
 
             if (GetPlayer()->HasAura(1852) && !receiver->isGameMaster())
             {
-                SendNotification(GetVoragineString(LANG_GM_SILENCE), GetPlayer()->GetName());
+                SendNotification(GetStrawberryString(LANG_GM_SILENCE), GetPlayer()->GetName());
                 return;
             }
 
@@ -459,7 +459,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
             {
                 if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ))
                 {
-                    SendNotification(GetVoragineString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
+                    SendNotification(GetStrawberryString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
                     return;
                 }
             }
@@ -482,7 +482,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
                 if (!_player->isAFK())
                 {
                     if (msg.empty())
-                        msg  = GetVoragineString(LANG_PLAYER_AFK_DEFAULT);
+                        msg  = GetStrawberryString(LANG_PLAYER_AFK_DEFAULT);
                     _player->afkMsg = msg;
                 }
 
@@ -500,7 +500,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
                 if (!_player->isDND())
                 {
                     if (msg.empty())
-                        msg = GetVoragineString(LANG_PLAYER_DND_DEFAULT);
+                        msg = GetStrawberryString(LANG_PLAYER_DND_DEFAULT);
                     _player->dndMsg = msg;
                 }
 
@@ -528,7 +528,7 @@ void WorldSession::HandleEmoteOpcode(WorldPacket & recv_data)
     GetPlayer()->HandleEmoteCommand(emote);
 }
 
-namespace Voragine
+namespace Strawberry
 {
     class EmoteChatBuilder
     {
@@ -558,7 +558,7 @@ namespace Voragine
             uint32        i_emote_num;
             Unit const*   i_target;
     };
-}                                                           // namespace Voragine
+}                                                           // namespace Strawberry
 
 void WorldSession::HandleTextEmoteOpcode(WorldPacket & recv_data)
 {
@@ -568,7 +568,7 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket & recv_data)
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetVoragineString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+        SendNotification(GetStrawberryString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
         return;
     }
 
@@ -604,16 +604,16 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket & recv_data)
 
     Unit* unit = ObjectAccessor::GetUnit(*_player, guid);
 
-    CellPair p = Voragine::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
+    CellPair p = Strawberry::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Voragine::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
-    Voragine::LocalizedPacketDo<Voragine::EmoteChatBuilder > emote_do(emote_builder);
-    Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::EmoteChatBuilder > > emote_worker(GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE), emote_do);
-    TypeContainerVisitor<Voragine::PlayerDistWorker<Voragine::LocalizedPacketDo<Voragine::EmoteChatBuilder> >, WorldTypeMapContainer> message(emote_worker);
+    Strawberry::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
+    Strawberry::LocalizedPacketDo<Strawberry::EmoteChatBuilder > emote_do(emote_builder);
+    Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::EmoteChatBuilder > > emote_worker(GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE), emote_do);
+    TypeContainerVisitor<Strawberry::PlayerDistWorker<Strawberry::LocalizedPacketDo<Strawberry::EmoteChatBuilder> >, WorldTypeMapContainer> message(emote_worker);
     cell.Visit(p, message, *GetPlayer()->GetMap(), *GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE));
 
     GetPlayer()->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_DO_EMOTE, text_emote, 0, unit);

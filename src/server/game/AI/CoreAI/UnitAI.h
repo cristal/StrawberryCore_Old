@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_UNITAI_H
-#define TRINITY_UNITAI_H
+#ifndef STRAWBERRY_UNITAI_H
+#define STRAWBERRY_UNITAI_H
 
 #include "Define.h"
 #include <list>
@@ -143,7 +143,7 @@ class UnitAI
                 return NULL;
 
             if (targetType == SELECT_TARGET_NEAREST || targetType == SELECT_TARGET_FARTHEST)
-                targetList.sort(Voragine::ObjectDistanceOrderPred(me));
+                targetList.sort(Strawberry::ObjectDistanceOrderPred(me));
 
             switch (targetType)
             {
@@ -191,13 +191,13 @@ class UnitAI
                 return;
 
             if (targetType == SELECT_TARGET_NEAREST || targetType == SELECT_TARGET_FARTHEST)
-                targetList.sort(Voragine::ObjectDistanceOrderPred(me));
+                targetList.sort(Strawberry::ObjectDistanceOrderPred(me));
 
             if (targetType == SELECT_TARGET_FARTHEST || targetType == SELECT_TARGET_BOTTOMAGGRO)
                 targetList.reverse();
 
             if (targetType == SELECT_TARGET_RANDOM)
-                Voragine::RandomResizeList(targetList, maxTargets);
+                Strawberry::RandomResizeList(targetList, maxTargets);
             else
                 targetList.resize(maxTargets);
         }

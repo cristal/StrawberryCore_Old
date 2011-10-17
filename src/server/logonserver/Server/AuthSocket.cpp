@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -309,7 +309,7 @@ bool AuthSocket::_HandleLogonChallenge()
     buf.resize(4);
 
     socket().recv((char *)&buf[0], 4);
-#if TRINITY_ENDIAN == TRINITY_BIGENDIAN
+#if STRAWBERRY_ENDIAN == STRAWBERRY_BIGENDIAN
     EndianConvert(*((uint16*)(buf[0])));
 #endif
     uint16 remaining = ((sAuthLogonChallenge_C *)&buf[0])->size;
@@ -328,7 +328,7 @@ bool AuthSocket::_HandleLogonChallenge()
     sLog->outStaticDebug("[LogonChallenge] got full packet, %#04x bytes", ch->size);
     sLog->outStaticDebug("[LogonChallenge] name(%d): '%s'", ch->I_len, ch->I);
 
-#if TRINITY_ENDIAN == TRINITY_BIGENDIAN
+#if STRAWBERRY_ENDIAN == STRAWBERRY_BIGENDIAN
     // BigEndian code, nop in little endian case
     // size already converted
     EndianConvert(*((uint32*)(&ch->gamename[0])));
@@ -696,9 +696,9 @@ bool AuthSocket::_HandleReconnectChallenge()
 
     socket().recv((char *)&buf[0], 4);
 
-#if TRINITY_ENDIAN == TRINITY_BIGENDIAN
+#if STRAWBERRY_ENDIAN == STRAWBERRY_BIGENDIAN
     EndianConvert(*((uint16*)(buf[0])));
-#endif //TRINITY_ENDIAN
+#endif //STRAWBERRY_ENDIAN
     uint16 remaining = ((sAuthLogonChallenge_C *)&buf[0])->size;
     sLog->outStaticDebug("[ReconnectChallenge] got header, body is %#04x bytes", remaining);
 

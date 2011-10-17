@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -608,7 +608,7 @@ ChatCommand * ChatHandler::getCommandTable()
 
 std::string ChatHandler::PGetParseString(int32 entry, ...) const
 {
-    const char *format = GetVoragineString(entry);
+    const char *format = GetStrawberryString(entry);
     char str[1024];
     va_list ap;
     va_start(ap, entry);
@@ -617,9 +617,9 @@ std::string ChatHandler::PGetParseString(int32 entry, ...) const
     return std::string(str);
 }
 
-const char *ChatHandler::GetVoragineString(int32 entry) const
+const char *ChatHandler::GetStrawberryString(int32 entry) const
 {
-    return m_session->GetVoragineString(entry);
+    return m_session->GetStrawberryString(entry);
 }
 
 bool ChatHandler::isAvailable(ChatCommand const& cmd) const
@@ -757,12 +757,12 @@ void ChatHandler::SendGlobalGMSysMessage(const char *str)
 
 void ChatHandler::SendSysMessage(int32 entry)
 {
-    SendSysMessage(GetVoragineString(entry));
+    SendSysMessage(GetStrawberryString(entry));
 }
 
 void ChatHandler::PSendSysMessage(int32 entry, ...)
 {
-    const char *format = GetVoragineString(entry);
+    const char *format = GetStrawberryString(entry);
     va_list ap;
     char str [2048];
     va_start(ap, entry);
@@ -1400,8 +1400,8 @@ GameObject* ChatHandler::GetNearbyGameObject()
 
     Player* pl = m_session->GetPlayer();
     GameObject* obj = NULL;
-    Voragine::NearestGameObjectCheck check(*pl);
-    Voragine::GameObjectLastSearcher<Voragine::NearestGameObjectCheck> searcher(pl, obj, check);
+    Strawberry::NearestGameObjectCheck check(*pl);
+    Strawberry::GameObjectLastSearcher<Strawberry::NearestGameObjectCheck> searcher(pl, obj, check);
     pl->VisitNearbyGridObject(999, searcher);
     return obj;
 }
@@ -1418,14 +1418,14 @@ GameObject* ChatHandler::GetObjectGlobalyWithGuidOrNearWithDbGuid(uint32 lowguid
     if (!obj && sObjectMgr->GetGOData(lowguid))                   // guid is DB guid of object
     {
         // search near player then
-        CellPair p(Voragine::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
+        CellPair p(Strawberry::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
-        Voragine::GameObjectWithDbGUIDCheck go_check(*pl,lowguid);
-        Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck> checker(pl,obj,go_check);
+        Strawberry::GameObjectWithDbGUIDCheck go_check(*pl,lowguid);
+        Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck> checker(pl,obj,go_check);
 
-        TypeContainerVisitor<Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
         cell.Visit(p, object_checker, *pl->GetMap());
     }
 
@@ -1703,9 +1703,9 @@ int ChatHandler::GetSessionDbLocaleIndex() const
     return m_session->GetSessionDbLocaleIndex();
 }
 
-const char *CliHandler::GetVoragineString(int32 entry) const
+const char *CliHandler::GetStrawberryString(int32 entry) const
 {
-    return sObjectMgr->GetVoragineStringForDBCLocale(entry);
+    return sObjectMgr->GetStrawberryStringForDBCLocale(entry);
 }
 
 bool CliHandler::isAvailable(ChatCommand const& cmd) const
@@ -1722,7 +1722,7 @@ void CliHandler::SendSysMessage(const char *str)
 
 std::string CliHandler::GetNameLink() const
 {
-    return GetVoragineString(LANG_CONSOLE_COMMAND);
+    return GetStrawberryString(LANG_CONSOLE_COMMAND);
 }
 
 bool ChatHandler::GetPlayerGroupAndGUIDByName(const char* cname, Player* &plr, Group* &group, uint64 &guid, bool offline)

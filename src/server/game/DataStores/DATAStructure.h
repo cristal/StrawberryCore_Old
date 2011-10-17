@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_DBCSTRUCTURE_H
-#define TRINITY_DBCSTRUCTURE_H
+#ifndef STRAWBERRY_DBCSTRUCTURE_H
+#define STRAWBERRY_DBCSTRUCTURE_H
 
 #include "Common.h"
 #include "DATAEnums.h"
@@ -1223,11 +1223,11 @@ struct ItemRandomSuffixEntry
 
 struct ItemReforgeEntry
 {
-    uint32    ID;                                           // 0
-    uint32    oldstat;                                      // 1
-    float     oldstat_coef;                                 // 2
-    uint32    newstat;                                      // 2
-    float     newstat_coef;                                 // 3
+    uint32    ID;                                           // 0        m_ID
+    uint32    SourceStat;                                   // 1        m_SourceStat
+    float     Scaling1;                                     // 2        m_Scaling1 - always 0.4.
+    uint32    DestinationStat;                              // 3        m_DestinationStat
+    float     Scaling2;                                     // 4        m_Scaling2 - always 1.                                // 3
 };
 
 #define MAX_ITEM_SET_ITEMS 10

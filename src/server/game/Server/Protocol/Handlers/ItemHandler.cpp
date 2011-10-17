@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1457,4 +1457,48 @@ void WorldSession::HandleItemTextQuery(WorldPacket & recv_data )
     }
 
     SendPacket(&data);
+}
+
+void WorldSession::HandleReforgeItem(WorldPacket& recv_data)
+{
+    sLog->outDebug("WORLD: CMSG_REFORGE_ITEM");
+
+    uint32 slotId, reforgeId;
+    uint64 GUID;
+    uint32 bag;
+    recv_data >> slotId >> reforgeId;
+    recv_data >> GUID >> bag;
+
+    Item* item = GetPlayer()->GetItemByPos(bag,slotId);
+
+    if(!item)       // cheating?
+        return;
+    
+    item->SetState(ITEM_CHANGED,GetPlayer()); // Set the 'changed' state to allow items to be saved to DB if they are equipped
+    if(reforgeId == 0) // Reset item
+    {
+        if(item->IsEquipped()) // Item must be equipped to avoid aditional stat loose
+            GetPlayer()->ApplyReforgedStats(item,false);
+        item->SetEnchantment(REFORGE_ENCHANTMENT_SLOT,0,0,0);
+        SQLTransaction trans = CharacterDatabase.BeginTransaction();
+        item->SaveToDB(trans);
+        CharacterDatabase.CommitTransaction(trans);
+    }
+
+    const ItemReforgeEntry* stats = sItemReforgeStore.LookupEntry(reforgeId);
+    if(!stats)        // cheating?
+        return;
+
+    uint32 money = item->GetTemplate()->SellPrice;
+
+    if(!GetPlayer()->HasEnoughMoney((int32)money))
+        return; // Cheating?
+
+    GetPlayer()->ModifyMoney(-int32(money));
+    item->SetEnchantment(REFORGE_ENCHANTMENT_SLOT,reforgeId,0,0);
+    SQLTransaction trans = CharacterDatabase.BeginTransaction();
+    item->SaveToDB(trans);
+    CharacterDatabase.CommitTransaction(trans);
+    if(item->IsEquipped()) // Item must be equipped to get the new stats
+        GetPlayer()->ApplyReforgedStats(item,true);
 }

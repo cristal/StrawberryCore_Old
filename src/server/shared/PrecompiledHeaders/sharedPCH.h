@@ -29,3 +29,10 @@
 #include "Errors.h"
 #include "TypeList.h"
 #include "UnorderedMap.h"
+
+// Collision
+#include "VMapDefinitions.h"
+#include "MapTree.h"
+#include "WorldModel.h"
+#include "ModelInstance.h"
+#include "BoundingIntervalHierarchy.h"

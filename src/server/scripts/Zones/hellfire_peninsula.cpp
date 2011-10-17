@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -162,7 +162,7 @@ public:
             if (pCreature->GetOwner() && pCreature->GetOwner()->GetTypeId() == TYPEID_PLAYER)
                 Start(false, false, pCreature->GetOwner()->GetGUID());
             else
-                sLog->outError("TRINITY: npc_ancestral_wolf can not obtain owner or owner is not a player.");
+                sLog->outError("STRAWBERRY: npc_ancestral_wolf can not obtain owner or owner is not a player.");
 
             pCreature->SetSpeed(MOVE_WALK, 1.5f);
             Reset();

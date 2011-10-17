@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "CellImpl.h"
+#include "DATAStructure.h"
 
 class gps_commandscript : public CommandScript
 {
@@ -73,7 +74,7 @@ public:
                 return false;
             }
         }
-        CellPair cell_val = Voragine::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+        CellPair cell_val = Strawberry::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
         Cell cell(cell_val);
 
         uint32 zone_id, area_id;
@@ -92,7 +93,7 @@ public:
         float ground_z = map->GetHeight(obj->GetPositionX(), obj->GetPositionY(), MAX_HEIGHT);
         float floor_z = map->GetHeight(obj->GetPositionX(), obj->GetPositionY(), obj->GetPositionZ());
 
-        GridPair p = Voragine::ComputeGridPair(obj->GetPositionX(), obj->GetPositionY());
+        GridPair p = Strawberry::ComputeGridPair(obj->GetPositionX(), obj->GetPositionY());
 
         // 63? WHY?
         int gx = 63 - p.x_coord;
@@ -110,11 +111,11 @@ public:
         }
         else handler->PSendSysMessage("no VMAP available for area info");
 
-        char unknown = 'Unk';
+        char unk = 'Unk';
         handler->PSendSysMessage(LANG_MAP_POSITION,
-            obj->GetMapId(), (mapEntry ? mapEntry->name[handler->GetSessionDbcLocale()] : unknown),
-            zone_id, (zoneEntry ? zoneEntry->area_name[handler->GetSessionDbcLocale()] : unknown),
-            area_id, (areaEntry ? areaEntry->area_name[handler->GetSessionDbcLocale()] : unknown),
+            obj->GetMapId(), (mapEntry ? mapEntry->name[handler->GetSessionDbcLocale()] : unk),
+            zone_id, (zoneEntry ? zoneEntry->area_name[handler->GetSessionDbcLocale()] : unk),
+            area_id, (areaEntry ? areaEntry->area_name[handler->GetSessionDbcLocale()] : unk),
             obj->GetPhaseMask(),
             obj->GetPositionX(), obj->GetPositionY(), obj->GetPositionZ(), obj->GetOrientation(),
             cell.GridX(), cell.GridY(), cell.CellX(), cell.CellY(), obj->GetInstanceId(),

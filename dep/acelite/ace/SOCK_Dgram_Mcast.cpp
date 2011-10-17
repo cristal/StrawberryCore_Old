@@ -1,4 +1,4 @@
-// $Id: SOCK_Dgram_Mcast.cpp 91286 2010-08-05 09:04:31Z johnnyw $
+// $Id: SOCK_Dgram_Mcast.cpp 92580 2010-11-15 09:48:02Z johnnyw $
 
 #include "ace/SOCK_Dgram_Mcast.h"
 
@@ -258,7 +258,7 @@ ACE_SOCK_Dgram_Mcast::subscribe_ifs (const ACE_INET_Addr &mcast_addr,
         {
           size_t nr_subscribed = 0;
 # if defined(__linux__)
-          struct if_nameindex *intf;
+          struct if_nameindex *intf = 0;
 
           intf = ACE_OS::if_nameindex ();
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -291,8 +291,8 @@ bool OPvPCapturePoint::Update(uint32 diff)
     }
 
     std::list<Player*> players;
-    Voragine::AnyPlayerInObjectRangeCheck checker(m_capturePoint, radius);
-    Voragine::PlayerListSearcher<Voragine::AnyPlayerInObjectRangeCheck> searcher(m_capturePoint, players, checker);
+    Strawberry::AnyPlayerInObjectRangeCheck checker(m_capturePoint, radius);
+    Strawberry::PlayerListSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(m_capturePoint, players, checker);
     m_capturePoint->VisitNearbyWorldObject(radius, searcher);
 
     for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)

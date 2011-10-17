@@ -1,4 +1,4 @@
-// $Id: WIN32_Asynch_IO.cpp 91368 2010-08-16 13:03:34Z mhengstmengel $
+// $Id: WIN32_Asynch_IO.cpp 92900 2010-12-17 14:45:11Z mcorino $
 
 #include "ace/WIN32_Asynch_IO.h"
 
@@ -3644,7 +3644,9 @@ ACE_WIN32_Asynch_Write_Dgram::send (ACE_Message_Block *message_block,
 
     do
       {
-        if (msg_len >= 0 && iovcnt < ACE_IOV_MAX)
+        //if (msg_len >= 0 && iovcnt < ACE_IOV_MAX)
+        // msg_len >= 0 is always true since msg_len is unsigned
+        if (iovcnt < ACE_IOV_MAX)
           {
             u_long this_chunk_length;
             if (msg_len > ULONG_MAX)

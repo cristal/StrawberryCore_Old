@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef TRINITY_SMARTSCRIPT_H
-#define TRINITY_SMARTSCRIPT_H
+#ifndef STRAWBERRY_SMARTSCRIPT_H
+#define STRAWBERRY_SMARTSCRIPT_H
 
 #include "Common.h"
 #include "Creature.h"
@@ -157,14 +157,14 @@ class SmartScript
         {
             GameObject* pGameObject = NULL;
 
-            CellPair p(Voragine::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
+            CellPair p(Strawberry::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
             Cell cell(p);
             cell.data.Part.reserved = ALL_DISTRICT;
 
-            Voragine::GameObjectWithDbGUIDCheck goCheck(*pSearchObject, guid);
-            Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck> checker(pSearchObject, pGameObject, goCheck);
+            Strawberry::GameObjectWithDbGUIDCheck goCheck(*pSearchObject, guid);
+            Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck> checker(pSearchObject, pGameObject, goCheck);
 
-            TypeContainerVisitor<Voragine::GameObjectSearcher<Voragine::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > objectChecker(checker);
+            TypeContainerVisitor<Strawberry::GameObjectSearcher<Strawberry::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > objectChecker(checker);
             cell.Visit(p, objectChecker, *pSearchObject->GetMap());
 
             return pGameObject;
@@ -173,14 +173,14 @@ class SmartScript
         Creature* FindCreatureNear(WorldObject* pSearchObject, uint32 guid) const
         {
             Creature* crea = NULL;
-            CellPair p(Voragine::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
+            CellPair p(Strawberry::ComputeCellPair(pSearchObject->GetPositionX(), pSearchObject->GetPositionY()));
             Cell cell(p);
             cell.data.Part.reserved = ALL_DISTRICT;
 
-            Voragine::CreatureWithDbGUIDCheck target_check(pSearchObject, guid);
-            Voragine::CreatureSearcher<Voragine::CreatureWithDbGUIDCheck> checker(pSearchObject, crea, target_check);
+            Strawberry::CreatureWithDbGUIDCheck target_check(pSearchObject, guid);
+            Strawberry::CreatureSearcher<Strawberry::CreatureWithDbGUIDCheck> checker(pSearchObject, crea, target_check);
 
-            TypeContainerVisitor<Voragine::CreatureSearcher <Voragine::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
+            TypeContainerVisitor<Strawberry::CreatureSearcher <Strawberry::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
             cell.Visit(p, unit_checker, *pSearchObject->GetMap());
 
             return crea;

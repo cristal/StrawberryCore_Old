@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,7 +85,7 @@ enum Opcodes
     CMSG_BATTLEFIELD_JOIN,
     CMSG_BATTLEFIELD_LIST,
     CMSG_BATTLEFIELD_MGR_ENTRY_INVITE_RESPONSE,
-    CMSG_BATTLEFIELD_MGR_EXIT_REQUEST,
+    SMSG_BATTLEFIELD_MGR_EXIT_REQUEST,
     CMSG_BATTLEFIELD_MGR_QUEUE_INVITE_RESPONSE,
     CMSG_BATTLEFIELD_MGR_QUEUE_REQUEST,
     CMSG_BATTLEFIELD_PORT,
@@ -155,7 +155,6 @@ enum Opcodes
     CMSG_CHANNEL_UNSILENCE_VOICE,
     CMSG_CHANNEL_VOICE_OFF,
     CMSG_CHANNEL_VOICE_ON,
-    CMSG_CHARACTER_POINT_CHEAT,
     CMSG_CHAR_CREATE,
     CMSG_CHAR_CUSTOMIZE,
     CMSG_CHAR_DELETE,
@@ -170,7 +169,6 @@ enum Opcodes
     CMSG_CHEAT_PLAYER_LOOKUP,
     CMSG_CHEAT_SET_ARENA_CURRENCY,
     CMSG_CHEAT_SET_HONOR_CURRENCY,
-    CMSG_CHECK_LOGIN_CRITERIA,
     CMSG_CLEAR_CHANNEL_WATCH,
     CMSG_CLEAR_EXPLORATION,
     CMSG_CLEAR_SERVER_BUCK_DATA,
@@ -1315,6 +1313,8 @@ enum Opcodes
     SMSG_WHOIS,
     SMSG_WORLD_STATE_UI_TIMER_UPDATE,
     SMSG_ZONE_UNDER_ATTACK,
+	CMSG_REFORGE_ITEM,
+	SMSG_REFORGE_OPEN_FROM_GOSSIP,
     NUM_OPCODES
 };
 

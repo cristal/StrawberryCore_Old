@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Project Voragine <http://www.projectvoragine.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
  *
@@ -291,7 +291,7 @@ class boss_valiona : public CreatureScript
                         if (uiTwilightMeteoriteTimer <= uiDiff)
                         {
                             uiTwilightMeteoriteTimer = 40000;
-                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM,500.0f);
+                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 500);
                             DoCast(Target,SPELL_TWILIGHT_METEORITE);
                         } else uiTwilightMeteoriteTimer -= uiDiff;
                 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -141,7 +141,7 @@ World::~World()
     VMAP::VMapFactory::clear();
 
     // Clean up character name data
-    for (std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.begin(); itr != m_CharacterNameDataMap.end(); ++itr)
+    for (std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.begin(); itr != m_CharacterNameDataMap.end(); ++itr)
         delete itr->second;
 
     //TODO free addSessQueue
@@ -411,7 +411,7 @@ void World::LoadConfigSettings(bool reload)
 
     ///- Read the player limit and the Message of the day from the config file
     SetPlayerAmountLimit(sConfig->GetIntDefault("PlayerLimit", 100));
-    SetMotd(sConfig->GetStringDefault("Motd", "Welcome to a Voragine Core Server."));
+    SetMotd(sConfig->GetStringDefault("Motd", "Welcome to a Strawberry Core Server."));
 
     ///- Read ticket system setting from the config file
     m_bool_configs[CONFIG_ALLOW_TICKETS] = sConfig->GetBoolDefault("AllowTickets", true);
@@ -1301,8 +1301,8 @@ void World::SetInitialWorldSettings()
 
     ///- Loading strings. Getting no records means core load has to be canceled because no error message can be output.
     sLog->outString();
-    sLog->outString("Loading Voragine strings...");
-    if (!sObjectMgr->LoadVoragineStrings())
+    sLog->outString("Loading Strawberry strings...");
+    if (!sObjectMgr->LoadStrawberryStrings())
         exit(1);                                            // Error message displayed in function already
 
     ///- Update the realm entry in the database with the realm type from the config file
@@ -2550,7 +2550,7 @@ void World::SendGlobalGMMessage(WorldPacket *packet, WorldSession *self, uint32 
     }
 }
 
-namespace Voragine
+namespace Strawberry
 {
     class WorldWorldTextBuilder
     {
@@ -2559,7 +2559,7 @@ namespace Voragine
             explicit WorldWorldTextBuilder(int32 textId, va_list* args = NULL) : i_textId(textId), i_args(args) {}
             void operator()(WorldPacketList& data_list, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetVoragineString(i_textId,loc_idx);
+                char const* text = sObjectMgr->GetStrawberryString(i_textId,loc_idx);
 
                 if (i_args)
                 {
@@ -2605,7 +2605,7 @@ namespace Voragine
             int32 i_textId;
             va_list* i_args;
     };
-}                                                           // namespace Voragine
+}                                                           // namespace Strawberry
 
 /// Send a System Message to all players (except self if mentioned)
 void World::SendWorldText(int32 string_id, ...)
@@ -2613,8 +2613,8 @@ void World::SendWorldText(int32 string_id, ...)
     va_list ap;
     va_start(ap, string_id);
 
-    Voragine::WorldWorldTextBuilder wt_builder(string_id, &ap);
-    Voragine::LocalizedPacketListDo<Voragine::WorldWorldTextBuilder> wt_do(wt_builder);
+    Strawberry::WorldWorldTextBuilder wt_builder(string_id, &ap);
+    Strawberry::LocalizedPacketListDo<Strawberry::WorldWorldTextBuilder> wt_do(wt_builder);
     for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
     {
         if (!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld())
@@ -2632,8 +2632,8 @@ void World::SendGMText(int32 string_id, ...)
     va_list ap;
     va_start(ap, string_id);
 
-    Voragine::WorldWorldTextBuilder wt_builder(string_id, &ap);
-    Voragine::LocalizedPacketListDo<Voragine::WorldWorldTextBuilder> wt_do(wt_builder);
+    Strawberry::WorldWorldTextBuilder wt_builder(string_id, &ap);
+    Strawberry::LocalizedPacketListDo<Strawberry::WorldWorldTextBuilder> wt_do(wt_builder);
     for (SessionMap::iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
     {
         if (!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld())
@@ -3375,7 +3375,7 @@ void World::LoadCharacterNameData()
         data->m_gender = fields[3].GetUInt8();
         data->m_class = fields[4].GetUInt8();
 
-        m_CharacterNameDataMap[fields[0].GetUInt32()] = data;
+        m_CharacterNameDataMap[fields[0].GetUInt64()] = data;
         ++count;
     } while (result->NextRow());
 
@@ -3386,7 +3386,7 @@ void World::ReloadSingleCharacterNameData(uint32 guid)
 {
     ACE_Guard<ACE_Thread_Mutex> guard(m_CharacterNameDataMapMutex);
 
-    std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
+    std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
 
     if (itr != m_CharacterNameDataMap.end())
     {
@@ -3407,11 +3407,11 @@ void World::ReloadSingleCharacterNameData(uint32 guid)
     }
 }
 
-CharacterNameData* World::GetCharacterNameData(uint32 guid)
+CharacterNameData* World::GetCharacterNameData(uint64 guid)
 {
     ACE_Guard<ACE_Thread_Mutex> guard(m_CharacterNameDataMapMutex);
 
-    std::map<uint32, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
+    std::map<uint64, CharacterNameData*>::iterator itr = m_CharacterNameDataMap.find(guid);
     if (itr != m_CharacterNameDataMap.end())
         return itr->second;
     else

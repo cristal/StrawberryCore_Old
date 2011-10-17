@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,8 +68,8 @@ void WaypointMgr::Load()
         float y = fields[3].GetFloat();
         float z = fields[4].GetFloat();
 
-        Voragine::NormalizeMapCoord(x);
-        Voragine::NormalizeMapCoord(y);
+        Strawberry::NormalizeMapCoord(x);
+        Strawberry::NormalizeMapCoord(y);
 
         wp->id = fields[1].GetUInt32();
         wp->x = x;
@@ -115,8 +115,8 @@ void WaypointMgr::ReloadPath(uint32 id)
         float y = fields[2].GetFloat();
         float z = fields[3].GetFloat();
 
-        Voragine::NormalizeMapCoord(x);
-        Voragine::NormalizeMapCoord(y);
+        Strawberry::NormalizeMapCoord(x);
+        Strawberry::NormalizeMapCoord(y);
 
         wp->id = fields[0].GetUInt32();
         wp->x = x;

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -446,7 +446,7 @@ public:
             }
             if (targets.empty())
                 return; // No targets added for some reason. No point continuing.
-            targets.sort(Voragine::ObjectDistanceOrderPred(me)); // Sort players by distance.
+            targets.sort(Strawberry::ObjectDistanceOrderPred(me)); // Sort players by distance.
             targets.resize(1); // Only need closest target.
             Unit *pTarget = targets.front(); // Get the first target.
             if (pTarget)

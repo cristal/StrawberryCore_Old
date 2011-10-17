@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ enum SpellModType
     SPELLMOD_PCT          = 108                             // SPELL_AURA_ADD_PCT_MODIFIER
 };
 
-// 2^n values, Player::m_isunderwater is a bitmask. These are Voragine internal values, they are never send to any client
+// 2^n values, Player::m_isunderwater is a bitmask. These are Strawberry internal values, they are never send to any client
 enum PlayerUnderwaterState
 {
     UNDERWATER_NONE                     = 0x00,
@@ -1211,7 +1211,7 @@ class Player : public Unit, public GridObject<Player>
         float m_anti_BeginFallZ; //alternative falling begin
         uint32 m_anti_lastalarmtime; //last time when alarm generated
         uint32 m_anti_alarmcount; //alarm counter
-        uint32 m_anti_TeleTime;
+        uint64 m_anti_TeleTime;
         uint32 m_PositionZ;
         bool m_CanFly;
         bool m_SpeedBuff;
@@ -1219,8 +1219,8 @@ class Player : public Unit, public GridObject<Player>
         bool m_FlyingMount;
         bool m_FlyingMount2;
         bool m_FlyingMountCheck;
-        uint32 Anti__GetLastTeleTime() const { return m_anti_TeleTime; }
-        void Anti__SetLastTeleTime(uint32 TeleTime) { m_anti_TeleTime=TeleTime; }
+        uint64 Anti__GetLastTeleTime() const { return m_anti_TeleTime; }
+        void Anti__SetLastTeleTime(uint64 TeleTime) { m_anti_TeleTime=TeleTime; }
         /*-------------------------------------*/
 
         void CleanupsBeforeDelete(bool finalCleanup = true);
@@ -2261,6 +2261,7 @@ class Player : public Unit, public GridObject<Player>
         void _ApplyWeaponDependentAuraDamageMod(Item *item, WeaponAttackType attackType, AuraEffect const* aura, bool apply);
 
         void _ApplyItemMods(Item *item, uint8 slot, bool apply);
+		void  ApplyReforgedStats(Item* item, bool apply);
         void _RemoveAllItemMods();
         void _ApplyAllItemMods();
         void _ApplyAllLevelScaleItemMods(bool apply);

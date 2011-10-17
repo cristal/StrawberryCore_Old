@@ -1,4 +1,4 @@
-// $Id: Log_Msg_UNIX_Syslog.cpp 80826 2008-03-04 14:51:23Z wotte $
+// $Id: Log_Msg_UNIX_SysLog->cpp 92791 2010-12-04 16:25:22Z shuston $
 
 #include "ace/config-all.h"
 
@@ -6,10 +6,10 @@
 
 #include "ace/ACE.h"
 #include "ace/Log_Msg.h"
-#include "ace/Log_Msg_UNIX_Syslog.h"
+#include "ace/Log_Msg_UNIX_SysLog.h"
 #include "ace/Log_Record.h"
 #include "ace/OS_NS_string.h"
-#include "ace/os_include/os_syslog.h"
+#include "ace/os_include/os_sysLog.h"
 
 ACE_BEGIN_VERSIONED_NAMESPACE_DECL
 
@@ -56,7 +56,7 @@ ACE_Log_Msg_UNIX_Syslog::open (const ACE_TCHAR * logger_key)
   // Enable logging of all syslog priorities.  If logging of all
   // priorities is not desired, use the ACE_Log_Msg::priority_mask()
   // method to control the log output sent to the syslog daemon via
-  // the log() method, or use the system's syslog.conf file to select
+  // the log() method, or use the system's sysLog->conf file to select
   // desired level of information.
 
 #if !defined (ACE_LACKS_SETLOGMASK)
@@ -110,7 +110,7 @@ ACE_Log_Msg_UNIX_Syslog::log (ACE_Log_Record &log_record)
       if (ACE_BIT_ENABLED (flags, ACE_Log_Msg::VERBOSE)
           || ACE_BIT_ENABLED (flags, ACE_Log_Msg::VERBOSE_LITE))
         {
-          ACE_TCHAR date_and_time[35];
+          ACE_TCHAR date_and_time[27];
           if (0 == ACE::timestamp (date_and_time, sizeof (date_and_time), 1))
             ACE_OS::strcpy (date_and_time, ACE_TEXT ("<time error>"));
           const ACE_TCHAR *prio_name =

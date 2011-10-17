@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,8 +52,8 @@ ConfusedMovementGenerator<T>::Initialize(T &unit)
     {
         float wanderX = x + wander_distance*(float)rand_norm() - wander_distance/2;
         float wanderY = y + wander_distance*(float)rand_norm() - wander_distance/2;
-        Voragine::NormalizeMapCoord(wanderX);
-        Voragine::NormalizeMapCoord(wanderY);
+        Strawberry::NormalizeMapCoord(wanderX);
+        Strawberry::NormalizeMapCoord(wanderY);
 
         float new_z = map->GetHeight(wanderX, wanderY, z, true);
         if (new_z > INVALID_HEIGHT && unit.IsWithinLOS(wanderX, wanderY, new_z))

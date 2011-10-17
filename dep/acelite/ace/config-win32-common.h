@@ -1,5 +1,5 @@
 /* -*- C++ -*- */
-// $Id: config-win32-common.h 92120 2010-10-01 12:00:01Z johnnyw $
+// $Id: config-win32-common.h 93117 2011-01-20 12:11:28Z mcorino $
 
 
 #ifndef ACE_CONFIG_WIN32_COMMON_H
@@ -9,7 +9,6 @@
 #ifndef ACE_CONFIG_WIN32_H
 #error Use config-win32.h in config.h instead of this header
 #endif /* ACE_CONFIG_WIN32_H */
-
 
 // Windows Mobile (CE) stuff is primarily further restrictions to what's
 // in the rest of this file. Also, it defined ACE_HAS_WINCE, which is used

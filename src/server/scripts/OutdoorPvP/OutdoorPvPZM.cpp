@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry Project <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,14 +81,14 @@ void OPvPCapturePointZM_Beacon::ChangeState()
     {
         if (((OutdoorPvPZM*)m_PvP)->m_AllianceTowersControlled)
             ((OutdoorPvPZM*)m_PvP)->m_AllianceTowersControlled--;
-        sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(ZMBeaconLooseA[m_TowerType]));
+        sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(ZMBeaconLooseA[m_TowerType]));
     }
     // if changing from controlling horde to alliance
     else if (m_OldState == OBJECTIVESTATE_HORDE)
     {
         if (((OutdoorPvPZM*)m_PvP)->m_HordeTowersControlled)
             ((OutdoorPvPZM*)m_PvP)->m_HordeTowersControlled--;
-        sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(ZMBeaconLooseH[m_TowerType]));
+        sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(ZMBeaconLooseH[m_TowerType]));
     }
 
     switch(m_State)
@@ -97,13 +97,13 @@ void OPvPCapturePointZM_Beacon::ChangeState()
             m_TowerState = ZM_TOWERSTATE_A;
             if (((OutdoorPvPZM*)m_PvP)->m_AllianceTowersControlled<ZM_NUM_BEACONS)
                 ((OutdoorPvPZM*)m_PvP)->m_AllianceTowersControlled++;
-            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(ZMBeaconCaptureA[m_TowerType]));
+            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(ZMBeaconCaptureA[m_TowerType]));
             break;
         case OBJECTIVESTATE_HORDE:
             m_TowerState = ZM_TOWERSTATE_H;
             if (((OutdoorPvPZM*)m_PvP)->m_HordeTowersControlled<ZM_NUM_BEACONS)
                 ((OutdoorPvPZM*)m_PvP)->m_HordeTowersControlled++;
-            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(ZMBeaconCaptureH[m_TowerType]));
+            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(ZMBeaconCaptureH[m_TowerType]));
             break;
         case OBJECTIVESTATE_NEUTRAL:
         case OBJECTIVESTATE_NEUTRAL_ALLIANCE_CHALLENGE:
@@ -219,7 +219,7 @@ int32 OPvPCapturePointZM_GraveYard::HandleOpenGo(Player *plr, uint64 guid)
         if (plr->HasAura(ZM_BATTLE_STANDARD_A) && m_GraveYardState != ZM_GRAVEYARD_A)
         {
             if (m_GraveYardState == ZM_GRAVEYARD_H)
-                sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(LANG_OPVP_ZM_LOOSE_GY_H));
+                sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(LANG_OPVP_ZM_LOOSE_GY_H));
             m_GraveYardState = ZM_GRAVEYARD_A;
             DelObject(0);   // only one gotype is used in the whole outdoor pvp, no need to call it a constant
             AddObject(0,ZM_Banner_A.entry,ZM_Banner_A.map,ZM_Banner_A.x,ZM_Banner_A.y,ZM_Banner_A.z,ZM_Banner_A.o,ZM_Banner_A.rot0,ZM_Banner_A.rot1,ZM_Banner_A.rot2,ZM_Banner_A.rot3);
@@ -227,12 +227,12 @@ int32 OPvPCapturePointZM_GraveYard::HandleOpenGo(Player *plr, uint64 guid)
             sObjectMgr->AddGraveYardLink(ZM_GRAVEYARD_ID, ZM_GRAVEYARD_ZONE, ALLIANCE, false);   // add gy
             m_PvP->TeamApplyBuff(TEAM_ALLIANCE, ZM_CAPTURE_BUFF);
             plr->RemoveAurasDueToSpell(ZM_BATTLE_STANDARD_A);
-            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(LANG_OPVP_ZM_CAPTURE_GY_A));
+            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(LANG_OPVP_ZM_CAPTURE_GY_A));
         }
         else if (plr->HasAura(ZM_BATTLE_STANDARD_H) && m_GraveYardState != ZM_GRAVEYARD_H)
         {
             if (m_GraveYardState == ZM_GRAVEYARD_A)
-                sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(LANG_OPVP_ZM_LOOSE_GY_A));
+                sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(LANG_OPVP_ZM_LOOSE_GY_A));
             m_GraveYardState = ZM_GRAVEYARD_H;
             DelObject(0);   // only one gotype is used in the whole outdoor pvp, no need to call it a constant
             AddObject(0,ZM_Banner_H.entry,ZM_Banner_H.map,ZM_Banner_H.x,ZM_Banner_H.y,ZM_Banner_H.z,ZM_Banner_H.o,ZM_Banner_H.rot0,ZM_Banner_H.rot1,ZM_Banner_H.rot2,ZM_Banner_H.rot3);
@@ -240,7 +240,7 @@ int32 OPvPCapturePointZM_GraveYard::HandleOpenGo(Player *plr, uint64 guid)
             sObjectMgr->AddGraveYardLink(ZM_GRAVEYARD_ID, ZM_GRAVEYARD_ZONE, HORDE, false);   // add gy
             m_PvP->TeamApplyBuff(TEAM_HORDE, ZM_CAPTURE_BUFF);
             plr->RemoveAurasDueToSpell(ZM_BATTLE_STANDARD_H);
-            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetVoragineStringForDBCLocale(LANG_OPVP_ZM_CAPTURE_GY_H));
+            sWorld->SendZoneText(ZM_GRAVEYARD_ZONE,sObjectMgr->GetStrawberryStringForDBCLocale(LANG_OPVP_ZM_CAPTURE_GY_H));
         }
         UpdateTowerState();
     }

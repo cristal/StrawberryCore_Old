@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Project Voragine <http://www.projectvoragine.com/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -43,9 +43,9 @@ public:
 
         uint32 uiEncounter[ENCOUNTERS];
 
-        uint32 uiGrandVizierErtan;
-        uint32 uiAltairus;
-        uint32 uiAsaad;
+        uint64 uiGrandVizierErtan;
+        uint64 uiAltairus;
+        uint64 uiAsaad;
 
         void Initialize()
         {

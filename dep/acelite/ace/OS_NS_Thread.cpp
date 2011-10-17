@@ -1,4 +1,4 @@
-// $Id: OS_NS_Thread.cpp 91693 2010-09-09 12:57:54Z johnnyw $
+// $Id: OS_NS_Thread.cpp 93117 2011-01-20 12:11:28Z mcorino $
 
 #include "ace/OS_NS_Thread.h"
 
@@ -61,8 +61,8 @@ ACE_Thread_ID::to_string (char *thr_string) const
                    format,
                    static_cast <unsigned> (this->thread_id_));
 #else
-# if defined (ACE_MVS) || defined (ACE_TANDEM_T1248_PTHREADS)
-                  // MVS's pthread_t is a struct... yuck. So use the ACE 5.0
+# if defined (ACE_TANDEM_T1248_PTHREADS)
+                  // Tandem pthread_t is a struct... yuck. So use the ACE 5.0
                   // code for it.
                   ACE_OS::strcpy (fp, "u");
                   ACE_OS::sprintf (thr_string, format, thread_handle_);
@@ -77,7 +77,7 @@ ACE_Thread_ID::to_string (char *thr_string) const
                   ACE_OS::sprintf (thr_string,
                                    format,
                                    (unsigned long) thread_handle_);
-# endif /* ACE_MVS || ACE_TANDEM_T1248_PTHREADS */
+# endif /* ACE_TANDEM_T1248_PTHREADS */
 #endif /* ACE_WIN32 */
 }
 
@@ -3858,12 +3858,14 @@ ACE_OS::thr_create (ACE_THR_FUNC func,
                     ACE_OS_Thread_Adapter (func, args,
                                            (ACE_THR_C_FUNC) ACE_THREAD_ADAPTER_NAME,
                                            ACE_OS_Object_Manager::seh_except_selector(),
-                                           ACE_OS_Object_Manager::seh_except_handler()),
+                                           ACE_OS_Object_Manager::seh_except_handler(),
+                                           flags),
                     -1);
 #else
   ACE_NEW_RETURN (thread_args,
                   ACE_OS_Thread_Adapter (func, args,
-                                         (ACE_THR_C_FUNC) ACE_THREAD_ADAPTER_NAME),
+                                         (ACE_THR_C_FUNC) ACE_THREAD_ADAPTER_NAME,
+                                         flags),
                   -1);
 
 #endif /* ACE_HAS_WIN32_STRUCTURAL_EXCEPTIONS */
@@ -3873,9 +3875,8 @@ ACE_OS::thr_create (ACE_THR_FUNC func,
   auto_ptr <ACE_Base_Thread_Adapter> auto_thread_args;
 
   if (thread_adapter == 0)
-    ACE_AUTO_PTR_RESET (auto_thread_args,
-                        thread_args,
-                        ACE_Base_Thread_Adapter);
+    ACE_auto_ptr_reset (auto_thread_args,
+                        thread_args);
 
 #if defined (ACE_HAS_THREADS)
 
