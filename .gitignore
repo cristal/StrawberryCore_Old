@@ -8,3 +8,7 @@ build/
 *.kdev*
 *.bak
 *.patch
+*.opensdf
+*.sdf
+*.suo
+*.user
