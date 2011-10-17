@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include"ScriptPCH.h"
-#include"lost_city_of_the_tolvir.h"
+#include "ScriptPCH.h"
+#include "lost_city_of_the_tolvir.h"
 
 enum Spells
 {

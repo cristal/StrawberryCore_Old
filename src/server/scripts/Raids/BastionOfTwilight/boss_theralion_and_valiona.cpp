@@ -25,6 +25,13 @@
 
 #define MAX_DAZZLIN_DESTRUCTION 6
 
+enum ePhases
+{
+    PHASE_GROUND = 1,
+    PHASE_TRANSITION = 2,
+    PHASE_AIR = 3,
+};
+
 class boss_theralion : public CreatureScript
 {
     public:
@@ -80,15 +87,19 @@ class boss_theralion : public CreatureScript
 
             void AttackStart()
             {
-                uiPhase = 1;
+                uiPhase = PHASE_GROUND;
+                GetValiona()->AI()->DoAction(ACTION_VALIONA_TAKEOFF);
             }
 
             void DoAction(const uint32 action)
             {
                 switch (action)
                 {
-                    case ACTION_THERALION_AIRBORNE:
-                        //me->GetMotionMaster()->MoveTakeoff(POINT_THERALION_TAKEOFF,Positions[0],1.0f);
+                    case ACTION_THERALION_TAKEOFF:
+                        me->GetMotionMaster()->MoveTakeoff(POINT_THERALION_TAKEOFF,Positions[POINT_THERALION_TAKEOFF],1.0f);
+                        break;
+                    case ACTION_THERALION_LAND:
+                        me->GetMotionMaster()->MoveLand(POINT_THERALION_LAND,Positions[POINT_THERALION_LAND],1.0f);
                         break;
                 }
             }
@@ -102,53 +113,35 @@ class boss_theralion : public CreatureScript
                         case POINT_THERALION_TAKEOFF:
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
-                        //case POINT_THERALION_LAND:
-
+                        case POINT_THERALION_LAND:
+                            me->GetMotionMaster()->Clear(false);
+                            me->GetMotionMaster()->MoveIdle();
                     }
                 }
             }
 
             void UpdateAI(const uint32 uiDiff)
             {
-
                 Creature * Valiona = GetValiona();
 
                 if (!UpdateVictim())
 					return;
 
-                if (uiPhaseTimer <= uiDiff)
-                {
-                    uiPhaseTimer = 900000;
-                    switch (uiPhase)
-                    {
-                        case 1:
-                            uiPhase = 2;
-                            Valiona->AI()->DoAction(ACTION_VALIONA_AIRBORNE);
-                            Valiona->SetHealth(me->GetHealth());
-                            break;
-                        case 3:
-                            uiPhase = 1;
-                            me->SetHealth(Valiona->GetHealth());
-                            break;
-                    }
-                } else uiPhaseTimer -= uiDiff;
-
                 switch (uiPhase)
                 {
-                    case 1:
+                    case PHASE_GROUND:
                         if (uiEngulfingMagicTimer <= uiDiff && uiEngulfingMagicTimer <=2)
                         {
                             uiEngulfingMagicTimer = 180000;
                             uiEngulfingMagicCount++;
-                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
-                            DoCast(Target,SPELL_ENGULFING_MAGIC);
+                            DoCast(SelectTarget(SELECT_TARGET_RANDOM),SPELL_ENGULFING_MAGIC);
                         } else uiEngulfingMagicTimer -= uiDiff;
                         if (uiFabulousFlamesTimer <= uiDiff)
                         {
                             DoCast(SPELL_FABILOUS_FLAMES);
                         } else uiFabulousFlamesTimer -= uiDiff;
                         DoMeleeAttackIfReady();
-                    case 2:
+                    case PHASE_TRANSITION:
                         if (uiDazzlingDestructionTimer <= uiDiff && uiDazzlingDestructionCount <= MAX_DAZZLIN_DESTRUCTION)
                         {
                             Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
@@ -165,14 +158,28 @@ class boss_theralion : public CreatureScript
                                     DoCast(Destruction,SPELL_DAZZLING_DESTRUCTION_MISSILE);
                             }
                         }
-                    case 3:
+                        GetValiona()->AI()->DoAction(ACTION_VALIONA_TAKEOFF);
+                        DoAction(ACTION_THERALION_LAND);
+                    case PHASE_AIR:
                         if (uiTwilightBlastTimer <= uiDiff)
                         {
                             uiTwilightBlastTimer = 3000;
                             me->SummonCreature(NPC_THERALION_FLIGHT_TARGET_STALKER,me->getVictim()->GetPositionX(),me->getVictim()->GetPositionY(),me->getVictim()->GetPositionZ(),0.0f,TEMPSUMMON_MANUAL_DESPAWN);
                         } else uiTwilightBlastTimer -= uiDiff;
-
                 }
+
+                if (uiPhaseTimer <= uiDiff && uiPhase != PHASE_TRANSITION)
+                {
+                    uiPhaseTimer = 900000;
+                    switch (uiPhase)
+                    {
+                        case PHASE_GROUND:
+                            uiPhase += 2;
+                            DoAction(ACTION_THERALION_TAKEOFF);
+                        case PHASE_AIR:
+                            uiPhase--;
+                    }
+                } else uiPhaseTimer -= uiDiff;
             }
         private:
             InstanceScript* pInstance;
@@ -224,16 +231,19 @@ class boss_valiona : public CreatureScript
 
             void AttackStart()
             {
-                Creature * tmp = GetTheralion();
-                tmp->AI()->SetData(DATA_PHASE,2);
+                GetTheralion()->AI()->SetData(DATA_PHASE,PHASE_AIR);
+                GetTheralion()->AI()->DoAction(ACTION_THERALION_TAKEOFF);
             }
 
             void DoAction(const uint32 action)
             {
                 switch (action)
                 {
-                    case ACTION_VALIONA_AIRBORNE:
-                        me->GetMotionMaster()->MovePoint(POINT_VALIONA_TAKEOFF,Positions[0]);
+                    case ACTION_VALIONA_TAKEOFF:
+                        me->GetMotionMaster()->MoveTakeoff(POINT_VALIONA_TAKEOFF,Positions[POINT_VALIONA_TAKEOFF],1.0f);
+                        break;
+                    case ACTION_VALIONA_LAND:
+                        me->GetMotionMaster()->MoveLand(POINT_VALIONA_LAND,Positions[POINT_VALIONA_LAND],1.0f);
                         break;
                 }
             }
@@ -244,7 +254,6 @@ class boss_valiona : public CreatureScript
                 {
                     switch (id)
                     {
-
                         case POINT_VALIONA_TAKEOFF:
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
@@ -258,7 +267,7 @@ class boss_valiona : public CreatureScript
                 uiTheralionPhase = pTheralion->AI()->GetData(DATA_PHASE);
                 switch (uiTheralionPhase)
                 {
-                    case 2:
+                    case PHASE_AIR:
                         if (!UpdateVictim())
 					    return;
 
@@ -274,7 +283,7 @@ class boss_valiona : public CreatureScript
                             DoCastAOE(SPELL_DEVOURING_FLAMES);
                         } else uiDevouringFlamesTimer -= uiDiff;
                         DoMeleeAttackIfReady();
-                    case 1:
+                    case PHASE_GROUND:
                         if (pTheralion->AI()->GetData(DATA_ENGULFING_COUNT) == 2)
                         {
                             DoCast(SPELL_DEEP_BREATH);
@@ -354,6 +363,66 @@ class spell_dazzling_destruction : public SpellScriptLoader
         SpellScript * GetSpellScript() const
         {
             return new spell_dazzling_destructionSpellScript();
+        }
+};
+
+class spell_valiona_blackout : public SpellScriptLoader
+{
+    public:
+        spell_valiona_blackout() : SpellScriptLoader("spell_valiona_blackout") { }
+
+        class spell_valiona_blackoutSpellScript : public SpellScript
+        {
+            int32 spell_trigger[2];
+            PrepareSpellScript(spell_valiona_blackoutSpellScript);
+
+            void HandleDummy()
+            {
+                switch(GetCaster()->GetMap()->GetDifficulty())
+                {
+                    case RAID_DIFFICULTY_10MAN_NORMAL:
+                        spell_trigger[0] = 87688;
+                        spell_trigger[1] = 86825;
+                        break;
+                    case RAID_DIFFICULTY_25MAN_NORMAL:
+                        spell_trigger[0] = 92876;
+                        spell_trigger[1] = 92879;
+                        break;
+                    case RAID_DIFFICULTY_10MAN_HEROIC:
+                        spell_trigger[0] = 92877;
+                        spell_trigger[1] = 92880;
+                        break;
+                    case RAID_DIFFICULTY_25MAN_HEROIC:
+                        spell_trigger[0] = 92878;
+                        spell_trigger[1] = 92881;
+                        break;
+                }
+                GetCaster()->CastSpell(GetHitUnit(),spell_trigger[0],true);
+            }
+
+            void HandleExprireOrRemove()
+            {
+                std::list<Unit*> Players;
+                std::list<Unit*>::iterator itr;
+                GetHitUnit()->GetPartyMemberInDist(Players,8.0f);
+                uint8 players_close;
+                uint32 damage;
+                for(itr = Players.begin(); itr != Players.end(); ++itr)
+                {
+                    damage = 4;
+                    GetCaster()->DealDamage(*itr,damage);
+                }
+            }
+
+            void Register()
+            {
+
+            }
+        };
+
+        SpellScript * GetSpellScript() const
+        {
+            return new spell_valiona_blackoutSpellScript();
         }
 };
 
