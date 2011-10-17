@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Authentication">
+      <UniqueIdentifier>{6fd3e873-6c03-4b78-bf1f-ad0a6d1d1a47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Realms">
+      <UniqueIdentifier>{8c7810b2-ace0-462b-8c03-db0b7b744e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{ad6d996e-b999-4b6f-a88e-6c666764c7b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\server\logonserver\Authentication\AuthCodes.cpp">
+      <Filter>Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\logonserver\Realms\RealmList.cpp">
+      <Filter>Realms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\logonserver\Server\AuthSocket.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\logonserver\Server\RealmSocket.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\logonserver\PrecompiledHeaders\authPCH.cpp" />
+    <ClCompile Include="..\..\src\server\logonserver\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\server\logonserver\Authentication\AuthCodes.h">
+      <Filter>Authentication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\logonserver\Realms\RealmList.h">
+      <Filter>Realms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\logonserver\Server\AuthSocket.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\logonserver\Server\RealmAcceptor.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\logonserver\Server\RealmSocket.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\server\logonserver\logonserver.rc" />
+  </ItemGroup>
+</Project>

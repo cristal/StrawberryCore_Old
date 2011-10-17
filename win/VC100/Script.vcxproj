@@ -1,0 +1,849 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1DC6C4DA-A028-41F3-877D-D5400C594F88}</ProjectGuid>
+    <RootNamespace>Script</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\script_$(Platform)_$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\script_$(Platform)_$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\script_$(Platform)_$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\script_$(Platform)_$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP /Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\src\server\scripts\;..\..\dep\MersenneTwister;..\..\dep\ZLib;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;                                               ..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;                                               ..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;                                               ..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Conditions;..\..\src\server\game\Combat;..\..\src\server\game\DataStores;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\DynamicObject;                                               ..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Events;                                               ..\..\src\server\game\Globals;..\..\src\server\game\Grids;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\LookingForGroup;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Maps;..\..\src\server\game\Movement;                                               ..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PCH;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Skills;                                               ..\..\src\server\game\Spells;..\..\src\server\game\Spells/Auras;..\..\src\server\game\Texts;..\..\src\server\game\Tickets;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\game\Server\Packets;..\..\src\server\scripts\PCH;..\..\dep\Ace;..\..\dep\MySql\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;STRAWBERRY_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\script_$(Platform)_$(Configuration)\script.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\script_$(Platform)_$(Configuration)\</AssemblerListingLocation>
+      <ObjectFileName>.\script_$(Platform)_$(Configuration)\</ObjectFileName>
+      <ProgramDataBaseFileName>.\script_$(Platform)_$(Configuration)\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+      <CompileAs>Default</CompileAs>
+      <ForcedIncludeFiles>..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>.\script_$(Platform)_$(Configuration)\script.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP /Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\..\src\server\scripts\OutdoorPVP;..\..\src\server\scripts\;..\..\dep\G3DLite\include;..\..\dep\Recastnavigation\Detour\Include;..\..\dep\MersenneTwister;..\..\dep\mysqllite\extra\yassl\include;..\..\dep\ZLib;..\..\src\server\shared;..\..\src\server\shared\Configuration;..\..\src\server\shared\Cryptography;..\..\src\server\shared\Cryptography\Authentication;..\..\src\server\shared\Database;..\..\src\server\shared\DataStores;..\..\src\server\shared\Debugging;..\..\src\server\shared\Dynamic\CountedReference;..\..\src\server\shared\Dynamic\LinkedReference;..\..\src\server\shared\Dynamic;..\..\src\server\shared\Logging;..\..\src\server\shared\Packets;..\..\src\server\shared\Policies;..\..\src\server\shared\Threading;..\..\src\server\shared\Utilities;..\..\src\server\shared\Collision;..\..\src\server\shared\Collision\Management;..\..\src\server\game\Accounts;..\..\src\server\game\Achievements;..\..\src\server\game\Addons;..\..\src\server\game\AI;..\..\src\server\game\AI\CoreAI;..\..\src\server\game\AI\EventAI;..\..\src\server\game\AI\ScriptedAI;..\..\src\server\game\AI\SmartScripts;..\..\src\server\game\AuctionHouse;..\..\src\server\game\Battlegrounds;..\..\src\server\game\Battlegrounds\Zones;..\..\src\server\game\Calendar;..\..\src\server\game\Chat;..\..\src\server\game\Chat\Channels;..\..\src\server\game\Conditions;..\..\src\server\game\Combat;..\..\src\server\game\DataStores;..\..\src\server\game\DungeonFinding;..\..\src\server\game\Entities\Corpse;..\..\src\server\game\Entities\Creature;..\..\src\server\game\Entities\DynamicObject;..\..\src\server\game\Entities\Item;..\..\src\server\game\Entities\Item\Container;..\..\src\server\game\Entities\GameObject;..\..\src\server\game\Entities\Object;..\..\src\server\game\Entities\Object\Updates;..\..\src\server\game\Entities\Pet;..\..\src\server\game\Entities\Player;..\..\src\server\game\Entities\Transport;..\..\src\server\game\Entities\Unit;..\..\src\server\game\Entities\Vehicle;..\..\src\server\game\Events;..\..\src\server\game\Globals;..\..\src\server\game\Grids;..\..\src\server\game\Grids\Cells;..\..\src\server\game\Grids\Notifiers;..\..\src\server\game\Groups;..\..\src\server\game\Guilds;..\..\src\server\game\Instances;..\..\src\server\game\LookingForGroup;..\..\src\server\game\Loot;..\..\src\server\game\Mails;..\..\src\server\game\Miscellaneous;..\..\src\server\game\Maps;..\..\src\server\game\Maps\MoveMaps;..\..\src\server\game\Movement;..\..\src\server\game\Movement\MovementGenerators;..\..\src\server\game\Movement\PathFinding;..\..\src\server\game\Movement\Waypoints;..\..\src\server\game\OutdoorPvP;..\..\src\server\game\Pools;..\..\src\server\game\PrecompiledHeaders;..\..\src\server\game\Quests;..\..\src\server\game\Reputation;..\..\src\server\game\Scripting;..\..\src\server\game\Server;..\..\src\server\game\Server\Logs;..\..\src\server\game\Server\Sessions;..\..\src\server\game\Server\Sockets;..\..\src\server\game\Server\Protocol;..\..\src\server\game\Server\Protocol\Handlers;..\..\src\server\game\Server\Protocol\Handlers\Opcodes;..\..\src\server\game\Server\Protocol\Handlers\Packets;..\..\src\server\game\Skills;..\..\src\server\game\Spells;..\..\src\server\game\Spells/Auras;..\..\src\server\game\Texts;..\..\src\server\game\Tickets;..\..\src\server\game\Tools;..\..\src\server\game\Weather;..\..\src\server\game\World;..\..\src\server\scripts\PrecompiledHeaders;..\..\dep\acelite;..\..\dep\mysqllite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0;SCRIPTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\script_$(Platform)_$(Configuration)\script.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\script_$(Platform)_$(Configuration)\</AssemblerListingLocation>
+      <ObjectFileName>.\script_$(Platform)_$(Configuration)\</ObjectFileName>
+      <ProgramDataBaseFileName>.\script_$(Platform)_$(Configuration)\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ForcedIncludeFiles>..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>.\script_$(Platform)_$(Configuration)\script.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_account.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_achievement.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_debug.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_gm.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_go.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_gps.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_learn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_misc.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_modify.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_npc.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_reload.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_exarch_maladaar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_shirrak_the_dead_watcher.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_nexusprince_shaffar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_pandemonius.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_ambassador_hellmaw.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_blackheart_the_inciter.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_grandmaster_vorpil.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_murmur.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\instance_shadow_labyrinth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_darkweaver_syth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_tailonking_ikiss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\instance_sethekk_halls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_amanitar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_elder_nadox.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_herald_volazj.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_jedoga_shadowseeker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_prince_taldaram.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\instance_ahnkahet.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_anubarak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_hadronox.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_krikthir_the_gatewatcher.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\instance_azjol_nerub.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_aku_mai.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_gelihast.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_kelris.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\instance_blackfathom_deeps.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_ambassador_flamelash.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_anubshiah.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_emperor_dagran_thaurissan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_general_angerforge.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_gorosh_the_dervish.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_grizzle.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_high_interrogator_gerstahn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_magmus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_moira_bronzebeard.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_tomb_of_seven.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\instance_blackrock_depths.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_drakkisath.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_gyth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_halycon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_highlord_omokk.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_mother_smolderweb.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_overlord_wyrmthalak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_pyroguard_emberseer.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_quartermaster_zigris.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_rend_blackhand.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_shadow_hunter_voshgajin.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_the_beast.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_warmaster_voone.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\BlackrockCaverns\instance_blackrock_caverns.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_epoch.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_infinite.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_mal_ganis.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_meathook.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_salramm.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\instance_culling_of_stratholme.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_aeonus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_chrono_lord_deja.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_temporus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\instance_dark_portal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_captain_skarloc.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_epoch_hunter.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_leutenant_drake.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\instance_old_hillsbrad.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_fathomlord_karathress.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_hydross_the_unstable.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lady_vashj.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_leotheras_the_blind.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lurker_below.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_morogrim_tidewalker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\instance_serpent_shrine.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_hydromancer_thespia.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_mekgineer_steamrigger.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_warlord_kalithresh.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\instance_steam_vault.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_hungarfen.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_the_black_stalker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_argent_challenge.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_black_knight.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_grand_champions.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\instance_trial_of_the_champion.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\boss_glubtok.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\boss_mr_smite.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\deadmines.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\instance_deadmines.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Dire_Maul\npc_pusillin.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_dred.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_novos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_tharon_ja.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_trollgore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\instance_drak_tharon_keep.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gnomeregan\instance_gnomeregan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\boss_forgemaster_throngus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\boss_general_umbriss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\instance_grimbatol.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_drakkari_colossus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_eck.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_gal_darah.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_moorabi.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_slad_ran.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\instance_gundrak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_anraphet.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_earthrager_ptah.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_temple_guardian_anhuur.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\instance_halls_of_origination.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_broggok.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_kelidan_the_breaker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_the_maker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\instance_blood_furnace.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_omor_the_unscarred.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_vazruden_the_herald.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_watchkeeper_gargolmar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\instance_hellfire_ramparts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_nethekurse.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warbringer_omrogg.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warchief_kargath_bladefist.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\instance_shattered_halls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_bronjahm.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_devourer_of_souls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\instance_forge_of_souls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_falric.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_marwyn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_the_lich_king_hor.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\instance_halls_of_reflection.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_forgemaster_garfrost.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_krickandick.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_scourgelord_tyrannus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\instance_pit_of_saron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_high_prophet_barim.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_lockmaw.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\instance_lost_city_of_the_tolvir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_felblood_kaelthas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_priestess_delrissa.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_selin_fireheart.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_vexallus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\instance_magisters_terrace.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_celebras_the_cursed.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_landslide.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_noxxion.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_princess_theradras.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_anomalus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_keristrasza.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_magus_telestra.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_ormorok.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_kolurg.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_stoutbeard.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\instance_nexus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_drakos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_eregos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_urom.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_varos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\instance_oculus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\boss_amnennar_the_coldbringer.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\instance_razorfen_downs.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\instance_razorfen_kraul.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_arcanist_doan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_azshir_the_sleepless.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_bloodmage_thalnos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_headless_horseman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_herod.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_high_inquisitor_fairbanks.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_houndmaster_loksey.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_interrogator_vishas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_mograine_and_whitemane.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_scorn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\instance_scarlet_monastery.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_darkmaster_gandling.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_death_knight_darkreaver.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_doctor_theolen_krastinov.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_illucia_barov.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_instructor_malicia.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_jandice_barov.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_kormok.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_lord_alexei_barov.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_lorekeeper_polkelt.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_ras_frostwhisper.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_the_ravenian.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_vectus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\instance_scholomance.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\instance_shadowfang_keep.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_baron_rivendare.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_baroness_anastari.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_cannon_master_willey.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_dathrohan_balnazzar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_magistrate_barthilas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_maleki_the_pallid.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_nerubenkan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_order_of_silver_hand.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_postmaster_malown.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_ramstein_the_gorger.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_timmy_the_cruel.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\instance_stratholme.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\stratholme.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Sunken_Temple\instance_sunken_temple.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\boss_harbinger_skyriss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\instance_arcatraz.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_high_botanist_freywinn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_laj.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_warp_splinter.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_gyrokill.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_ironhand.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_nethermancer_sepethrea.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_pathaleon_the_calculator.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\instance_mechanar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheStoneCore\instance_the_stonecore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheVortexPinnacle\instance_the_vortex_pinnacle.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_commander_ulthok.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_erunak_stonespeaker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_lady_nazjar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\instance_throne_of_the_tides.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\npc_neptulon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\boss_archaedas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\boss_ironaya.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\instance_uldaman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\uldaman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_bjarngrim.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_ionar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_loken.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_volkhan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\instance_halls_of_lightning.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_krystallus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_maiden_of_grief.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_sjonnir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\instance_halls_of_stone.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_ingvar_the_plunderer.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_keleseth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_skarvald_dalronn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\instance_utgarde_keep.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_palehoof.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_skadi.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_svala.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_ymiron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\instance_pinnacle.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_cyanigosa.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_erekem.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_ichoron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_lavanthor.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_moragg.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_xevozz.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_zuramat.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\instance_violet_hold.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Wailing_Caverns\instance_wailing_caverns.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_akilzon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_halazzi.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_hexlord.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_janalai.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_nalorakk.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_zuljin.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\instance_zulaman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\zulaman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulFarrak\instance_zulfarrak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_arlokk.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_gahzranka.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_grilek.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_hakkar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_hazzarah.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_jeklik.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_jindo.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_mandokir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_marli.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_renataki.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_thekal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_venoxis.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_wushoolay.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\instance_zulgurub.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Optional\npc_arena_theme.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\alterac_valley.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_balinda.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_drekthar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_galvangar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_vanndar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter1.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter2.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter5.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\the_scarlet_enclave.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPEP.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPHP.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPNA.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPSI.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPTF.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPZM.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BaradinHold\boss_argaloth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BaradinHold\instance_baradin_hold.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_chogall.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_council_of_ascendents.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_halfus_wyrmbreaker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_sinestra.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_theralion_and_valiona.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\instance_bastion_of_twilight.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\black_temple.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_bloodboil.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_illidan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_mother_shahraz.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_reliquary_of_souls.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_shade_of_akama.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_supremus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_teron_gorefiend.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_warlord_najentus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\illidari_council.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\instance_black_temple.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_atramedes.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_chimaeron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_magmaw.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_maloriak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_nefarians.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_omnotron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\instance_blackwing_descent.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_broodlord_lashlayer.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_chromaggus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_ebonroc.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_firemaw.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_flamegor.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_nefarian.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_razorgore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_vaelastrasz.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_victor_nefarius.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\instance_blackwing_lair.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_anetheron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_archimonde.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_azgalor.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_kazrogal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_rage_winterchill.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\instance_hyjal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_anubarak_trial.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_faction_champions.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_lord_jaraxxus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_northrend_beasts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_twin_valkyr.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\instance_trial_of_the_crusader.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_alysrazar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_baloroc_the_doorkeeper.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_bethtilac.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_majordomus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_rhyolith.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_shannox.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\instance_firelands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_gruul.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_high_king_maulgar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\instance_gruuls_lair.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\boss_magtheridon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\instance_magtheridons_lair.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_prince_council.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_queen_lana_thel.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_deathbringer_saurfang.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_festergut.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lady_deathwhisper.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lord_marrowgar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_professor_putricide.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_rotface.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_sindragosa.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_valithria_dreamwalker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel_teleport.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\instance_icecrown_citadel.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_curator.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_maiden_of_virtue.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_midnight.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_moroes.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_netherspite.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_nightbane.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_prince_malchezaar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_shade_of_aran.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_terestian_illhoof.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\bosses_opera.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\instance_karazhan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\karazhan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_baron_geddon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_garr.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_gehennas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_golemagg.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_lucifron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_magmadar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_majordomo_executus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_ragnaros.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_shazzrah.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_sulfuron_harbinger.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\instance_molten_core.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\molten_core.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_anubrekhan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_faerlina.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_four_horsemen.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_gluth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_gothik.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_grobbulus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_heigan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_kelthuzad.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_loatheb.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_maexxna.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_noth.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_patchwerk.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_razuvious.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_sapphiron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_thaddius.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\instance_naxxramas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\boss_malygos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\instance_eye_of_eternity.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Onyxia_Lair\boss_onyxia.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Onyxia_Lair\instance_onyxias_lair.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ayamiss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_buru.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_kurinnaxx.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_moam.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ossirian.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_rajaxx.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\instance_ruins_of_ahnqiraj.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_brutallus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_eredar_twins.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_felmyst.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kalecgos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kiljaeden.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_muru.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\instance_sunwell_plateau.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_alar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_astromancer.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_kaelthas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_void_reaver.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\instance_the_eye.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_bug_trio.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_cthun.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_fankriss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_huhuran.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_ouro.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_sartura.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_skeram.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_twinemperors.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_viscidus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\instance_temple_of_ahnqiraj.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\mob_anubisath_sentinel.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_alakir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_conclave_of_wind.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\instance_throne_of_the_four_winds.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_algalon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_assembly_of_iron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_auriaya.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_flame_leviathan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_freya.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_general_vezax.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_hodir.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_ignis.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_kologarn.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_mimiron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_razorscale.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_thorim.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_xt002.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_yoggsaron.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\instance_ulduar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\ulduar_teleporter.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_archavon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_emalon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_koralon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_toravon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\instance_vault_of_archavon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\boss_sartharion.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\instance_obsidian_sanctum.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_baltharus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_halion.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_ragefire.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_zarithrian.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\instance_ruby_sanctum.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_dk.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_druid.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_generic.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_hunter.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_item.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_mage.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_paladin.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_priest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_quest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_rogue.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_shaman.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_warlock.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_warrior.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\achievement_scripts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\areatrigger_scripts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\chat_log.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\go_scripts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\guards.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\item_scripts.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\mob_generic_creature.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\npc_innkeeper.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\npc_professions.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\npc_spell_click_spells.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\npc_taxi.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World\npcs_special.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_azuregos.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_doomlord_kazzak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_doomwalker.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_emeriss.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_kruul.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_lethon.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_taerar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_ysondre.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\alterac_mountains.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\arathi_highlands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\ashenvale.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\azshara.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\azuremyst_isle.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\blades_edge_mountains.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\blasted_lands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\bloodmyst_isle.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\borean_tundra.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\burning_steppes.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\crystalsong_forest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\dalaran.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\darkshore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\desolace.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\dragonblight.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\dun_morogh.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\durotar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\duskwood.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\dustwallow_marsh.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\eastern_plaguelands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\elwynn_forest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\eversong_woods.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\felwood.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\feralas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\ghostlands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\gilneas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\grizzly_hills.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\hellfire_peninsula.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\hinterlands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\howling_fjord.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\icecrown.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\ironforge.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\isle_of_conquest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\isle_of_queldanas.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\loch_modan.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\moonglade.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\mount_hyjal.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\mulgore.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\nagrand.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\netherstorm.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\orgrimmar.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\redridge_mountains.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\searing_gorge.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\shadowmoon_valley.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\shattrath_city.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\sholazar_basin.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\silithus.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\silvermoon_city.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\silverpine_forest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\stonetalon_mountains.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\storm_peaks.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\stormwind_city.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\stranglethorn_vale.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\swamp_of_sorrows.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\tanaris.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\teldrassil.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\terokkar_forest.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\the_barrens.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\thousand_needles.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\thunder_bluff.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\tirisfal_glades.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\undercity.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\ungoro_crater.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\western_plaguelands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\westfall.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\wetlands.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\wintergrasp.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\winterspring.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\zangarmarsh.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Zones\zuldrak.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_commandscript.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_creature.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_escort.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_gossip_codebox.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_misc.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_spell.cpp" />
+    <ClCompile Include="..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.h</PrecompiledHeaderFile>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\shadow_labyrinth.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\sethekk_halls.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\ahnkahet.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\azjol_nerub.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\BlackrockCaverns\blackrock_caverns.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\serpent_shrine.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\steam_vault.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Deadmines\deadmines.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\drak_tharon_keep.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\GrimBatol\grimbatol.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Gundrak\gundrak.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\HallsOfOrigination\halls_of_origination.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\blood_furnace.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\hellfire_ramparts.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\shattered_halls.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Nexus\Nexus\nexus.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\scarlet_monastery.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Scholomance\scholomance.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Stratholme\stratholme.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\mechanar.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\TheVortexPinnacle\the_vortex_pinnacle.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\throne_of_the_tides.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Uldaman\uldaman.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\halls_of_lightning.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\utgarde_pinnacle.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulAman\zulaman.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.h" />
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulGurub\zulgurub.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPEP.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPHP.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPNA.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPSI.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPTF.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.h" />
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPZM.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\BaradinHold\baradin_hold.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\BastionOfTwilight\bastion_of_twilight.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Black_Temple\black_temple.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Blackwing_Descent\blackwing_descent.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Blackwing_Lair\blackwing_lair.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Firelands\firelands.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Gruuls_Lair\gruuls_lair.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\magtheridons_lair.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Karazhan\karazhan.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Molten_Core\molten_core.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Naxxramas\naxxramas.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\eye_of_eternity.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Onyxia_Lair\onyxias_lair.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\ruins_of_ahnqiraj.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\temple_of_ahnqiraj.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\throne_of_the_four_winds.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Ulduar\ulduar.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\vault_of_archavon.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\obsidian_sanctum.h" />
+    <ClInclude Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\ruby_sanctum.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Game.vcxproj">
+      <Project>{d24529c8-ce57-4493-94cf-3cf3653f8620}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

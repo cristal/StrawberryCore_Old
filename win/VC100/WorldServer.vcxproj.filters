@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="CommandLine">
+      <UniqueIdentifier>{6eb6da6c-18a3-4bdc-835a-3d137ad18b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RemoteAccess">
+      <UniqueIdentifier>{6be5d1d5-6267-479b-9d86-7b37fb2fcab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TCSoap">
+      <UniqueIdentifier>{e1321797-d609-4582-a1a9-f6ce33fbf5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldThread">
+      <UniqueIdentifier>{2aab6f81-1c65-4bdd-8335-2e15d7e32e8f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\server\worldserver\CommandLine\CliRunnable.cpp">
+      <Filter>CommandLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\PrecompiledHeaders\worldPCH.cpp">
+      <Filter>CommandLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\RemoteAccess\RARunnable.cpp">
+      <Filter>RemoteAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\RemoteAccess\RASocket.cpp">
+      <Filter>RemoteAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dep\gsoap\soapC.cpp">
+      <Filter>TCSoap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dep\gsoap\soapServer.cpp">
+      <Filter>TCSoap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dep\gsoap\stdsoap2.cpp">
+      <Filter>TCSoap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\TCSoap\TCSoap.cpp">
+      <Filter>TCSoap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\WorldThread\WorldRunnable.cpp">
+      <Filter>WorldThread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\worldserver\Main.cpp" />
+    <ClCompile Include="..\..\src\server\worldserver\Master.cpp" />
+    <ClCompile Include="..\..\src\server\shared\Debugging\WheatyExceptionReport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\server\worldserver\CommandLine\CliRunnable.h">
+      <Filter>CommandLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\worldserver\RemoteAccess\RARunnable.h">
+      <Filter>RemoteAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\worldserver\RemoteAccess\RASocket.h">
+      <Filter>RemoteAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dep\gsoap\soapH.h">
+      <Filter>TCSoap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dep\gsoap\soapStub.h">
+      <Filter>TCSoap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dep\gsoap\stdsoap2.h">
+      <Filter>TCSoap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\worldserver\TCSoap\TCSoap.h">
+      <Filter>TCSoap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\worldserver\WorldThread\WorldRunnable.h">
+      <Filter>WorldThread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\worldserver\Master.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\server\worldserver\worldserver.rc" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{400d0c8a-7994-4d0a-88c4-b0912f437eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances">
+      <UniqueIdentifier>{1942a042-b76e-4c0b-9f9c-796758b35dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Auchindoun">
+      <UniqueIdentifier>{30493c1a-343b-46ef-8000-61f5cf6116f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Auchindoun\Auchenai_Crypts">
+      <UniqueIdentifier>{2f9c0a76-04c8-4587-b5a8-a147191affa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Auchindoun\Mana-Tombs">
+      <UniqueIdentifier>{32181e17-c8fe-4057-81fb-5b4b2032bfd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Auchindoun\Sethekk_Halls">
+      <UniqueIdentifier>{1f370d34-6110-4dca-aa34-112cbf2519bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Auchindoun\Shadow_Labyrinth">
+      <UniqueIdentifier>{a00d233f-524d-4435-8ebc-ded06be0c247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Azjol-Nerub">
+      <UniqueIdentifier>{1af42e89-1357-4729-a136-6622c37bd351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Azjol-Nerub\Ahnkahet">
+      <UniqueIdentifier>{52b96418-dfc2-479e-adda-04a8d23b62f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Azjol-Nerub\Azjol-Nerub">
+      <UniqueIdentifier>{34a503f7-4e6a-4b3b-9cfe-4162b253ae48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Blackfathom_Deeps">
+      <UniqueIdentifier>{45e9ffc3-cd08-4006-9be9-f4b3ec3ff47c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Blackrock_Depths">
+      <UniqueIdentifier>{8f73fb9d-3d9a-4fe1-a0e9-9cabb4453402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Blackrock_Spire">
+      <UniqueIdentifier>{43e4e8d4-1d21-435f-9e90-718956672c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\BlackrockCaverns">
+      <UniqueIdentifier>{a39052b1-5570-4971-b476-4991f1f2aa81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Caverns_of_Time">
+      <UniqueIdentifier>{be663c95-5c5a-403a-925a-e3c44327cc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Caverns_of_Time\Culling_of_Stratholme">
+      <UniqueIdentifier>{a7e14575-1f3d-4d2c-b714-57cda88a138f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Caverns_of_Time\Dark_Portal">
+      <UniqueIdentifier>{c447d294-fc2e-4557-b68b-a94fc82f1600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Caverns_of_Time\Old_Hillsbrad_Foothills">
+      <UniqueIdentifier>{53e5e684-6465-40a2-b49c-b05a18923b1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Coilfang_Reservoir">
+      <UniqueIdentifier>{837a226b-7104-4098-8d96-fa8f8f035fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Coilfang_Reservoir\Serpent_Shrine">
+      <UniqueIdentifier>{1a087f64-ce37-4ab7-b981-b95c2b58f3e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Coilfang_Reservoir\Steamvault">
+      <UniqueIdentifier>{aaafb873-3039-4779-986c-3db939482f93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Coilfang_Reservoir\Underbog">
+      <UniqueIdentifier>{af969bb3-7117-436e-aa65-a8d3b640a805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Crusaders_Coliseum">
+      <UniqueIdentifier>{1bc68c02-43e3-4b92-b052-327ba6620296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Crusaders_Coliseum\Trial_of_the_Champion">
+      <UniqueIdentifier>{f60be8e1-0f06-4f73-9a70-e24ecef0acde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Deadmines">
+      <UniqueIdentifier>{d02216af-9e3d-4780-acf2-31a183c204c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Dire_Maul">
+      <UniqueIdentifier>{2f30fc42-c116-472c-8779-9ad259374dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\DrakTharon_Keep">
+      <UniqueIdentifier>{70de4c36-e28e-49c8-b82e-548d3cf8e7ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Gnomeregan">
+      <UniqueIdentifier>{9f23822a-f464-44da-b7c8-b0e492c45ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\GrimBatol">
+      <UniqueIdentifier>{2f314799-80e2-4cb8-8e61-7a482dc63c22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Gundrak">
+      <UniqueIdentifier>{e8911b48-d3b0-462b-9682-21a08f80c89c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\HallsOfOrigination">
+      <UniqueIdentifier>{7ae363f3-3d10-475c-a698-6d217578d519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Hellfire_Citadel">
+      <UniqueIdentifier>{1ee21931-2021-4a96-a0b3-eb29a27a909b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Hellfire_Citadel\Blood_Furnace">
+      <UniqueIdentifier>{916b3a7e-096d-4f49-9d0f-c43b98b2af82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Hellfire_Citadel\Hellfire_Ramparts">
+      <UniqueIdentifier>{853e2eab-1287-4580-81b9-bff83c983a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Hellfire_Citadel\Shattered_Halls">
+      <UniqueIdentifier>{24a25dba-bc49-46ab-80cc-923db4450d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Icecrown_Citadel">
+      <UniqueIdentifier>{7ea99ecf-fb26-4ea6-b026-be1adb306016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Icecrown_Citadel\Forge_of_Souls">
+      <UniqueIdentifier>{9fb9f84c-43bc-4b02-bf0b-d7fa7e3ffd30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Icecrown_Citadel\Halls_of_Reflection">
+      <UniqueIdentifier>{fff80e10-55e7-4729-bf45-ba6ad4b630e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Icecrown_Citadel\Pit_of_Saron">
+      <UniqueIdentifier>{f3b6b761-e987-4433-9a2a-f811dce7f40c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\LostCityOfTheTolvir">
+      <UniqueIdentifier>{9dc701ef-0c09-43e2-8d14-1e110a16d89a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Magisters_Terrace">
+      <UniqueIdentifier>{51ef1815-5292-4cd4-b838-fa4136808332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Maraudon">
+      <UniqueIdentifier>{57ad9c2e-2dac-4baa-9095-1b9e02d312e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Nexus">
+      <UniqueIdentifier>{8e0c34b6-b154-4e44-a89d-4aae645f110a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Nexus\Nexus">
+      <UniqueIdentifier>{0086e6b3-2292-4597-9e67-dd4027dd6b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Nexus\Oculus">
+      <UniqueIdentifier>{4030399a-37aa-454d-98c0-a8767514a7df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Razorfen_Downs">
+      <UniqueIdentifier>{2142e9c0-4946-4bc1-be07-d682c813c002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Razorfen_Kraul">
+      <UniqueIdentifier>{17eb9b36-b5b8-4ec0-b20e-900260ffe0e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Scarlet_Monastery">
+      <UniqueIdentifier>{fe22d5ed-0c59-42f4-bd12-e5e288500dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Scholomance">
+      <UniqueIdentifier>{0f307cd9-3cf0-42c3-ad42-24f4bc6b9398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\ShadowFang_Keep">
+      <UniqueIdentifier>{a6abaf83-9520-4e69-995f-0c077a0b8f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Stratholme">
+      <UniqueIdentifier>{afe3eecb-0a3e-42d7-a4dc-308b25eaca14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Sunken_Temple">
+      <UniqueIdentifier>{c5e15943-a9bc-4813-9966-8f7b368b3ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Tempest_Keep">
+      <UniqueIdentifier>{f96f04e8-bc5e-46a7-8138-049e626eb76f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Tempest_Keep\Arcatraz">
+      <UniqueIdentifier>{bb2f9d8f-6d19-49b8-92db-e2f204a497ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Tempest_Keep\Botanica">
+      <UniqueIdentifier>{6e2622e4-dbb0-4f38-911e-1d21ef661b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Tempest_Keep\Mechanar">
+      <UniqueIdentifier>{2707dfa1-05f4-44a2-9e30-de5731b9f6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\TheStoneCore">
+      <UniqueIdentifier>{ec354407-eae4-48e1-aeb3-081477510106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\TheVortexPinnacle">
+      <UniqueIdentifier>{b07601e7-bfcb-4045-a7f2-aea97fc25540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\ThroneOfTheTides">
+      <UniqueIdentifier>{90e85bc1-cebd-420f-97ec-7792dc8fa63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Uldaman">
+      <UniqueIdentifier>{1c9e48e4-7438-4ff9-b380-64b8056c9e1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Ulduar">
+      <UniqueIdentifier>{59d11027-78e5-40b9-b92d-538cf88d0aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Ulduar\Halls_of_Lightning">
+      <UniqueIdentifier>{287870a5-059f-4186-9cb2-d760cefeca25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Ulduar\Halls_of_Stone">
+      <UniqueIdentifier>{c83202a8-9bf2-4faa-89ee-2344f80e4554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Utgarde_Keep">
+      <UniqueIdentifier>{fcc7d618-4438-40c9-a288-8d64398ca7fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Utgarde_Keep\Utgarde_Keep">
+      <UniqueIdentifier>{dcadc430-fed5-45bb-a878-58ab3272b6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Utgarde_Keep\Utgarde_Pinnacle">
+      <UniqueIdentifier>{39660e3c-c746-4df3-af53-4c602b20644c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Violet_Hold">
+      <UniqueIdentifier>{e6a89c1d-fb05-41d5-a66e-de9396081c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\Wailing_Caverns">
+      <UniqueIdentifier>{d13644b2-136f-480d-b36d-752ab8ff3122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\ZulAman">
+      <UniqueIdentifier>{8ef4f00e-dc6c-4e0a-8ac0-e087e01b3230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\ZulFarrak">
+      <UniqueIdentifier>{96981587-7905-40f8-8a18-19c21e8be6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instances\ZulGurub">
+      <UniqueIdentifier>{b8ce9242-7d9b-4077-ad2e-dc3c3b46ee24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Optional">
+      <UniqueIdentifier>{a67b0261-e3f2-4ba3-b23b-8cf8e13954d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{7641467b-6bbd-4fa0-b199-5aca57907480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\AlteracValley">
+      <UniqueIdentifier>{2e9e1298-dcf6-40e4-aff1-1f61020fe62a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\ScarletEnclave">
+      <UniqueIdentifier>{a4ae6091-47f6-4ab8-9cea-eb3c7f509011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OutdoorPvP">
+      <UniqueIdentifier>{4c4fe003-d98b-4668-946c-5d5abdce976d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids">
+      <UniqueIdentifier>{a38db512-4e8b-49e9-a26b-793deadeec7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\BaradinHold">
+      <UniqueIdentifier>{2de60d50-1538-421f-92bd-3a6987ccbd9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\BastionOfTwilight">
+      <UniqueIdentifier>{45c73ccd-411a-4c40-b484-02b537f1efff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Black_Temple">
+      <UniqueIdentifier>{ecd55dd7-24a0-49a6-bcd0-7c21f62688b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Blackwing_Descent">
+      <UniqueIdentifier>{826b425a-1aef-48e1-a850-35bfd94594b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Blackwing_Lair">
+      <UniqueIdentifier>{187195a8-5902-481b-8f3e-af42b9726db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Caverns_of_Time">
+      <UniqueIdentifier>{892e9e15-d934-4204-bdbd-f47dcf8c6f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Caverns_of_Time\Hyjal_Summit">
+      <UniqueIdentifier>{4c010030-7963-483b-904d-efad1927711f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Crusaders_Coliseum">
+      <UniqueIdentifier>{0c3260ea-7743-4f75-91cc-145183075f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Crusaders_Coliseum\Trial_of_the_Crusader">
+      <UniqueIdentifier>{5c3f1fec-2152-41af-9118-81bc272f3caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Firelands">
+      <UniqueIdentifier>{d7123f13-1119-4ed8-86d6-05a715c7f3d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Gruuls_Lair">
+      <UniqueIdentifier>{7d2251ab-0a9d-496b-a2ff-bda496af4155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Hellfire_Citadel">
+      <UniqueIdentifier>{3a4d409b-29f7-4667-9a6e-4b3d1c683289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Hellfire_Citadel\Magtheridons_Lair">
+      <UniqueIdentifier>{6c933a76-120f-4586-a0fd-b3d1ac5c5705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Icecrown_Citadel">
+      <UniqueIdentifier>{15cb36e6-7228-43bf-80dc-179e1b3d5ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Karazhan">
+      <UniqueIdentifier>{8e9564c7-096d-4128-8c71-536966e6f4cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Molten_Core">
+      <UniqueIdentifier>{0ecd1a81-507b-40b5-a6e8-960ba87c9fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Naxxramas">
+      <UniqueIdentifier>{7cabc768-f66a-43c1-89ec-0bc6319b857b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Nexus">
+      <UniqueIdentifier>{0389f6fd-4cb0-4937-9359-f356dceb1eb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Nexus\Eye_of_Eternity">
+      <UniqueIdentifier>{62e11a0f-1b16-44ad-a5e5-bd6721051530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Onyxia_Lair">
+      <UniqueIdentifier>{3d53e81e-5384-4ccd-a075-15a8a81cdc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Ruins_of_AhnQiraj">
+      <UniqueIdentifier>{3a80932d-452c-412a-827b-dafcf66fb0bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Sunwell_Plateau">
+      <UniqueIdentifier>{48b9434a-0684-4733-a957-c42189366a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Tempest_Keep">
+      <UniqueIdentifier>{3cad54ef-955a-45a6-93c9-c7b331534e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Tempest_Keep\Eye">
+      <UniqueIdentifier>{67508534-216a-4d65-973f-2ffeda248f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Temple_of_AhnQiraj">
+      <UniqueIdentifier>{23c8ff74-1472-4837-a87d-b718ad51d998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\ThroneOfTheFourWinds">
+      <UniqueIdentifier>{c0091257-5436-4444-952c-3fb4ad77b392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Ulduar">
+      <UniqueIdentifier>{4d3fe5a7-6955-484d-a808-8769335d4f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Vault_of_Archavon">
+      <UniqueIdentifier>{7980dedf-1e98-42b6-ae40-e3cd753f11c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Wyrmrest_Temple">
+      <UniqueIdentifier>{fa542a9c-81f6-462e-b7db-f32fe1d4b036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Wyrmrest_Temple\Obsidian_Sanctum">
+      <UniqueIdentifier>{4bdf4ecc-cb00-471b-a95e-189769680b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raids\Wyrmrest_Temple\Ruby_Sanctum">
+      <UniqueIdentifier>{b5334a66-43cf-4c1b-a3b9-f1ed6a71490c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Spells">
+      <UniqueIdentifier>{5e75600b-bf3f-498b-81f5-b79e3c69e8cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{f289bf91-48b3-4b92-9a45-419eaf557c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World_Bosses">
+      <UniqueIdentifier>{73038b2a-c647-408f-97e3-c48c756f0ce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zones">
+      <UniqueIdentifier>{422ea8de-13de-4dc8-abdb-23c42dc54a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Examples">
+      <UniqueIdentifier>{8a45325b-38b7-44e8-a572-ee5b69449602}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_account.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_achievement.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_debug.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_gm.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_go.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_gps.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_learn.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_misc.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_modify.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_npc.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Commands\cs_reload.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_exarch_maladaar.cpp">
+      <Filter>Instances\Auchindoun\Auchenai_Crypts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Auchenai_Crypts\boss_shirrak_the_dead_watcher.cpp">
+      <Filter>Instances\Auchindoun\Auchenai_Crypts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_nexusprince_shaffar.cpp">
+      <Filter>Instances\Auchindoun\Mana-Tombs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Mana-Tombs\boss_pandemonius.cpp">
+      <Filter>Instances\Auchindoun\Mana-Tombs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_ambassador_hellmaw.cpp">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_blackheart_the_inciter.cpp">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_grandmaster_vorpil.cpp">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\boss_murmur.cpp">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\instance_shadow_labyrinth.cpp">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_darkweaver_syth.cpp">
+      <Filter>Instances\Auchindoun\Shadow_Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\boss_tailonking_ikiss.cpp">
+      <Filter>Instances\Auchindoun\Shadow_Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\instance_sethekk_halls.cpp">
+      <Filter>Instances\Auchindoun\Shadow_Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_amanitar.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_elder_nadox.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_herald_volazj.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_jedoga_shadowseeker.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\boss_prince_taldaram.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\instance_ahnkahet.cpp">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_anubarak.cpp">
+      <Filter>Instances\Azjol-Nerub\Azjol-Nerub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_hadronox.cpp">
+      <Filter>Instances\Azjol-Nerub\Azjol-Nerub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\boss_krikthir_the_gatewatcher.cpp">
+      <Filter>Instances\Azjol-Nerub\Azjol-Nerub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\instance_azjol_nerub.cpp">
+      <Filter>Instances\Azjol-Nerub\Azjol-Nerub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.cpp">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_aku_mai.cpp">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_gelihast.cpp">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\boss_kelris.cpp">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\instance_blackfathom_deeps.cpp">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_ambassador_flamelash.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_anubshiah.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_emperor_dagran_thaurissan.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_general_angerforge.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_gorosh_the_dervish.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_grizzle.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_high_interrogator_gerstahn.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_magmus.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_moira_bronzebeard.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\boss_tomb_of_seven.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Depths\instance_blackrock_depths.cpp">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_drakkisath.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_gyth.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_halycon.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_highlord_omokk.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_mother_smolderweb.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_overlord_wyrmthalak.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_pyroguard_emberseer.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_quartermaster_zigris.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_rend_blackhand.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_shadow_hunter_voshgajin.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_the_beast.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Blackrock_Spire\boss_warmaster_voone.cpp">
+      <Filter>Instances\Blackrock_Spire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\BlackrockCaverns\instance_blackrock_caverns.cpp">
+      <Filter>Instances\BlackrockCaverns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_epoch.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_infinite.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_mal_ganis.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_meathook.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\boss_salramm.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\instance_culling_of_stratholme.cpp">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_aeonus.cpp">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_chrono_lord_deja.cpp">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\boss_temporus.cpp">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.cpp">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\instance_dark_portal.cpp">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_captain_skarloc.cpp">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_epoch_hunter.cpp">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\boss_leutenant_drake.cpp">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\instance_old_hillsbrad.cpp">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.cpp">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_fathomlord_karathress.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_hydross_the_unstable.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lady_vashj.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_leotheras_the_blind.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_lurker_below.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\boss_morogrim_tidewalker.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\instance_serpent_shrine.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_hydromancer_thespia.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Steamvault</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_mekgineer_steamrigger.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Steamvault</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\boss_warlord_kalithresh.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Steamvault</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\instance_steam_vault.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Steamvault</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_hungarfen.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Underbog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Underbog\boss_the_black_stalker.cpp">
+      <Filter>Instances\Coilfang_Reservoir\Underbog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_argent_challenge.cpp">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_black_knight.cpp">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\boss_grand_champions.cpp">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\instance_trial_of_the_champion.cpp">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.cpp">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\boss_glubtok.cpp">
+      <Filter>Instances\Deadmines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\boss_mr_smite.cpp">
+      <Filter>Instances\Deadmines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\deadmines.cpp">
+      <Filter>Instances\Deadmines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Deadmines\instance_deadmines.cpp">
+      <Filter>Instances\Deadmines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Dire_Maul\npc_pusillin.cpp">
+      <Filter>Instances\Dire_Maul</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_dred.cpp">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_novos.cpp">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_tharon_ja.cpp">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\boss_trollgore.cpp">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\instance_drak_tharon_keep.cpp">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.cpp">
+      <Filter>Instances\Gnomeregan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gnomeregan\instance_gnomeregan.cpp">
+      <Filter>Instances\Gnomeregan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\boss_forgemaster_throngus.cpp">
+      <Filter>Instances\GrimBatol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\boss_general_umbriss.cpp">
+      <Filter>Instances\GrimBatol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\GrimBatol\instance_grimbatol.cpp">
+      <Filter>Instances\GrimBatol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_drakkari_colossus.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_eck.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_gal_darah.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_moorabi.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\boss_slad_ran.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Gundrak\instance_gundrak.cpp">
+      <Filter>Instances\Gundrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_anraphet.cpp">
+      <Filter>Instances\HallsOfOrigination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_earthrager_ptah.cpp">
+      <Filter>Instances\HallsOfOrigination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\boss_temple_guardian_anhuur.cpp">
+      <Filter>Instances\HallsOfOrigination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\HallsOfOrigination\instance_halls_of_origination.cpp">
+      <Filter>Instances\HallsOfOrigination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_broggok.cpp">
+      <Filter>Instances\Hellfire_Citadel\Blood_Furnace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_kelidan_the_breaker.cpp">
+      <Filter>Instances\Hellfire_Citadel\Blood_Furnace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\boss_the_maker.cpp">
+      <Filter>Instances\Hellfire_Citadel\Blood_Furnace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\instance_blood_furnace.cpp">
+      <Filter>Instances\Hellfire_Citadel\Blood_Furnace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_omor_the_unscarred.cpp">
+      <Filter>Instances\Hellfire_Citadel\Hellfire_Ramparts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_vazruden_the_herald.cpp">
+      <Filter>Instances\Hellfire_Citadel\Hellfire_Ramparts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\boss_watchkeeper_gargolmar.cpp">
+      <Filter>Instances\Hellfire_Citadel\Hellfire_Ramparts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\instance_hellfire_ramparts.cpp">
+      <Filter>Instances\Hellfire_Citadel\Hellfire_Ramparts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_nethekurse.cpp">
+      <Filter>Instances\Hellfire_Citadel\Shattered_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warbringer_omrogg.cpp">
+      <Filter>Instances\Hellfire_Citadel\Shattered_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\boss_warchief_kargath_bladefist.cpp">
+      <Filter>Instances\Hellfire_Citadel\Shattered_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\instance_shattered_halls.cpp">
+      <Filter>Instances\Hellfire_Citadel\Shattered_Halls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_bronjahm.cpp">
+      <Filter>Instances\Icecrown_Citadel\Forge_of_Souls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\boss_devourer_of_souls.cpp">
+      <Filter>Instances\Icecrown_Citadel\Forge_of_Souls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.cpp">
+      <Filter>Instances\Icecrown_Citadel\Forge_of_Souls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\instance_forge_of_souls.cpp">
+      <Filter>Instances\Icecrown_Citadel\Forge_of_Souls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_falric.cpp">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_marwyn.cpp">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\boss_the_lich_king_hor.cpp">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.cpp">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\instance_halls_of_reflection.cpp">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_forgemaster_garfrost.cpp">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_krickandick.cpp">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\boss_scourgelord_tyrannus.cpp">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\instance_pit_of_saron.cpp">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.cpp">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_high_prophet_barim.cpp">
+      <Filter>Instances\LostCityOfTheTolvir</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\boss_lockmaw.cpp">
+      <Filter>Instances\LostCityOfTheTolvir</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\instance_lost_city_of_the_tolvir.cpp">
+      <Filter>Instances\LostCityOfTheTolvir</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.cpp">
+      <Filter>Instances\LostCityOfTheTolvir</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_felblood_kaelthas.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_priestess_delrissa.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_selin_fireheart.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\boss_vexallus.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\instance_magisters_terrace.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.cpp">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_celebras_the_cursed.cpp">
+      <Filter>Instances\Maraudon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_landslide.cpp">
+      <Filter>Instances\Maraudon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_noxxion.cpp">
+      <Filter>Instances\Maraudon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Maraudon\boss_princess_theradras.cpp">
+      <Filter>Instances\Maraudon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_anomalus.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_keristrasza.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_magus_telestra.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\boss_ormorok.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_kolurg.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\commander_stoutbeard.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Nexus\instance_nexus.cpp">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_drakos.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_eregos.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_urom.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\boss_varos.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\instance_oculus.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.cpp">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\boss_amnennar_the_coldbringer.cpp">
+      <Filter>Instances\Razorfen_Downs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\instance_razorfen_downs.cpp">
+      <Filter>Instances\Razorfen_Downs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.cpp">
+      <Filter>Instances\Razorfen_Downs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\instance_razorfen_kraul.cpp">
+      <Filter>Instances\Razorfen_Kraul</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.cpp">
+      <Filter>Instances\Razorfen_Kraul</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_arcanist_doan.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_azshir_the_sleepless.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_bloodmage_thalnos.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_headless_horseman.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_herod.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_high_inquisitor_fairbanks.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_houndmaster_loksey.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_interrogator_vishas.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_mograine_and_whitemane.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\boss_scorn.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\instance_scarlet_monastery.cpp">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_darkmaster_gandling.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_death_knight_darkreaver.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_doctor_theolen_krastinov.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_illucia_barov.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_instructor_malicia.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_jandice_barov.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_kormok.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_lord_alexei_barov.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_lorekeeper_polkelt.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_ras_frostwhisper.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_the_ravenian.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\boss_vectus.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Scholomance\instance_scholomance.cpp">
+      <Filter>Instances\Scholomance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\instance_shadowfang_keep.cpp">
+      <Filter>Instances\ShadowFang_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.cpp">
+      <Filter>Instances\ShadowFang_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_baron_rivendare.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_baroness_anastari.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_cannon_master_willey.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_dathrohan_balnazzar.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_magistrate_barthilas.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_maleki_the_pallid.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_nerubenkan.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_order_of_silver_hand.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_postmaster_malown.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_ramstein_the_gorger.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\boss_timmy_the_cruel.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\instance_stratholme.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Stratholme\stratholme.cpp">
+      <Filter>Instances\Stratholme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Sunken_Temple\instance_sunken_temple.cpp">
+      <Filter>Instances\Sunken_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.cpp">
+      <Filter>Instances\Sunken_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.cpp">
+      <Filter>Instances\Tempest_Keep\Arcatraz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\boss_harbinger_skyriss.cpp">
+      <Filter>Instances\Tempest_Keep\Arcatraz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\instance_arcatraz.cpp">
+      <Filter>Instances\Tempest_Keep\Arcatraz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_high_botanist_freywinn.cpp">
+      <Filter>Instances\Tempest_Keep\Botanica</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_laj.cpp">
+      <Filter>Instances\Tempest_Keep\Botanica</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Botanica\boss_warp_splinter.cpp">
+      <Filter>Instances\Tempest_Keep\Botanica</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_gyrokill.cpp">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_gatewatcher_ironhand.cpp">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_nethermancer_sepethrea.cpp">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\boss_pathaleon_the_calculator.cpp">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\instance_mechanar.cpp">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheStoneCore\instance_the_stonecore.cpp">
+      <Filter>Instances\TheStoneCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.cpp">
+      <Filter>Instances\TheStoneCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\TheVortexPinnacle\instance_the_vortex_pinnacle.cpp">
+      <Filter>Instances\TheVortexPinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_commander_ulthok.cpp">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_erunak_stonespeaker.cpp">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\boss_lady_nazjar.cpp">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\instance_throne_of_the_tides.cpp">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\npc_neptulon.cpp">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\boss_archaedas.cpp">
+      <Filter>Instances\Uldaman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\boss_ironaya.cpp">
+      <Filter>Instances\Uldaman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\instance_uldaman.cpp">
+      <Filter>Instances\Uldaman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Uldaman\uldaman.cpp">
+      <Filter>Instances\Uldaman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_bjarngrim.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_ionar.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_loken.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\boss_volkhan.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\instance_halls_of_lightning.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_krystallus.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_maiden_of_grief.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\boss_sjonnir.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\instance_halls_of_stone.cpp">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_ingvar_the_plunderer.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_keleseth.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\boss_skarvald_dalronn.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\instance_utgarde_keep.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_palehoof.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_skadi.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_svala.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\boss_ymiron.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\instance_pinnacle.cpp">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_cyanigosa.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_erekem.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_ichoron.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_lavanthor.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_moragg.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_xevozz.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\boss_zuramat.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\instance_violet_hold.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.cpp">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Wailing_Caverns\instance_wailing_caverns.cpp">
+      <Filter>Instances\Wailing_Caverns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.cpp">
+      <Filter>Instances\Wailing_Caverns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_akilzon.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_halazzi.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_hexlord.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_janalai.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_nalorakk.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\boss_zuljin.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\instance_zulaman.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulAman\zulaman.cpp">
+      <Filter>Instances\ZulAman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulFarrak\instance_zulfarrak.cpp">
+      <Filter>Instances\ZulFarrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.cpp">
+      <Filter>Instances\ZulFarrak</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_arlokk.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_gahzranka.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_grilek.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_hakkar.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_hazzarah.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_jeklik.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_jindo.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_mandokir.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_marli.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_renataki.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_thekal.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_venoxis.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\boss_wushoolay.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Instances\ZulGurub\instance_zulgurub.cpp">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Optional\npc_arena_theme.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\alterac_valley.cpp">
+      <Filter>Other\AlteracValley</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_balinda.cpp">
+      <Filter>Other\AlteracValley</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_drekthar.cpp">
+      <Filter>Other\AlteracValley</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_galvangar.cpp">
+      <Filter>Other\AlteracValley</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\AlteracValley\boss_vanndar.cpp">
+      <Filter>Other\AlteracValley</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter1.cpp">
+      <Filter>Other\ScarletEnclave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter2.cpp">
+      <Filter>Other\ScarletEnclave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\chapter5.cpp">
+      <Filter>Other\ScarletEnclave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Other\ScarletEnclave\the_scarlet_enclave.cpp">
+      <Filter>Other\ScarletEnclave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPEP.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPHP.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPNA.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPSI.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPTF.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPZM.cpp">
+      <Filter>OutdoorPvP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BaradinHold\boss_argaloth.cpp">
+      <Filter>Raids\BaradinHold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BaradinHold\instance_baradin_hold.cpp">
+      <Filter>Raids\BaradinHold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_chogall.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_council_of_ascendents.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_halfus_wyrmbreaker.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_sinestra.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\boss_theralion_and_valiona.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\BastionOfTwilight\instance_bastion_of_twilight.cpp">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\black_temple.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_bloodboil.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_illidan.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_mother_shahraz.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_reliquary_of_souls.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_shade_of_akama.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_supremus.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_teron_gorefiend.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\boss_warlord_najentus.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\illidari_council.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Black_Temple\instance_black_temple.cpp">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_atramedes.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_chimaeron.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_magmaw.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_maloriak.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_nefarians.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\boss_omnotron.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Descent\instance_blackwing_descent.cpp">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_broodlord_lashlayer.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_chromaggus.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_ebonroc.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_firemaw.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_flamegor.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_nefarian.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_razorgore.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_vaelastrasz.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\boss_victor_nefarius.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Blackwing_Lair\instance_blackwing_lair.cpp">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_anetheron.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_archimonde.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_azgalor.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_kazrogal.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\boss_rage_winterchill.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\instance_hyjal.cpp">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_anubarak_trial.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_faction_champions.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_lord_jaraxxus.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_northrend_beasts.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\boss_twin_valkyr.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\instance_trial_of_the_crusader.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.cpp">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_alysrazar.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_baloroc_the_doorkeeper.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_bethtilac.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_majordomus.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_rhyolith.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\boss_shannox.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Firelands\instance_firelands.cpp">
+      <Filter>Raids\Firelands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_gruul.cpp">
+      <Filter>Raids\Gruuls_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\boss_high_king_maulgar.cpp">
+      <Filter>Raids\Gruuls_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Gruuls_Lair\instance_gruuls_lair.cpp">
+      <Filter>Raids\Gruuls_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\boss_magtheridon.cpp">
+      <Filter>Raids\Hellfire_Citadel\Magtheridons_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\instance_magtheridons_lair.cpp">
+      <Filter>Raids\Hellfire_Citadel\Magtheridons_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_prince_council.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_blood_queen_lana_thel.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_deathbringer_saurfang.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_festergut.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lady_deathwhisper.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_lord_marrowgar.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_professor_putricide.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_rotface.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_sindragosa.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\boss_valithria_dreamwalker.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel_teleport.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\instance_icecrown_citadel.cpp">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_curator.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_maiden_of_virtue.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_midnight.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_moroes.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_netherspite.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_nightbane.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_prince_malchezaar.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_shade_of_aran.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\boss_terestian_illhoof.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\bosses_opera.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\instance_karazhan.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Karazhan\karazhan.cpp">
+      <Filter>Raids\Karazhan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_baron_geddon.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_garr.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_gehennas.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_golemagg.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_lucifron.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_magmadar.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_majordomo_executus.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_ragnaros.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_shazzrah.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\boss_sulfuron_harbinger.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\instance_molten_core.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Molten_Core\molten_core.cpp">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_anubrekhan.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_faerlina.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_four_horsemen.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_gluth.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_gothik.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_grobbulus.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_heigan.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_kelthuzad.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_loatheb.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_maexxna.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_noth.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_patchwerk.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_razuvious.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_sapphiron.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\boss_thaddius.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Naxxramas\instance_naxxramas.cpp">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\boss_malygos.cpp">
+      <Filter>Raids\Nexus\Eye_of_Eternity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\instance_eye_of_eternity.cpp">
+      <Filter>Raids\Nexus\Eye_of_Eternity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Onyxia_Lair\boss_onyxia.cpp">
+      <Filter>Raids\Onyxia_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Onyxia_Lair\instance_onyxias_lair.cpp">
+      <Filter>Raids\Onyxia_Lair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ayamiss.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_buru.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_kurinnaxx.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_moam.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_ossirian.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\boss_rajaxx.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\instance_ruins_of_ahnqiraj.cpp">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_brutallus.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_eredar_twins.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_felmyst.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kalecgos.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_kiljaeden.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\boss_muru.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\instance_sunwell_plateau.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.cpp">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_alar.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_astromancer.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_kaelthas.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\boss_void_reaver.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\instance_the_eye.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.cpp">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_bug_trio.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_cthun.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_fankriss.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_huhuran.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_ouro.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_sartura.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_skeram.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_twinemperors.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\boss_viscidus.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\instance_temple_of_ahnqiraj.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\mob_anubisath_sentinel.cpp">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_alakir.cpp">
+      <Filter>Raids\ThroneOfTheFourWinds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\boss_conclave_of_wind.cpp">
+      <Filter>Raids\ThroneOfTheFourWinds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\instance_throne_of_the_four_winds.cpp">
+      <Filter>Raids\ThroneOfTheFourWinds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_algalon.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_assembly_of_iron.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_auriaya.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_flame_leviathan.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_freya.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_general_vezax.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_hodir.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_ignis.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_kologarn.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_mimiron.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_razorscale.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_thorim.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_xt002.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\boss_yoggsaron.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\instance_ulduar.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Ulduar\ulduar_teleporter.cpp">
+      <Filter>Raids\Ulduar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_archavon.cpp">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_emalon.cpp">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_koralon.cpp">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\boss_toravon.cpp">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\instance_vault_of_archavon.cpp">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\boss_sartharion.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Obsidian_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\instance_obsidian_sanctum.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Obsidian_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_baltharus.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_halion.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_ragefire.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\boss_zarithrian.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\instance_ruby_sanctum.cpp">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_dk.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_druid.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_generic.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_hunter.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_item.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_mage.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_paladin.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_priest.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_quest.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_rogue.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_shaman.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_warlock.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Spells\spell_warrior.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\achievement_scripts.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\areatrigger_scripts.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\chat_log.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\go_scripts.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\guards.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\item_scripts.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\mob_generic_creature.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\npc_innkeeper.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\npc_professions.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\npc_spell_click_spells.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\npc_taxi.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World\npcs_special.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_azuregos.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_doomlord_kazzak.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_doomwalker.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_emeriss.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_kruul.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_lethon.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_taerar.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\World_Bosses\boss_ysondre.cpp">
+      <Filter>World_Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\alterac_mountains.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\arathi_highlands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\ashenvale.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\azshara.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\azuremyst_isle.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\blades_edge_mountains.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\blasted_lands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\bloodmyst_isle.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\borean_tundra.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\burning_steppes.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\crystalsong_forest.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\dalaran.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\darkshore.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\desolace.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\dragonblight.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\dun_morogh.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\durotar.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\duskwood.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\dustwallow_marsh.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\eastern_plaguelands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\elwynn_forest.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\eversong_woods.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\felwood.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\feralas.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\ghostlands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\gilneas.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\grizzly_hills.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\hellfire_peninsula.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\hinterlands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\howling_fjord.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\icecrown.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\ironforge.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\isle_of_conquest.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\isle_of_queldanas.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\loch_modan.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\moonglade.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\mount_hyjal.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\mulgore.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\nagrand.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\netherstorm.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\orgrimmar.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\redridge_mountains.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\searing_gorge.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\shadowmoon_valley.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\shattrath_city.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\sholazar_basin.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\silithus.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\silvermoon_city.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\silverpine_forest.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\stonetalon_mountains.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\storm_peaks.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\stormwind_city.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\stranglethorn_vale.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\swamp_of_sorrows.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\tanaris.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\teldrassil.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\terokkar_forest.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\the_barrens.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\thousand_needles.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\thunder_bluff.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\tirisfal_glades.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\undercity.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\ungoro_crater.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\western_plaguelands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\westfall.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\wetlands.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\wintergrasp.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\winterspring.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\zangarmarsh.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Zones\zuldrak.cpp">
+      <Filter>Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_commandscript.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_creature.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_escort.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_gossip_codebox.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_misc.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\Examples\example_spell.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\scripts\PrecompiledHeaders\ScriptPCH.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Auchindoun\Shadow_Labyrinth\shadow_labyrinth.h">
+      <Filter>Instances\Auchindoun\Sethekk_Halls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Auchindoun\Sethekk_Halls\sethekk_halls.h">
+      <Filter>Instances\Auchindoun\Shadow_Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Ahnkahet\ahnkahet.h">
+      <Filter>Instances\Azjol-Nerub\Ahnkahet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Azjol-Nerub\Azjol-Nerub\azjol_nerub.h">
+      <Filter>Instances\Azjol-Nerub\Azjol-Nerub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Blackfathom_Deeps\blackfathom_deeps.h">
+      <Filter>Instances\Blackfathom_Deeps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Blackrock_Depths\blackrock_depths.h">
+      <Filter>Instances\Blackrock_Depths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\BlackrockCaverns\blackrock_caverns.h">
+      <Filter>Instances\BlackrockCaverns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Culling_of_Stratholme\culling_of_stratholme.h">
+      <Filter>Instances\Caverns_of_Time\Culling_of_Stratholme</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Dark_Portal\dark_portal.h">
+      <Filter>Instances\Caverns_of_Time\Dark_Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Caverns_of_Time\Old_Hillsbrad_Foothills\old_hillsbrad.h">
+      <Filter>Instances\Caverns_of_Time\Old_Hillsbrad_Foothills</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Serpent_Shrine\serpent_shrine.h">
+      <Filter>Instances\Coilfang_Reservoir\Serpent_Shrine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Coilfang_Reservoir\Steamvault\steam_vault.h">
+      <Filter>Instances\Coilfang_Reservoir\Steamvault</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Crusaders_Coliseum\Trial_of_the_Champion\trial_of_the_champion.h">
+      <Filter>Instances\Crusaders_Coliseum\Trial_of_the_Champion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Deadmines\deadmines.h">
+      <Filter>Instances\Deadmines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\DrakTharon_Keep\drak_tharon_keep.h">
+      <Filter>Instances\DrakTharon_Keep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Gnomeregan\gnomeregan.h">
+      <Filter>Instances\Gnomeregan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\GrimBatol\grimbatol.h">
+      <Filter>Instances\GrimBatol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Gundrak\gundrak.h">
+      <Filter>Instances\Gundrak</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\HallsOfOrigination\halls_of_origination.h">
+      <Filter>Instances\HallsOfOrigination</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Blood_Furnace\blood_furnace.h">
+      <Filter>Instances\Hellfire_Citadel\Blood_Furnace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Hellfire_Ramparts\hellfire_ramparts.h">
+      <Filter>Instances\Hellfire_Citadel\Hellfire_Ramparts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Hellfire_Citadel\Shattered_Halls\shattered_halls.h">
+      <Filter>Instances\Hellfire_Citadel\Shattered_Halls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Forge_of_Souls\forge_of_souls.h">
+      <Filter>Instances\Icecrown_Citadel\Forge_of_Souls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Halls_of_Reflection\halls_of_reflection.h">
+      <Filter>Instances\Icecrown_Citadel\Halls_of_Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Icecrown_Citadel\Pit_of_Saron\pit_of_saron.h">
+      <Filter>Instances\Icecrown_Citadel\Pit_of_Saron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\LostCityOfTheTolvir\lost_city_of_the_tolvir.h">
+      <Filter>Instances\LostCityOfTheTolvir</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Magisters_Terrace\magisters_terrace.h">
+      <Filter>Instances\Magisters_Terrace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Nexus\Nexus\nexus.h">
+      <Filter>Instances\Nexus\Nexus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Nexus\Oculus\oculus.h">
+      <Filter>Instances\Nexus\Oculus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Razorfen_Downs\razorfen_downs.h">
+      <Filter>Instances\Razorfen_Downs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Razorfen_Kraul\razorfen_kraul.h">
+      <Filter>Instances\Razorfen_Kraul</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Scarlet_Monastery\scarlet_monastery.h">
+      <Filter>Instances\Scarlet_Monastery</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Scholomance\scholomance.h">
+      <Filter>Instances\Scholomance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\ShadowFang_Keep\shadowfang_keep.h">
+      <Filter>Instances\ShadowFang_Keep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Stratholme\stratholme.h">
+      <Filter>Instances\Stratholme</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Sunken_Temple\sunken_temple.h">
+      <Filter>Instances\Sunken_Temple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Tempest_Keep\Arcatraz\arcatraz.h">
+      <Filter>Instances\Tempest_Keep\Arcatraz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Tempest_Keep\Mechanar\mechanar.h">
+      <Filter>Instances\Tempest_Keep\Mechanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\TheStoneCore\the_stonecore.h">
+      <Filter>Instances\TheStoneCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\TheVortexPinnacle\the_vortex_pinnacle.h">
+      <Filter>Instances\TheVortexPinnacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\ThroneOfTheTides\throne_of_the_tides.h">
+      <Filter>Instances\ThroneOfTheTides</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Uldaman\uldaman.h">
+      <Filter>Instances\Uldaman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Lightning\halls_of_lightning.h">
+      <Filter>Instances\Ulduar\Halls_of_Lightning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Ulduar\Halls_of_Stone\halls_of_stone.h">
+      <Filter>Instances\Ulduar\Halls_of_Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Keep\utgarde_keep.h">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Keep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Utgarde_Keep\Utgarde_Pinnacle\utgarde_pinnacle.h">
+      <Filter>Instances\Utgarde_Keep\Utgarde_Pinnacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Violet_Hold\violet_hold.h">
+      <Filter>Instances\Violet_Hold</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\Wailing_Caverns\wailing_caverns.h">
+      <Filter>Instances\Wailing_Caverns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulAman\zulaman.h">
+      <Filter>Instances\ZulAman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulFarrak\zulfarrak.h">
+      <Filter>Instances\ZulFarrak</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Instances\ZulGurub\zulgurub.h">
+      <Filter>Instances\ZulGurub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPEP.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPHP.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPNA.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPSI.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPTF.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPWG.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\OutdoorPvP\OutdoorPvPZM.h">
+      <Filter>OutdoorPvP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\BaradinHold\baradin_hold.h">
+      <Filter>Raids\BaradinHold</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\BastionOfTwilight\bastion_of_twilight.h">
+      <Filter>Raids\BastionOfTwilight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Black_Temple\black_temple.h">
+      <Filter>Raids\Black_Temple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Blackwing_Descent\blackwing_descent.h">
+      <Filter>Raids\Blackwing_Descent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Blackwing_Lair\blackwing_lair.h">
+      <Filter>Raids\Blackwing_Lair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal.h">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjal_trash.h">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Caverns_of_Time\Hyjal_Summit\hyjalAI.h">
+      <Filter>Raids\Caverns_of_Time\Hyjal_Summit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Crusaders_Coliseum\Trial_of_the_Crusader\trial_of_the_crusader.h">
+      <Filter>Raids\Crusaders_Coliseum\Trial_of_the_Crusader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Firelands\firelands.h">
+      <Filter>Raids\Firelands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Gruuls_Lair\gruuls_lair.h">
+      <Filter>Raids\Gruuls_Lair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Hellfire_Citadel\Magtheridons_Lair\magtheridons_lair.h">
+      <Filter>Raids\Hellfire_Citadel\Magtheridons_Lair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Icecrown_Citadel\icecrown_citadel.h">
+      <Filter>Raids\Icecrown_Citadel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Karazhan\karazhan.h">
+      <Filter>Raids\Karazhan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Molten_Core\molten_core.h">
+      <Filter>Raids\Molten_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Naxxramas\naxxramas.h">
+      <Filter>Raids\Naxxramas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Nexus\Eye_of_Eternity\eye_of_eternity.h">
+      <Filter>Raids\Nexus\Eye_of_Eternity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Onyxia_Lair\onyxias_lair.h">
+      <Filter>Raids\Onyxia_Lair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Ruins_of_AhnQiraj\ruins_of_ahnqiraj.h">
+      <Filter>Raids\Ruins_of_AhnQiraj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Sunwell_Plateau\sunwell_plateau.h">
+      <Filter>Raids\Sunwell_Plateau</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Tempest_Keep\Eye\the_eye.h">
+      <Filter>Raids\Tempest_Keep\Eye</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Temple_of_AhnQiraj\temple_of_ahnqiraj.h">
+      <Filter>Raids\Temple_of_AhnQiraj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\ThroneOfTheFourWinds\throne_of_the_four_winds.h">
+      <Filter>Raids\ThroneOfTheFourWinds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Ulduar\ulduar.h">
+      <Filter>Raids\Ulduar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Vault_of_Archavon\vault_of_archavon.h">
+      <Filter>Raids\Vault_of_Archavon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Obsidian_Sanctum\obsidian_sanctum.h">
+      <Filter>Raids\Wyrmrest_Temple\Obsidian_Sanctum</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\scripts\Raids\Wyrmrest_Temple\Ruby_Sanctum\ruby_sanctum.h">
+      <Filter>Raids\Wyrmrest_Temple\Ruby_Sanctum</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
