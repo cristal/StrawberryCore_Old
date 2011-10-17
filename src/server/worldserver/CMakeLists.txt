@@ -164,7 +164,6 @@ target_link_libraries(worldserver
   game
   shared
   scripts
-  collision
   g3dlib
   gsoap
   ${JEMALLOC_LIBRARY}
