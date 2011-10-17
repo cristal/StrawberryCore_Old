@@ -72,7 +72,7 @@ add_executable(logonserver
 add_dependencies(logonserver revision.h)
 
 if( NOT WIN32 )
-  add_definitions(-D_VORAGINE_REALM_CONFIG='"${CONF_DIR}/logonserver.conf"')
+  add_definitions(-D_STRAWBERRY_REALM_CONFIG='"${CONF_DIR}/logonserver.conf"')
 endif()
 
 if( UNIX )

@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef VORAGINECORE_CHATLINK_H
-#define VORAGINECORE_CHATLINK_H
+#ifndef STRAWBERRYCORE_CHATLINK_H
+#define STRAWBERRYCORE_CHATLINK_H
 
 #include "SharedDefines.h"
 #include "DATAStructure.h"
@@ -171,4 +171,4 @@ private:
 };
 
 
-#endif // VORAGINECORE_CHATLINK_H
+#endif // STRAWBERRYCORE_CHATLINK_H

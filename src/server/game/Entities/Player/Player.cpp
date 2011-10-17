@@ -23978,7 +23978,7 @@ bool ItemPosCount::isContainedIn(ItemPosCountVec const& vec) const
 }
 
 // ***********************************
-// -------------VORAGINE--------------
+// -------------STRAWBERRY------------
 // ***********************************
 
 void Player::StopCastingBindSight()
@@ -24178,7 +24178,7 @@ void Player::SetTitle(CharTitlesEntry const* title, bool lost)
     GetSession()->SendPacket(&data);
 }
 
-/*-----------------------VORAGINE-------------------------*/
+/*-----------------------STRAWBERRY-------------------------*/
 bool Player::isTotalImmunity()
 {
     AuraEffectList const& immune = GetAuraEffectsByType(SPELL_AURA_SCHOOL_IMMUNITY);

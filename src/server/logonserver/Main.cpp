@@ -36,9 +36,9 @@
 #include "RealmList.h"
 #include "RealmAcceptor.h"
 
-#ifndef _VORAGINE_REALM_CONFIG
-# define _VORAGINE_REALM_CONFIG  "logonserver.conf"
-#endif //_VORAGINE_REALM_CONFIG
+#ifndef _STRAWBERRY_REALM_CONFIG
+# define _STRAWBERRY_REALM_CONFIG  "logonserver.conf"
+#endif //_STRAWBERRY_REALM_CONFIG
 
 #ifdef _WIN32
 #include "ServiceWin32.h"
@@ -102,7 +102,7 @@ extern int main(int argc, char **argv)
     sLog->SetLogDB(false);
 
     ///- Command line parsing to get the configuration file name
-    char const* cfg_file = _VORAGINE_REALM_CONFIG;
+    char const* cfg_file = _STRAWBERRY_REALM_CONFIG;
     int c = 1;
     while(c < argc)
     {
@@ -160,7 +160,7 @@ extern int main(int argc, char **argv)
     if (!sConfig->SetSource(cfg_file))
     {
         sLog->outError("Invalid or missing configuration file : %s", cfg_file);
-        sLog->outError("Verify that the file exists and has \'[%s]\' written in the top of the file!", _VORAGINE_REALM_CONFIG);
+        sLog->outError("Verify that the file exists and has \'[%s]\' written in the top of the file!", _STRAWBERRY_REALM_CONFIG);
         return 1;
     }
     sLog->Initialize();

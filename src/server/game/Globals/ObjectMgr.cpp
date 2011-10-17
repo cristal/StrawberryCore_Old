@@ -8100,7 +8100,7 @@ bool ObjectMgr::LoadStrawberryStrings(char const* table, int32 min_value, int32 
     if (!result)
     {
 
-        if (min_value == MIN_VORAGINE_STRING_ID)              // error only in case internal strings
+        if (min_value == MIN_STRAWBERRY_STRING_ID)              // error only in case internal strings
             sLog->outErrorDb(">> Loaded 0 Strawberry strings. DB table `%s` is empty. Cannot continue.", table);
         else
             sLog->outString(">> Loaded 0 string templates. DB table `%s` is empty.", table);
@@ -8145,7 +8145,7 @@ bool ObjectMgr::LoadStrawberryStrings(char const* table, int32 min_value, int32 
         }
     } while (result->NextRow());
 
-    if (min_value == MIN_VORAGINE_STRING_ID)
+    if (min_value == MIN_STRAWBERRY_STRING_ID)
         sLog->outString(">> Loaded %u Strawberry strings from table %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
     else
         sLog->outString(">> Loaded %u string templates from %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
@@ -8469,7 +8469,7 @@ void ObjectMgr::LoadMailLevelRewards()
 
 void ObjectMgr::AddSpellToTrainer( uint32 entry, uint32 spell, uint32 spellCost, uint32 reqSkill, uint32 reqSkillValue, uint32 reqLevel, uint32 KillCredit)
 {
-    if (entry >= VORAGINE_TRAINER_START_REF)
+    if (entry >= STRAWBERRY_TRAINER_START_REF)
         return;
 
     CreatureTemplate const* cInfo = GetCreatureTemplate(entry);
