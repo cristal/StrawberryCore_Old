@@ -21,7 +21,7 @@
 //add here most rarely modified headers to speed up debug build compilation
 #ifndef _GAMEPCH_H
 #define _GAMEPCH_H
-#ifdef STRAWBERRY_COREPCH
+
 #include "WorldSocket.h"        // must be first to make ACE happy with ACE includes in it
 
 #include "Common.h"
@@ -36,5 +36,4 @@
 #include "ObjectMgr.h"
 #include "Util.h"
 
-#endif /* STRAWBERRY_COREPCH */
 #endif  /* _GAMEPCH_H */

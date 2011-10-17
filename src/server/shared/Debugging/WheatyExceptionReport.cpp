@@ -44,6 +44,7 @@
     #include "revision_nr.h"
     #define _REVISION REVISION_NR
 #else
+    #include "revision_nr.h"
     #include "revision.h"
 #endif
 

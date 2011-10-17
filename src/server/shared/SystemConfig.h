@@ -26,6 +26,7 @@
 #ifdef _PRE_WIN
     #include "revision_nr.h"
 #else
+    #include "revision_nr.h"
     #include "revision.h"
 #endif
 

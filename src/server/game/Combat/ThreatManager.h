@@ -25,6 +25,7 @@
 #include "SharedDefines.h"
 #include "LinkedReference/Reference.h"
 #include "UnitEvents.h"
+#include "Unit.h"
 
 #include <list>
 
