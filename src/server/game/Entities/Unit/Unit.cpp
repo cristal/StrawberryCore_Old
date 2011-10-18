@@ -1752,10 +1752,10 @@ void Unit::CalcAbsorbResist(Unit* victim, SpellSchoolMask schoolMask, DamageEffe
     {
         float victimResistance = float(victim->GetResistance(GetFirstSchoolInMask(schoolMask)));
         victimResistance += float(GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_TARGET_RESISTANCE, schoolMask));
-        
+
         if (Player* player = ToPlayer())
             victimResistance -= float(player->GetSpellPenetrationItemMod());
-            
+
         // Resistance can't be lower then 0.
         if (victimResistance < 0.0f)
             victimResistance = 0.0f;
@@ -4698,9 +4698,10 @@ int32 Unit::GetTotalAuraModifierByMiscMask(AuraType auratype, uint32 misc_mask) 
     AuraEffectList const& mTotalAuraList = GetAuraEffectsByType(auratype);
     for (AuraEffectList::const_iterator i = mTotalAuraList.begin(); i != mTotalAuraList.end(); ++i)
     {
-        if ((*i)->GetMiscValue()& misc_mask)
+        if ((*i)->GetMiscValue() & misc_mask)
             modifier += (*i)->GetAmount();
     }
+
     return modifier;
 }
 

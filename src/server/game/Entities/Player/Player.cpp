@@ -24464,11 +24464,37 @@ uint32 Player::CalculateTalentsPoints() const
     return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));
 }
 
-bool Player::IsKnowHowFlyIn(uint32 mapid, uint32 zone) const
+bool Player::IsKnowHowFlyIn(uint32 mapid, uint32 zone, uint32 spellId) const
 {
+    // Eye of the Storm is always allowed in Throne of the Four Winds
+    if (zone == 5638 && spellId == 82724)
+        return true;
     // continent checked in SpellMgr::GetSpellAllowedInLocationError at cast and area update
     uint32 v_map = GetVirtualMapForMapAndZone(mapid, zone);
-    return v_map != 571 || HasSpell(54197); // Cold Weather Flying
+    return (v_map != 571 || HasSpell(54197)) && (v_map != 0 || HasSpell(90267)); // Cold Weather Flying
+
+    // continent checked in SpellInfo::CheckLocation at cast and area update
+    switch (v_map)
+    {
+    case 0:   // Eastern Kingdoms
+        switch(zone)
+        {
+        // mapid of these zones is 530 but v_map is 0
+        case 3430: // Eversong Woods
+        case 3433: // Ghostlands
+        case 4080: // Isle of Quel'Danas
+            return false;
+        }
+        // no break here
+    case 1:   // Kalimdor
+    case 646: // Deepholme
+        return HasSpell(90267); // Flight Master's License
+    case 571: // Northrend
+        return HasSpell(54197); // Cold Weather Flying
+    case 530: // Outland
+        return true;
+    }
+    return false;
 }
 
 void Player::learnSpellHighRank(uint32 spellid)

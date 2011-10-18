@@ -3451,7 +3451,7 @@ SpellCastResult SpellMgr::GetSpellAllowedInLocationError(SpellEntry const *spell
             case SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED:
             case SPELL_AURA_FLY:
             {
-                if (player && !player->IsKnowHowFlyIn(map_id, zone_id))
+                if (player && !player->IsKnowHowFlyIn(map_id, zone_id, spellInfo->Id))
                     return SPELL_FAILED_INCORRECT_AREA;
             }
         }

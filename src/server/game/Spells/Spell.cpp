@@ -1068,13 +1068,11 @@ void Spell::AddGOTarget(GameObject* go, uint32 effIndex)
 
     // Lookup target in already in list
     for (std::list<GOTargetInfo>::iterator ihit = m_UniqueGOTargetInfo.begin(); ihit != m_UniqueGOTargetInfo.end(); ++ihit)
-    {
         if (targetGUID == ihit->targetGUID)                 // Found in list
         {
             ihit->effectMask |= 1 << effIndex;              // Add only effect mask
             return;
         }
-    }
 
     // This is new target calculate data for him
 
