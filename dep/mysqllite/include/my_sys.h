@@ -839,7 +839,7 @@ extern int unpackfrm(uchar **, size_t *, const uchar *);
 extern ha_checksum my_checksum(ha_checksum crc, const uchar *mem,
                                size_t count);
 extern void my_sleep(ulong m_seconds);
-extern ulong crc32(ulong crc, const uchar *buf, uint len);
+//extern ulong crc32(ulong crc, const uchar *buf, uint len);
 extern uint my_set_max_open_files(uint files);
 void my_free_open_file_info(void);
 
