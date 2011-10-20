@@ -157,7 +157,7 @@ void WorldSession::SendTrainerList(uint64 guid, const std::string &strTitle)
 
     WorldPacket data(SMSG_TRAINER_LIST, 8 + 4 + 4 + trainer_spells->spellList.size() * 38 + strTitle.size() + 1);
     data << guid;
-    data << uint32(trainer_spells->trainerType);
+    data << uint32(trainer_spells->trainerType);          // 4.0.1 - m_trainerID, different for every trainer...
     data << uint32(creatureInfo->trainer_id);             // Get TrainerID from creature_template.
 
     size_t count_pos = data.wpos();

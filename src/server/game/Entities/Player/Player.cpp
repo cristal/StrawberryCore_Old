@@ -22665,7 +22665,7 @@ void Player::SendInitialPacketsAfterAddToMap()
     // update zone
     uint32 newzone, newarea;
     GetZoneAndAreaId(newzone, newarea);
-    UpdateZone(newzone, newarea);                            // also call SendInitWorldStates();
+    UpdateZone(newzone, newarea);
     SendInitWorldStates(newzone, newarea);
 
     ResetTimeSync();
