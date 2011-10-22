@@ -388,7 +388,7 @@ pAuraEffectHandler AuraEffectHandler[TOTAL_AURAS]=
     &AuraEffect::HandleNULL,                                      //330
     &AuraEffect::HandleNULL,                                      //331
     &AuraEffect::HandleNULL,                                      //332
-    &AuraEffect::HandleModTrapLauncher,                           //333 SPELL_AURA_MOD_TRAP_LAUNCHER
+    &AuraEffect::HandleNULL,                                      //333
     &AuraEffect::HandleNULL,                                      //334
     &AuraEffect::HandleNULL,                                      //335
     &AuraEffect::HandleNULL,                                      //336
@@ -3017,11 +3017,6 @@ void AuraEffect::HandleModStealthDetect(AuraApplication const * aurApp, uint8 mo
 }
 
 //TODO: Finish this aura
-void AuraEffect::HandleModTrapLauncher(AuraApplication const *aurApp, uint8 mode, bool apply) const
-{
-}
-
-//TODO: Finish this aura
 void AuraEffect::HandleModCamouflage(AuraApplication const *aurApp, uint8 mode, bool apply) const
 {
     if (!(mode & AURA_EFFECT_HANDLE_SEND_FOR_CLIENT_MASK))
@@ -4017,12 +4012,12 @@ void AuraEffect::HandleAuraMounted(AuraApplication const *aurApp, uint8 mode, bo
     if (apply)
     {
         uint32 creatureEntry = GetMiscValue();
-       if (aurApp->GetBase()->GetId() == 87840)
-                       {
-       target->Mount(plr->getGender() == GENDER_FEMALE ? 29423 : 29422, 0, GetMiscValue());
-       target->Mount(plr->getGender() == GENDER_MALE ? 29422 : 29423, 0, GetMiscValue());
-       return;
-       }
+        if (aurApp->GetBase()->GetId() == 87840)
+        {
+            target->Mount(plr->getGender() == GENDER_FEMALE ? 29423 : 29422, 0, GetMiscValue());
+            target->Mount(plr->getGender() == GENDER_MALE ? 29422 : 29423, 0, GetMiscValue());
+            return;
+        }
 
 
         // Festive Holiday Mount
@@ -5264,7 +5259,18 @@ void AuraEffect::HandleAuraModIncreaseEnergyPercent(AuraApplication const *aurAp
 
     UnitMods unitMod = UnitMods(UNIT_MOD_POWER_START + powerType);
 
-    target->HandleStatModifier(unitMod, TOTAL_PCT, float(GetAmount()), apply);
+    float amount = float(GetAmount());
+
+    if (apply)
+    {
+        target->HandleStatModifier(unitMod, TOTAL_PCT, amount, apply);
+        target->ModifyPowerPct(powerType, amount, apply);
+    }
+    else
+    {
+        target->ModifyPowerPct(powerType, amount, apply);
+        target->HandleStatModifier(unitMod, TOTAL_PCT, amount, apply);
+    }
 }
 
 void AuraEffect::HandleAuraModIncreaseHealthPercent(AuraApplication const *aurApp, uint8 mode, bool apply) const
@@ -5954,7 +5960,7 @@ void AuraEffect::HandleAuraDummy(AuraApplication const *aurApp, uint8 mode, bool
                 if (target->GetTypeId() != TYPEID_PLAYER)
                     return;
                 //  ..while they are casting
-                if (target->IsNonMeleeSpellCasted(false, false, true, false, false))
+                if (target->IsNonMeleeSpellCasted(false, false, true, false, true))
                     if (AuraEffect * aurEff = caster->GetAuraEffect(SPELL_AURA_ADD_FLAT_MODIFIER, SPELLFAMILY_WARRIOR, 2775, 0))
                         switch (aurEff->GetId())
                         {

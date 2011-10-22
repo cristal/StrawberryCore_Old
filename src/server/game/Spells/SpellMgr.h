@@ -317,6 +317,7 @@ bool IsSingleFromSpellSpecificPerTarget(SpellSpecific spellSpec1, SpellSpecific 
 bool IsPassiveSpell(uint32 spellId);
 bool IsPassiveSpell(SpellEntry const* spellInfo);
 bool IsAutocastableSpell(uint32 spellId);
+bool IsAura(SpellEntry const *spellInfo, uint32 eff);
 
 uint32 CalculatePowerCost(SpellEntry const* spellInfo, Unit const* caster, SpellSchoolMask schoolMask);
 
@@ -331,6 +332,29 @@ inline bool IsPassiveSpellStackableWithRanks(SpellEntry const* spellProto)
 inline bool IsMultiSlotAura(SpellEntry const* spellProto)
 {
     return IsPassiveSpell(spellProto) || spellProto->Id == 44413;
+}
+
+inline bool IsFlightAura(SpellEntry const *spellInfo)
+{
+    for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+        if (IsAura(spellInfo, i)
+            && (spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_FLY
+            || spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED))
+            return true;
+    return false;
+}
+
+inline bool IsAuraSpell(SpellEntry const *spellInfo, uint32 eff, AuraType aura)
+{
+    return IsAura(spellInfo, eff) && spellInfo->GetEffectApplyAuraNameByIndex(eff) == aura;
+}
+
+inline bool HasAuraSpell(SpellEntry const *spellInfo, uint32 eff, AuraType aura)
+{
+    for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+        if (IsAura(spellInfo, i))
+            return true;
+    return false;
 }
 
 inline bool IsDeathPersistentSpell(SpellEntry const *spellInfo)

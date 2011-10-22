@@ -661,7 +661,7 @@ enum NPCFlags
     UNIT_NPC_FLAG_SPELLCLICK            = 0x01000000,       // cause client to send 1015 opcode (spell click) -- dynamic, set at loading and don't must be set in DB  -> ?
     UNIT_NPC_FLAG_PLAYER_VEHICLE        = 0x02000000,       // players with mounts that have vehicle data should have it set
     UNIT_NPC_FLAG_OBJECT_MAIL           = 0x04000000,       // 4.20
-    UNIT_NPC_FLAG_FORGEMASTER           = 0x08000000,       // 4.20
+    UNIT_NPC_FLAG_REFORGER              = 0x08000000,       // can reforge
 };
 
 enum MovementFlags
@@ -1427,6 +1427,7 @@ class Unit : public WorldObject
         void SetMaxPower(Powers power, uint32 val);
         // returns the change in power
         int32 ModifyPower(Powers power, int32 val);
+        int32 ModifyPowerPct(Powers power, float pct, bool apply = true);
 
         uint32 GetAttackTime(WeaponAttackType att) const
         {

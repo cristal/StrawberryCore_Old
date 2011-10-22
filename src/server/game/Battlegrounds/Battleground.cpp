@@ -277,6 +277,8 @@ void Battleground::Update(uint32 diff)
     // Update start time and reset stats timer
     m_StartTime += diff;
     m_ResetStatTimer += diff;
+
+    PostUpdateImpl(diff);
 }
 
 inline void Battleground::_ProcessOfflineQueue()

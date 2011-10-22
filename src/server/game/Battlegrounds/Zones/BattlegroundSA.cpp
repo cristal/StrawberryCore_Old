@@ -290,6 +290,112 @@ void BattlegroundSA::StartShips()
     ShipsStarted = true;
 }
 
+void BattlegroundSA::PostUpdateImpl(uint32 diff)
+{
+    if (InitSecondRound)
+    {
+        if (UpdateWaitTimer < diff)
+        {
+            if (!SignaledRoundTwo)
+            {
+                SignaledRoundTwo = true;
+                InitSecondRound = false;
+                SendMessageToAll(LANG_BG_SA_ROUND_TWO_ONE_MINUTE, CHAT_MSG_BG_SYSTEM_NEUTRAL);
+            }
+        }else
+        {
+            UpdateWaitTimer -= diff;
+            return;
+        }
+    }
+    TotalTime += diff;
+
+    if (Status == BG_SA_WARMUP )
+    {
+        EndRoundTimer = BG_SA_ROUNDLENGTH;
+        if (TotalTime >= BG_SA_WARMUPLENGTH)
+        {
+            TotalTime = 0;
+            ToggleTimer();
+            DemolisherStartState(false);
+            Status = BG_SA_ROUND_ONE;
+            StartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_EVENT, (Attackers == TEAM_ALLIANCE)?23748:21702);
+        }
+        if (TotalTime >= BG_SA_BOAT_START)
+            StartShips();
+        return;
+    }
+    else if (Status == BG_SA_SECOND_WARMUP)
+    {
+        if (RoundScores[0].time<BG_SA_ROUNDLENGTH)
+            EndRoundTimer = RoundScores[0].time;
+        else
+            EndRoundTimer = BG_SA_ROUNDLENGTH;
+
+        if (TotalTime >= 60000)
+        {
+            SendWarningToAll(LANG_BG_SA_HAS_BEGUN);
+            TotalTime = 0;
+            ToggleTimer();
+            DemolisherStartState(false);
+            Status = BG_SA_ROUND_TWO;
+            StartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_EVENT, (Attackers == TEAM_ALLIANCE)?23748:21702);
+        }
+        if (TotalTime >= 30000)
+        {
+            if (!SignaledRoundTwoHalfMin)
+            {
+                SignaledRoundTwoHalfMin = true;
+                SendMessageToAll(LANG_BG_SA_ROUND_TWO_START_HALF_MINUTE, CHAT_MSG_BG_SYSTEM_NEUTRAL);
+            }
+        }
+        StartShips();
+        return;
+    }
+    else if (GetStatus() == STATUS_IN_PROGRESS)
+    {
+        if (Status == BG_SA_ROUND_ONE)
+        {
+            if (TotalTime >= BG_SA_ROUNDLENGTH)
+            {
+                RoundScores[0].winner = Attackers;
+                RoundScores[0].time = BG_SA_ROUNDLENGTH;
+                TotalTime = 0;
+                Status = BG_SA_SECOND_WARMUP;
+                Attackers = (Attackers == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE;
+                UpdateWaitTimer = 5000;
+                SignaledRoundTwo = false;
+                SignaledRoundTwoHalfMin = false;
+                InitSecondRound = true;
+                ToggleTimer();
+                ResetObjs();
+                return;
+            }
+        }
+        else if (Status == BG_SA_ROUND_TWO)
+        {
+            if (TotalTime >= EndRoundTimer)
+            {
+                RoundScores[1].time = BG_SA_ROUNDLENGTH;
+                RoundScores[1].winner = (Attackers == TEAM_ALLIANCE) ? TEAM_HORDE : TEAM_ALLIANCE;
+
+                if (RoundScores[0].time == RoundScores[1].time)
+                    EndBattleground(0);
+                else if (RoundScores[0].time < RoundScores[1].time)
+                    EndBattleground(RoundScores[0].winner == TEAM_ALLIANCE ? ALLIANCE : HORDE);
+                else
+                    EndBattleground(RoundScores[1].winner == TEAM_ALLIANCE ? ALLIANCE : HORDE);
+                return;
+            }
+        }
+        if (Status == BG_SA_ROUND_ONE || Status == BG_SA_ROUND_TWO)
+        {
+            SendTime();
+            UpdateDemolisherSpawns();
+        }
+    }
+}
+
 void BattlegroundSA::Update(uint32 diff)
 {
     if (InitSecondRound)

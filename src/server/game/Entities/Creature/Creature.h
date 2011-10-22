@@ -634,6 +634,7 @@ class Creature : public Unit, public GridObject<Creature>
         bool hasInvolvedQuest(uint32 quest_id)  const;
 
         bool isRegeneratingHealth() { return m_regenHealth; }
+        void setRegeneratingHealth(bool state) { m_regenHealth = state; }
 
         Pet* GetPet() const;
         virtual uint8 GetPetAutoSpellSize() const { return MAX_SPELL_CHARM; }

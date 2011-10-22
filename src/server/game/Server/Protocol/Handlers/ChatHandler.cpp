@@ -186,6 +186,7 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
         if (!langDesc)
         {
             SendNotification(LANG_UNKNOWN_LANGUAGE);
+            recv_data.rfinish();
             return;
         }
         if (langDesc->skill_id != 0 && !_player->HasSkill(langDesc->skill_id))
@@ -466,7 +467,6 @@ void WorldSession::HandleMessageChatOpcode(WorldPacket & recv_data, uint32 type)
 
             if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
             {
-
                 if (Channel* chn = cMgr->GetChannel(channelOrWhisperName, _player))
                 {
                     sScriptMgr->OnPlayerChat(_player, type, lang, msg, chn);

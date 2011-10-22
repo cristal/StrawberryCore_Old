@@ -131,6 +131,8 @@ class BattlegroundRV : public Battleground
         uint32 Timer;
         uint32 State;
 
+        virtual void PostUpdateImpl(uint32 diff);
+
     protected:
         uint32 getTimer() { return Timer; };
         void setTimer(uint32 timer) { Timer = timer; };

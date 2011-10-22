@@ -76,15 +76,19 @@ GameObject::GameObject() : WorldObject(), m_goValue(new GameObjectValue), m_AI(N
 GameObject::~GameObject()
 {
     delete m_goValue;
+    delete m_AI;
     //if (m_uint32Values)                                      // field array can be not exist if GameOBject not loaded
     //    CleanupsBeforeDelete();
 }
 
 bool GameObject::AIM_Initialize()
 {
+    if (m_AI)
+        delete m_AI;
 
     m_AI = FactorySelector::SelectGameObjectAI(this);
-    if (!m_AI) return false;
+    if (!m_AI)
+        return false;
     m_AI->InitializeAI();
     return true;
 }

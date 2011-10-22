@@ -17,8 +17,8 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/dep/g3dlite/include
   ${CMAKE_SOURCE_DIR}/src/server/shared
   ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging
-  ${CMAKE_SOURCE_DIR}/src/server/shared/Collision/Maps
-  ${CMAKE_SOURCE_DIR}/src/server/shared/Collision/Models
+  ${CMAKE_SOURCE_DIR}/src/server/collision/Maps
+  ${CMAKE_SOURCE_DIR}/src/server/collision/Models
   ${ACE_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )

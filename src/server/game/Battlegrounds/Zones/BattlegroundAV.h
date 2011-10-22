@@ -1569,6 +1569,8 @@ class BattlegroundAV : public Battleground
         virtual WorldSafeLocsEntry const* GetClosestGraveYard(Player* player);
 
     private:
+        virtual void PostUpdateImpl(uint32 diff);
+
         /* Nodes occupying */
         void EventPlayerAssaultsPoint(Player* player, uint32 object);
         void EventPlayerDefendsPoint(Player* player, uint32 object);

@@ -228,6 +228,8 @@ class BattlegroundWS : public Battleground
         bool m_BothFlagsKept;
         uint8 m_FlagDebuffState;                            // 0 - no debuffs, 1 - focused assault, 2 - brutal assault
         uint8 m_minutesElapsed;
+
+        virtual void PostUpdateImpl(uint32 diff);
 };
 #endif
 

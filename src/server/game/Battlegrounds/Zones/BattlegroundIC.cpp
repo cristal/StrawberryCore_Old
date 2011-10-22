@@ -111,6 +111,147 @@ void BattlegroundIC::DoAction(uint32 action, uint64 var)
     plr->TeleportTo(GetMapId(),TeleportToTransportPosition.GetPositionX(),TeleportToTransportPosition.GetPositionY(),TeleportToTransportPosition.GetPositionZ(),TeleportToTransportPosition.GetOrientation(),TELE_TO_NOT_LEAVE_TRANSPORT);
 }
 
+void BattlegroundIC::PostUpdateImpl(uint32 diff)
+{
+
+    if (GetStatus() != STATUS_IN_PROGRESS)
+        return;
+
+    if (!doorsClosed)
+    {
+        if (closeFortressDoorsTimer <= diff)
+        {
+            GetBGObject(BG_IC_GO_DOODAD_ND_HUMAN_GATE_CLOSEDFX_DOOR01)->RemoveFromWorld();
+            GetBGObject(BG_IC_GO_DOODAD_ND_WINTERORC_WALL_GATEFX_DOOR01)->RemoveFromWorld();
+
+            GetBGObject(BG_IC_GO_ALLIANCE_GATE_3)->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_DAMAGED); // Alliance door
+            GetBGObject(BG_IC_GO_HORDE_GATE_1)->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_DAMAGED); // Horde door
+
+            doorsClosed = true;
+        } else closeFortressDoorsTimer -= diff;
+    }
+
+    for (uint8 i = NODE_TYPE_REFINERY; i < MAX_NODE_TYPES; i++)
+    {
+        if (nodePoint[i].nodeType == NODE_TYPE_DOCKS)
+        {
+            if (nodePoint[i].nodeState == NODE_STATE_CONTROLLED_A ||
+                nodePoint[i].nodeState == NODE_STATE_CONTROLLED_H)
+            {
+                if (nodePoint[i].timer <= diff)
+                {
+                    // we need to confirm this, i am not sure if this every 3 minutes
+                    for (uint8 u = (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_CATAPULT_1_A : BG_IC_NPC_CATAPULT_1_H); u < (nodePoint[i].faction  == TEAM_ALLIANCE ? BG_IC_NPC_CATAPULT_4_A : BG_IC_NPC_CATAPULT_4_H); u++)
+                    {
+                        if (Creature* catapult = GetBGCreature(u))
+                        {
+                            if (!catapult->isAlive())
+                                catapult->Respawn(true);
+                        }
+                    }
+
+                    // we need to confirm this is blizzlike, not sure if it is every 3 minutes
+                    for (uint8 u = (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_GLAIVE_THROWER_1_A : BG_IC_NPC_GLAIVE_THROWER_1_H); u < (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_GLAIVE_THROWER_2_A : BG_IC_NPC_GLAIVE_THROWER_2_H); u++)
+                    {
+                        if (Creature* glaiveThrower = GetBGCreature(u))
+                        {
+                            if (!glaiveThrower->isAlive())
+                                glaiveThrower->Respawn(true);
+                        }
+                    }
+
+                    docksTimer = DOCKS_UPDATE_TIME;
+                } else nodePoint[i].timer -= diff;
+            }
+        }
+
+        if (nodePoint[i].nodeType == NODE_TYPE_WORKSHOP)
+        {
+            if (nodePoint[i].nodeState == NODE_STATE_CONTROLLED_A ||
+                nodePoint[i].nodeState == NODE_STATE_CONTROLLED_H)
+            {
+                if (siegeEngineWorkshopTimer <= diff)
+                {
+                    uint8 siegeType = (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_SIEGE_ENGINE_A : BG_IC_NPC_SIEGE_ENGINE_H);
+
+                    if (Creature* siege = GetBGCreature(siegeType)) // this always should be true
+                    {
+                        if (siege->isAlive())
+                        {
+                            if (siege->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE|UNIT_FLAG_UNK_14|UNIT_FLAG_OOC_NOT_ATTACKABLE))
+                                // following sniffs the vehicle always has UNIT_FLAG_UNK_14
+                                siege->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE|UNIT_FLAG_OOC_NOT_ATTACKABLE);
+                            else
+                                siege->SetHealth(siege->GetMaxHealth());
+                        }
+                        else
+                            siege->Respawn(true);
+                    }
+
+                    // we need to confirm if it is every 3 minutes
+                    for (uint8 u = (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_DEMOLISHER_1_A : BG_IC_NPC_DEMOLISHER_1_H); u < (nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_NPC_DEMOLISHER_4_A : BG_IC_NPC_DEMOLISHER_4_H); u++)
+                    {
+                        if (Creature* demolisher = GetBGCreature(u))
+                        {
+                            if (!demolisher->isAlive())
+                                demolisher->Respawn(true);
+                        }
+                    }
+                    siegeEngineWorkshopTimer = WORKSHOP_UPDATE_TIME;
+                } else siegeEngineWorkshopTimer -= diff;
+            }
+        }
+
+        // the point is waiting for a change on its banner
+        if (nodePoint[i].needChange)
+        {
+            if (nodePoint[i].timer <= diff)
+            {
+                uint32 nextBanner = GetNextBanner(&nodePoint[i], nodePoint[i].faction, true);
+
+                nodePoint[i].last_entry = nodePoint[i].gameobject_entry;
+                nodePoint[i].gameobject_entry = nextBanner;
+                // nodePoint[i].faction = the faction should be the same one...
+
+                GameObject* banner = GetBGObject(nodePoint[i].gameobject_type);
+
+                if (!banner) // this should never happen
+                    return;
+
+                float cords[4] = {banner->GetPositionX(), banner->GetPositionY(), banner->GetPositionZ(), banner->GetOrientation() };
+
+                DelObject(nodePoint[i].gameobject_type);
+                AddObject(nodePoint[i].gameobject_type, nodePoint[i].gameobject_entry, cords[0], cords[1], cords[2], cords[3], 0, 0, 0, 0, RESPAWN_ONE_DAY);
+
+                GetBGObject(nodePoint[i].gameobject_type)->SetUInt32Value(GAMEOBJECT_FACTION, nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_Factions[1] : BG_IC_Factions[0]);
+
+                UpdateNodeWorldState(&nodePoint[i]);
+                HandleCapturedNodes(&nodePoint[i], false);
+
+                SendMessage2ToAll(LANG_BG_IC_TEAM_HAS_TAKEN_NODE, CHAT_MSG_BG_SYSTEM_NEUTRAL, NULL, (nodePoint[i].faction == TEAM_ALLIANCE ? LANG_BG_IC_ALLIANCE : LANG_BG_IC_HORDE), nodePoint[i].string);
+
+                nodePoint[i].needChange = false;
+                nodePoint[i].timer = BANNER_STATE_CHANGE_TIME;
+            } else nodePoint[i].timer -= diff;
+        }
+    }
+
+    if (resourceTimer <= diff)
+    {
+        for (uint8 i = 0; i < NODE_TYPE_DOCKS; i++)
+        {
+            if (nodePoint[i].nodeState == NODE_STATE_CONTROLLED_A ||
+                nodePoint[i].nodeState == NODE_STATE_CONTROLLED_H)
+            {
+                factionReinforcements[nodePoint[i].faction] += 1;
+                RewardHonorToTeam(RESOURCE_HONOR_AMOUNT, nodePoint[i].faction == TEAM_ALLIANCE ? ALLIANCE : HORDE);
+                UpdateWorldState((nodePoint[i].faction == TEAM_ALLIANCE ? BG_IC_ALLIANCE_RENFORT : BG_IC_HORDE_RENFORT), factionReinforcements[nodePoint[i].faction]);
+            }
+        }
+        resourceTimer = IC_RESOURCE_TIME;
+    } else resourceTimer -= diff;
+}
+
 void BattlegroundIC::Update(uint32 diff)
 {
     Battleground::Update(diff);

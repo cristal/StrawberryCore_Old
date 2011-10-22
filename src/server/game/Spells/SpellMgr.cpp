@@ -436,6 +436,13 @@ bool IsAutocastableSpell(uint32 spellId)
     return true;
 }
 
+bool IsAura(SpellEntry const *spellInfo, uint32 eff)
+{
+    return (IsUnitOwnedAuraEffect(spellInfo->GetSpellEffectIdByIndex(eff)) 
+        || spellInfo->GetSpellEffect(eff)->Effect == SPELL_EFFECT_PERSISTENT_AREA_AURA)
+        && spellInfo->GetEffectApplyAuraNameByIndex(eff) != 0;
+}
+
 bool IsHigherHankOfSpell(uint32 spellId_1, uint32 spellId_2)
 {
     return sSpellMgr->GetSpellRank(spellId_1) < sSpellMgr->GetSpellRank(spellId_2);
@@ -571,7 +578,7 @@ AuraState GetSpellAuraState(SpellEntry const* spellInfo)
 
     if (GetSpellSchoolMask(spellInfo) & SPELL_SCHOOL_MASK_FROST)
         for (uint8 i = 0; i<MAX_SPELL_EFFECTS; ++i)
-            if (spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STUN
+            if (IsAura(spellInfo, i) && spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STUN
                 || spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_ROOT)
                 return AURA_STATE_FROZEN;
 
@@ -846,14 +853,15 @@ bool SpellMgr::_isPositiveEffect(uint32 spellId, uint32 effIndex, bool deep) con
             switch (spellId)
             {
                 case 34700: // Allergic Reaction
-                case 61716: // Rabbit Costume
-                case 61734: // Noblegarden Bunny
                 case 61987: // Avenging Wrath Marker
                 case 61988: // Divine Shield exclude aura
                 case 62532: // Conservator's Grip
+                case 64616: // Deafening Siren
                     return false;
                 case 30877: // Tag Murloc
                 case 62344: // Fists of Stone
+                case 61716: // Rabbit Costume
+                case 61734: // Noblegarden Bunny
                     return true;
                 default:
                     break;
@@ -915,7 +923,7 @@ bool SpellMgr::_isPositiveEffect(uint32 spellId, uint32 effIndex, bool deep) con
     // Special case: effects which determine positivity of whole spell
     for (uint8 i = 0; i<MAX_SPELL_EFFECTS; ++i)
     {
-        if (spellproto->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STEALTH)
+        if (IsAura(spellproto, i) && spellproto->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STEALTH)
             return true;
     }
 
@@ -3446,6 +3454,8 @@ SpellCastResult SpellMgr::GetSpellAllowedInLocationError(SpellEntry const *spell
     // aura limitations
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
     {
+        if (/*!(effMask & (1<<i)) ||*/ !IsAura(spellInfo, i))
+            continue;
         switch (spellInfo->GetEffectApplyAuraNameByIndex(i))
         {
             case SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED:

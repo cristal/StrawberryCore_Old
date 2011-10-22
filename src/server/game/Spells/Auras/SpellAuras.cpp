@@ -390,6 +390,18 @@ void Aura::_InitEffects(uint8 effMask, Unit* caster, int32 *baseAmount)
         else
             m_effects[i] = NULL;
     }
+
+    // Mixology
+    if (m_spellProto->SpellFamilyName == SPELLFAMILY_POTION && caster /*&& caster->IsPlayer()*/ && caster->HasAura(53042))
+        if (sSpellMgr->IsSpellMemberOfSpellGroup(m_spellProto->Id, SPELL_GROUP_ELIXIR_BATTLE) ||
+            sSpellMgr->IsSpellMemberOfSpellGroup(m_spellProto->Id, SPELL_GROUP_ELIXIR_GUARDIAN))
+        {
+            m_maxDuration *= 2;
+            m_duration = m_maxDuration;
+            for (uint8 i = 0 ; i < MAX_SPELL_EFFECTS; ++i)
+                if (effMask & (uint8(1) << i))
+                    m_effects[i]->SetAmount((int32)(m_effects[i]->GetAmount() * 1.3f));
+        }
 }
 
 Aura::~Aura()
@@ -1656,6 +1668,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         if (removeMode != AURA_REMOVE_BY_EXPIRE)
                             break;
                         target->CastSpell(target, 32612, true, NULL, GetEffect(1));
+                        target->CombatStop(); // Mague: Fix Invisibility
                         break;
                     case 118: // Improved Polymorph
                     {

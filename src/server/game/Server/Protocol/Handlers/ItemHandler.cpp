@@ -812,16 +812,16 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 // reputation discount
                 int32 price = item->IsGoldRequired(itemTemplate) ? uint32(floor(itemTemplate->BuyPrice * discountMod)) : 0;
 
+                data << uint32(slot + 1);  // client expects counting to start at 1
+                data << uint32(1); // unknown value 4.0.1, always 1
                 data << item->item;
-                data << uint32(slot + 1);       // client expects counting to start at 1
-                data << uint32(price);                          // unk 4.0.1;
                 data << uint32(itemTemplate->DisplayInfoID);
-                data << int32(leftInStock);
+                data << uint32(price);
                 data << uint32(itemTemplate->MaxDurability);
                 data << uint32(itemTemplate->BuyCount);
                 data << uint32(item->ExtendedCost);
-                data << uint32(0);  // unk 4.0.1
-                data << uint32(1); // unk value 4.0.1 always 1
+                data << int32(leftInStock);
+                data << uint8(0); // unk 4.0.1
             }
         }
     }
@@ -1452,11 +1452,82 @@ void WorldSession::HandleItemTextQuery(WorldPacket & recv_data )
         data << item->GetText();
     }
     else
-    {
         data << uint8(1);                                       // no text
-    }
 
     SendPacket(&data);
+}
+
+void WorldSession::HandleReforgeOpcode(WorldPacket & recv_data )
+{
+    sLog->outDebug("Received packet CMSG_REFORGE");
+
+    uint32 slot, reforgeEntry, bag;
+    int64 vendor_GUID;
+
+    recv_data >> slot;
+    recv_data >> reforgeEntry;
+    recv_data >> vendor_GUID;
+    recv_data >> bag;
+
+    Item *item = _player->GetItemByPos(bag, slot);
+
+    if (!item)
+    {
+        sLog->outDebug("Item reforge: item not found!");
+        return;
+    }
+    if ((item->GetUInt32Value(ITEM_FIELD_ENCHANTMENT_9_1)) && reforgeEntry)  // prevent hackers and exploiting
+    {
+        sLog->outError("Item %u was been alrdy reforged!");
+        return;
+    }
+
+    Creature *creature = GetPlayer()->GetNPCIfCanInteractWith(vendor_GUID, UNIT_NPC_FLAG_REFORGER);
+    if (!creature)
+    {
+        sLog->outDebug("WORLD: HandleReforgeOpcode - Unit (GUID: %u) not found or you can not interact with him.", uint32(GUID_LOPART(vendor_GUID)));
+        _player->SendSellError(SELL_ERR_CANT_FIND_VENDOR, NULL, item->GetGUID(), 0);
+        return;
+    }
+
+    ItemTemplate const* proto = item->GetTemplate();
+    if (!proto)
+    {
+        // this can't happen
+        return;
+    }
+
+    if (proto->ItemLevel < 200)
+    {
+        // client should have already checked this so no client message is needed
+        sLog->outError("Item %u level %u too low to reforge", proto->ItemId, proto->ItemLevel);
+        return;
+    }
+
+    if (reforgeEntry)
+    {
+        int32 price = proto->SellPrice;
+        if (price < 1 * GOLD)
+            price = 1 * GOLD; // blizz: minimum reforge cost is 1 gold
+
+        if (!_player->HasEnoughMoney(price))
+        {
+            _player->SendBuyError(BUY_ERR_NOT_ENOUGHT_MONEY, creature, item->GetEntry(), 0);
+            return;
+        }
+
+        _player->ModifyMoney(-price);
+    }
+
+    // remove old reforge before applying new if equipped
+    _player->ApplyEnchantment(item, REFORGE_ENCHANTMENT_SLOT, false);
+
+    item->SetEnchantment(REFORGE_ENCHANTMENT_SLOT, reforgeEntry, 0, 0);
+
+    // add new reforge if equipped
+    _player->ApplyEnchantment(item, REFORGE_ENCHANTMENT_SLOT, true);
+
+    item->SetSoulboundTradeable(NULL, _player, false);
 }
 
 void WorldSession::HandleReforgeItem(WorldPacket& recv_data)

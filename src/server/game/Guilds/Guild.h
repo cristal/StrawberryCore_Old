@@ -632,6 +632,8 @@ public:
 
     bool Create(Player* pLeader, const std::string& name);
     void Disband();
+    void SetBankTabRights(WorldSession* session, uint32 rankId,uint32 rights[GUILD_BANK_MAX_TABS], uint32 stacks[GUILD_BANK_MAX_TABS]);
+    void SwitchRank(uint32 oldRank, uint32 newRank);
 
     // Getters
     uint32 GetId() const { return m_id; }
@@ -639,7 +641,6 @@ public:
     const std::string& GetName() const { return m_name; }
     const std::string& GetMOTD() const { return m_motd; }
     const std::string& GetInfo() const { return m_info; }
-    void SwitchRank(uint32 oldRank, uint32 newRank);
 
     // Handle client commands
     void HandleRoster(WorldSession *session = NULL);          // NULL = broadcast

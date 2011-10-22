@@ -401,11 +401,14 @@ public:
 
         void UpdateAI(const uint32 uiDiff)
         {
+            if (m_pInstance && m_pInstance->GetData(TYPE_JARAXXUS) != IN_PROGRESS)
+            {
+                me->DespawnOrUnsummon();
+                return;
+            }
+
             if (!UpdateVictim())
                 return;
-
-            if (m_pInstance && m_pInstance->GetData(TYPE_JARAXXUS) != IN_PROGRESS)
-                me->ForcedDespawn();
 
             if (m_uiFelStreakTimer <= uiDiff)
             {

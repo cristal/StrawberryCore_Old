@@ -317,39 +317,71 @@ void WorldSession::HandleGuildSetNoteOpcode(WorldPacket& recvPacket)
 void WorldSession::HandleGuildRankOpcode(WorldPacket& recvPacket)
 {
     sLog->outDebug("WORLD: Received CMSG_GUILD_RANK");
+    uint32 BankStacks[GUILD_BANK_MAX_TABS];
+    for(uint32 i = 0; i < GUILD_BANK_MAX_TABS; i++)
+        recvPacket >> BankStacks[i];
 
-    Guild* pGuild = _GetPlayerGuild(this, true);
-    if (!pGuild)
-    {
-        recvPacket.rpos(recvPacket.wpos());
-        return;
-    }
+    uint32 new_rights;
+    recvPacket >> new_rights;
 
-    uint32 rankId;
-    recvPacket >> rankId;
+    uint32 new_rankId;
+    recvPacket >> new_rankId;
 
-    uint32 rights;
-    recvPacket >> rights;
+    uint32 old_rankId;
+    recvPacket >> old_rankId;
 
-    std::string rankName;
-    recvPacket >> rankName;
+    uint32 BankRights[GUILD_BANK_MAX_TABS];
+    for(uint32 i = 0; i < GUILD_BANK_MAX_TABS; i++)
+        recvPacket >> BankRights[i];
+
+    uint64 guildId;
+    recvPacket >> guildId;
+
+    uint32 old_rights;
+    recvPacket >> old_rights;
 
     uint32 money;
     recvPacket >> money;
 
-    GuildBankRightsAndSlotsVec rightsAndSlots(GUILD_BANK_MAX_TABS);
-    for (uint8 tabId = 0; tabId < GUILD_BANK_MAX_TABS; ++tabId)
+    uint64 playerGuid;
+    recvPacket >> playerGuid;
+    std::string rankName;
+    recvPacket >> rankName;
+    sLog->outDebug("WORLD: Received CMSG_GUILD_RANK");
+
+    if (GetPlayer()->GetGUID() != playerGuid)
     {
-        uint32 bankRights;
-        uint32 slots;
-
-        recvPacket >> bankRights;
-        recvPacket >> slots;
-
-        rightsAndSlots[tabId] = GuildBankRightsAndSlots(uint8(bankRights), slots);
+        sLog->outString("CMSG_GUILD_RANK: The playerGUID in the packet does not match the current player!\n");
+        recvPacket.rpos(recvPacket.wpos());                 // set to end to avoid warnings spam
+        Guild::SendCommandResult(this, GUILD_CREATE_S, ERR_GUILD_PLAYER_NOT_IN_GUILD);
+        return;
+    }
+    if (GetPlayer()->GetGuildId() != GUID_LOPART(guildId))
+    {
+        sLog->outString("CMSG_GUILD_RANK: This player is not in the guild.\n");
+        recvPacket.rpos(recvPacket.wpos());                 // set to end to avoid warnings spam
+        Guild::SendCommandResult(this, GUILD_CREATE_S, ERR_GUILD_PLAYER_NOT_IN_GUILD);
+        return;
     }
 
-    pGuild->HandleSetRankInfo(this, rankId, rankName, rights, money, rightsAndSlots);
+    Guild* guild = _GetPlayerGuild(this, true);
+    if (!guild)
+    {
+        recvPacket.rpos(recvPacket.wpos());
+        return;
+     }
+
+    GuildBankRightsAndSlotsVec rightsAndSlots(GUILD_BANK_MAX_TABS);
+    if (old_rankId != GR_GUILDMASTER)
+    {
+        for (uint8 tabId = 0; tabId < GUILD_BANK_MAX_TABS; ++tabId)
+            rightsAndSlots[tabId] = GuildBankRightsAndSlots(uint8(old_rights), new_rights);
+
+        guild->HandleSetRankInfo(this, new_rankId, rankName, new_rights, money, rightsAndSlots);
+        guild->SetBankTabRights(this, new_rankId, BankRights, BankStacks);
+    }
+    if (old_rankId != new_rankId && old_rankId != GR_GUILDMASTER && new_rankId != GR_GUILDMASTER)
+        guild->SwitchRank(old_rankId, new_rankId);	 
 }
 
 // Cata Status: Done

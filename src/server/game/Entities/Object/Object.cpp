@@ -2377,6 +2377,14 @@ Player* WorldObject::FindNearestPlayer(float range, bool alive)
     return player;
 }
 
+std::list<Player*> WorldObject::GetNearestPlayersList(float range, bool alive) {
+    std::list<Player*> players;
+    Strawberry::AnyPlayerInObjectRangeCheck checker(this, range, alive);
+    Strawberry::PlayerListSearcher<Strawberry::AnyPlayerInObjectRangeCheck> searcher(this, players, checker);
+    VisitNearbyWorldObject(range, searcher);
+    return players;
+}
+
 void WorldObject::GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange)
 {
     CellPair pair(Strawberry::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));

@@ -649,6 +649,36 @@ class Battleground
         uint32 m_PrematureCountDownTimer;
         char const *m_Name;
 
+        /* Pre- and post-update hooks */
+
+        /**
+         * @brief Pre-update hook.
+         *
+         * Will be called before battleground update is started. Depending on
+         * the result of this call actual update body may be skipped.
+         *
+         * @param diff a time difference between two worldserver update loops in
+         * milliseconds.
+         *
+         * @return @c true if update must be performed, @c false otherwise.
+         *
+         * @see Update(), PostUpdateImpl().
+         */
+        virtual bool PreUpdateImpl(uint32 /* diff */) { return true; };
+
+        /**
+         * @brief Post-update hook.
+         *
+         * Will be called after battleground update has passed. May be used to
+         * implement custom update effects in subclasses.
+         *
+         * @param diff a time difference between two worldserver update loops in
+         * milliseconds.
+         *
+         * @see Update(), PreUpdateImpl().
+         */
+        virtual void PostUpdateImpl(uint32 /* diff */) { };
+
         // Player lists
         std::vector<uint64> m_ResurrectQueue;               // Player GUID
         std::deque<uint64> m_OfflineQueue;                  // Player GUID

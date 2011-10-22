@@ -42,9 +42,47 @@ BattlegroundRV::BattlegroundRV()
     m_StartMessageIds[BG_STARTING_EVENT_FOURTH] = LANG_ARENA_HAS_BEGUN;
 }
 
-BattlegroundRV::~BattlegroundRV()
-{
+BattlegroundRV::~BattlegroundRV() {}
 
+void BattlegroundRV::PostUpdateImpl(uint32 diff)
+{
+    if (getTimer() < diff)
+    {
+        switch (getState())
+        {
+            case BG_RV_STATE_OPEN_FENCES:
+                setTimer(BG_RV_PILAR_TO_FIRE_TIMER);
+                setState(BG_RV_STATE_CLOSE_FIRE);
+                break;
+            case BG_RV_STATE_CLOSE_FIRE:
+                for (uint8 i = BG_RV_OBJECT_FIRE_1; i <= BG_RV_OBJECT_FIREDOOR_2; ++i)
+                    DoorClose(i);
+                setTimer(BG_RV_FIRE_TO_PILAR_TIMER);
+                setState(BG_RV_STATE_OPEN_PILARS);
+                break;
+            case BG_RV_STATE_OPEN_PILARS:
+                for (uint8 i = BG_RV_OBJECT_PILAR_1; i <= BG_RV_OBJECT_PULLEY_2; ++i)
+                    DoorOpen(i);
+                setTimer(BG_RV_PILAR_TO_FIRE_TIMER);
+                setState(BG_RV_STATE_OPEN_FIRE);
+                break;
+            case BG_RV_STATE_OPEN_FIRE:
+                // FIXME: after 3.2.0 it's only decorative and should be opened only one time at battle start
+                for (uint8 i = BG_RV_OBJECT_FIRE_1; i <= BG_RV_OBJECT_FIREDOOR_2; ++i)
+                    DoorOpen(i);
+                setTimer(BG_RV_FIRE_TO_PILAR_TIMER);
+                setState(BG_RV_STATE_CLOSE_PILARS);
+                break;
+            case BG_RV_STATE_CLOSE_PILARS:
+                for (uint8 i = BG_RV_OBJECT_PILAR_1; i <= BG_RV_OBJECT_PULLEY_2; ++i)
+                    DoorOpen(i);
+                setTimer(BG_RV_PILAR_TO_FIRE_TIMER);
+                setState(BG_RV_STATE_CLOSE_FIRE);
+                break;
+        }
+    }
+    else
+        setTimer(getTimer() - diff);
 }
 
 void BattlegroundRV::Update(uint32 diff)

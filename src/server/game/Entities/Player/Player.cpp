@@ -2398,6 +2398,21 @@ bool Player::TeleportTo(uint32 mapid, float x, float y, float z, float orientati
                     data << m_transport->GetEntry() << GetMapId();
 
                 GetSession()->SendPacket(&data);
+
+                data.Initialize(SMSG_NEW_WORLD, (20));
+                if (m_transport)
+                    data << m_movementInfo.t_pos.PositionXYZStream();
+                else
+                    data << m_teleport_dest.PositionXYZStream();
+
+                data << uint32(mapid);
+                if (m_transport)
+                    data << m_movementInfo.t_pos.GetOrientation();
+                else
+                    data << m_teleport_dest.GetOrientation();
+
+                GetSession()->SendPacket(&data);
+                SendSavedInstances();
             }
 
             // remove from old map now
@@ -2592,8 +2607,13 @@ void Player::RegenerateAll()
         }
 
         Regenerate(POWER_RAGE);
+
+        if (getClass() == CLASS_PALADIN)
+            Regenerate(POWER_HOLY_POWER);
         if (getClass() == CLASS_DEATH_KNIGHT)
             Regenerate(POWER_RUNIC_POWER);
+        if (getClass() == CLASS_HUNTER)
+            Regenerate(POWER_FOCUS);
 
         if (getClass() == CLASS_HUNTER)
             Regenerate(POWER_FOCUS);
@@ -2643,7 +2663,14 @@ void Player::Regenerate(Powers power)
                 float RageDecreaseRate = sWorld->getRate(RATE_POWER_RAGE_LOSS);
                 addvalue += -20 * RageDecreaseRate * haste;               // 2 rage by tick (= 2 seconds => 1 rage/sec)
             }
-        }   break;
+            break;
+        }
+        case POWER_HOLY_POWER:                              // Regenerate holy power
+        {
+            if (!isInCombat())
+                addvalue += -0.2f;               // remove 1 each 10 sec
+            break;
+        }
         case POWER_ENERGY:                                  // Regenerate energy (rogue)
             addvalue += 0.01f * m_regenTimer * sWorld->getRate(RATE_POWER_ENERGY);
             break;
@@ -2654,9 +2681,11 @@ void Player::Regenerate(Powers power)
                 float RunicPowerDecreaseRate = sWorld->getRate(RATE_POWER_RUNICPOWER_LOSS);
                 addvalue += -30 * RunicPowerDecreaseRate;         // 3 RunicPower by tick
             }
-        }   break;
+            break;
+        }
         case POWER_RUNE:
         case POWER_FOCUS:
+            addvalue += 0.01f * 800 * haste;
         case POWER_HAPPINESS:
         case POWER_HEALTH:
             break;
@@ -5485,6 +5514,8 @@ void Player::DurabilityLoss(Item* item, double percent)
 
     uint32 pDurabilityLoss = uint32(pMaxDurability*percent);
 
+    percent /= GetTotalAuraMultiplier(SPELL_AURA_MOD_DURABILITY_LOSS);
+
     if (pDurabilityLoss < 1)
         pDurabilityLoss = 1;
 
@@ -7548,6 +7579,95 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
         sOutdoorPvPMgr->HandlePlayerLeaveZone(this, m_zoneUpdateId);
         sOutdoorPvPMgr->HandlePlayerEnterZone(this, newZone);
         SendInitWorldStates(newZone, newArea);              // only if really enters to new zone, not just area change, works strange...
+
+        // zone changed, check mount
+        bool allowMount = false;
+        if (InstanceTemplate const* mInstance = sObjectMgr->GetInstanceTemplate(GetMapId()))
+            allowMount = mInstance->AllowMount;
+        else if (MapEntry const* mEntry = sMapStore.LookupEntry(GetMapId()))
+            allowMount = !mEntry->IsDungeon() || mEntry->IsBattlegroundOrArena();
+
+        if (!allowMount)
+        {
+            RemoveAurasByType(SPELL_AURA_MOUNTED);
+
+            if (IsInDisallowedMountForm())
+                RemoveAurasByType(SPELL_AURA_MOD_SHAPESHIFT);
+        }
+        else
+        {
+            // Note:
+            // treat flying mounts as ground mounts in restricted flight area.
+            // flying mount or flight form will be reactivated when player entered a new zone:
+            //   if new zone is restricted flight area, flight effects will be suppressed,
+            //   if new zone is flight area, flight effects will be applied again.
+            // other restricted flight auras will be removed in UpdateAreaDependentAuras.
+
+            // Standard Mounts:
+            // with effect of SPELL_AURA_MOUNTED, effect amount is one of the following mount speed mod:
+            //  86457 Mount Speed Mod: Standard Ground Mount
+            //  86458 Mount Speed Mod: Epic Ground Mount
+            //   eff 0 SPELL_AURA_MOD_INCREASE_MOUNTED_SPEED
+            //  86459 Mount Speed Mod: Standard Flying Mount
+            //  86460 Mount Speed Mod: Epic Flying Mount
+            //  86461 Mount Speed Mod: Legendary Flying Mount
+            //   eff 0 SPELL_AURA_MOD_INCREASE_MOUNTED_SPEED
+            //   eff 1 SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED
+
+            // Special Mounts:
+            // with effect of SPELL_AURA_MOUNTED, SPELL_AURA_MOD_INCREASE_MOUNTED_SPEED (and SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED)
+            //  31700 Black Qiraji Battle Tank
+            //  44655 Flying Reindeer
+            //  64681 Loaned Gryphon
+            //  64761 Loaned Wind Rider
+            //   eff 0 SPELL_AURA_MOUNTED
+            //   eff 1 SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED
+            //   eff 2 SPELL_AURA_MOD_INCREASE_MOUNTED_SPEED
+
+            // Flight Forms:
+            // with effect of SPELL_AURA_MOD_SHAPESHIFT and SPELL_AURA_FLY
+            // 33943 Flight Form
+            // 40120 Swift Flight Form
+            //   eff 0 SPELL_AURA_MOD_SHAPESHIFT
+            //   eff 1 SPELL_AURA_MECHANIC_IMMUNITY
+            //   eff 2 SPELL_AURA_FLY
+
+            uint32 flyingMountSpellId = 0;
+            Unit::AuraEffectList const& mMounted = GetAuraEffectsByType(SPELL_AURA_MOUNTED);
+            for (Unit::AuraEffectList::const_iterator i = mMounted.begin(); i != mMounted.end(); ++i)
+            {
+                // Special mounts : mount aura has effect of SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED
+                SpellEntry const* spellInfo = (*i)->GetSpellProto();
+                if (spellInfo && IsFlightAura(spellInfo))
+                    flyingMountSpellId = spellInfo->Id;     // reapply mount aura
+                // Standard mounts : effect amount is Mount Speed Mod spell id
+                if (uint32 spellId = (*i)->GetAmount())
+                {
+                    //Hacky: SpellInfo const* spellInfo = GetSpellInfo(spellId);
+                    if (spellInfo && IsFlightAura(spellInfo))
+                        flyingMountSpellId = spellInfo->Id; // reapply mount speed mod aura instead of mount aura
+                }
+            }
+            if (flyingMountSpellId)
+            {
+                sLog->outDebug( "Reactivate flying mount %u", flyingMountSpellId);
+                CastSpell(this, flyingMountSpellId, true);
+            }
+
+            uint32 flightFormSpellId = 0;
+            Unit::AuraEffectList const& mShapeshift = GetAuraEffectsByType(SPELL_AURA_MOD_SHAPESHIFT);
+            for (Unit::AuraEffectList::const_iterator i = mShapeshift.begin(); i != mShapeshift.end(); ++i)
+            {
+                SpellEntry const* spellInfo = (*i)->GetSpellProto();
+                if (spellInfo && IsFlightAura(spellInfo))
+                    flightFormSpellId = spellInfo->Id;
+            }
+            if (flightFormSpellId)
+            {
+                sLog->outDebug("Reactivate flight form %u", flightFormSpellId);
+                CastSpell(this, flightFormSpellId, true);
+            }
+        }		
     }
 
     m_zoneUpdateId    = newZone;
@@ -14519,6 +14639,12 @@ void Player::ApplyEnchantment(Item *item, EnchantmentSlot slot, bool apply, bool
     if (slot >= MAX_ENCHANTMENT_SLOT)
         return;
 
+    if (slot == REFORGE_ENCHANTMENT_SLOT)
+    {
+        ApplyItemReforge(item, apply);
+        return;
+    }
+
     uint32 enchant_id = item->GetEnchantmentId(slot);
     if (!enchant_id)
         return;
@@ -14882,6 +15008,100 @@ void Player::ApplyEnchantment(Item *item, EnchantmentSlot slot, bool apply, bool
     }
 }
 
+void Player::ApplyItemReforge(Item *item, bool apply)
+{
+    if (!item || !item->IsEquipped() || item->IsBroken())
+        return;
+
+    uint32 reforge_id = item->GetEnchantmentId(REFORGE_ENCHANTMENT_SLOT);
+    if (!reforge_id)
+    return;
+    ItemReforgeEntry const *reforge = sItemReforgeStore.LookupEntry(reforge_id);
+    if (!reforge)
+        return;
+
+    int32 statBaseValue = 0;
+
+    for (int32 i = 0; i < MAX_ITEM_PROTO_STATS; i++)
+    {
+    if (item->GetTemplate()->ItemStat[i].ItemStatType == reforge->DestinationStat)
+    {
+      sLog->outError("ApplyItemReforge : new stat %u already exists on item %u", reforge->DestinationStat, item->GetEntry());
+      return;
+    }
+
+        if (item->GetTemplate()->ItemStat[i].ItemStatType == reforge->SourceStat)
+            statBaseValue = item->GetTemplate()->ItemStat[i].ItemStatValue;
+    }
+
+    if (!statBaseValue)
+    {
+        sLog->outError("ApplyItemReforge : old stat %u not found on item %u", reforge->SourceStat, item->GetEntry());
+        return;
+    }
+
+  int32 statValue[2];
+  int32 statType[2];
+
+    statValue[0] = int32(statBaseValue * reforge->Scaling1);  // old stat value: apply:minus unapply:plus
+    statValue[1] = int32(statValue[0] * reforge->Scaling2);   // new stat value: apply:plus  unapply:minus
+
+    statType[0] = reforge->SourceStat;
+    statType[1] = reforge->DestinationStat;
+
+    sLog->outDebug("ApplyItemReforge : item %u, reforge id %u, stat value %d, old stat %u (x%.1f %d), new stat %u (x%.1f %d), apply %d",
+        item->GetEntry(), reforge_id, statBaseValue,
+        reforge->SourceStat, reforge->Scaling1, statValue[0],
+        reforge->DestinationStat, reforge->Scaling2, statValue[1],
+        apply);
+
+    for (int32 i = 0; i < 2; i++)
+    {
+        switch (statType[i])
+        {
+        case ITEM_MOD_SPIRIT:
+            sLog->outDebug("+ %u SPIRIT", statValue[i]);
+            HandleStatModifier(UNIT_MOD_STAT_SPIRIT, TOTAL_VALUE, float(statValue[i]), (i == 0) ? (!apply) : apply);
+            ApplyStatBuffMod(STAT_SPIRIT, (float)statValue[i], (i == 0) ? (!apply) : apply);
+        case  ITEM_MOD_DODGE_RATING:
+            ApplyRatingMod(CR_DODGE, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u DODGE", statValue[i]);
+            break;
+        case ITEM_MOD_PARRY_RATING:
+            ApplyRatingMod(CR_PARRY, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u PARRY", statValue[i]);
+            break;
+        case ITEM_MOD_HIT_RATING:
+            ApplyRatingMod(CR_HIT_MELEE, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_HIT_RANGED, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_HIT_SPELL, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u HIT", statValue[i]);
+            break;
+        case ITEM_MOD_CRIT_RATING:
+            ApplyRatingMod(CR_CRIT_MELEE, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_CRIT_RANGED, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_CRIT_SPELL, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u CRITICAL", statValue[i]);
+            break;
+        case ITEM_MOD_HASTE_RATING:
+            ApplyRatingMod(CR_HASTE_MELEE, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_HASTE_RANGED, statValue[i], (i == 0) ? (!apply) : apply);
+            ApplyRatingMod(CR_HASTE_SPELL, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u HASTE", statValue[i]);
+            break;
+        case ITEM_MOD_EXPERTISE_RATING:
+            ApplyRatingMod(CR_EXPERTISE, statValue[i], (i == 0) ? (!apply) : apply);
+            sLog->outDebug("+ %u EXPERTISE", statValue[i]);
+            break;
+        case ITEM_MOD_MASTERY_RATING:
+            ApplyRatingMod(CR_MASTERY, int32(statValue[i]), (i == 0) ? (!apply) : apply);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
 void Player::UpdateSkillEnchantments(uint16 skill_id, uint16 curr_value, uint16 new_value)
 {
     for (uint8 i = 0; i < INVENTORY_SLOT_BAG_END; ++i)
@@ -15065,6 +15285,7 @@ void Player::PrepareGossipMenu(WorldObject* source, uint32 menuId /*= 0*/, bool 
                 case GOSSIP_OPTION_PETITIONER:
                 case GOSSIP_OPTION_TABARDDESIGNER:
                 case GOSSIP_OPTION_AUCTIONEER:
+                case GOSSIP_OPTION_REFORGE:
                     break;                                  // no checks
                 case GOSSIP_OPTION_OUTDOORPVP:
                     if (!sOutdoorPvPMgr->CanTalkTo(this, creature, itr->second))
@@ -15283,6 +15504,9 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
         case GOSSIP_OPTION_AUCTIONEER:
             GetSession()->SendAuctionHello(guid, (source->ToCreature()));
             break;
+        case GOSSIP_OPTION_REFORGE:
+            GetSession()->SendShowReforge(guid);
+            break;
         case GOSSIP_OPTION_SPIRITGUIDE:
             PrepareGossipMenu(source);
             SendPreparedGossip(source);
@@ -15302,7 +15526,7 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
         }
     }
 
-    ModifyMoney(-cost);
+    ModifyMoney(-int32(cost));
 }
 
 uint32 Player::GetGossipTextId(WorldObject* source)
@@ -24750,6 +24974,13 @@ void Player::UpdateAchievementCriteria(AchievementCriteriaTypes type, uint32 mis
 void Player::CompletedAchievement(AchievementEntry const* entry)
 {
     GetAchievementMgr().CompletedAchievement(entry);
+}
+
+bool Player::HasAchieved(uint32 entry)
+{
+    if(AchievementEntry const *achievement = sAchievementStore.LookupEntry(entry))
+        return GetAchievementMgr().HasAchieved(achievement);
+    return false;
 }
 
 void Player::LearnTalent(uint32 talentId, uint32 talentRank, bool one)

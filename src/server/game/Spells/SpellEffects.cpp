@@ -447,6 +447,15 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                         damage = unitTarget->CountPctFromMaxHealth(damage);
                         break;
                     }
+                    // Crystalspawn Giant - Quake
+                    case 81008:
+                    case 92631:
+                    {
+                        //avoid damage when players jumps
+                        if (unitTarget->GetUnitMovementFlags() == MOVEMENTFLAG_FALLING_FAR || unitTarget->GetTypeId() != TYPEID_PLAYER)
+                            return;
+                        break;
+                    }
                     // Gargoyle Strike
                     case 51963:
                     {
@@ -2898,6 +2907,13 @@ void Spell::SpellDamageHeal(SpellEffectEntry const* effect)
         // Death Pact - return pct of max health to caster
         else if (m_spellInfo->SpellFamilyName == SPELLFAMILY_DEATHKNIGHT && m_spellInfo->SpellFamilyFlags[0] & 0x00080000)
             addhealth = caster->SpellHealingBonus(unitTarget, m_spellInfo, int32(caster->CountPctFromMaxHealth(damage)), HEAL);
+        // Seal of Insight - heal for (0.15 * AP + 0.15 * holy spell power)
+        else if (m_spellInfo->Id == 20167)
+        {
+            if (!damage) // no heal when unleashing Seal of Insight
+                return;
+            addhealth = (caster->GetTotalAttackPowerValue(BASE_ATTACK) + caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY)) * damage / 100;
+        }
         else
             addhealth = caster->SpellHealingBonus(unitTarget, m_spellInfo, addhealth, HEAL);
 
@@ -6922,7 +6938,8 @@ void Spell::EffectCharge(SpellEffectEntry const* /*effect*/)
     if (!target)
         return;
 
-    float angle = target->GetRelativeAngle(m_caster);
+    // temp to try and stop the stair climbing agro...
+    float angle = unitTarget->GetAngle(m_caster) - unitTarget->GetOrientation();
     Position pos;
 
     target->GetContactPoint(m_caster, pos.m_positionX, pos.m_positionY, pos.m_positionZ);

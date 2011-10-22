@@ -284,7 +284,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         }
                         else
                         {
-                            // not expected _player or must checked in packet hanlder
+                            // not expected _player or must checked in packet handler
                             sScriptMgr->OnPacketReceive(m_Socket, WorldPacket(*packet));
                             (this->*opHandle.handler)(*packet);
                             if (sLog->IsOutDebug() && packet->rpos() < packet->wpos())

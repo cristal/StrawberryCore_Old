@@ -2934,6 +2934,12 @@ void Guild::_BroadcastEvent(GuildEvents guildEvent, const uint64& guid, const ch
     sLog->outDebug("WORLD: Sent SMSG_GUILD_EVENT");
 }
 
+void Guild::SetBankTabRights(WorldSession *session, uint32 rankId,uint32 rights[GUILD_BANK_MAX_TABS], uint32 stacks[GUILD_BANK_MAX_TABS])
+{
+    for(uint32 tabId = 0; tabId <= GUILD_BANK_MAX_TABS; ++tabId)
+        _SetRankBankTabRightsAndSlots(rankId, tabId, GuildBankRightsAndSlots(rights[tabId], uint32(stacks[tabId])));
+    HandleRoster(session);
+}
 
 // Guild Advancement
 void Guild::GainXP(uint64 xp)

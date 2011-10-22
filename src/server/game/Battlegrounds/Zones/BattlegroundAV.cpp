@@ -342,6 +342,66 @@ Creature* BattlegroundAV::AddAVCreature(uint16 cinfoid, uint16 type)
     return creature;
 }
 
+void BattlegroundAV::PostUpdateImpl(uint32 diff)
+{
+    if (GetStatus() == STATUS_IN_PROGRESS)
+    {
+        for (uint8 i=0; i <= 1; i++)//0=alliance, 1=horde
+        {
+            if (!m_CaptainAlive[i])
+                continue;
+            if (m_CaptainBuffTimer[i] > diff)
+                m_CaptainBuffTimer[i] -= diff;
+            else
+            {
+                if (i == 0)
+                {
+                    CastSpellOnTeam(AV_BUFF_A_CAPTAIN, ALLIANCE);
+                    Creature* creature = GetBGCreature(AV_CPLACE_MAX + 61);
+                    if (creature)
+                        YellToAll(creature, LANG_BG_AV_A_CAPTAIN_BUFF, LANG_COMMON);
+                }
+                else
+                {
+                    CastSpellOnTeam(AV_BUFF_H_CAPTAIN, HORDE);
+                    Creature* creature = GetBGCreature(AV_CPLACE_MAX + 59); //TODO: make the captains a dynamic creature
+                    if (creature)
+                        YellToAll(creature, LANG_BG_AV_H_CAPTAIN_BUFF, LANG_ORCISH);
+                }
+                m_CaptainBuffTimer[i] = 120000 + urand(0, 4)* 60000; //as far as i could see, the buff is randomly so i make 2minutes (thats the duration of the buff itself) + 0-4minutes TODO get the right times
+            }
+        }
+        //add points from mine owning, and look if he neutral team wanrts to reclaim the mine
+        m_Mine_Timer -=diff;
+        for (uint8 mine=0; mine <2; mine++)
+        {
+            if (m_Mine_Owner[mine] == ALLIANCE || m_Mine_Owner[mine] == HORDE)
+            {
+                if (m_Mine_Timer <= 0)
+                    UpdateScore(m_Mine_Owner[mine], 1);
+
+                if (m_Mine_Reclaim_Timer[mine] > diff)
+                    m_Mine_Reclaim_Timer[mine] -= diff;
+                else{ //we don't need to set this timer to 0 cause this codepart wont get called when this thing is 0
+                    ChangeMineOwner(mine, AV_NEUTRAL_TEAM);
+                }
+            }
+        }
+        if (m_Mine_Timer <= 0)
+            m_Mine_Timer=AV_MINE_TICK_TIMER; //this is at the end, cause we need to update both mines
+
+        //looks for all timers of the nodes and destroy the building (for graveyards the building wont get destroyed, it goes just to the other team
+        for (BG_AV_Nodes i = BG_AV_NODES_FIRSTAID_STATION; i < BG_AV_NODES_MAX; ++i)
+            if (m_Nodes[i].State == POINT_ASSAULTED) //maybe remove this
+            {
+                if (m_Nodes[i].Timer > diff)
+                    m_Nodes[i].Timer -= diff;
+                else
+                     EventPlayerDestroyedPoint(i);
+            }
+    }
+}
+
 void BattlegroundAV::Update(uint32 diff)
 {
     Battleground::Update(diff);

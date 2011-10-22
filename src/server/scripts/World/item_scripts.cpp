@@ -219,10 +219,14 @@ public:
     item_mysterious_egg() : ItemScript("item_mysterious_egg") { }
     bool OnExpire(Player *pPlayer, ItemTemplate const * /*pItemProto*/)
     {
+        uint32 IdItem = 39883;
+        uint8 count = 1;
         ItemPosCountVec dest;
-        uint8 msg = pPlayer->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, 39883, 1); // Cracked Egg
-        if (msg == EQUIP_ERR_OK)
-            pPlayer->StoreNewItem(dest, 39883, true, Item::GenerateItemRandomPropertyId(39883));
+        if (pPlayer->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, IdItem, count) == EQUIP_ERR_OK)
+        {
+            Item* item = pPlayer->StoreNewItem(dest, IdItem, true, Item::GenerateItemRandomPropertyId(IdItem));
+            pPlayer->SendNewItem(item, count, true, false);
+        }
 
         return true;
     }

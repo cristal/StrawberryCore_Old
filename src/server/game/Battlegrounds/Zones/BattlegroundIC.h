@@ -870,6 +870,7 @@ public:
     virtual void AddPlayer(Player *plr);
     virtual void StartingEventCloseDoors();
     virtual void StartingEventOpenDoors();
+    virtual void PostUpdateImpl(uint32 diff);
 
     void RemovePlayer(Player *plr,uint64 guid);
     void HandleAreaTrigger(Player *Source, uint32 Trigger);

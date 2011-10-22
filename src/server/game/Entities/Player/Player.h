@@ -1515,6 +1515,7 @@ class Player : public Unit, public GridObject<Player>
         void AddEnchantmentDuration(Item *item, EnchantmentSlot slot, uint32 duration);
         void ApplyEnchantment(Item *item, EnchantmentSlot slot, bool apply, bool apply_dur = true, bool ignore_condition = false);
         void ApplyEnchantment(Item *item, bool apply);
+        void ApplyItemReforge(Item *item, bool apply);
         void UpdateSkillEnchantments(uint16 skill_id, uint16 curr_value, uint16 new_value);
         void SendEnchantmentDurations();
         void BuildEnchantmentsInfoData(WorldPacket *data);
@@ -2717,6 +2718,7 @@ class Player : public Unit, public GridObject<Player>
         AchievementMgr const& GetAchievementMgr() const { return m_achievementMgr; }
         void UpdateAchievementCriteria(AchievementCriteriaTypes type, uint32 miscValue1 = 0, uint32 miscValue2 = 0, Unit* unit = NULL);
         void CompletedAchievement(AchievementEntry const* entry);
+        bool HasAchieved(uint32 entry);
 
         bool HasTitle(uint32 bitIndex);
         bool HasTitle(CharTitlesEntry const* title) { return HasTitle(title->bit_index); }

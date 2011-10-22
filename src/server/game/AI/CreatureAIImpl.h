@@ -332,7 +332,7 @@ class EventMap : private std::map<uint32, uint32>
 
         void SetPhase(uint32 phase)
         {
-            if (phase && phase < 9)
+            if (phase && phase < 8)
                 m_phase = (1 << (phase + 24));
         }
 
@@ -341,7 +341,7 @@ class EventMap : private std::map<uint32, uint32>
             time += m_time;
             if (gcd && gcd < 9)
                 eventId |= (1 << (gcd + 16));
-            if (phase && phase < 9)
+            if (phase && phase < 8)
                 eventId |= (1 << (phase + 24));
             iterator itr = find(time);
             while (itr != end())

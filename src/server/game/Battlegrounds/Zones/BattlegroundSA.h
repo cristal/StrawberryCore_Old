@@ -425,6 +425,8 @@ class BattlegroundSA : public Battleground
          * -Update timer
          * -Round switch
          */
+        void PostUpdateImpl(uint32 diff);
+
         void Update(uint32 diff);
 
         /* inherited from BattlegroundClass */

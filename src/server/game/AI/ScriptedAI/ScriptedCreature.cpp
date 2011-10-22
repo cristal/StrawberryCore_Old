@@ -56,7 +56,7 @@ void SummonList::DoAction(uint32 entry, uint32 info)
     }
 }
 
-void SummonList::DespawnEntry(uint32 entry)
+void SummonList::DespawnEntry(uint32 entry, uint32 msTimeToDespawn)
 {
     for (iterator i = begin(); i != end();)
     {
@@ -66,31 +66,30 @@ void SummonList::DespawnEntry(uint32 entry)
         else if (summon->GetEntry() == entry)
         {
             erase(i++);
-            summon->setDeathState(JUST_DIED);
-            summon->RemoveCorpse();
+            summon->DespawnOrUnsummon(msTimeToDespawn);
         }
         else
             ++i;
     }
 }
 
-void SummonList::DespawnAll()
+void SummonList::DespawnAll(uint32 msTimeToDespawn)
 {
     while (!empty())
     {
-        Creature *summon = Unit::GetCreature(*me, *begin());
+        Creature* summon = Unit::GetCreature(*me, *begin());
         if (!summon)
             erase(begin());
         else
         {
             erase(begin());
-            if (summon->isSummon())
+            if (TempSummon* summ = summon->ToTempSummon())
             {
                 summon->DestroyForNearbyPlayers();
-                CAST_SUM(summon)->UnSummon();
+                summ->UnSummon(msTimeToDespawn);
             }
             else
-                summon->DisappearAndDie();
+                summon->DespawnOrUnsummon(msTimeToDespawn);
         }
     }
 }
@@ -525,6 +524,7 @@ BossAI::BossAI(Creature *c, uint32 id) : ScriptedAI(c)
 , bossId(id), summons(me), instance(c->GetInstanceScript())
 , boundary(instance ? instance->GetBossBoundary(id) : NULL)
 {
+    SetImmuneToPushPullEffects(true);
 }
 
 void BossAI::_Reset()
@@ -536,6 +536,8 @@ void BossAI::_Reset()
     summons.DespawnAll();
     if (instance)
         instance->SetBossState(bossId, NOT_STARTED);
+
+    inFightAggroCheck_Timer = MAX_AGGRO_PULSE_TIMER;
 }
 
 void BossAI::_JustDied()
@@ -547,6 +549,18 @@ void BossAI::_JustDied()
         instance->SetBossState(bossId, DONE);
         instance->SaveToDB();
     }
+}
+
+void BossAI::_DoAggroPulse(const uint32 diff)
+{
+    if(inFightAggroCheck_Timer < diff)
+    {
+        if(me->getVictim() && me->getVictim()->ToPlayer())
+            DoAttackerGroupInCombat(me->getVictim()->ToPlayer());
+        inFightAggroCheck_Timer = MAX_AGGRO_PULSE_TIMER;
+    }
+    else
+        inFightAggroCheck_Timer -= diff;
 }
 
 void BossAI::_EnterCombat()

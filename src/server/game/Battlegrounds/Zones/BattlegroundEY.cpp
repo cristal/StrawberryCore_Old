@@ -53,8 +53,50 @@ BattlegroundEY::BattlegroundEY()
     m_StartMessageIds[BG_STARTING_EVENT_FOURTH] = LANG_BG_EY_HAS_BEGUN;
 }
 
-BattlegroundEY::~BattlegroundEY()
+BattlegroundEY::~BattlegroundEY() {}
+
+void BattlegroundEY::PostUpdateImpl(uint32 diff)
 {
+    if (GetStatus() == STATUS_IN_PROGRESS)
+    {
+        m_PointAddingTimer -= diff;
+        if (m_PointAddingTimer <= 0)
+        {
+            m_PointAddingTimer = BG_EY_FPOINTS_TICK_TIME;
+            if (m_TeamPointsCount[BG_TEAM_ALLIANCE] > 0)
+                AddPoints(ALLIANCE, BG_EY_TickPoints[m_TeamPointsCount[BG_TEAM_ALLIANCE] - 1]);
+            if (m_TeamPointsCount[BG_TEAM_HORDE] > 0)
+                AddPoints(HORDE, BG_EY_TickPoints[m_TeamPointsCount[BG_TEAM_HORDE] - 1]);
+        }
+
+        if (m_FlagState == BG_EY_FLAG_STATE_WAIT_RESPAWN || m_FlagState == BG_EY_FLAG_STATE_ON_GROUND)
+        {
+            m_FlagsTimer -= diff;
+
+            if (m_FlagsTimer < 0)
+            {
+                m_FlagsTimer = 0;
+                if (m_FlagState == BG_EY_FLAG_STATE_WAIT_RESPAWN)
+                    RespawnFlag(true);
+                else
+                    RespawnFlagAfterDrop();
+            }
+        }
+
+        m_TowerCapCheckTimer -= diff;
+        if (m_TowerCapCheckTimer <= 0)
+        {
+            //check if player joined point
+            /*I used this order of calls, because although we will check if one player is in gameobject's distance 2 times
+              but we can count of players on current point in CheckSomeoneLeftPoint
+            */
+            this->CheckSomeoneJoinedPoint();
+            //check if player left point
+            this->CheckSomeoneLeftPoint();
+            this->UpdatePointStatuses();
+            m_TowerCapCheckTimer = BG_EY_FPOINTS_TICK_TIME;
+        }
+    }
 }
 
 void BattlegroundEY::Update(uint32 diff)

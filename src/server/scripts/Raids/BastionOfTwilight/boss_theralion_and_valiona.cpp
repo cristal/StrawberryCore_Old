@@ -405,7 +405,6 @@ class spell_valiona_blackout : public SpellScriptLoader
                 std::list<Unit*> Players;
                 std::list<Unit*>::iterator itr;
                 GetHitUnit()->GetPartyMemberInDist(Players,8.0f);
-                uint8 players_close;
                 uint32 damage;
                 for(itr = Players.begin(); itr != Players.end(); ++itr)
                 {

@@ -1656,6 +1656,14 @@ uint32 Unit::CalcArmorReducedDamage(Unit* victim, const uint32 damage, SpellEntr
     uint32 newdamage = 0;
     float armor = float(victim->GetArmor());
 
+    // decrease enemy armor effectiveness by SPELL_AURA_MOD_ARMOR_EFFECTIVENESS_FOR_CASTER
+    int32 auraEffectivenessReduction = 0;
+    AuraEffectList const & reductionAuras = victim->GetAuraEffectsByType(SPELL_AURA_MOD_ARMOR_EFFECTIVENESS_FOR_CASTER);
+    for (AuraEffectList::const_iterator i = reductionAuras.begin(); i != reductionAuras.end(); ++i)
+        if ((*i)->GetCasterGUID() == GetGUID())
+            auraEffectivenessReduction += (*i)->GetAmount();
+    armor = CalculatePctN(armor, 100 - std::min(auraEffectivenessReduction, 100));
+
     // Ignore enemy armor by SPELL_AURA_MOD_TARGET_RESISTANCE aura
     armor += GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_TARGET_RESISTANCE, SPELL_SCHOOL_MASK_NORMAL);
 
@@ -3253,7 +3261,7 @@ void Unit::InterruptNonMeleeSpells(bool withDelayed, uint32 spell_id, bool withI
 
 bool Unit::CanCastWhileWalking(const SpellEntry * const sp)
 {
-    AuraEffectList alist = GetAuraEffectsByType(SPELL_AURA_WALK_AND_CAST);
+    AuraEffectList alist = GetAuraEffectsByType(SPELL_AURA_CAST_WHILE_WALKING);
     for (AuraEffectList::const_iterator i = alist.begin(); i != alist.end(); ++i)
     {
         // check that spell mask matches
@@ -6043,6 +6051,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Glyph of Polymorph
                 case 56375:
                 {
+                    if(!target)
+                        return false;
                     target->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE, 0, target->GetAura(32409)); // SW:D shall not be removed.
                     target->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE_PERCENT);
                     target->RemoveAurasByType(SPELL_AURA_PERIODIC_LEECH);
@@ -6102,6 +6112,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Blessing of Ancient Kings (Val'anyr, Hammer of Ancient Kings)
                 case 64411:
                 {
+                    if(!victim)
+                        return false;
                     basepoints0 = int32(CalculatePctN(damage, 15));
                     if (AuraEffect* aurEff = victim->GetAuraEffect(64413, 0, GetGUID()))
                     {
@@ -6401,6 +6413,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
             // Divine Aegis
             if (dummySpell->SpellIconID == 2820)
             {
+                if(!target)
+                    return false;
                 // Multiple effects stack, so let's try to find this aura.
                 int32 bonus = 0;
                 if (AuraEffect const* aurEff = target->GetAuraEffect(47753, 0))
@@ -6568,6 +6582,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Glyph of Shred
                 case 54815:
                 {
+                    if(!target)
+                        return false;
                     // try to find spell Rip on the target
                     if (AuraEffect const* AurEff = target->GetAuraEffect(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_DRUID, 0x00800000, 0x0, 0x0, GetGUID()))
                     {
@@ -6863,6 +6879,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Explosive Shot
                 if (procSpell->GetSpellClassOptions()->SpellFamilyFlags[2] & 0x200)
                 {
+                    if(!victim)
+                        return false;
                     if (AuraEffect const* pEff = victim->GetAuraEffect(SPELL_AURA_PERIODIC_DUMMY, SPELLFAMILY_HUNTER, 0x0, 0x80000000, 0x0, GetGUID()))
                         basepoints0 = CalculatePowerCost(pEff->GetSpellProto(), this, SpellSchoolMask(pEff->GetSpellProto()->SchoolMask)) * 4/10/3;
                 }
@@ -7588,6 +7606,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Item - Shaman T10 Elemental 4P Bonus
                 case 70817:
                 {
+                    if(!target)
+                        return false;
                     // try to find spell Flame Shock on the target
                     if (AuraEffect const* aurEff = target->GetAuraEffect(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_SHAMAN, 0x10000000, 0x0, 0x0, GetGUID()))
                     {
@@ -8084,6 +8104,9 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Guard Dog
                 case 201:
                 {
+                    if (!victim)
+                        return false;
+
                     triggered_spell_id = 54445;
                     target = this;
                     float addThreat = float(CalculatePctN(SpellMgr::CalculateSpellEffectAmount(procSpell, 0, this), triggerAmount));
@@ -8137,6 +8160,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
 
     return true;
 }
+
 bool Unit::HandleObsModEnergyAuraProc(Unit* victim, uint32 /*damage*/, AuraEffect* triggeredByAura, SpellEntry const* /*procSpell*/, uint32 /*procFlag*/, uint32 /*procEx*/, uint32 cooldown)
 {
     SpellEntry const* dummySpell = triggeredByAura->GetSpellProto();
@@ -8711,6 +8735,14 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                             default:
                                 return false;
                         }
+                        break;
+                    }
+                    // Shooting Stars
+                    case 93398: // Rank 1
+                    case 93399: // Rank 2
+                    {
+                        if(GetTypeId() == TYPEID_PLAYER)
+                            ToPlayer()->RemoveSpellCooldown(78674,true); // Remove cooldown of Starsurge
                         break;
                     }
                     default:
@@ -9546,6 +9578,28 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
             if (victim->GetCreatureType() == CREATURE_TYPE_CRITTER)
                 return false;
             break;
+        }
+
+        // Seal of Insight
+        // giving each single-target melee attack a chance to heal the Paladin for (0.15 * AP + 0.15 * holy power) and restore 4% of the Paladin's base mana.
+        // Unleashing this Seal's energy will ... restore 15% of the Paladin's base mana.
+        case 20167:
+        {
+            int32 triggerAmount1 = 0;
+            if (procSpell && procSpell->Id == 54158) // Judgment, unleashing case
+            {
+                basepoints0 = 0;                 // no heal effect when unleashing Seal of Insight
+                triggerAmount1 = triggerAmount;  // restore 15% base mana
+            }
+            else
+            {
+                basepoints0 = triggerAmount;     // actual heal amount will be calculated in Spell::EffectHeal
+                if (SpellEntry const* triggeredSpellInfo = sSpellStore.LookupEntry(trigger_spell_id))
+                    triggerAmount1 = triggeredSpellInfo->EffectBasePoints[1]; // restore 4% base mana
+            }
+            int32 basepoints1 = GetCreatePowers(POWER_MANA) * triggerAmount1 / 100;
+            CastCustomSpell(target, trigger_spell_id, &basepoints0, &basepoints1, NULL, true, castItem, triggeredByAura);
+            return true;
         }
     }
 
@@ -11579,6 +11633,13 @@ bool Unit::isSpellCrit(Unit *pVictim, SpellEntry const *spellProto, SpellSchoolM
                 // Custom crit by class
                 switch (spellProto->GetSpellFamilyName())
                 {
+                    case SPELLFAMILY_MAGE:
+                        // Glyph of Fire Blast
+                        if ((spellProto->SpellFamilyFlags[0] & 0x2) == 0x2 && spellProto->SpellIconID == 12)
+                            if (pVictim->HasAuraWithMechanic((1<<MECHANIC_STUN) | (1<<MECHANIC_KNOCKOUT)))
+                                if (AuraEffect const* aurEff = GetAuraEffect(56369, EFFECT_0))
+                                    crit_chance += aurEff->GetAmount();
+                        break;
                     case SPELLFAMILY_DRUID:
                         // Improved Faerie Fire
                         if (pVictim->HasAuraState(AURA_STATE_FAERIE_FIRE))
@@ -13067,6 +13128,15 @@ int32 Unit::ModifyPower(Powers power, int32 dVal)
     }
 
     return gain;
+}
+
+// Returns negative amount on power reduction
+int32 Unit::ModifyPowerPct(Powers power, float pct, bool apply)
+{
+    float amount = (float)GetMaxPower(power);
+    ApplyPercentModFloatVar(amount, pct, apply);
+
+    return ModifyPower(power, (int32)amount - (int32)GetMaxPower(power));
 }
 
 bool Unit::isAlwaysVisibleFor(WorldObject const* seer) const
@@ -17236,21 +17306,24 @@ void Unit::KnockbackFrom(float x, float y, float speedXY, float speedZ)
 
 float Unit::GetCombatRatingReduction(CombatRating cr) const
 {
-    if (Player const* player = ToPlayer())
-        return player->GetRatingBonusValue(cr);
-    // Player's pet get resilience from owner
-    else if (isPet())
+    if (GetTypeId() == TYPEID_PLAYER)
+        return ((Player const*)this)->GetRatingBonusValue(cr);
+    else if (((Creature const*)this)->isPet())
+    {
+        // Player's pet get resilience from owner
         if (Unit* owner = GetOwner())
-            if (Player* player = owner->ToPlayer())
-                return player->GetRatingBonusValue(cr);
-
+            if (owner->GetTypeId() == TYPEID_PLAYER)
+                return ((Player*)owner)->GetRatingBonusValue(cr);
+    }
     return 0.0f;
 }
 
 uint32 Unit::GetCombatRatingDamageReduction(CombatRating cr, float rate, float cap, uint32 damage) const
 {
-    float percent = std::min(GetCombatRatingReduction(cr) * rate, cap);
-    return CalculatePctF(damage, percent);
+    float percent = GetCombatRatingReduction(cr) * rate;
+    if (percent > cap)
+        percent = cap;
+    return uint32 (percent * damage / 100.0f);
 }
 
 uint32 Unit::GetModelForForm(ShapeshiftForm form)
@@ -17558,7 +17631,7 @@ uint32 Unit::GetModelForForm(ShapeshiftForm form)
                 case RACE_TROLL:
                     return 37728;
                 default: // RACE_TAUREN
-                    return 20872;                
+                    return 20872;
             }
         case FORM_FLIGHT_EPIC:
             switch(getRace())
