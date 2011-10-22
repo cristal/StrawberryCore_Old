@@ -32,7 +32,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
 endif()
 
 target_link_libraries(vmap3assembler
-  collision
+  shared
   g3dlib
   ${ZLIB_LIBRARIES}
 )
