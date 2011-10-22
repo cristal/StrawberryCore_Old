@@ -1,4 +1,4 @@
-# Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
+# Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
