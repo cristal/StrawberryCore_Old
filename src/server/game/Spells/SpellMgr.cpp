@@ -438,9 +438,14 @@ bool IsAutocastableSpell(uint32 spellId)
 
 bool IsAura(SpellEntry const *spellInfo, uint32 eff)
 {
-    return (IsUnitOwnedAuraEffect(spellInfo->GetSpellEffectIdByIndex(eff)) 
-        || spellInfo->GetSpellEffect(eff)->Effect == SPELL_EFFECT_PERSISTENT_AREA_AURA)
-        && spellInfo->GetEffectApplyAuraNameByIndex(eff) != 0;
+    SpellEffectEntry const * spelleffect = spellInfo->GetSpellEffect(eff);
+    bool firstcheck = IsUnitOwnedAuraEffect(spellInfo->GetSpellEffectIdByIndex(eff));
+    if (firstcheck == false && spelleffect)
+        firstcheck = spellInfo->GetSpellEffect(eff)->Effect == SPELL_EFFECT_PERSISTENT_AREA_AURA;
+
+    if (firstcheck == true && spellInfo->GetEffectApplyAuraNameByIndex(eff) != 0)
+        return true;
+    return false;
 }
 
 bool IsHigherHankOfSpell(uint32 spellId_1, uint32 spellId_2)
@@ -578,7 +583,7 @@ AuraState GetSpellAuraState(SpellEntry const* spellInfo)
 
     if (GetSpellSchoolMask(spellInfo) & SPELL_SCHOOL_MASK_FROST)
         for (uint8 i = 0; i<MAX_SPELL_EFFECTS; ++i)
-            if (spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STUN
+            if (IsAura(spellInfo, i) && spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STUN
                 || spellInfo->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_ROOT)
                 return AURA_STATE_FROZEN;
 
@@ -921,9 +926,9 @@ bool SpellMgr::_isPositiveEffect(uint32 spellId, uint32 effIndex, bool deep) con
     }
 
     // Special case: effects which determine positivity of whole spell
-    for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+    for (uint8 i = 0; i<MAX_SPELL_EFFECTS; ++i)
     {
-        if (spellproto->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STEALTH)
+        if (IsAura(spellproto, i) && spellproto->GetEffectApplyAuraNameByIndex(i) == SPELL_AURA_MOD_STEALTH)
             return true;
     }
 
@@ -3454,9 +3459,8 @@ SpellCastResult SpellMgr::GetSpellAllowedInLocationError(SpellEntry const *spell
     // aura limitations
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
     {
-        if (!spellInfo)
+        if (/*!(effMask & (1<<i)) ||*/ !IsAura(spellInfo, i))
             continue;
-
         switch (spellInfo->GetEffectApplyAuraNameByIndex(i))
         {
             case SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED:
