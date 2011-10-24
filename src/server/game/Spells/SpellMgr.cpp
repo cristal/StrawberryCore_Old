@@ -438,9 +438,14 @@ bool IsAutocastableSpell(uint32 spellId)
 
 bool IsAura(SpellEntry const *spellInfo, uint32 eff)
 {
-    return (IsUnitOwnedAuraEffect(spellInfo->GetSpellEffectIdByIndex(eff)) 
-        || spellInfo->GetSpellEffect(eff)->Effect == SPELL_EFFECT_PERSISTENT_AREA_AURA)
-        && spellInfo->GetEffectApplyAuraNameByIndex(eff) != 0;
+    SpellEffectEntry const * spelleffect = spellInfo->GetSpellEffect(eff);
+    bool firstcheck = IsUnitOwnedAuraEffect(spellInfo->GetSpellEffectIdByIndex(eff));
+    if (firstcheck == false && spelleffect)
+        firstcheck = spellInfo->GetSpellEffect(eff)->Effect == SPELL_EFFECT_PERSISTENT_AREA_AURA;
+
+    if (firstcheck == true && spellInfo->GetEffectApplyAuraNameByIndex(eff) != 0)
+        return true;
+    return false;
 }
 
 bool IsHigherHankOfSpell(uint32 spellId_1, uint32 spellId_2)
