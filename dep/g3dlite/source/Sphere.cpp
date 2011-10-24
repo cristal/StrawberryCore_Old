@@ -83,7 +83,7 @@ void Sphere::merge(const Sphere& other) {
 
 bool Sphere::culledBy(
     const Array<Plane>&		plane,
-    int&				    cullingPlaneIndex,
+    int&			   cullingPlaneIndex,
     const uint32			inMask,
     uint32&					outMask) const {
     
@@ -93,7 +93,7 @@ bool Sphere::culledBy(
 
 bool Sphere::culledBy(
                       const Array<Plane>&		plane,
-                      int&				    cullingPlaneIndex,
+                      int&			   cullingPlaneIndex,
                       const uint32			inMask) const {
     
     return culledBy(plane.getCArray(), plane.size(), cullingPlaneIndex, inMask);

@@ -583,11 +583,11 @@ static int guiPrompt
  const char**        choice,
  int                 numChoices) {
 
-    WindowRef	 window;
+    WindowRefwindow;
 
     int          iNumButtonRows	= 0;
     int          iButtonWidth   = -1;
-    OSStatus	 err            = noErr;
+    OSStatuserr            = noErr;
     
     // Determine number of rows of buttons
     while (iButtonWidth < CARBON_BUTTON_MINWIDTH) {
@@ -629,9 +629,9 @@ static int guiPrompt
 	
     // Create the Buttons and assign event handlers
     for (int i = 0; i < numChoices; ++i) {
-        bounds[i].top	 = 160 + ((CARBON_BUTTON_HEIGHT+CARBON_BUTTON_SPACING)*(i%iNumButtonRows));
-        bounds[i].right	 = 530 - ((iButtonWidth+CARBON_BUTTON_SPACING)*(i/iNumButtonRows));
-        bounds[i].left	 = bounds[i].right - iButtonWidth;
+        bounds[i].top= 160 + ((CARBON_BUTTON_HEIGHT+CARBON_BUTTON_SPACING)*(i%iNumButtonRows));
+        bounds[i].right= 530 - ((iButtonWidth+CARBON_BUTTON_SPACING)*(i/iNumButtonRows));
+        bounds[i].left= bounds[i].right - iButtonWidth;
         bounds[i].bottom = bounds[i].top + CARBON_BUTTON_HEIGHT;
         
         // Convert the button captions to Apple strings

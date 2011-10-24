@@ -107,7 +107,7 @@ static void createErrorMessage(
         }
 
 		if (lastErr != 0) {
-	        le = G3D::format("Last Error (0x%08X): %s\r\n\r\n", lastErr, (LPCSTR)realLastErr);
+       le = G3D::format("Last Error (0x%08X): %s\r\n\r\n", lastErr, (LPCSTR)realLastErr);
 		}
 
         // Get rid of the allocated memory from FormatMessage.

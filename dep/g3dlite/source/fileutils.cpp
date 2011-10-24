@@ -115,7 +115,7 @@ std::string readWholeFile(
         FILE* f = FileSystem::fopen(filename.c_str(), "rb");
         debugAssert(f);
         int ret = fread(buffer, 1, length, f);
-	    debugAssert(ret == length);(void)ret;
+   debugAssert(ret == length);(void)ret;
         FileSystem::fclose(f);
 
         buffer[length] = '\0';    
@@ -294,9 +294,9 @@ void createDirectory(
             // where as unix also requires the permissions.
 #           ifndef G3D_WIN32
                 mkdir(p.c_str(), 0777);
-#	        else
+#       else
                 _mkdir(p.c_str());
-#	        endif
+#       endif
         }
     }
 }
@@ -695,10 +695,10 @@ static void getFileOrDirListNormal
  */
 static void _zip_addEntry(const std::string& path,
                           const std::string& prefix,
-						  const std::string& file,
-						  Set<std::string>& files,
-						  bool wantFiles,
-						  bool includePath) {
+					 const std::string& file,
+					 Set<std::string>& files,
+					 bool wantFiles,
+					 bool includePath) {
 
     // Make certain we are within the desired parent folder (prefix)
     if (beginsWith(file, prefix)) {

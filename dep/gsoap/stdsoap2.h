@@ -977,14 +977,14 @@ extern "C" {
 #endif
 #ifndef SOAP_MAXDIMS
 # ifndef WITH_LEAN
-#  define SOAP_MAXDIMS	 (16) /* maximum array dimensions (array nestings) must be less than 64 to protect soap->tmpbuf */
+#  define SOAP_MAXDIMS (16) /* maximum array dimensions (array nestings) must be less than 64 to protect soap->tmpbuf */
 # else
-#  define SOAP_MAXDIMS	  (4)
+#  define SOAP_MAXDIMS (4)
 # endif
 #endif
 
 #ifndef SOAP_MAXLOGS
-# define SOAP_MAXLOGS	  (3) /* max number of debug logs per struct soap environment */
+# define SOAP_MAXLOGS (3) /* max number of debug logs per struct soap environment */
 # define SOAP_INDEX_RECV  (0)
 # define SOAP_INDEX_SENT  (1)
 # define SOAP_INDEX_TEST  (2)

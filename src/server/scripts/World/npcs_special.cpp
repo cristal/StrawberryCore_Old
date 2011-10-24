@@ -2831,7 +2831,7 @@ public:
             ScriptedAI::InitializeAI();
             Unit * owner = me->GetOwner();
             if (!owner || owner->GetTypeId() != TYPEID_PLAYER)
-		        return;
+	       return;
 
             me->SetReactState(REACT_PASSIVE);
             me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
@@ -2847,7 +2847,7 @@ public:
 			if (who->isAlive() && who->HasAura(81782))
 			{
 			
-			    if (AuraEffect const* aur = who->GetAuraEffect(81782,0))
+		   if (AuraEffect const* aur = who->GetAuraEffect(81782,0))
                     aur->GetBase()->SetDuration(GetSpellMaxDuration(aur->GetSpellProto()), true);
             }
 		}
@@ -2867,7 +2867,7 @@ public:
             else
                 cron -= diff;
 
-		   //Check friendly entities
+	  //Check friendly entities
            std::list<Unit*> targets;
             Strawberry::AnyFriendlyUnitInObjectRangeCheck u_check(me, me, 7.0f);
             Strawberry::UnitListSearcher<Strawberry::AnyFriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);

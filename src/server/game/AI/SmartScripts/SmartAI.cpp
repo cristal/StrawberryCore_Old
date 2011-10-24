@@ -510,7 +510,7 @@ bool SmartAI::AssistPlayerInCombat(Unit* pWho)
         return false;
 
     //experimental (unknown) flag not present
-    if (!(me->GetCreatureInfo()->type_flags & CREATURE_TYPEFLAGS_AID_PLAYERS))
+    if (!(me->GetCreatureInfo()->type_flags[0] & CREATURE_TYPEFLAGS_AID_PLAYERS))
         return false;
 
     //not a player

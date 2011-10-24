@@ -269,7 +269,7 @@ class boss_valiona : public CreatureScript
                 {
                     case PHASE_AIR:
                         if (!UpdateVictim())
-					    return;
+				   return;
 
                         if (uiBlackoutTimer <= uiDiff && uiBlackoutCount <= 2)
                         {

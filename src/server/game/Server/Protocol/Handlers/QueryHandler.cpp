@@ -134,30 +134,37 @@ void WorldSession::HandleCreatureQueryOpcode(WorldPacket & recv_data)
             }
         }
         sLog->outDetail("WORLD: CMSG_CREATURE_QUERY '%s' - Entry: %u.", ci->Name.c_str(), entry);
-                                                            // guess size
-        WorldPacket data(SMSG_CREATURE_QUERY_RESPONSE, 100);
-        data << uint32(entry);                              // creature entry
+                                                             
+        WorldPacket data(SMSG_CREATURE_QUERY_RESPONSE, 100);  // guess size
+        data << uint32(entry);                                // creature entry
         data << Name;
-        data << uint8(0) << uint8(0) << uint8(0);           // name2, name3, name4, always empty
-        data << uint8(0) << uint8(0) << uint8(0) << uint8(0); // Unk 1-4
+        data << uint8(0) << uint8(0) << uint8(0);             // name2, name3, name4, always empty
+        data << uint8(0) << uint8(0) << uint8(0) << uint8(0); // Name 5-8
         data << SubName;
-        data << ci->IconName;                               // "Directions" for guard, string for Icons 2.3.0
-        data << uint32(ci->type_flags);                     // flags
-        data << uint32(0);                                  // Unknown, 4.2.0
-        data << uint32(ci->type);                           // CreatureType.dbc
-        data << uint32(ci->family);                         // CreatureFamily.dbc
-        data << uint32(ci->rank);                           // Creature Rank (elite, boss, etc)
+        data << ci->IconName;                                 // "Directions" for guard, string for Icons 2.3.0
+
+		for (int i = 0; i < MAX_TYPE_FLAGS; ++i)
+			data << uint32(ci->type_flags[i]);
+
+        data << uint32(ci->type);                             // CreatureType.dbc
+        data << uint32(ci->family);                           // CreatureFamily.dbc
+        data << uint32(ci->rank);                             // Creature Rank (elite, boss, etc)
+
         for (int i = 0; i < MAX_KILL_CREDIT; ++i)
-            data << uint32(ci->KillCredit[i]);                  // Kill Credits
+            data << uint32(ci->KillCredit[i]);                // Kill Credits
+
         for (int i = 0; i < MAX_MODELS; ++i)
-            data << uint32(ci->Modelid[i]);                     // Modelid1 -  Modelid2 - Modelid3 - Modelid4
-        data << float(0);                       // dmg/hp modifier
-        data << float(0);                       // dmg/mana modifier
+            data << uint32(ci->Modelid[i]);                   // Modelid1 -  Modelid2 - Modelid3 - Modelid4
+
+        data << float(0);                                     // Health modifier
+        data << float(0);                                     // Power / Mana modifier
         data << uint8(ci->RacialLeader);
+
         for (uint32 i = 0; i < MAX_CREATURE_QUEST_ITEMS; ++i)
-            data << uint32(ci->questItems[i]);              // itemId[6], quest drop
-        data << uint32(ci->movementId);                     // CreatureMovementInfo.dbc
-        data << uint32(0);                      // Expansion
+            data << uint32(ci->questItems[i]);                // itemId[6], quest drop
+
+        data << uint32(ci->movementId);                       // CreatureMovementInfo.dbc
+        data << uint32(0);                                    // Unknown
         SendPacket(&data);
         sLog->outDebug("WORLD: Sent SMSG_CREATURE_QUERY_RESPONSE");
     }

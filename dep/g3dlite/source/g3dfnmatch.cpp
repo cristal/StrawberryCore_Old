@@ -74,8 +74,8 @@ g3dfnmatch(const char *pattern, const char *string, int flags)
 			if (*string == '/' && (flags & FNM_PATHNAME))
 				return (FNM_NOMATCH);
 			if (*string == '.' && (flags & FNM_PERIOD) &&
-			    (string == stringstart ||
-			    ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
+		   (string == stringstart ||
+		   ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
 				return (FNM_NOMATCH);
 			++string;
 			break;
@@ -86,16 +86,16 @@ g3dfnmatch(const char *pattern, const char *string, int flags)
 				c = *++pattern;
 
 			if (*string == '.' && (flags & FNM_PERIOD) &&
-			    (string == stringstart ||
-			    ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
+		   (string == stringstart ||
+		   ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
 				return (FNM_NOMATCH);
 
 			/* Optimize for pattern with * at end or before /. */
 			if (c == EOS) {
 				if (flags & FNM_PATHNAME)
 					return ((flags & FNM_LEADING_DIR) ||
-					    strchr(string, '/') == NULL ?
-					    0 : FNM_NOMATCH);
+				   strchr(string, '/') == NULL ?
+				   0 : FNM_NOMATCH);
 				else
 					return (0);
 			} else if (c == '/' && (flags & FNM_PATHNAME)) {
@@ -119,8 +119,8 @@ g3dfnmatch(const char *pattern, const char *string, int flags)
 			if (*string == '/' && (flags & FNM_PATHNAME))
 				return (FNM_NOMATCH);
 			if (*string == '.' && (flags & FNM_PERIOD) &&
-			    (string == stringstart ||
-			    ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
+		   (string == stringstart ||
+		   ((flags & FNM_PATHNAME) && *(string - 1) == '/')))
 				return (FNM_NOMATCH);
 
 			switch (rangematch(pattern, *string, flags, &newp)) {
@@ -146,8 +146,8 @@ g3dfnmatch(const char *pattern, const char *string, int flags)
 		default:
 		normal:
 			if (c != *string && !((flags & FNM_CASEFOLD) &&
-				 (tolower((unsigned char)c) ==
-				 tolower((unsigned char)*string))))
+			(tolower((unsigned char)c) ==
+			tolower((unsigned char)*string))))
 				return (FNM_NOMATCH);
 			++string;
 			break;
@@ -162,12 +162,12 @@ rangematch(const char *pattern, char test, int flags, char **newp)
 	char c, c2;
 
 	/*
-	 * A bracket expression starting with an unquoted circumflex
-	 * character produces unspecified results (IEEE 1003.2-1992,
-	 * 3.13.2).  This implementation treats it like '!', for
-	 * consistency with the regular expression syntax.
-	 * J.T. Conklin (conklin@ngai.kaleida.com)
-	 */
+* A bracket expression starting with an unquoted circumflex
+* character produces unspecified results (IEEE 1003.2-1992,
+* 3.13.2).  This implementation treats it like '!', for
+* consistency with the regular expression syntax.
+* J.T. Conklin (conklin@ngai.kaleida.com)
+*/
 	if ((negate = (*pattern == '!' || *pattern == '^')))
 		++pattern;
 
@@ -175,10 +175,10 @@ rangematch(const char *pattern, char test, int flags, char **newp)
 		test = tolower((unsigned char)test);
 
 	/*
-	 * A right bracket shall lose its special meaning and represent
-	 * itself in a bracket expression if it occurs first in the list.
-	 * -- POSIX.2 2.8.3.2
-	 */
+* A right bracket shall lose its special meaning and represent
+* itself in a bracket expression if it occurs first in the list.
+* -- POSIX.2 2.8.3.2
+*/
 	ok = 0;
 	c = *pattern++;
 	do {
@@ -191,7 +191,7 @@ rangematch(const char *pattern, char test, int flags, char **newp)
 		if ((flags & FNM_CASEFOLD))
 			c = tolower((unsigned char)c);
 		if (*pattern == '-'
-		    && (c2 = *(pattern+1)) != EOS && c2 != ']') {
+	   && (c2 = *(pattern+1)) != EOS && c2 != ']') {
 			pattern += 2;
 			if (c2 == '\\' && !(flags & FNM_NOESCAPE))
 				c2 = *pattern++;

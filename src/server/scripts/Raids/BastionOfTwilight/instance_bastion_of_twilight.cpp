@@ -46,16 +46,16 @@ public:
              uiValiona = 0;
              uiTheralion = 0;
              uiFeludius = 0;
-			 uiIgnacious = 0;
-			 uiArion = 0;
-			 uiTerrastra = 0;
-			 uiMonstrosity = 0;
-			 uiChogall = 0;
-			 uiSlateDrake = 0;
-			 uiStormRider = 0;
-			 uiNetherScion = 0;
-			 uiProtoBehemoth = 0 ;
-			 uiTimeWarden = 0;
+		uiIgnacious = 0;
+		uiArion = 0;
+		uiTerrastra = 0;
+		uiMonstrosity = 0;
+		uiChogall = 0;
+		uiSlateDrake = 0;
+		uiStormRider = 0;
+		uiNetherScion = 0;
+		uiProtoBehemoth = 0 ;
+		uiTimeWarden = 0;
              uiCyclonWinds = 0;
              uiInfernoRush = 0;
              uiAscendantCouncilPhase = 1;
@@ -354,7 +354,7 @@ public:
 					}
                     if (!data8 == 0)
                     {
-				        uiHalfusNormalTimer = data8;
+			       uiHalfusNormalTimer = data8;
                     }
                     else uiHalfusNormalTimer = 604800000;
 				}

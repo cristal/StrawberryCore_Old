@@ -412,7 +412,7 @@ float CollisionDetection::penetrationDepthForFixedBoxFixedBox(
     // penetration since we did not include the dot(L, L) denominator
     // that can be smaller than 1.0 for the edge-edge cases.
 	if (!parallelAxes) {
-	    double edgeDistances[9];
+   double edgeDistances[9];
 
 		// run through edge-edge cases to see if we can find a separating axis
 		for (int i = 6; i < 15; i++) {
@@ -1253,7 +1253,7 @@ bool CollisionDetection::collisionLocationForMovingPointFixedAABox(
             }
         } else if (origin[i] > MaxB[i]) {
 			location[i]	= MaxB[i];
-			Inside	    = false;
+			Inside   = false;
 
 			// Calculate T distances to candidate planes
             if (IR(dir[i])) {
@@ -1540,7 +1540,7 @@ float CollisionDetection::collisionTimeForMovingPointFixedCapsule(
 	const Vector3&		_point,
 	const Vector3&		velocity,
 	const Capsule&		capsule,
-	Vector3&		    location,
+	Vector3&	   location,
     Vector3&            outNormal) {
 
 	float timeScale = velocity.magnitude();
@@ -1820,7 +1820,7 @@ float CollisionDetection::collisionTimeForMovingSphereFixedCapsule(
 	const Sphere&		sphere,
 	const Vector3&		velocity,
 	const Capsule&		capsule,
-	Vector3&		    location,
+	Vector3&	   location,
     Vector3&            outNormal) {
 
     (void)outNormal;

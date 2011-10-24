@@ -395,7 +395,7 @@ public:
             //  30            31         32        33           34             35             36             37           38          39
             "unit_flags, dynamicflags, family, trainer_id, trainer_type, trainer_spell, trainer_class, trainer_race, minrangedmg, maxrangedmg, "
             //       40          41       42        43          44           45         46           47            48           49          50
-            "rangedattackpower, type, type_flags, lootid, pickpocketloot, skinloot, resistance1, resistance2, resistance3, resistance4, resistance5, "
+            "rangedattackpower, type, type_flags, type_flags2, lootid, pickpocketloot, skinloot, resistance1, resistance2, resistance3, resistance4, resistance5, "
             //    51        52      53      54      55      56      57      58      59          60            61        62       63      64         65
             "resistance6, spell1, spell2, spell3, spell4, spell5, spell6, spell7, spell8, PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, "
             //    66           67           68          69          70          71          72          73          74           75          76
@@ -464,35 +464,38 @@ public:
         const_cast<CreatureTemplate*>(cInfo)->maxrangedmg = fields[39].GetFloat();
         const_cast<CreatureTemplate*>(cInfo)->rangedattackpower = fields[40].GetUInt32();
         const_cast<CreatureTemplate*>(cInfo)->type = fields[41].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->type_flags = fields[42].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->lootid = fields[43].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->pickpocketLootId = fields[44].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->SkinLootId = fields[45].GetUInt32();
+
+		for (uint8 i = 0; i < MAX_TYPE_FLAGS; ++i)
+		const_cast<CreatureTemplate*>(cInfo)->type_flags[i] = fields[42 + i].GetInt32();
+
+        const_cast<CreatureTemplate*>(cInfo)->lootid = fields[44].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->pickpocketLootId = fields[45].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->SkinLootId = fields[46].GetUInt32();
 
         for (uint8 i = SPELL_SCHOOL_HOLY; i < MAX_SPELL_SCHOOL; ++i)
-            const_cast<CreatureTemplate*>(cInfo)->resistance[i] = fields[46 + i -1].GetUInt32();
+            const_cast<CreatureTemplate*>(cInfo)->resistance[i] = fields[47 + i -1].GetUInt32();
 
         for (uint8 i = 0; i < CREATURE_MAX_SPELLS; ++i)
-            const_cast<CreatureTemplate*>(cInfo)->spells[i] = fields[52+i].GetUInt32();
+            const_cast<CreatureTemplate*>(cInfo)->spells[i] = fields[53+i].GetUInt32();
 
-        const_cast<CreatureTemplate*>(cInfo)->PetSpellDataId = fields[60].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->VehicleId = fields[61].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->mingold = fields[62].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->maxgold = fields[63].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->AIName = fields[64].GetString();
-        const_cast<CreatureTemplate*>(cInfo)->MovementType = fields[65].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->InhabitType = fields[66].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->RacialLeader = fields[67].GetBool();
+        const_cast<CreatureTemplate*>(cInfo)->PetSpellDataId = fields[61].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->VehicleId = fields[62].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->mingold = fields[63].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->maxgold = fields[64].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->AIName = fields[65].GetString();
+        const_cast<CreatureTemplate*>(cInfo)->MovementType = fields[66].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->InhabitType = fields[67].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->RacialLeader = fields[68].GetBool();
 
         for (uint8 i = 0; i < MAX_CREATURE_QUEST_ITEMS; ++i)
-            const_cast<CreatureTemplate*>(cInfo)->questItems[i] = fields[68+i].GetUInt32();
+            const_cast<CreatureTemplate*>(cInfo)->questItems[i] = fields[69+i].GetUInt32();
 
-        const_cast<CreatureTemplate*>(cInfo)->movementId = fields[74].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->RegenHealth = fields[75].GetBool();
-        const_cast<CreatureTemplate*>(cInfo)->equipmentId = fields[76].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->MechanicImmuneMask = fields[77].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->flags_extra = fields[78].GetUInt32();
-        const_cast<CreatureTemplate*>(cInfo)->ScriptID = sObjectMgr->GetScriptId(fields[79].GetCString());
+        const_cast<CreatureTemplate*>(cInfo)->movementId = fields[75].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->RegenHealth = fields[76].GetBool();
+        const_cast<CreatureTemplate*>(cInfo)->equipmentId = fields[77].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->MechanicImmuneMask = fields[78].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->flags_extra = fields[79].GetUInt32();
+        const_cast<CreatureTemplate*>(cInfo)->ScriptID = sObjectMgr->GetScriptId(fields[80].GetCString());
 
         sObjectMgr->CheckCreatureTemplate(cInfo);
 

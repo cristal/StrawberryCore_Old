@@ -2858,11 +2858,11 @@ Creature* Player::GetNPCIfCanInteractWith(uint64 guid, uint32 npcflagmask)
         return NULL;
 
     // Deathstate checks
-    if (!isAlive() && !(creature->GetCreatureInfo()->type_flags & CREATURE_TYPEFLAGS_GHOST))
+    if (!isAlive() && !(creature->GetCreatureInfo()->type_flags[0] & CREATURE_TYPEFLAGS_GHOST))
         return NULL;
 
     // alive or spirit healer
-    if (!creature->isAlive() && !(creature->GetCreatureInfo()->type_flags & CREATURE_TYPEFLAGS_DEAD_INTERACT))
+    if (!creature->isAlive() && !(creature->GetCreatureInfo()->type_flags[0] & CREATURE_TYPEFLAGS_DEAD_INTERACT))
         return NULL;
 
     // appropriate npc type
@@ -24670,20 +24670,21 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
 
 uint32 Player::CalculateTalentsPoints() const
 {
-    uint32 base_talent = 0;
-    if (getLevel() >= 10 && getLevel() <= 81)
-        base_talent = (((getLevel() - 10 + 1) - (((getLevel() - 10 + 1) % 2) == 1 ? 1 : 0))/2) + 1;
-    else
-        base_talent = getLevel() - 44;
+	uint8 level = GetUInt32Value(UNIT_FIELD_LEVEL);
+	uint32 talent_points = (level < 10 ? 0 : ((level - 9) / 2) + 1);
+	if (level == 82 || level == 83)
+		talent_points += 1;
+	else if (level >= 84)
+		talent_points += 2;
 
     if (getClass() != CLASS_DEATH_KNIGHT || GetMapId() != 609)
-        return uint32(base_talent * sWorld->getRate(RATE_TALENT));
+        return uint32(talent_points * sWorld->getRate(RATE_TALENT));
 
     uint32 talentPointsForLevel = getLevel() < 56 ? 0 : getLevel() - 55;
     talentPointsForLevel += m_questRewardTalentCount;
 
-    if (talentPointsForLevel > base_talent)
-        talentPointsForLevel = base_talent;
+    if (talentPointsForLevel > talent_points)
+        talentPointsForLevel = talent_points;
 
     return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));
 }

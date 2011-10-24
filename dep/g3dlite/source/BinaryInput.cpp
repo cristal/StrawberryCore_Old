@@ -243,10 +243,10 @@ BinaryInput::BinaryInput(
     	m_length = dataLen;
         m_bufferLength = m_length;
         if (! copyMemory) {
- 	        debugAssert(!m_freeBuffer);
+        debugAssert(!m_freeBuffer);
             m_buffer = const_cast<uint8*>(data);
         } else {
-	        debugAssert(m_freeBuffer);
+       debugAssert(m_freeBuffer);
             m_buffer = (uint8*)System::alignedMalloc(m_length, 16);
             System::memcpy(m_buffer, data, dataLen);
         }

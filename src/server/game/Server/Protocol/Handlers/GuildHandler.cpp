@@ -381,7 +381,7 @@ void WorldSession::HandleGuildRankOpcode(WorldPacket& recvPacket)
         guild->SetBankTabRights(this, new_rankId, BankRights, BankStacks);
     }
     if (old_rankId != new_rankId && old_rankId != GR_GUILDMASTER && new_rankId != GR_GUILDMASTER)
-        guild->SwitchRank(old_rankId, new_rankId);	 
+        guild->SwitchRank(old_rankId, new_rankId);
 }
 
 // Cata Status: Done
