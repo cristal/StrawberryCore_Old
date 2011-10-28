@@ -29,39 +29,40 @@ class WorldPacket : public ByteBuffer
 {
     public:
                                                             // just container for later use
-        WorldPacket()                                       : ByteBuffer(0), m_opcode(0), m_opcodeEnum(MSG_OPCODE_UNKNOWN)
+        WorldPacket()                                       : ByteBuffer(0), m_opcode(0)
         {
         }
+
         explicit WorldPacket(Opcodes enumVal, size_t res=200) : ByteBuffer(res)
         {
-            SetOpcode(enumVal);
+            m_opcode = LookupOpcodeNumber(enumVal);
         }
-        explicit WorldPacket(uint32 opcode, size_t res=200) : ByteBuffer(res)
+
+        explicit WorldPacket(uint32 opcode, size_t res = 200) : ByteBuffer(res), m_opcode(opcode)
         {
-            SetOpcode(opcode);
         }
-                                                            // copy constructor
-        WorldPacket(const WorldPacket &packet)              : ByteBuffer(packet), m_opcode(packet.m_opcode), m_opcodeEnum(packet.m_opcodeEnum)
+        // copy constructor
+        WorldPacket(const WorldPacket &packet) : ByteBuffer(packet), m_opcode(packet.m_opcode)
         {
         }
 
         void Initialize(Opcodes enumVal, size_t newres=200)
         {
-            clear();
-            _storage.reserve(newres);
-            SetOpcode(enumVal);
+            Initialize(LookupOpcodeNumber(enumVal), newres);
         }
-        void Initialize(uint32 opcode, size_t newres=200)
+
+        void Initialize(uint32 opcode, size_t newres = 200)
         {
             clear();
             _storage.reserve(newres);
-            SetOpcode(opcode);
+
+            m_opcode = opcode;
         }
 
-        Opcodes GetOpcodeEnum() const { return m_opcodeEnum; }
         uint32 GetOpcode() const { return m_opcode; }
-        inline void SetOpcode(uint32 opcode) { m_opcode = opcode; m_opcodeEnum = LookupOpcodeEnum(opcode); }
-        inline void SetOpcode(Opcodes enumVal) { m_opcode = LookupOpcodeNumber(enumVal); m_opcodeEnum = enumVal; }
+        Opcodes GetOpcodeEnum() const { return LookupOpcodeEnum(m_opcode); }
+        void SetOpcode(uint32 opcode) { m_opcode = opcode; }
+        void SetOpcode(Opcodes enumVal) { m_opcode = LookupOpcodeNumber(enumVal); }
 
         void compress(Opcodes enumVal);
 
@@ -87,7 +88,6 @@ class WorldPacket : public ByteBuffer
 
     protected:
         uint32 m_opcode;
-        Opcodes m_opcodeEnum;
         void _compress(void* dst, uint32 *dst_size, const void* src, int src_size);
 };
 #endif

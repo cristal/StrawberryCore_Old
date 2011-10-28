@@ -414,10 +414,10 @@ class WorldSession
 
     public:                                                 // opcodes handlers
 
-        void Handle_NULL(WorldPacket& recvPacket);          // not used
-        void Handle_EarlyProccess(WorldPacket& recvPacket);// just mark packets processed in WorldSocket::OnRead
-        void Handle_ServerSide(WorldPacket& recvPacket);    // sever side only, can't be accepted from client
-        void Handle_Deprecated(WorldPacket& recvPacket);    // never used anymore by client
+        void HandleNULL(WorldPacket& recvPacket);          // not used
+        void HandleEarlyProccess(WorldPacket& recvPacket);// just mark packets processed in WorldSocket::OnRead
+        void HandleServerSide(WorldPacket& recvPacket);    // sever side only, can't be accepted from client
+        void HandleDeprecated(WorldPacket& recvPacket);    // never used anymore by client
 
         void HandleCharEnumOpcode(WorldPacket& recvPacket);
         void HandleCharDeleteOpcode(WorldPacket& recvPacket);
@@ -505,7 +505,6 @@ class WorldSession
         void HandleSetContactNotesOpcode(WorldPacket& recvPacket);
         void HandleBugOpcode(WorldPacket& recvPacket);
         void HandleSetAmmoOpcode(WorldPacket& recvPacket);
-        void HandleItemNameQueryOpcode(WorldPacket& recvPacket);
 
         void HandleAreaTriggerOpcode(WorldPacket& recvPacket);
 
@@ -674,7 +673,6 @@ class WorldSession
         void HandleAutoEquipItemOpcode(WorldPacket& recvPacket);
         void HandleItemQuerySingleOpcode(WorldPacket& recvPacket);
         void HandleSellItemOpcode(WorldPacket& recvPacket);
-        void HandleBuyItemInSlotOpcode(WorldPacket& recvPacket);
         void HandleBuyItemOpcode(WorldPacket& recvPacket);
         void HandleListInventoryOpcode(WorldPacket& recvPacket);
         void HandleAutoStoreBagItemOpcode(WorldPacket& recvPacket);

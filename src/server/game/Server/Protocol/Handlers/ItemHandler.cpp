@@ -664,62 +664,17 @@ void WorldSession::HandleBuybackItem(WorldPacket & recv_data)
         _player->SendBuyError(BUY_ERR_CANT_FIND_ITEM, pCreature, 0, 0);
 }
 
-void WorldSession::HandleBuyItemInSlotOpcode(WorldPacket & recv_data)
-{
-    sLog->outDebug("WORLD: Received CMSG_BUY_ITEM_IN_SLOT");
-    uint64 vendorguid, bagguid;
-    uint32 item, slot, count;
-    uint8 bagslot, unk;
-
-    recv_data >> vendorguid >> unk >> item  >> slot >> count >> bagguid >> bagslot;
-
-    // client expects count starting at 1, and we send vendorslot+1 to client already
-    if (slot > 0)
-        --slot;
-    else
-        return;                                             // cheating
-
-    uint8 bag = NULL_BAG;                                   // init for case invalid bagGUID
-
-    // find bag slot by bag guid
-    if (bagguid == _player->GetGUID() || bagguid == 0)
-        bag = INVENTORY_SLOT_BAG_0;
-    else
-    {
-        for (int i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
-        {
-            if (Bag *pBag = (Bag*)_player->GetItemByPos(INVENTORY_SLOT_BAG_0,i))
-            {
-                if (bagguid == pBag->GetGUID())
-                {
-                    bag = i;
-                    break;
-                }
-            }
-        }
-    }
-
-    // bag not found, cheating?
-    if (bag == NULL_BAG)
-        return;
-
-    GetPlayer()->BuyItemFromVendorSlot(vendorguid,slot,item,count,bag,bagslot);
-}
-
 void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_BUY_ITEM");
     uint64 vendorguid;
-    uint8 unk;
     uint32 item, slot, count;
-    uint64 unk1;
-    uint8 unk2;
 
     recv_data >> vendorguid;
-    recv_data >> unk;                                       // 4.0.6
+    recv_data.read_skip<uint8>();
     recv_data >> item >> slot >> count;
-    recv_data >> unk1;                                      // 4.0.6
-    recv_data >> unk2;
+    recv_data.read_skip<uint64>();
+    recv_data.read_skip<uint8>();
 
     // client expects count starting at 1, and we send vendorslot+1 to client already
     if (slot > 0)
@@ -779,7 +734,7 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     uint32 itemCount = vendorItems->GetItemCount();
     uint32 count = 0;
 
-    WorldPacket data(SMSG_LIST_INVENTORY, 1 + 8 + 4 + 1 + itemCount * 10 * 4);
+    WorldPacket data(SMSG_LIST_INVENTORY, 1 + 6 + 4 + 1 + itemCount * 10 * 4);
 
     // ToDo: vendorGuid
     data << uint8(0xEB);
@@ -1070,30 +1025,6 @@ void WorldSession::SendItemEnchantTimeUpdate(uint64 Playerguid, uint64 Itemguid,
     data << uint32(Duration);
     data << uint64(Playerguid);
     SendPacket(&data);
-}
-
-void WorldSession::HandleItemNameQueryOpcode(WorldPacket & recv_data)
-{
-    uint32 itemid;
-    recv_data >> itemid;
-    recv_data.read_skip<uint64>();                          // guid
-
-    sLog->outDebug("WORLD: CMSG_ITEM_NAME_QUERY %u", itemid);
-    ItemSetNameEntry const *pName = sObjectMgr->GetItemSetNameEntry(itemid);
-    if (pName)
-    {
-        std::string Name = pName->name;
-        int loc_idx = GetSessionDbLocaleIndex();
-        if (loc_idx >= 0)
-            if (ItemSetNameLocale const *isnl = sObjectMgr->GetItemSetNameLocale(itemid))
-                sObjectMgr->GetLocaleString(isnl->Name, loc_idx, Name);
-
-        WorldPacket data(SMSG_ITEM_NAME_QUERY_RESPONSE, (4+Name.size()+1+4));
-        data << uint32(itemid);
-        data << Name;
-        data << uint32(pName->InventoryType);
-        SendPacket(&data);
-    }
 }
 
 void WorldSession::HandleWrapItemOpcode(WorldPacket& recv_data)

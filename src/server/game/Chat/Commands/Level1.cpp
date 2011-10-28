@@ -195,25 +195,6 @@ bool ChatHandler::HandleOpcodeTestCommand(const char* args)
   return true;
 }
 
-bool ChatHandler::HandleOpcodeChangeCommand(const char* args)
-{
-    if (!*args)
-        return false;
-
-    std::string argstr = (char*)args;
-
-    uint32 opcode = ChangeAndGetOpcodeNumber(argstr);
-    if (opcode == -1)
-    {
-        SendSysMessage("This opcode name is not exist!");
-        SetSentErrorMessage(true);
-        return false;
-    }
-    PSendSysMessage("%s(%u)", argstr.c_str(), opcode);
-
-    return true;
-}
-
 bool ChatHandler::HandleNameAnnounceCommand(const char* args)
 {
     WorldPacket data;

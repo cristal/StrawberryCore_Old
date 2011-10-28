@@ -15379,6 +15379,9 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
 {
     GossipMenu& gossipMenu = PlayerTalkClass->GetGossipMenu();
 
+    if (gossipListId >= gossipMenu.GetMenuItemCount())
+        return;
+
     // if not same, then something funky is going on
     if (menuId != gossipMenu.GetMenuId())
         return;
@@ -15389,6 +15392,16 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
 
     uint32 gossipOptionId = item->OptionType;
     uint64 guid = source->GetGUID();
+    uint32 moneyTake = item->BoxMoney;
+
+    // if this function called and player have money for pay MoneyTake or cheating, proccess both cases
+    if (moneyTake > 0)
+    {
+        if (uint32(GetMoney()) >= moneyTake)
+            ModifyMoney(-int32(moneyTake));
+        else
+            return;                                         // cheating
+    }
 
     if (source->GetTypeId() == TYPEID_GAMEOBJECT)
         if (gossipOptionId > GOSSIP_OPTION_QUESTGIVER)
@@ -15525,8 +15538,6 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
             break;
         }
     }
-
-    ModifyMoney(-int32(cost));
 }
 
 uint32 Player::GetGossipTextId(WorldObject* source)
@@ -21736,7 +21747,8 @@ inline bool Player::_StoreOrEquipNewItem(uint32 vendorslot, uint32 item, uint8 c
 bool Player::BuyItemFromVendorSlot(uint64 vendorguid, uint32 vendorslot, uint32 item, uint8 count, uint8 bag, uint8 slot)
 {
     // cheating attempt
-    if (count < 1) count = 1;
+    if (count < 1)
+        count = 1;
 
     // cheating attempt
     if (slot > MAX_BAG_SIZE && slot !=NULL_SLOT)
