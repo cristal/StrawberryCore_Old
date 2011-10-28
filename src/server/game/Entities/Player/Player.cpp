@@ -15392,16 +15392,6 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
 
     uint32 gossipOptionId = item->OptionType;
     uint64 guid = source->GetGUID();
-    uint32 moneyTake = item->BoxMoney;
-
-    // if this function called and player have money for pay MoneyTake or cheating, proccess both cases
-    if (moneyTake > 0)
-    {
-        if (uint32(GetMoney()) >= moneyTake)
-            ModifyMoney(-int32(moneyTake));
-        else
-            return;                                         // cheating
-    }
 
     if (source->GetTypeId() == TYPEID_GAMEOBJECT)
         if (gossipOptionId > GOSSIP_OPTION_QUESTGIVER)
@@ -15415,7 +15405,11 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
         return;
 
     int32 cost = int32(item->BoxMoney);
-    if (!HasEnoughMoney(cost))
+    bool nocost = false;
+    if (cost == 0)
+        nocost = true;
+
+    if (nocost == false && !HasEnoughMoney(cost))
     {
         SendBuyError(BUY_ERR_NOT_ENOUGHT_MONEY, 0, 0, 0);
         PlayerTalkClass->SendCloseGossip();
@@ -15538,6 +15532,9 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
             break;
         }
     }
+
+    if (nocost == false)
+        ModifyMoney(-int32(cost));
 }
 
 uint32 Player::GetGossipTextId(WorldObject* source)
