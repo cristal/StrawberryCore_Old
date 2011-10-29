@@ -72,7 +72,7 @@ void WorldSession::HandleBattlemasterHelloOpcode(WorldPacket & recv_data)
 void WorldSession::SendBattlegGroundList(uint64 guid, BattlegroundTypeId bgTypeId)
 {
     WorldPacket data;
-    sBattlegroundMgr->BuildBattlegroundListPacket(&data, guid, _player, bgTypeId, 0);
+    sBattlegroundMgr->BuildBattlegroundListPacket(&data, guid, _player, bgTypeId);
     SendPacket(&data);
 }
 
@@ -339,12 +339,6 @@ void WorldSession::HandleBattlefieldListOpcode(WorldPacket &recv_data)
     uint8 bgTypeId;
     recv_data >> bgTypeId;                                  // id from DBC
 
-    uint8 fromWhere;
-    recv_data >> fromWhere;                                 // 0 - battlemaster (lua: ShowBattlefieldList), 1 - UI (lua: RequestBattlegroundInstanceInfo)
-
-    uint8 unk1;
-    recv_data >> unk1;                                       // Unknown 3.2.2
-
     BattlemasterListEntry const* bl = sBattlemasterListStore.LookupEntry(bgTypeId);
     if (!bl)
     {
@@ -353,7 +347,7 @@ void WorldSession::HandleBattlefieldListOpcode(WorldPacket &recv_data)
     }
 
     WorldPacket data;
-    sBattlegroundMgr->BuildBattlegroundListPacket(&data, 0, _player, BattlegroundTypeId(bgTypeId), fromWhere);
+    sBattlegroundMgr->BuildBattlegroundListPacket(&data, 0, _player, BattlegroundTypeId(bgTypeId));
     SendPacket(&data);
 }
 

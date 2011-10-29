@@ -1215,7 +1215,7 @@ void InitOpcodeTable()
     OPCODE( SMSG_UNKNOWN_1310,                            STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( CMSG_RETURN_TO_GRAVEYARD,                     STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveToGraveyard           );
     OPCODE( CMSG_REFORGE,                                 STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleReforgeOpcode             );
-    OPCODE( CMSG_VIOLENCE_LEVEL,                          STATUS_LOGGEDIN, PROCESS_INPLACE,       &WorldSession::PlayerViolenceLevel            );
+    OPCODE( CMSG_VIOLENCE_LEVEL,                          STATUS_AUTHED,   PROCESS_THREADUNSAFE,  &WorldSession::PlayerViolenceLevel            );
     OPCODE( CMSG_LOG_DISCONNECT,                          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
     OPCODE( MSG_CHECK_CONNECTION,                         STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleEarlyProccess            );
     OPCODE( SMSG_COMPRESSED_CHAR_ENUM,                    STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
