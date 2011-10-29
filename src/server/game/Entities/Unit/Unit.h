@@ -38,6 +38,7 @@
 #include "WorldPacket.h"
 #include "Timer.h"
 #include <list>
+#include "DATAStores.h"
 
 #define WORLD_TRIGGER   12999
 
@@ -416,7 +417,6 @@ enum UnitMods
     UNIT_MOD_RAGE,
     UNIT_MOD_FOCUS,
     UNIT_MOD_ENERGY,
-    UNIT_MOD_HAPPINESS,
     UNIT_MOD_RUNE,
     UNIT_MOD_RUNIC_POWER,
     UNIT_MOD_ARMOR,                                         // UNIT_MOD_ARMOR..UNIT_MOD_RESISTANCE_ARCANE must be in existed order, it's accessed by index values of SpellSchools enum.
@@ -1421,8 +1421,8 @@ class Unit : public WorldObject
 
         Powers getPowerType() const { return Powers(GetByteValue(UNIT_FIELD_BYTES_0, 3)); }
         void setPowerType(Powers power);
-        uint32 GetPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_POWER1   +power); }
-        uint32 GetMaxPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_MAXPOWER1+power); }
+        uint32 GetPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_POWER1 + GetPowerIndexByClass(power, getClass())); }
+        uint32 GetMaxPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_MAXPOWER1 + GetPowerIndexByClass(power, getClass())); }
         void SetPower(Powers power, uint32 val);
         void SetMaxPower(Powers power, uint32 val);
         // returns the change in power
@@ -2230,6 +2230,61 @@ class Unit : public WorldObject
         int32 eclipse;
         int32 GetEclipsePower() {return eclipse;};
         void SetEclipsePower(int32 power);
+
+		uint32 GetPowerIndexByClass(uint32 powerId, uint32 classId) const
+        {
+            ChrClassesEntry const* m_class = sChrClassesStore.LookupEntry(classId);
+
+            ASSERT(m_class && "Class not found");
+
+            uint32 index = 0;
+
+            for (uint32 i = 0; i <= sChrPowerTypesStore.GetNumRows(); i++)
+            {
+                ChrPowerTypesEntry const* cEntry = sChrPowerTypesStore.LookupEntry(i);
+
+                if (!cEntry)
+                    continue;
+
+                if (classId != cEntry->classId)
+                    continue;
+
+                if (powerId == cEntry->power)
+                    return index;
+
+                index++;
+            }
+			
+			return 0;
+        };
+        uint32 GetPowerIdByIndex(uint32 index, uint32 classId) const
+        {
+            ChrClassesEntry const* m_class = sChrClassesStore.LookupEntry(classId);
+
+            ASSERT(m_class && "Class not found");
+
+            ASSERT(index > 4 && "Not Existing Index");
+
+            uint32 index2 = 0;
+
+            for (uint32 i = 0; i <= sChrPowerTypesStore.GetNumRows(); i++)
+            {
+                ChrPowerTypesEntry const* cEntry = sChrPowerTypesStore.LookupEntry(i);
+
+                if (!cEntry)
+                    continue;
+
+                if (classId != cEntry->classId)
+                    continue;
+
+                if (index == index2)
+                    return cEntry->power;
+
+                index2++;
+            }
+			
+			return 0;
+        };
 
         uint32 m_heal_done[120];
         uint32 m_damage_done[120];

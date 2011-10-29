@@ -73,6 +73,7 @@ DATAStorage <CharTitlesEntry>                        sCharTitlesStore(LookupForm
 DATAStorage <ChatChannelsEntry>                      sChatChannelsStore(LookupFormat(ChatChannelsEntryfmt));
 DATAStorage <ChrClassesEntry>                        sChrClassesStore(LookupFormat(ChrClassesEntryfmt));
 DATAStorage <ChrRacesEntry>                          sChrRacesStore(LookupFormat(ChrRacesEntryfmt));
+DATAStorage <ChrPowerTypesEntry>                     sChrPowerTypesStore(ChrClassesXPowerTypesfmt);
 DATAStorage <CinematicSequencesEntry>                sCinematicSequencesStore(LookupFormat(CinematicSequencesEntryfmt));
 DATAStorage <CreatureDisplayInfoEntry>               sCreatureDisplayInfoStore(LookupFormat(CreatureDisplayInfofmt));
 DATAStorage <CreatureFamilyEntry>                    sCreatureFamilyStore(LookupFormat(CreatureFamilyfmt));
@@ -411,6 +412,7 @@ void LoadDATAStores()
     FORMAT(ChatChannelsEntryfmt, availableDataLocales,bad_dbc_files,sChatChannelsStore,             storesPath,"ChatChannels.dbc");
     FORMAT(ChrClassesEntryfmt, availableDataLocales,bad_dbc_files,sChrClassesStore,               storesPath,"ChrClasses.dbc");
     FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrRacesStore,                 storesPath,"ChrRaces.dbc");
+	FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrPowerTypesStore,                 storesPath,"ChrClassesXPowerTypes.dbc");
     FORMAT(CinematicSequencesEntryfmt, availableDataLocales,bad_dbc_files,sCinematicSequencesStore,       storesPath,"CinematicSequences.dbc");
     FORMAT(CreatureDisplayInfofmt, availableDataLocales,bad_dbc_files,sCreatureDisplayInfoStore,      storesPath,"CreatureDisplayInfo.dbc");
     FORMAT(CreatureFamilyfmt, availableDataLocales,bad_dbc_files,sCreatureFamilyStore,           storesPath,"CreatureFamily.dbc");

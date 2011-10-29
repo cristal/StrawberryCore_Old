@@ -2686,7 +2686,6 @@ void Player::Regenerate(Powers power)
         case POWER_RUNE:
         case POWER_FOCUS:
             addvalue += 0.01f * 800 * haste;
-        case POWER_HAPPINESS:
         case POWER_HEALTH:
             break;
         default:
@@ -2750,7 +2749,7 @@ void Player::Regenerate(Powers power)
     if (m_regenTimerCount >= 2000)
         SetPower(power, curValue);
     else
-        UpdateUInt32Value(UNIT_FIELD_POWER1 + power, curValue);
+        UpdateUInt32Value(UNIT_FIELD_POWER1 + GetPowerIndexByClass(power, getClass()), curValue);
 }
 
 void Player::RegenerateHealth()
@@ -3245,7 +3244,6 @@ void Player::GiveLevel(uint8 level)
     if (GetPower(POWER_RAGE) > GetMaxPower(POWER_RAGE))
         SetPower(POWER_RAGE, GetMaxPower(POWER_RAGE));
     SetPower(POWER_FOCUS, 0);
-    SetPower(POWER_HAPPINESS, 0);
 
     _ApplyAllLevelScaleItemMods(true);
 
@@ -3435,9 +3433,21 @@ void Player::InitStatsForLevel(bool reapplyMods)
     // Init data for form but skip reapply item mods for form
     InitDataForForm(reapplyMods);
 
-    // save new stats
-    for (uint8 i = POWER_MANA; i < MAX_POWERS; ++i)
-        SetMaxPower(Powers(i),  uint32(GetCreatePowers(Powers(i))));
+    for (uint32 i = 0; i <= sChrPowerTypesStore.GetNumRows(); i++)
+    {
+        ChrPowerTypesEntry const* cEntry = sChrPowerTypesStore.LookupEntry(i);
+
+        if (!cEntry)
+            continue;
+
+        if (getClass() != cEntry->classId)
+            continue;
+
+        if (cEntry->power == 10)
+            continue;
+
+        SetMaxPower(Powers(cEntry->power),  uint32(GetCreatePowers(Powers(cEntry->power))));
+    }
 
     SetMaxHealth(classInfo.basehealth);                     // stamina bonus will applied later
 
@@ -3475,7 +3485,6 @@ void Player::InitStatsForLevel(bool reapplyMods)
     if (GetPower(POWER_RAGE) > GetMaxPower(POWER_RAGE))
         SetPower(POWER_RAGE, GetMaxPower(POWER_RAGE));
     SetPower(POWER_FOCUS, 0);
-    SetPower(POWER_HAPPINESS, 0);
     SetPower(POWER_RUNIC_POWER, 0);
 
     // update level to hunter/summon pet
@@ -18240,11 +18249,11 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     // restore remembered power/health values (but not more max values)
     uint32 savedHealth = fields[45].GetUInt32(); // health
     SetHealth(savedHealth > GetMaxHealth() ? GetMaxHealth() : savedHealth);
-    for (uint8 i = 0; i < MAX_POWERS; ++i)
+    /*for (uint8 i = 0; i < MAX_POWERS; ++i)
     {
         uint32 savedPower = fields[46+i].GetUInt32(); // power1-2-3-4-5-6-7-8-9-10
         SetPower(Powers(i), savedPower > GetMaxPower(Powers(i)) ? GetMaxPower(Powers(i)) : savedPower);
-    }
+    }*/
 
     sLog->outDebug("The value of player %s after load item and aura is: ", m_name.c_str());
     outDebugValues();

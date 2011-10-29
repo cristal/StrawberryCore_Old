@@ -724,7 +724,8 @@ void InitOpcodeTable()
     OPCODE( CMSG_MOVE_WATER_WALK_ACK,                     STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveWaterWalkAck          );
     OPCODE( CMSG_MOVE_NOT_ACTIVE_MOVER,                   STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveNotActiveMover        );
     OPCODE( SMSG_PLAY_SOUND,                              STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
-    OPCODE( CMSG_BATTLEFIELD_STATUS,                      STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleBattlefieldStatusOpcode   );
+	OPCODE( CMSG_BATTLEFIELD_STATE,                       STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::WorldQueryBattlefieldState     );
+	OPCODE( CMSG_BATTLEFIELD_STATUS,                      STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleBattlefieldStatusOpcode   );
     OPCODE( SMSG_BATTLEFIELD_STATUS1,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_BATTLEFIELD_STATUS2,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_BATTLEFIELD_STATUS3,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
@@ -1214,13 +1215,13 @@ void InitOpcodeTable()
     OPCODE( SMSG_UNKNOWN_1310,                            STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( CMSG_RETURN_TO_GRAVEYARD,                     STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveToGraveyard           );
     OPCODE( CMSG_REFORGE,                                 STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleReforgeOpcode             );
-    OPCODE( CMSG_VIOLENCE_LEVEL,                          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
+    OPCODE( CMSG_VIOLENCE_LEVEL,                          STATUS_LOGGEDIN, PROCESS_INPLACE,       &WorldSession::PlayerViolenceLevel            );
     OPCODE( CMSG_LOG_DISCONNECT,                          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
     OPCODE( MSG_CHECK_CONNECTION,                         STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleEarlyProccess            );
     OPCODE( SMSG_COMPRESSED_CHAR_ENUM,                    STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( CMSG_UNREGISTER_ALL_ADDON_PREFIXES,           STATUS_UNHANDLED,PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
     OPCODE( CMSG_REQUEST_CATEGORY_COOLDOWNS,              STATUS_UNHANDLED,PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
-    OPCODE( CMSG_REQUEST_CEMETERY_LIST,                   STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
+    OPCODE( CMSG_REQUEST_CEMETERY_LIST,                   STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::PlayerRequestCemeteryList      );
     OPCODE( SMSG_REQUEST_CEMETERY_LIST_RESPONSE,          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleSendCemetryListResponse   );
     //OPCODE( CMSG_WINTERGRASP_JOIN_BATTLE,                 STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleWGJoinBattle              );
     //OPCODE( CMSG_WINTERGRASP_LEAVE_BATTLE,                STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleWGLeaveRequest            );

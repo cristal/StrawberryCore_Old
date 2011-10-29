@@ -24,42 +24,42 @@
 
 void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
 {
-    sLog->outDebug("Opcode: %s(0x%.4X)", LookupOpcodeName(recvPacket.GetOpcodeEnum()), recvPacket.GetOpcode());
+	sLog->outDebug("Opcode %u", recvPacket.GetOpcodeEnum());
 
-    uint32 channel_id;
-    std::string pass, channelname;
+	uint32 channel_id;
+	std::string pass, channelname;
 
-    recvPacket.read_skip<uint8>();
-    recvPacket.read_skip<uint8>();
+	recvPacket.read_skip<uint8>();
+	recvPacket.read_skip<uint8>();
 
-    recvPacket >> channel_id;
+	recvPacket >> channel_id;
 
-    if (channel_id)
-    {
-        ChatChannelsEntry const* channel = sChatChannelsStore.LookupEntry(channel_id);
-        if (!channel)
-            return;
+	if (channel_id)
+	{
+		ChatChannelsEntry const* channel = sChatChannelsStore.LookupEntry(channel_id);
+		if (!channel)
+			return;
 
-        AreaTableEntry const* current_zone = GetAreaEntryByAreaID(_player->GetZoneId());
-        if (!current_zone)
-            return;
+		AreaTableEntry const* current_zone = GetAreaEntryByAreaID(_player->GetZoneId());
+		if (!current_zone)
+			return;
 
-        if (!_player->CanJoinConstantChannelInZone(channel, current_zone))
-            return;
-    }
+		if (!_player->CanJoinConstantChannelInZone(channel, current_zone))
+			return;
+	}
 
-    recvPacket >> channelname;
-    recvPacket >> pass;
+	recvPacket >> channelname;
+	recvPacket >> pass;
 
-    if (channelname.empty())
-        return;
+	if (channelname.empty())
+		return;
 
-    if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
-    {
-        cMgr->team = _player->GetTeam();
-        if (Channel *chn = cMgr->GetJoinChannel(channelname, channel_id))
-            chn->Join(_player->GetGUID(), pass.c_str());
-    }
+	if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
+	{
+		cMgr->team = _player->GetTeam();
+		if (Channel *chn = cMgr->GetJoinChannel(channelname, channel_id))
+			chn->Join(_player->GetGUID(), pass.c_str());
+	}
 }
 
 void WorldSession::HandleLeaveChannel(WorldPacket& recvPacket)
