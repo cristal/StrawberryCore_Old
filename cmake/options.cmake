@@ -8,8 +8,8 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-option(SERVERS          "Build worldserver and loginserver"                            1)
-option(SCRIPTS    "Build core with basic scripts included"                            1)
+option(SERVERS          "Build worldserver and loginserver"                           1)
+option(SCRIPTS          "Build core with basic scripts included"                      1)
 option(TOOLS            "Build dbc/map/vmap extraction/assembler tools"               0)
 option(USE_SCRIPTPCH    "Use precompiled headers when compiling scripts"              1)
 option(USE_COREPCH      "Use precompiled headers when compiling servers"              1)
