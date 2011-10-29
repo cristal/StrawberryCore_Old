@@ -2031,11 +2031,11 @@ void AchievementMgr::RemoveTimedAchievement(AchievementCriteriaTimedTypes type, 
     }
 }
 
-void AchievementMgr::CompletedAchievement(AchievementEntry const* achievement, bool ignoreGMAllowAchievementConfig)
+void AchievementMgr::CompletedAchievement(AchievementEntry const* achievement)
 {
     sLog->outDetail("AchievementMgr::CompletedAchievement(%u)", achievement->ID);
 
-    if (m_player->GetSession()->GetSecurity() > AccountTypes(sWorld->getIntConfig(CONFIG_GM_LEVEL_ALLOW_ACHIEVEMENTS)) && !ignoreGMAllowAchievementConfig)
+    if (m_player->GetSession()->GetSecurity() > AccountTypes(sWorld->getIntConfig(CONFIG_GM_LEVEL_ALLOW_ACHIEVEMENTS)))
         return;
 
     if (achievement->flags & ACHIEVEMENT_FLAG_COUNTER || HasAchieved(achievement))

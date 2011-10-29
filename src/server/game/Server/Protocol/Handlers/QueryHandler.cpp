@@ -183,6 +183,10 @@ void WorldSession::HandleGameObjectQueryOpcode(WorldPacket & recv_data)
 {
     uint64 guid;
     uint32 entryID;
+
+    recv_data >> entryID;
+    recv_data >> guid;
+
     entryID = GetRealGOEntry();
     guid = GetRealGOGUID();
     --guid;
@@ -227,8 +231,8 @@ void WorldSession::HandleGameObjectQueryOpcode(WorldPacket & recv_data)
     }
     else
     {
-        sLog->outDebug("WORLD: CMSG_GAMEOBJECT_QUERY - Missing gameobject info for (GUID: %u, ENTRY: %u)",
-            GUID_LOPART(guid), entryID);
+        sLog->outDebug("WORLD: CMSG_GAMEOBJECT_QUERY - Missing gameobject info for (GUID: %u, ENTRY: %u)", GUID_LOPART(guid), entryID);
+
         WorldPacket data (SMSG_GAMEOBJECT_QUERY_RESPONSE, 4);
         data << uint32(entryID | 0x80000000);
         SendPacket(&data);
