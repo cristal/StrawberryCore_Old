@@ -2231,7 +2231,7 @@ class Unit : public WorldObject
         int32 GetEclipsePower() {return eclipse;};
         void SetEclipsePower(int32 power);
 
-		uint32 GetPowerIndexByClass(uint32 powerId, uint32 classId) const
+        uint32 GetPowerIndexByClass(uint32 powerId, uint32 classId) const
         {
             ChrClassesEntry const* m_class = sChrClassesStore.LookupEntry(classId);
 
@@ -2254,8 +2254,8 @@ class Unit : public WorldObject
 
                 index++;
             }
-			
-			return 0;
+            
+            return 0;
         };
         uint32 GetPowerIdByIndex(uint32 index, uint32 classId) const
         {
@@ -2282,8 +2282,8 @@ class Unit : public WorldObject
 
                 index2++;
             }
-			
-			return 0;
+            
+            return 0;
         };
 
         uint32 m_heal_done[120];

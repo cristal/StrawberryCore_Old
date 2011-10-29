@@ -4631,7 +4631,7 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectTriggerSpell[0] = 33760;
             count++;
             break;
-		case 26573 : //Consecration
+        case 26573 : //Consecration
             spellInfo->EffectTriggerSpell[1] = 82366;
             spellInfo->EffectTriggerSpell[2] = 69930;
             count++;
@@ -4893,7 +4893,7 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectSpellClassMask[0] = flag96(0x00000040, 0x00000000, 0x00000000);
             count++;
             break;
-		// ULDUAR SPELLS
+        // ULDUAR SPELLS
         //
         case 63342: // Focused Eyebeam Summon Trigger
             spellInfo->MaxAffectedTargets = 1;

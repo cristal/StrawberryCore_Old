@@ -509,8 +509,8 @@ void ObjectMgr::LoadCreatureTemplates()
         creatureTemplate.rangedattackpower = uint32(fields[41].GetUInt16());
         creatureTemplate.type              = uint32(fields[42].GetUInt8());
 
-		for (uint8 i = 0; i < MAX_TYPE_FLAGS; ++i)
-			creatureTemplate.type_flags[i] = fields[43 + i].GetInt32();
+        for (uint8 i = 0; i < MAX_TYPE_FLAGS; ++i)
+            creatureTemplate.type_flags[i] = fields[43 + i].GetInt32();
 
         creatureTemplate.lootid            = fields[45].GetUInt32();
         creatureTemplate.pickpocketLootId  = fields[46].GetUInt32();

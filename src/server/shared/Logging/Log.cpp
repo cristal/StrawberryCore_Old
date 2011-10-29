@@ -72,8 +72,8 @@ Log::~Log()
         fclose(sqlLogFile);
     sqlLogFile = NULL;
 
-	if (sqlDevLogFile != NULL)	
-        fclose(sqlDevLogFile);	
+    if (sqlDevLogFile != NULL)    
+        fclose(sqlDevLogFile);    
     sqlDevLogFile = NULL;
 }
 
@@ -167,7 +167,7 @@ void Log::Initialize()
     chatLogfile = openLogFile("ChatLogFile", "ChatLogTimestamp", "a");
     arenaLogFile = openLogFile("ArenaLogFile", NULL,"a");
     sqlLogFile = openLogFile("SQLDriverLogFile", NULL, "a");
-	sqlDevLogFile = openLogFile("SQLDeveloperLogFile", NULL, "a");
+    sqlDevLogFile = openLogFile("SQLDeveloperLogFile", NULL, "a");
 
     // Main log file settings
     m_logLevel     = sConfig->GetIntDefault("LogLevel", LOGL_NORMAL);
@@ -239,27 +239,27 @@ void Log::outTimestamp(FILE* file)
     fprintf(file,"%-4d-%02d-%02d %02d:%02d:%02d ",aTm->tm_year+1900,aTm->tm_mon+1,aTm->tm_mday,aTm->tm_hour,aTm->tm_min,aTm->tm_sec);
 }
 
-void Log::outSQLDev(const char* str, ...)	
-{	
-    if (!str)	
-        return;	
-	
-    va_list ap;	
-    va_start(ap, str);	
-    vutf8printf(stdout, str, &ap);	
+void Log::outSQLDev(const char* str, ...)    
+{    
+    if (!str)    
+        return;    
+    
+    va_list ap;    
+    va_start(ap, str);    
+    vutf8printf(stdout, str, &ap);    
     va_end(ap);
-    printf("\n");	
-    if (sqlDevLogFile)	
-    {	
+    printf("\n");    
+    if (sqlDevLogFile)    
+    {    
         va_list ap;
-        va_start(ap, str);	
+        va_start(ap, str);    
         vfprintf(sqlDevLogFile, str, ap);
         va_end(ap);
         fprintf(sqlDevLogFile, "\n");
-        fflush(sqlDevLogFile);	
-    }	
-	
-    fflush(stdout);	
+        fflush(sqlDevLogFile);    
+    }    
+    
+    fflush(stdout);    
 }
 
 void Log::InitColors(const std::string& str)

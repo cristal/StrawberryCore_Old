@@ -465,8 +465,8 @@ public:
         const_cast<CreatureTemplate*>(cInfo)->rangedattackpower = fields[40].GetUInt32();
         const_cast<CreatureTemplate*>(cInfo)->type = fields[41].GetUInt32();
 
-		for (uint8 i = 0; i < MAX_TYPE_FLAGS; ++i)
-		const_cast<CreatureTemplate*>(cInfo)->type_flags[i] = fields[42 + i].GetInt32();
+        for (uint8 i = 0; i < MAX_TYPE_FLAGS; ++i)
+        const_cast<CreatureTemplate*>(cInfo)->type_flags[i] = fields[42 + i].GetInt32();
 
         const_cast<CreatureTemplate*>(cInfo)->lootid = fields[44].GetUInt32();
         const_cast<CreatureTemplate*>(cInfo)->pickpocketLootId = fields[45].GetUInt32();

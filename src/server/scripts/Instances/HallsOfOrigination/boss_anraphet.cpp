@@ -93,11 +93,11 @@ class boss_anraphet : public CreatureScript
             void EnterCombat(Unit* /*Ent*/)
             {
                 DoScriptText(SAY_AGGRO, me);
-				if (pInstance)
+                if (pInstance)
                     pInstance->SetData(DATA_ANRAPHET_EVENT, IN_PROGRESS);
 
                 DoZoneInCombat();
-			}
+            }
 
             void KilledUnit(Unit* /*Killed*/)
             {

@@ -813,7 +813,7 @@ class WorldSession
         void HandlePVPLogDataOpcode(WorldPacket &recv_data);
         void HandleBattleFieldPortOpcode(WorldPacket &recv_data);
         void HandleBattlefieldListOpcode(WorldPacket &recv_data);
-		void WorldQueryBattlefieldState(WorldPacket &recv_data);
+        void WorldQueryBattlefieldState(WorldPacket &recv_data);
         void HandleLeaveBattlefieldOpcode(WorldPacket &recv_data);
         void HandleBattlemasterJoinArena(WorldPacket &recv_data);
         void HandleReportPvPAFK(WorldPacket &recv_data);
@@ -958,12 +958,12 @@ class WorldSession
         void HandleEjectPassenger(WorldPacket &data);
         void HandleEnterPlayerVehicle(WorldPacket &data);
         void HandleUpdateProjectilePosition(WorldPacket& recvPacket);
-		void HandleReforgeItem(WorldPacket& recv_data);
+        void HandleReforgeItem(WorldPacket& recv_data);
 
         void HandleSendCemetryListResponse(WorldPacket& recvPacket);
 
-		void PlayerRequestCemeteryList(WorldPacket& recvPacket);
-		void PlayerViolenceLevel(WorldPacket& recvPacket);
+        void PlayerRequestCemeteryList(WorldPacket& recvPacket);
+        void PlayerViolenceLevel(WorldPacket& recvPacket);
 
     private:
         void InitializeQueryCallbackParameters();

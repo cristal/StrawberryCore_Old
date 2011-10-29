@@ -87,11 +87,11 @@ class boss_earthrager_ptah : public CreatureScript
             void EnterCombat(Unit* /*Ent*/)
             {
                 DoScriptText(SAY_AGGRO, me);
-				if (pInstance)
+                if (pInstance)
                     pInstance->SetData(DATA_EARTHRAGER_PTAH_EVENT, IN_PROGRESS);
 
                 DoZoneInCombat();
-			}
+            }
 
             void UpdateAI(const uint32 uiDiff)
             {

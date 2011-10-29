@@ -1056,10 +1056,10 @@ public:
                     Fight = true;
 
                      if(pLichKing)
-					{
+                    {
                         me->CastSpell(pLichKing, me->GetEntry() == NPC_JAINA_OUTRO ? SPELL_ICE_PRISON : SPELL_DARK_ARROW,true);
-						pLichKing->AttackStop();
-				}
+                        pLichKing->AttackStop();
+                }
                     JumpNextStep(2500);
                     break; 
                 case 7:

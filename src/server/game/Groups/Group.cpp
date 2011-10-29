@@ -815,7 +815,7 @@ void Group::GroupLoot(Loot *loot, WorldObject* pLootedObject)
             {
                 r->setLoot(loot);
                 r->itemSlot = itemSlot;
-				uint32 ReqDisenchant = item->RequiredDisenchantSkill;
+                uint32 ReqDisenchant = item->RequiredDisenchantSkill;
                 if (item->DisenchantID && m_maxEnchantingLevel >= ReqDisenchant)
                     r->rollVoteMask |= ROLL_FLAG_TYPE_DISENCHANT;
 

@@ -4101,19 +4101,19 @@ bool ChatHandler::HandleBanCharacterCommand(const char *args)
     {
         case BAN_SUCCESS:
         {
-			if (!sWorld->getBoolConfig(CONFIG_SHOW_BAN)) {
+            if (!sWorld->getBoolConfig(CONFIG_SHOW_BAN)) {
             if (atoi(duration) > 0)
                 PSendSysMessage(LANG_BAN_YOUBANNED, name.c_str(), secsToTimeString(TimeStringToSecs(duration), true).c_str(), reason);
             else
                 PSendSysMessage(LANG_BAN_YOUPERMBANNED, name.c_str(), reason);
-			}
-			else {
-			if (atoi(duration) > 0)
+            }
+            else {
+            if (atoi(duration) > 0)
                 sWorld->SendWorldText(LANG_BAN_YOUBANNED, name.c_str(), secsToTimeString(TimeStringToSecs(duration), true).c_str(), reason);
             else
                 sWorld->SendWorldText(LANG_BAN_YOUPERMBANNED, name.c_str(), reason);
-			}
-			break;
+            }
+            break;
         }
         case BAN_NOTFOUND:
         {
@@ -4179,21 +4179,21 @@ bool ChatHandler::HandleBanHelper(BanMode mode, const char *args)
     switch(sWorld->BanAccount(mode, nameOrIP, duration, reason,m_session ? m_session->GetPlayerName() : ""))
     {
         case BAN_SUCCESS:
-			if (!sWorld->getBoolConfig(CONFIG_SHOW_BAN))
-			{
+            if (!sWorld->getBoolConfig(CONFIG_SHOW_BAN))
+            {
             if (atoi(duration)>0)
                 PSendSysMessage(LANG_BAN_YOUBANNED,nameOrIP.c_str(),secsToTimeString(TimeStringToSecs(duration),true).c_str(),reason);
             else
                 PSendSysMessage(LANG_BAN_YOUPERMBANNED,nameOrIP.c_str(),reason);
-			}
-			else 
-			{
-			if (atoi(duration)>0)
+            }
+            else 
+            {
+            if (atoi(duration)>0)
                 sWorld->SendWorldText(LANG_BAN_YOUBANNED,nameOrIP.c_str(),secsToTimeString(TimeStringToSecs(duration),true).c_str(),reason);
             else
                 sWorld->SendWorldText(LANG_BAN_YOUPERMBANNED,nameOrIP.c_str(),reason);
-			}
-			break;
+            }
+            break;
         case BAN_SYNTAX_ERROR:
             return false;
         case BAN_NOTFOUND:

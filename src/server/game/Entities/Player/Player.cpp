@@ -7676,7 +7676,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
                 sLog->outDebug("Reactivate flight form %u", flightFormSpellId);
                 CastSpell(this, flightFormSpellId, true);
             }
-        }		
+        }        
     }
 
     m_zoneUpdateId    = newZone;
@@ -7962,7 +7962,7 @@ void Player::_ApplyItemMods(Item *item, uint8 slot, bool apply)
         _ApplyAmmoBonuses();
 
     ApplyItemEquipSpell(item,apply);
-	ApplyReforgedStats(item, apply);
+    ApplyReforgedStats(item, apply);
     ApplyEnchantment(item, apply);
 
     sLog->outDebug("_ApplyItemMods complete.");
@@ -9509,7 +9509,7 @@ void Player::_ApplyAllItemMods()
 
             //ApplyItemEquipSpell(m_items[i], true);
             //ApplyEnchantment(m_items[i], true);
-			_ApplyItemBonuses(proto, i, true);
+            _ApplyItemBonuses(proto, i, true);
         }
     }
 
@@ -24688,12 +24688,12 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
 
 uint32 Player::CalculateTalentsPoints() const
 {
-	uint8 level = GetUInt32Value(UNIT_FIELD_LEVEL);
-	uint32 talent_points = (level < 10 ? 0 : ((level - 9) / 2) + 1);
-	if (level == 82 || level == 83)
-		talent_points += 1;
-	else if (level >= 84)
-		talent_points += 2;
+    uint8 level = GetUInt32Value(UNIT_FIELD_LEVEL);
+    uint32 talent_points = (level < 10 ? 0 : ((level - 9) / 2) + 1);
+    if (level == 82 || level == 83)
+        talent_points += 1;
+    else if (level >= 84)
+        talent_points += 2;
 
     if (getClass() != CLASS_DEATH_KNIGHT || GetMapId() != 609)
         return uint32(talent_points * sWorld->getRate(RATE_TALENT));

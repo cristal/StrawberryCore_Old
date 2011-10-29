@@ -425,29 +425,29 @@ struct GameObjectTemplate
         switch(type)
         {
             case GAMEOBJECT_TYPE_DOOR:
-				return door.lockId;
+                return door.lockId;
             case GAMEOBJECT_TYPE_BUTTON:
-				return button.lockId;
+                return button.lockId;
             case GAMEOBJECT_TYPE_QUESTGIVER:
-				return questgiver.lockId;
+                return questgiver.lockId;
             case GAMEOBJECT_TYPE_CHEST:
-				return chest.lockId;
+                return chest.lockId;
             case GAMEOBJECT_TYPE_TRAP:
-				return trap.lockId;
+                return trap.lockId;
             case GAMEOBJECT_TYPE_GOOBER:
-				return goober.lockId;
+                return goober.lockId;
             case GAMEOBJECT_TYPE_AREADAMAGE:
-				return areadamage.lockId;
+                return areadamage.lockId;
             case GAMEOBJECT_TYPE_CAMERA:
-				return camera.lockId;
+                return camera.lockId;
             case GAMEOBJECT_TYPE_FLAGSTAND:
-				return flagstand.lockId;
+                return flagstand.lockId;
             case GAMEOBJECT_TYPE_FISHINGHOLE:
-				return fishinghole.lockId;
+                return fishinghole.lockId;
             case GAMEOBJECT_TYPE_FLAGDROP:
-				return flagdrop.lockId;
+                return flagdrop.lockId;
             default:
-				return 0;
+                return 0;
         }
     }
 

@@ -1809,13 +1809,13 @@ void WorldSession::HandleSendCemetryListResponse(WorldPacket& recvPacket)
 
 void WorldSession::PlayerRequestCemeteryList(WorldPacket& recvPacket)
 {
-	// Empty Opcode
-	sLog->outDebug("WORLD: CMSG_REQUEST_CEMETERY_LIST");
+    // Empty Opcode
+    sLog->outDebug("WORLD: CMSG_REQUEST_CEMETERY_LIST");
 }
 
 void WorldSession::PlayerViolenceLevel(WorldPacket& recvPacket)
 {
-	sLog->outDebug("WORLD: CMSG_VIOLENCE_LEVEL");
+    sLog->outDebug("WORLD: CMSG_VIOLENCE_LEVEL");
 
-	recvPacket.read_skip<uint8>();    // violenceLevel
+    recvPacket.read_skip<uint8>();    // violenceLevel
 }

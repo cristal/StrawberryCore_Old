@@ -160,7 +160,7 @@ bool ResultSet::NextRow(bool no_cleanup)
     row = mysql_fetch_row(m_result);
     if (!row)
     {
-        if (!no_cleanup)	
+        if (!no_cleanup)    
             CleanUp();
         return false;
     }

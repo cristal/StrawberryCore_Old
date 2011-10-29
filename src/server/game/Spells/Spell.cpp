@@ -5961,10 +5961,10 @@ SpellCastResult Spell::CheckCasterAuras() const
             mechanic_immune = IMMUNE_TO_MOVEMENT_IMPAIRMENT_AND_LOSS_CONTROL_MASK;
     }
 
-	bool usableInStun = m_spellInfo->AttributesEx5 & SPELL_ATTR5_USABLE_WHILE_STUNNED;
+    bool usableInStun = m_spellInfo->AttributesEx5 & SPELL_ATTR5_USABLE_WHILE_STUNNED;
     // Glyph of Pain Suppression
-    // there is no other way to handle it	
-    if (m_spellInfo->Id == 33206 && !m_caster->HasAura(63248))	
+    // there is no other way to handle it    
+    if (m_spellInfo->Id == 33206 && !m_caster->HasAura(63248))    
         usableInStun = false;
 
     // Check whether the cast should be prevented by any state you might have.
@@ -5973,24 +5973,24 @@ SpellCastResult Spell::CheckCasterAuras() const
     uint32 unitflag = m_caster->GetUInt32Value(UNIT_FIELD_FLAGS);     // Get unit state
     if (unitflag & UNIT_FLAG_STUNNED)
     {
-        // spell is usable while stunned, check if caster has only mechanic stun auras, another stun types must prevent cast spell	
-        if (usableInStun)	
-        {	
-            bool foundNotStun = false;	
-            Unit::AuraEffectList const& stunAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_MOD_STUN);	
-            for (Unit::AuraEffectList::const_iterator i = stunAuras.begin(); i != stunAuras.end(); ++i)	
-            {	
-                if (!(GetAllSpellMechanicMask((*i)->GetSpellProto()) & (1<<MECHANIC_STUN)))	
-                {	
-                    foundNotStun = true;	
-                    break;	
-                }	
-            }	
-            if (foundNotStun)	
-                prevented_reason = SPELL_FAILED_STUNNED;	
-        }	
-        else	
-            prevented_reason = SPELL_FAILED_STUNNED;	
+        // spell is usable while stunned, check if caster has only mechanic stun auras, another stun types must prevent cast spell    
+        if (usableInStun)    
+        {    
+            bool foundNotStun = false;    
+            Unit::AuraEffectList const& stunAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_MOD_STUN);    
+            for (Unit::AuraEffectList::const_iterator i = stunAuras.begin(); i != stunAuras.end(); ++i)    
+            {    
+                if (!(GetAllSpellMechanicMask((*i)->GetSpellProto()) & (1<<MECHANIC_STUN)))    
+                {    
+                    foundNotStun = true;    
+                    break;    
+                }    
+            }    
+            if (foundNotStun)    
+                prevented_reason = SPELL_FAILED_STUNNED;    
+        }    
+        else    
+            prevented_reason = SPELL_FAILED_STUNNED;    
     }
     else if (unitflag & UNIT_FLAG_CONFUSED && !(m_spellInfo->AttributesEx5 & SPELL_ATTR5_USABLE_WHILE_CONFUSED))
         prevented_reason = SPELL_FAILED_CONFUSED;

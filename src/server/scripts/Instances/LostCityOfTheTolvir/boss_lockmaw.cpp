@@ -28,12 +28,12 @@
 
 enum Spells
 {
-	SPELL_DUST_FLAIL	= 81642,
-	SPELL_SCENT_OF_BLOOD= 81690,
-	H_SPELL_SCENT_OF_BLOOD= 89998,
-	SPELL_VENOMOUS_RAGE	= 81706,
-	SPELL_VISCOUS_POISON= 81630,
-	H_SPELL_VISCOUS_POISON= 90004,
+    SPELL_DUST_FLAIL    = 81642,
+    SPELL_SCENT_OF_BLOOD= 81690,
+    H_SPELL_SCENT_OF_BLOOD= 89998,
+    SPELL_VENOMOUS_RAGE    = 81706,
+    SPELL_VISCOUS_POISON= 81630,
+    H_SPELL_VISCOUS_POISON= 90004,
 };
 
 enum Events
@@ -62,25 +62,25 @@ class boss_lockmaw : public CreatureScript
 {
     public:
         boss_lockmaw() : CreatureScript("boss_lockmaw") {}
-	
+    
         CreatureAI* GetAI(Creature* pCreature) const
         {
            return new boss_lockmawAI(pCreature);
         }
         struct boss_lockmawAI : public ScriptedAI
-		{
-			boss_lockmawAI(Creature* pCreature) : ScriptedAI(pCreature), Summons(me)
-			{
-				pInstance = pCreature->GetInstanceScript();
-			}
+        {
+            boss_lockmawAI(Creature* pCreature) : ScriptedAI(pCreature), Summons(me)
+            {
+                pInstance = pCreature->GetInstanceScript();
+            }
 
-			InstanceScript* pInstance;
+            InstanceScript* pInstance;
             EventMap events;
             SummonList Summons;
             bool check_in;
-			
+            
             void Reset ()
-			{
+            {
                 events.Reset();
                 Summons.DespawnAll();
                                 
@@ -88,8 +88,8 @@ class boss_lockmaw : public CreatureScript
                     pInstance->SetData(DATA_LOCKMAW_EVENT, NOT_STARTED);
                 
                 check_in = false;
-			}
-			
+            }
+            
             void JustDied(Unit* /*Kill*/)
             {
                 Summons.DespawnAll();
@@ -99,18 +99,18 @@ class boss_lockmaw : public CreatureScript
 
             void EnterCombat(Unit* /*Ent*/)
             {
-				if (pInstance)
+                if (pInstance)
                     pInstance->SetData(DATA_LOCKMAW_EVENT, IN_PROGRESS);
                 
                 DoZoneInCombat();
-			}
+            }
 
-			void UpdateAI(const uint32 uiDiff)
+            void UpdateAI(const uint32 uiDiff)
             {
                 if (!UpdateVictim())  /* No target to kill */
                     return;
-								
-				events.Update(uiDiff);
+                                
+                events.Update(uiDiff);
 
                 if (me->HasUnitState(UNIT_STAT_CASTING))
                     return;
@@ -148,7 +148,7 @@ class boss_lockmaw : public CreatureScript
                             break;
                     }
             }
-                					
+                                    
             DoMeleeAttackIfReady();
         }
     };

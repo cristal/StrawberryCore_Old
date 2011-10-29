@@ -47,7 +47,7 @@ enum ConfigDatabaseStatements
 
 
 
-	MAX_CONFIGDATABASE_STATEMENTS,
+    MAX_CONFIGDATABASE_STATEMENTS,
 
 };
 #endif

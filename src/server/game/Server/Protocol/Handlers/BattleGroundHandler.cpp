@@ -525,8 +525,8 @@ void WorldSession::HandleLeaveBattlefieldOpcode(WorldPacket& recv_data)
 
 void WorldSession::WorldQueryBattlefieldState(WorldPacket& recv_data)
 {
-	// Empty Opcode
-	sLog->outDebug("WORLD: Recvd CMSG_BATTLEFIELD_STATE");
+    // Empty Opcode
+    sLog->outDebug("WORLD: Recvd CMSG_BATTLEFIELD_STATE");
 }
 
 void WorldSession::HandleBattlefieldStatusOpcode(WorldPacket & /*recv_data*/)

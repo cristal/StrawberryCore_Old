@@ -724,8 +724,8 @@ void InitOpcodeTable()
     OPCODE( CMSG_MOVE_WATER_WALK_ACK,                     STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveWaterWalkAck          );
     OPCODE( CMSG_MOVE_NOT_ACTIVE_MOVER,                   STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleMoveNotActiveMover        );
     OPCODE( SMSG_PLAY_SOUND,                              STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
-	OPCODE( CMSG_BATTLEFIELD_STATE,                       STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::WorldQueryBattlefieldState     );
-	OPCODE( CMSG_BATTLEFIELD_STATUS,                      STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleBattlefieldStatusOpcode   );
+    OPCODE( CMSG_BATTLEFIELD_STATE,                       STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::WorldQueryBattlefieldState     );
+    OPCODE( CMSG_BATTLEFIELD_STATUS,                      STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleBattlefieldStatusOpcode   );
     OPCODE( SMSG_BATTLEFIELD_STATUS1,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_BATTLEFIELD_STATUS2,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_BATTLEFIELD_STATUS3,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );

@@ -412,7 +412,7 @@ void LoadDATAStores()
     FORMAT(ChatChannelsEntryfmt, availableDataLocales,bad_dbc_files,sChatChannelsStore,             storesPath,"ChatChannels.dbc");
     FORMAT(ChrClassesEntryfmt, availableDataLocales,bad_dbc_files,sChrClassesStore,               storesPath,"ChrClasses.dbc");
     FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrRacesStore,                 storesPath,"ChrRaces.dbc");
-	FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrPowerTypesStore,                 storesPath,"ChrClassesXPowerTypes.dbc");
+    FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrPowerTypesStore,                 storesPath,"ChrClassesXPowerTypes.dbc");
     FORMAT(CinematicSequencesEntryfmt, availableDataLocales,bad_dbc_files,sCinematicSequencesStore,       storesPath,"CinematicSequences.dbc");
     FORMAT(CreatureDisplayInfofmt, availableDataLocales,bad_dbc_files,sCreatureDisplayInfoStore,      storesPath,"CreatureDisplayInfo.dbc");
     FORMAT(CreatureFamilyfmt, availableDataLocales,bad_dbc_files,sCreatureFamilyStore,           storesPath,"CreatureFamily.dbc");
