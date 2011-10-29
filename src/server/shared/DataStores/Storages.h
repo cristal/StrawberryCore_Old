@@ -87,10 +87,11 @@ class DATAStorage
         void SetIndexTable(uint32 row, T* table) { indexTable[row] = table; }
         void SetIndexTable(T** table) { indexTable = table; }
 
+        // This can be merged in one function.
         bool LoadDB2Storage(char const* fn, SqlData* sql)
         {
             StorageLoader db2;
-            // Check if load was sucessful, only then continue
+            // Check if load was successful, only then continue
             if (!db2.LoadDB2Storage(fn, fmt))
                 return false;
 
@@ -116,7 +117,7 @@ class DATAStorage
         bool LoadDBCStorage(char const* fn, SqlData* sql)
         {
             StorageLoader dbc;
-            // Check if load was sucessful, only then continue
+            // Check if load was successful, only then continue
             if (!dbc.LoadDBCStorage(fn, fmt))
                 return false;
 
@@ -273,7 +274,7 @@ class DATAStorage
 
             StorageLoader dbc;
             // Check if load was successful, only then continue
-            if(!dbc.LoadDBCStorage(fn, fmt))
+            if (!dbc.LoadDBCStorage(fn, fmt))
                 return false;
 
             m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt, (char*)m_dataTable));
@@ -291,14 +292,14 @@ class DATAStorage
             delete[] ((char*)m_dataTable);
             m_dataTable = NULL;
 
-            while(!m_stringPoolList.empty())
+            while (!m_stringPoolList.empty())
             {
                 delete[] m_stringPoolList.front();
                 m_stringPoolList.pop_front();
             }
             nCount = 0;
         }
-        
+
         void EraseEntry(uint32 id) { indexTable[id] = NULL; }
 
     public:

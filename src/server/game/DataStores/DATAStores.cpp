@@ -301,7 +301,7 @@ bool LoadDATAFormats()
     do
     {
         Field *fields = result->Fetch();
-        
+
         std::string name   = fields[0].GetString();
         const char* format = fields[1].GetCString();
 
@@ -362,7 +362,7 @@ void LoadDATAStores()
 
     for (uint32 i = 0; i < sItemStore.GetNumRows(); ++i)
     {
-        const ItemEntry* itemEntry = sItemStore.LookupEntry(i);
+        ItemEntry const* itemEntry = sItemStore.LookupEntry(i);
         if (!itemEntry)
             continue;
 
@@ -542,10 +542,6 @@ void LoadDATAStores()
     }
 
     sSpellStore.Clear();
-    /*sSpellStore.SetNCount((sTrueSpellStore.nCount));
-    DataFormatsMap::const_iterator SpellStoreFormat = DataFormats.find("SpellEntryfmt");
-    sSpellStore.SetFieldCount((strlen(SpellStoreFormat->second.c_str())));
-    sSpellStore.SetIndexTable(new SpellEntry*[sSpellStore.GetFieldCount()]);*/
     sSpellStore.nCount = sTrueSpellStore.nCount;
     sSpellStore.fieldCount = strlen(sSpellStore.fmt);
     sSpellStore.indexTable = new SpellEntry*[sSpellStore.nCount];
@@ -556,7 +552,7 @@ void LoadDATAStores()
         {
             SpellEntry *newspell = new SpellEntry(spell);
             sSpellStore.SetEntry(i, newspell);
-        
+
             if (newspell->Category)
                 sSpellCategoryStore[newspell->Category].insert(i);
         }
@@ -649,7 +645,7 @@ void LoadDATAStores()
 
     FORMAT(TalentTabEntryfmt, availableDataLocales,bad_dbc_files,sTalentTabStore,                storesPath,"TalentTab.dbc");
     FORMAT(TalentTreePrimarySpellsfmt, availableDataLocales,bad_dbc_files,sTalentTreePrimarySpellsStore,  storesPath, "TalentTreePrimarySpells.dbc");
-    
+
     // prepare fast data access to bit pos of talent ranks for use at inspecting
     {
         // now have all max ranks (and then bit amount used for store talent ranks in inspect)
@@ -708,7 +704,7 @@ void LoadDATAStores()
                     if (sInfo->Effect[j] == SPELL_EFFECT_SEND_TAXI)
                         spellPaths.insert(uint32(sInfo->EffectMiscValue[j]));
 
-        ASSERT(((sTaxiNodesStore.GetNumRows()-1)/32) < TaxiMaskSize && "TaxiMaskSize needs to be increased");
+        ASSERT(((sTaxiNodesStore.GetNumRows() - 1) / 32) < TaxiMaskSize && "TaxiMaskSize needs to be increased");
         memset(sTaxiNodesMask,0,sizeof(sTaxiNodesMask));
         memset(sOldContinentsNodesMask,0,sizeof(sOldContinentsNodesMask));
         memset(sHordeTaxiNodesMask,0,sizeof(sHordeTaxiNodesMask));
@@ -755,9 +751,8 @@ void LoadDATAStores()
                 sOldContinentsNodesMask[field] |= submask;
 
             // fix DK node at Ebon Hold
-            if (i == 315) {
+            if (i == 315)
                 ((TaxiNodesEntry*)node)->MountCreatureID[1] = 32981;
-            }
         }
     }
 
@@ -766,12 +761,9 @@ void LoadDATAStores()
     FORMAT(VehicleSeatEntryfmt, availableDataLocales,bad_dbc_files,sVehicleSeatStore,              storesPath,"VehicleSeat.dbc");
     FORMAT(WMOAreaTableEntryfmt, availableDataLocales,bad_dbc_files,sWMOAreaTableStore,             storesPath,"WMOAreaTable.dbc");
     for(uint32 i = 0; i < sWMOAreaTableStore.GetNumRows(); ++i)
-    {
-        if(WMOAreaTableEntry const* entry = sWMOAreaTableStore.LookupEntry(i))
-        {
+        if (WMOAreaTableEntry const* entry = sWMOAreaTableStore.LookupEntry(i))
             sWMOAreaInfoByTripple.insert(WMOAreaInfoByTripple::value_type(WMOAreaTableTripple(entry->rootId, entry->adtId, entry->groupId), entry));
-        }
-    }
+
     FORMAT(WorldMapAreaEntryfmt, availableDataLocales,bad_dbc_files,sWorldMapAreaStore,             storesPath,"WorldMapArea.dbc");
     FORMAT(WorldMapOverlayEntryfmt, availableDataLocales,bad_dbc_files,sWorldMapOverlayStore,          storesPath,"WorldMapOverlay.dbc");
     FORMAT(WorldSafeLocsEntryfmt, availableDataLocales,bad_dbc_files,sWorldSafeLocsStore,            storesPath,"WorldSafeLocs.dbc");
@@ -846,7 +838,7 @@ SpellEffectEntry const* GetSpellEffectEntry(uint32 spellId, uint32 effect)
     SpellEffectMap::const_iterator itr = sSpellEffectMap.find(spellId);
     if(itr == sSpellEffectMap.end())
         return NULL;
-    
+
     return itr->second.effects[effect];
 }
 
@@ -978,7 +970,7 @@ bool IsTotemCategoryCompatiableWith(uint32 itemTotemCategoryId, uint32 requiredT
     return (itemEntry->categoryMask & reqEntry->categoryMask) == reqEntry->categoryMask;
 }
 
-void Zone2MapCoordinates(float& x,float& y,uint32 zone)
+void Zone2MapCoordinates(float& x, float& y, uint32 zone)
 {
     WorldMapAreaEntry const* maEntry = sWorldMapAreaStore.LookupEntry(zone);
 
@@ -991,7 +983,7 @@ void Zone2MapCoordinates(float& x,float& y,uint32 zone)
     y = y*((maEntry->y2-maEntry->y1)/100)+maEntry->y1;      // client y coord from top to down
 }
 
-void Map2ZoneCoordinates(float& x,float& y,uint32 zone)
+void Map2ZoneCoordinates(float& x, float& y, uint32 zone)
 {
     WorldMapAreaEntry const* maEntry = sWorldMapAreaStore.LookupEntry(zone);
 
@@ -1079,7 +1071,7 @@ float GetGtSpellScalingValue(int8 class_, uint8 level)
         class_ = MAX_CLASSES; // General distribution
     if(class_ == 0)
         return -1.0f; // shouldn't scale
-    
+
     //They really wants that players reach level 100... in the 5th expansion.
     const gtSpellScaling * spellscaling = sGtSpellScalingStore.LookupEntry( (class_-1)*100 + level - 1 );
     if(spellscaling)

@@ -218,12 +218,12 @@ extern DATAStorage <ItemExtendedCostEntry>            sItemExtendedCostStore;
 void LoadDATAStores();
 
 // script support functions
- DATAStorage <SoundEntriesEntry>                      const* GetSoundEntriesStore();
- DATAStorage <SpellEntry>                             const* GetSpellStore();
- DATAStorage <SpellRangeEntry>                        const* GetSpellRangeStore();
- DATAStorage <FactionEntry>                           const* GetFactionStore();
- DATAStorage <CreatureDisplayInfoEntry>               const* GetCreatureDisplayStore();
- DATAStorage <EmotesEntry>                            const* GetEmotesStore();
- DATAStorage <EmotesTextEntry>                        const* GetEmotesTextStore();
- DATAStorage <AchievementEntry>                       const* GetAchievementStore();
+DATAStorage <SoundEntriesEntry>                      const* GetSoundEntriesStore();
+DATAStorage <SpellEntry>                             const* GetSpellStore();
+DATAStorage <SpellRangeEntry>                        const* GetSpellRangeStore();
+DATAStorage <FactionEntry>                           const* GetFactionStore();
+DATAStorage <CreatureDisplayInfoEntry>               const* GetCreatureDisplayStore();
+DATAStorage <EmotesEntry>                            const* GetEmotesStore();
+DATAStorage <EmotesTextEntry>                        const* GetEmotesTextStore();
+DATAStorage <AchievementEntry>                       const* GetAchievementStore();
 #endif

@@ -518,7 +518,7 @@ struct AchievementCriteriaEntry
     //uint32 unk1;                                          // 15 only one value, still unknown
     //uint32 unk2;                                          // 16 all zeros
     //uint32 moreRequirement[3];                            // 17-19
-    //uint32 moreRequirementValue[3];                       // 20-22 
+    //uint32 moreRequirementValue[3];                       // 20-22
 };
 
 struct AreaTableEntry
@@ -972,12 +972,12 @@ struct GameObjectDisplayInfoEntry
     uint32      Displayid;                                  // 0        m_ID
     //DBCString filename;                                   // 1
     //uint32  unk1[10];                                     // 2-11
-    float   minX;                                           // 12  
+    float   minX;                                           // 12
     float   minY;                                           // 13
     float   minZ;                                           // 14
-    float   maxX;                                           // 15 
-    float   maxY;                                           // 16  
-    float   maxZ;                                           // 17     
+    float   maxX;                                           // 15
+    float   maxY;                                           // 16
+    float   maxZ;                                           // 17
     //uint32 transport;                                     // 18
     //uint32 unk;                                           // 19
     //uint32 unk1;                                          // 20
@@ -1051,6 +1051,7 @@ struct GtChanceToSpellCritEntry
 
 struct GtOCTClassCombatRatingScalarEntry
 {
+    //uint32 level;
     float    ratio;
 };
 
@@ -1062,6 +1063,7 @@ struct GtOCTClassCombatRatingScalarEntry
 
 /*struct GtOCTRegenMPEntry
 {
+    //uint32 level;
     float    ratio;
 };*/
 
@@ -1085,9 +1087,10 @@ struct GtRegenMPPerSptEntry
 
 struct gtSpellScaling
 {
-     uint32 level;
+    uint32 level;
     float coef;
 };
+
 /* no used
 struct HolidayDescriptionsEntry
 {
@@ -1096,6 +1099,7 @@ struct HolidayDescriptionsEntry
                                                             // 17 name flags
 };
 */
+
 /* no used
 struct HolidayNamesEntry
 {
@@ -1103,12 +1107,14 @@ struct HolidayNamesEntry
     //DBCString     name;                                   // 1-16 m_name_lang
     // 17 name flags
 };*/
+
 struct HolidaysEntry
 {
     uint32    ID;                                             // 0 item level
     float     Value[7];                                       // 1-7 multiplier for item quality
     uint32    Id2;                                            // 8 item level
 };
+
 struct ItemArmorQualityEntry
 {
   uint32    Id;                                             // 0 item level
@@ -1471,15 +1477,23 @@ struct ScalingStatValuesEntry
     {
         if (mask & 0x00F001E0)
         {
-            if (mask & 0x00000020) return armorMod[0];
-            if (mask & 0x00000040) return armorMod[1];
-            if (mask & 0x00000080) return armorMod[2];
-            if (mask & 0x00000100) return armorMod[3];
+            if (mask & 0x00000020)
+                return armorMod[0];
+            if (mask & 0x00000040)
+                return armorMod[1];
+            if (mask & 0x00000080)
+                return armorMod[2];
+            if (mask & 0x00000100)
+                return armorMod[3];
 
-            if (mask & 0x00100000) return armorMod2[0];      // cloth
-            if (mask & 0x00200000) return armorMod2[1];      // leather
-            if (mask & 0x00400000) return armorMod2[2];      // mail
-            if (mask & 0x00800000) return armorMod2[3];      // plate
+            if (mask & 0x00100000)
+                return armorMod2[0];      // cloth
+            if (mask & 0x00200000)
+                return armorMod2[1];      // leather
+            if (mask & 0x00400000)
+                return armorMod2[2];      // mail
+            if (mask & 0x00800000)
+                return armorMod2[3];      // plate
         }
         return 0;
     }
@@ -1487,12 +1501,18 @@ struct ScalingStatValuesEntry
     {
         if (mask&0x7E00)
         {
-            if (mask & 0x00000200) return dpsMod[0];
-            if (mask & 0x00000400) return dpsMod[1];
-            if (mask & 0x00000800) return dpsMod[2];
-            if (mask & 0x00001000) return dpsMod[3];
-            if (mask & 0x00002000) return dpsMod[4];
-            if (mask & 0x00004000) return dpsMod[5];         // not used?
+            if (mask & 0x00000200)
+                return dpsMod[0];
+            if (mask & 0x00000400)
+                return dpsMod[1];
+            if (mask & 0x00000800)
+                return dpsMod[2];
+            if (mask & 0x00001000)
+                return dpsMod[3];
+            if (mask & 0x00002000)
+                return dpsMod[4];
+            if (mask & 0x00004000)
+                return dpsMod[5];         // not used?
         }
         return 0;
     }
@@ -1779,8 +1799,8 @@ struct SpellScalingEntry
     int32     class_;                                       // 4        Caster's class. Can be a negative value : MAX_CLASSES + 1 - class_.
     float     coefMultiplier[3];                            // 5-7
     float     coefRandomMultiplier[3];                      // 8-10
-    float     coefOther[3];                                 // 11-13    
-    float     base_coef;                                    // 14       
+    float     coefOther[3];                                 // 11-13
+    float     base_coef;                                    // 14
     uint32    base_level_coef;                              // 15       under this level, the final base coef will be < 1.
 };
 
@@ -1816,7 +1836,7 @@ struct SpellTotemsEntry
 #define MAX_SPELL_VISUAL 2
 
 // Spell.dbc
-struct SpellEntry_n //Structure of the true Spell.dbc 
+struct SpellEntry_n //Structure of the true Spell.dbc
 {
     uint32    Id;                                           // 0        m_ID
     uint32    Attributes;                                   // 1        m_attribute
@@ -1916,13 +1936,13 @@ struct SpellEntry
     uint32 SpellTargetRestrictionsId;                       // 44       SpellTargetRestrictions.dbc
     uint32 SpellTotemsId;                                   // 45       SpellTotems.dbc
     //uint32 ResearchProject;                               // 47       ResearchProject.dbc
-    
+
     //SpellAuraOptionsEntry
     uint32    StackAmount;
     uint32    procChance;
     uint32    procCharges;
     uint32    procFlags;
-    
+
     //SpellAuraRestrictionsEntry
     uint32    CasterAuraState;
     uint32    TargetAuraState;
@@ -1932,12 +1952,12 @@ struct SpellEntry
     uint32    targetAuraSpell;
     uint32    excludeCasterAuraSpell;
     uint32    excludeTargetAuraSpell;
-    
+
     // SpellCastingRequirementsEntry
     uint32    FacingCasterFlags;
     int32     AreaGroupId;
     uint32    RequiresSpellFocus;
-    
+
     // SpellCategoriesEntry
     uint32    Category;
     uint32    DmgClass;
@@ -1945,16 +1965,16 @@ struct SpellEntry
     uint32    Mechanic;
     uint32    PreventionType;
     uint32    StartRecoveryCategory;
-    
+
     // SpellClassOptionsEntry
     flag96    SpellFamilyFlags;
     uint32    SpellFamilyName;
-    
+
     // SpellCooldownsEntry
     uint32    CategoryRecoveryTime;
     uint32    RecoveryTime;
     uint32    StartRecoveryTime;
-    
+
     // SpellEffectEntry
     uint32    Effect[3];
     float     EffectValueMultiplier[3];
@@ -1976,32 +1996,32 @@ struct SpellEntry
     uint32    EffectTriggerSpell[3];
     uint32    EffectImplicitTargetA[3];
     uint32    EffectImplicitTargetB[3];
-    
+
     // SpellEquippedItemsEntry
     int32     EquippedItemClass;
     int32     EquippedItemInventoryTypeMask;
     int32     EquippedItemSubClassMask;
-    
+
     // SpellInterruptsEntry
     uint32    AuraInterruptFlags;
     uint32    ChannelInterruptFlags;
     uint32    InterruptFlags;
-    
+
     // SpellLevelsEntry
     uint32    baseLevel;
     uint32    maxLevel;
     uint32    spellLevel;
-    
+
     // SpellPowerEntry
     uint32    manaCost;
     uint32    manaCostPerlevel;
     uint32    ManaCostPercentage;
     uint32    manaPerSecond;
-    
+
     // SpellReagentsEntry
     int32     Reagent[8];
     uint32    ReagentCount[8];
-    
+
     // SpellScalingEntry
     uint32    ct_min;
     uint32    ct_max;
@@ -2009,20 +2029,20 @@ struct SpellEntry
     int32     SpellScaling_class;
     float     coefMultiplier[3];
     float     coefRandomMultiplier[3];
-    float     coefOther[3];   
+    float     coefOther[3];
     float     base_coef;
     uint32    base_level_coef;
-    
+
     // SpellShapeshiftEntry
     uint32    Stances;
     uint32    StancesNot;
-    
+
     // SpellTargetRestrictionsEntry
     uint32    MaxAffectedTargets;
     uint32    MaxTargetLevel;
     uint32    TargetCreatureType;
     uint32    Targets;
-    
+
     // SpellTotemsEntry
     uint32    TotemCategory[2];    // 162-163  m_requiredTotemCategoryID
     uint32    Totem[2];            // 52-53    m_totem
@@ -2050,7 +2070,7 @@ struct SpellEntry
     float GetDmgMultiplier(uint32 eff) const;
     float GetEffectMultipleValue(uint32 eff) const;
     uint32 const* GetEffectSpellClassMask(uint32 eff) const;
-    
+
     // struct access functions
     SpellAuraOptionsEntry const* GetSpellAuraOptions() const;
     SpellAuraRestrictionsEntry const* GetSpellAuraRestrictions() const;
@@ -2069,7 +2089,7 @@ struct SpellEntry
     SpellShapeshiftEntry const* GetSpellShapeshift() const;
     SpellTargetRestrictionsEntry const* GetSpellTargetRestrictions() const;
     SpellTotemsEntry const* GetSpellTotems() const;
-    
+
     // single fields
     uint32 GetManaCost() const;
     uint32 GetPreventionType() const;
@@ -2124,7 +2144,7 @@ struct SpellEntry
     uint32 GetTargetAuraStateNot() const;
     //SpellReagentsEntry
     uint32 GetReagent(uint8 reagent) const;
-    uint32 GetReagentCount(uint8 reagent) const; 
+    uint32 GetReagentCount(uint8 reagent) const;
 
     private:
         // prevent creating custom entries (copy data from original in fact)
