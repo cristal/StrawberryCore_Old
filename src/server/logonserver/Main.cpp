@@ -55,6 +55,7 @@ int m_ServiceStatus = -1;
 #endif
 
 bool StartDB();
+void StopDB();
 
 bool stopEvent = false;                                     ///< Setting it to true stops the server
 
@@ -318,8 +319,8 @@ extern int main(int argc, char **argv)
 #endif
     }
 
-    ///- Close the Database Pool
-    LoginDatabase.Close();
+    ///- Close the Database Pool and library
+    StopDB();
 
     sLog->outString("Halting process...");
     return 0;
@@ -328,6 +329,8 @@ extern int main(int argc, char **argv)
 /// Initialize connection to the database
 bool StartDB()
 {
+    MySQL::Library_Init();
+
     std::string dbstring = sConfig->GetStringDefault("LoginDatabaseInfo", "");
     if (dbstring.empty())
     {
@@ -359,4 +362,8 @@ bool StartDB()
     return true;
 }
 
-/// @}
+void StopDB()
+{
+    LoginDatabase.Close();
+    MySQL::Library_End();
+}
