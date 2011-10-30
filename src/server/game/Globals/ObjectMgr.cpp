@@ -1991,7 +1991,7 @@ void ObjectMgr::LoadGuildRewards()
         ptr->price = fields[1].GetUInt32();
         ptr->achievement = fields[2].GetUInt32();
         ptr->standing = fields[3].GetUInt32();
-        mGuildRewards.push_back(ptr); 
+        mGuildRewards.push_back(ptr);
 
         ++count;
     }while (result->NextRow());
@@ -2123,15 +2123,6 @@ void ObjectMgr::LoadItemLocales()
     sLog->outString(">> Loaded %lu Item locale strings in %u ms", (unsigned long)mItemLocaleMap.size(), GetMSTimeDiffToNow(oldMSTime));
     sLog->outString();
 }
-
-
-
-
-
-
-
-
-
 
 void ObjectMgr::LoadItemTemplates()
 {
@@ -3715,7 +3706,7 @@ void ObjectMgr::LoadPlayerInfo()
 
             //PlayerXPperLevel
             mGuildXPperLevel[level] = xp;
-            
+
             ++count;
         }
         while (result->NextRow());
@@ -3904,7 +3895,7 @@ void ObjectMgr::LoadQuests()
         "ReqCurrencyId1, ReqCurrencyCount1, ReqCurrencyId2, ReqCurrencyCount2, ReqCurrencyId3, ReqCurrencyCount3, ReqCurrencyId4, ReqCurrencyCount4,"
     //   163                     164                    165                      166                     167              168             169
         "QuestGiverPortraitText, QuestGiverPortraitUnk, QuestTurnInPortraitText, QuestTurnInPortraitUnk, QuestTargetMark, QuestStartType, SoundAccept,"
-    //  170           171            172          173       
+    //  170           171            172          173
         "SoundTurnIn, RequiredSpell, StartScript, CompleteScript"
         " FROM quest_template");
     if (!result)
@@ -7098,7 +7089,7 @@ void ObjectMgr::LoadCurrencyOnKill()
    QueryResult result = WorldDatabase.Query("SELECT creature_id, type, amount FROM creature_onkill_currency");
 
    if (!result)
-   { 
+   {
        sLog->outString();
        sLog->outErrorDb(">> Loaded 0 creature award currency definitions. DB table `creature_onkill_currency` is empty.");
        return;
@@ -7107,7 +7098,7 @@ void ObjectMgr::LoadCurrencyOnKill()
    do
    {
        Field *fields = result->Fetch();
-       
+
 
        uint32 creature_id = fields[0].GetUInt32();
 
