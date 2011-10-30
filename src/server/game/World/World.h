@@ -18,10 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-/// \addtogroup world The World
-/// @{
-/// \file
-
 #ifndef __WORLD_H
 #define __WORLD_H
 
@@ -336,7 +332,7 @@ enum WorldIntConfigs
     CONFIG_PERSISTENT_CHARACTER_CLEAN_FLAGS,
     CONFIG_MAX_INSTANCES_PER_HOUR,
     CONFIG_GUILD_ADVANCEMENT_MAX_LEVEL,
-    CONFIG_IGNORING_MAPS_VERSION,   
+    CONFIG_IGNORING_MAPS_VERSION,
     INT_CONFIG_VALUE_COUNT
 };
 

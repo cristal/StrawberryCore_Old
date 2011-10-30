@@ -18,10 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-/// \addtogroup world
-/// @{
-/// \file
-
 #ifndef __WEATHERMGR_H
 #define __WEATHERMGR_H
 

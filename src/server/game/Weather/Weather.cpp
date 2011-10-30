@@ -19,10 +19,6 @@
  */
 
 #include "gamePCH.h"
-/** \file
-    \ingroup world
-*/
-
 #include "Weather.h"
 #include "WorldPacket.h"
 #include "Player.h"
@@ -33,8 +29,7 @@
 #include "ScriptMgr.h"
 
 /// Create the Weather object
-Weather::Weather(uint32 zone, WeatherData const* weatherChances)
-    : m_zone(zone), m_weatherChances(weatherChances)
+Weather::Weather(uint32 zone, WeatherData const* weatherChances) : m_zone(zone), m_weatherChances(weatherChances)
 {
     m_timer.SetInterval(sWorld->getIntConfig(CONFIG_INTERVAL_CHANGEWEATHER));
     m_type = WEATHER_TYPE_FINE;

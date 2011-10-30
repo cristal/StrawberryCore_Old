@@ -19,10 +19,6 @@
  */
 
 #include "gamePCH.h"
-/** \file
-    \ingroup world
-*/
-
 #include "Common.h"
 #include "DatabaseEnv.h"
 #include "Config.h"
@@ -502,9 +498,9 @@ void World::LoadConfigSettings(bool reload)
     rate_values[RATE_AUCTION_CUT] = sConfig->GetFloatDefault("Rate.Auction.Cut", 1.0f);
     rate_values[RATE_HONOR] = sConfig->GetFloatDefault("Rate.Honor",1.0f);
     rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] = sConfig->GetFloatDefault("Rate.ConquestPointsWeekLimit",1.0f);
-    if (rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] <= 0 || rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] > 100)    
-    {    
-        sLog->outError("Rate.ConquestPointsWeekLimit (%f) must be between 0 and 100. Using 1 instead.",rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT]);    
+    if (rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] <= 0 || rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] > 100)
+    {
+        sLog->outError("Rate.ConquestPointsWeekLimit (%f) must be between 0 and 100. Using 1 instead.",rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT]);
         rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] = 1.0f;
     }
     rate_values[RATE_MINING_AMOUNT] = sConfig->GetFloatDefault("Rate.Mining.Amount",1.0f);
@@ -1163,7 +1159,7 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_CHARDELETE_KEEP_DAYS] = sConfig->GetIntDefault("CharDelete.KeepDays", 30);
 
     m_int_configs[CONFIG_IGNORING_MAPS_VERSION] = sConfig->GetIntDefault("IgnoringMapsVersion", 0);
-    
+
     ///- Read the "Data" directory from the config file
     std::string dataPath = sConfig->GetStringDefault("DataDir","./");
     if (dataPath.at(dataPath.length()-1) != '/' && dataPath.at(dataPath.length()-1) != '\\')
@@ -1296,7 +1292,7 @@ void World::SetInitialWorldSettings()
                 !MapManager::ExistMapAndVMap(530,-3961.64f,-13931.2f))))
         {
             exit(1);
-        }    
+        }
     }
 
     ///- Loading strings. Getting no records means core load has to be canceled because no error message can be output.
@@ -1795,7 +1791,7 @@ void World::SetInitialWorldSettings()
     sLog->outString("Calculate random battleground reset time..." );
     InitRandomBGResetTime();
 
-    sLog->outString("Calculate currency week cap reset time..." );    
+    sLog->outString("Calculate currency week cap reset time..." );
     InitCurrencyResetTime();
 
     LoadCharacterNameData();
@@ -1940,7 +1936,7 @@ void World::LoadCharacterCheck()
     // then the system will make a new guid for it.
 
     // How long It will take ?
-    // If you have characters more than 255 then generally it can took 1-20 secs but its just for once. 
+    // If you have characters more than 255 then generally it can took 1-20 secs but its just for once.
     // In the future it will be 1-30 ms.
 
     uint32 LastGUID;
@@ -2082,7 +2078,7 @@ void World::LoadCharacterCheck()
                 }
 
                 if (Multiple == false)
-                    CharacterDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u", 
+                    CharacterDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u",
                         tablename.c_str(), columnname.c_str(), newguid, columnname.c_str(), oldguid);
                 else
                 {
@@ -2190,7 +2186,7 @@ void World::LoadCharacterCheck()
 
                                     newtext = withoutlastspaces;
 
-                                    CharacterDatabase.PExecute("UPDATE `%s` SET `%s`=\"%s\" WHERE `%s`=\"%s\"", 
+                                    CharacterDatabase.PExecute("UPDATE `%s` SET `%s`=\"%s\" WHERE `%s`=\"%s\"",
                                         tablename.c_str(), columnname.c_str(), newtext.c_str(), columnname.c_str(), text.c_str());
                                 }
                             }
@@ -2282,7 +2278,7 @@ void World::LoadGameObjectCheck()
         ++count;
     }
     while (result->NextRow());
-    
+
     for (int i = 0; i < PairNumber; ++i)
     {
         int oldguid = PairList[i];
@@ -2317,7 +2313,7 @@ void World::LoadGameObjectCheck()
             }
 
             if (Triple == false)
-                WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s", 
+                WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s",
                     tablename.c_str(), columnname.c_str(), newguid, columnname.c_str(), oldguid, typestr.c_str());
             else
             {
@@ -2329,7 +2325,7 @@ void World::LoadGameObjectCheck()
                     case 1: typestr = " and `command`=11"; break;
                     case 2: typestr = " and `command`=12"; break;
                     }
-                    WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s", 
+                    WorldDatabase.PExecute("UPDATE `%s` SET `%s`=%u WHERE `%s`=%u%s",
                         tablename.c_str(), columnname.c_str(), newguid, columnname.c_str(), oldguid, typestr.c_str());
                 }
             }
@@ -3173,11 +3169,11 @@ void World::InitRandomBGResetTime()
         sWorld->setWorldState(WS_BG_DAILY_RESET_TIME, uint64(m_NextRandomBGReset));
 }
 
-void World::InitCurrencyResetTime()    
-{    
-    time_t wsTime = getWorldState(WS_CURRENCY_RESET_TIME);    
-    time_t curTime = time(NULL);    
-    m_NextCurrencyReset = wsTime < curTime ? curTime : wsTime;    
+void World::InitCurrencyResetTime()
+{
+    time_t wsTime = getWorldState(WS_CURRENCY_RESET_TIME);
+    time_t curTime = time(NULL);
+    m_NextCurrencyReset = wsTime < curTime ? curTime : wsTime;
 }
 
 void World::ResetDailyQuests()
@@ -3235,15 +3231,15 @@ void World::ResetRandomBG()
     sWorld->setWorldState(WS_BG_DAILY_RESET_TIME, uint64(m_NextRandomBGReset));
 }
 
-void World::ResetCurrencyWeekCap()    
-{    
-    sLog->outDetail("Currencies week caps reset for all characters.");    
-    CharacterDatabase.Execute("UPDATE character_currency SET thisweek = 0");    
-    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)    
-        if (itr->second->GetPlayer())    
-            itr->second->GetPlayer()->ResetCurrencyWeekCap();    
-    m_NextCurrencyReset = time_t(m_NextCurrencyReset + WEEK);    
-    sWorld->setWorldState(WS_CURRENCY_RESET_TIME, uint64(m_NextCurrencyReset));    
+void World::ResetCurrencyWeekCap()
+{
+    sLog->outDetail("Currencies week caps reset for all characters.");
+    CharacterDatabase.Execute("UPDATE character_currency SET thisweek = 0");
+    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+        if (itr->second->GetPlayer())
+            itr->second->GetPlayer()->ResetCurrencyWeekCap();
+    m_NextCurrencyReset = time_t(m_NextCurrencyReset + WEEK);
+    sWorld->setWorldState(WS_CURRENCY_RESET_TIME, uint64(m_NextCurrencyReset));
 }
 
 void World::UpdateMaxSessionCounters()
@@ -3312,7 +3308,7 @@ void World::LoadWorldStates()
     {
         Field *fields = result->Fetch();
         m_worldstates[fields[0].GetUInt32()] = fields[1].GetUInt32();
-        
+
         ++count;
     }
     while (result->NextRow());

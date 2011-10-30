@@ -22,7 +22,6 @@
 #include "Common.h"
 #include "DatabaseEnv.h"
 #include "SQLStorage.h"
-
 #include "Log.h"
 #include "TicketMgr.h"
 #include "WorldPacket.h"
@@ -90,7 +89,6 @@ void TicketMgr::LoadGMTickets()
         ticket->escalated = fields[14].GetUInt8();
         ticket->viewed = fields[15].GetBool();
         ++count;
-        
 
         m_GMTicketList.push_back(ticket);
     }

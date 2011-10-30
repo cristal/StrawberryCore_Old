@@ -57,7 +57,7 @@ void CharacterDatabaseCleaner::CleanDatabase()
     if (flags & CLEANING_FLAG_QUESTSTATUS)
         CleanCharacterQuestStatus();
 
-    // NOTE: In order to have persistentFlags be set in worldstates for the next cleanup, 
+    // NOTE: In order to have persistentFlags be set in worldstates for the next cleanup,
     // you need to define them at least once in worldstates.
     flags &= sWorld->getIntConfig(CONFIG_PERSISTENT_CHARACTER_CLEAN_FLAGS);
     CharacterDatabase.DirectPExecute("UPDATE worldstates SET value = %u WHERE entry = 20004", flags);
@@ -79,7 +79,7 @@ void CharacterDatabaseCleaner::CheckUnique(const char* column, const char* table
 
     bool found = false;
     std::ostringstream ss;
-    
+
     do
     {
         Field *fields = result->Fetch();

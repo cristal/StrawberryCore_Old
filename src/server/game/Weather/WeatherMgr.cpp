@@ -21,7 +21,6 @@
 #include "gamePCH.h"
 #include "WeatherMgr.h"
 #include "Log.h"
-
 #include "ObjectMgr.h"
 
 WeatherMgr::~WeatherMgr()
@@ -92,7 +91,7 @@ void WeatherMgr::LoadWeatherData()
     do
     {
         Field *fields = result->Fetch();
-        
+
         uint32 zone_id = fields[0].GetUInt32();
 
         WeatherData& wzc = mWeatherZoneMap[zone_id];
