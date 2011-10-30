@@ -274,7 +274,7 @@ class DATAStorage
 
             StorageLoader dbc;
             // Check if load was successful, only then continue
-            if (!dbc.LoadDBCStorage(fn, fmt) && !dbc.LoadDB2Storage(fn, fmt))
+            if (!dbc.LoadDBCStorage(fn, fmt) || !dbc.LoadDB2Storage(fn, fmt))
                 return false;
 
             m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt, (char*)m_dataTable));
