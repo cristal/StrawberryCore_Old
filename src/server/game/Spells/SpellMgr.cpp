@@ -23,7 +23,6 @@
 #include "ObjectMgr.h"
 #include "SpellAuras.h"
 #include "SpellAuraDefines.h"
-
 #include "DATAStores.h"
 #include "World.h"
 #include "Chat.h"
@@ -399,7 +398,7 @@ uint32 GetSpellCastTime(SpellEntry const* spellInfo, Spell* spell)
         if(values.canScale)
             castTime = values.cast;
     }
-    
+
     if (spell && spell->GetCaster())
         spell->GetCaster()->ModSpellCastTime(spellInfo, castTime, spell);
 
@@ -1455,7 +1454,7 @@ void SpellMgr::LoadSpellBonusess()
     do
     {
         Field *fields = result->Fetch();
-        
+
         uint32 entry = fields[0].GetUInt32();
 
         const SpellEntry *spell = sSpellStore.LookupEntry(entry);
@@ -2353,7 +2352,7 @@ int32 SpellMgr::CalculateSpellEffectAmount(SpellEntry const* spellEntry, uint8 e
                 {
                     if (comboPointScaling != 0.00f)
                         comboDamage = comboPointScaling;
-                    
+
                     value += int32(comboDamage * comboPoints);
                 }
             }
@@ -4551,7 +4550,7 @@ void SpellMgr::LoadSpellCustomAttr()
             mSpellCustomAttr[i] |= SPELL_ATTR0_CU_EXCLUDE_SELF;
             count++;
             break;
-        case 64844: // Divine Hymn 
+        case 64844: // Divine Hymn
         case 64904: // Hymn of Hope
             spellInfo->AttributesEx &= ~SPELL_ATTR1_CANT_BE_REFLECTED;
             ++count;
@@ -4830,7 +4829,7 @@ void SpellMgr::LoadSpellCustomAttr()
         case 64185: // Lifebinder's Gift
             spellInfo->EffectImplicitTargetB[1] = TARGET_UNIT_NEARBY_ENTRY;
             spellInfo->EffectImplicitTargetB[2] = TARGET_UNIT_NEARBY_ENTRY;
-            break;                
+            break;
         // ENDOF ULDUAR SPELLS
         //
         // TRIAL OF THE CRUSADER SPELLS
@@ -4862,7 +4861,7 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->AttributesEx3 |= SPELL_ATTR3_NO_DONE_BONUS;
             count++;
             break;
-        case 81782: // Power Word : Barrier 
+        case 81782: // Power Word : Barrier
             spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_TARGET_ALLY;
             spellInfo->EffectImplicitTargetA[1] = TARGET_UNIT_TARGET_ALLY;
             spellInfo->EffectImplicitTargetB[0] = NULL;

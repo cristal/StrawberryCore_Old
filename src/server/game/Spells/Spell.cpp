@@ -553,7 +553,7 @@ m_caster((info->AttributesEx6 & SPELL_ATTR6_CAST_BY_CHARMER && Caster->GetCharme
     // determine reflection
     m_canReflect = false;
 
-    m_canReflect = m_spellInfo->GetDmgClass() == SPELL_DAMAGE_CLASS_MAGIC && !(m_spellInfo->Attributes & SPELL_ATTR0_ABILITY) 
+    m_canReflect = m_spellInfo->GetDmgClass() == SPELL_DAMAGE_CLASS_MAGIC && !(m_spellInfo->Attributes & SPELL_ATTR0_ABILITY)
         && !(m_spellInfo->AttributesEx & SPELL_ATTR1_CANT_BE_REFLECTED) && !(m_spellInfo->Attributes & SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY)
         && !IsPassiveSpell(m_spellInfo) && !IsPositiveSpell(m_spellInfo->Id);
 
@@ -968,7 +968,7 @@ void Spell::AddUnitTarget(Unit* pVictim, uint32 effIndex)
             ihit->scaleAura = false;
             if (m_auraScaleMask && ihit->effectMask == m_auraScaleMask && m_caster != pVictim)
             {
-                SpellEntry const * auraSpell = sSpellStore.LookupEntry(sSpellMgr->GetFirstSpellInChain(m_spellInfo->Id));
+                SpellEntry const* auraSpell = sSpellStore.LookupEntry(sSpellMgr->GetFirstSpellInChain(m_spellInfo->Id));
                 if (uint32(pVictim->getLevel() + 10) >= auraSpell->GetSpellLevel())
                     ihit->scaleAura = true;
             }
@@ -1365,7 +1365,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo *target)
             m_magnetingAura->DropCharge();
         m_magnetingAura = NULL;
     }
-    
+
     if (missInfo != SPELL_MISS_EVADE && m_caster && !m_caster->IsFriendlyTo(unit) && !IsPositiveSpell(m_spellInfo->Id))
     {
         m_caster->CombatStart(unit, !(m_spellInfo->AttributesEx3 & SPELL_ATTR3_NO_INITIAL_AGGRO));
@@ -2202,7 +2202,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
 
             float angle, dist;
 
-            float objSize = m_caster->GetObjectSize();            
+            float objSize = m_caster->GetObjectSize();
             if (cur == TARGET_MINION)
                 dist = 0.0f;
             else
@@ -2762,7 +2762,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                             ++itr;
                     }
                     break;
-                case SPELLFAMILY_DRUID:                    
+                case SPELLFAMILY_DRUID:
                     if (flag->SpellFamilyFlags[1] == 0x04000000) // Wild Growth
                     {
                         maxSize = m_caster->HasAura(62970) ? 6 : 5; // Glyph of Wild Growth
@@ -3884,7 +3884,7 @@ void Spell::finish(bool ok)
                      m_caster->RemoveAuraFromStack(44544);
                 break;
             case 2061: // Flash heal
-                if(m_caster->HasAura(88688)) // Surge of Light 
+                if(m_caster->HasAura(88688)) // Surge of Light
                     m_caster->RemoveAura(88688);
                 break;
             case 85673: // Word of Glory
@@ -4994,7 +4994,7 @@ SpellCastResult Spell::CheckCast(bool strict)
 
         if (m_spellInfo->GetTargetAuraSpell() && !target->HasAura(sSpellMgr->GetSpellIdForDifficulty(m_spellInfo->GetTargetAuraSpell(), m_caster)))
              return SPELL_FAILED_TARGET_AURASTATE;
- 
+
         if (m_spellInfo->GetExcludeTargetAuraSpell() && target->HasAura(sSpellMgr->GetSpellIdForDifficulty(m_spellInfo->GetExcludeTargetAuraSpell(), m_caster)))
                 return SPELL_FAILED_TARGET_AURASTATE;
 
@@ -5699,7 +5699,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                         // Check if there are to many so that you don't get mixed with pets
                         // being there from the begining
                         if (m_caster->ToPlayer()->GetSlotForNewPet() == PET_SLOT_FULL_LIST)
-                        {   
+                        {
                             m_caster->ToPlayer()->SendToManyPets(m_caster->ToPlayer());
                             return SPELL_FAILED_NO_ACTIONS; // i havent found the right error message to use so this need to be changed
                         }
@@ -5963,8 +5963,8 @@ SpellCastResult Spell::CheckCasterAuras() const
 
     bool usableInStun = m_spellInfo->AttributesEx5 & SPELL_ATTR5_USABLE_WHILE_STUNNED;
     // Glyph of Pain Suppression
-    // there is no other way to handle it    
-    if (m_spellInfo->Id == 33206 && !m_caster->HasAura(63248))    
+    // there is no other way to handle it
+    if (m_spellInfo->Id == 33206 && !m_caster->HasAura(63248))
         usableInStun = false;
 
     // Check whether the cast should be prevented by any state you might have.
@@ -5973,24 +5973,24 @@ SpellCastResult Spell::CheckCasterAuras() const
     uint32 unitflag = m_caster->GetUInt32Value(UNIT_FIELD_FLAGS);     // Get unit state
     if (unitflag & UNIT_FLAG_STUNNED)
     {
-        // spell is usable while stunned, check if caster has only mechanic stun auras, another stun types must prevent cast spell    
-        if (usableInStun)    
-        {    
-            bool foundNotStun = false;    
-            Unit::AuraEffectList const& stunAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_MOD_STUN);    
-            for (Unit::AuraEffectList::const_iterator i = stunAuras.begin(); i != stunAuras.end(); ++i)    
-            {    
-                if (!(GetAllSpellMechanicMask((*i)->GetSpellProto()) & (1<<MECHANIC_STUN)))    
-                {    
-                    foundNotStun = true;    
-                    break;    
-                }    
-            }    
-            if (foundNotStun)    
-                prevented_reason = SPELL_FAILED_STUNNED;    
-        }    
-        else    
-            prevented_reason = SPELL_FAILED_STUNNED;    
+        // spell is usable while stunned, check if caster has only mechanic stun auras, another stun types must prevent cast spell
+        if (usableInStun)
+        {
+            bool foundNotStun = false;
+            Unit::AuraEffectList const& stunAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_MOD_STUN);
+            for (Unit::AuraEffectList::const_iterator i = stunAuras.begin(); i != stunAuras.end(); ++i)
+            {
+                if (!(GetAllSpellMechanicMask((*i)->GetSpellProto()) & (1<<MECHANIC_STUN)))
+                {
+                    foundNotStun = true;
+                    break;
+                }
+            }
+            if (foundNotStun)
+                prevented_reason = SPELL_FAILED_STUNNED;
+        }
+        else
+            prevented_reason = SPELL_FAILED_STUNNED;
     }
     else if (unitflag & UNIT_FLAG_CONFUSED && !(m_spellInfo->AttributesEx5 & SPELL_ATTR5_USABLE_WHILE_CONFUSED))
         prevented_reason = SPELL_FAILED_CONFUSED;
@@ -6195,7 +6195,7 @@ SpellCastResult Spell::CheckItems()
     if (m_caster->GetTypeId() != TYPEID_PLAYER)
         return SPELL_CAST_OK;
 
-    Player* p_caster = (Player*)m_caster;    
+    Player* p_caster = (Player*)m_caster;
 
     if (!m_CastItem)
     {

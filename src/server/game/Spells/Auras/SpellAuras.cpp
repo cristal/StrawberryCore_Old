@@ -833,7 +833,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
 {
     m_stackAmount = stackAmount;
     Unit* caster = GetCaster();
-    
+
     std::list<AuraApplication*> applications;
     GetApplicationList(applications);
 
@@ -1055,7 +1055,7 @@ void Spell_Stats(Player* player, uint32 row, int spellid, uint32 SpellNumber, bo
 
             if (percent != 0)
                 perc = true;
-            
+
             player->_ApplyAuraBonuses(player, spellid, stattype, value, row, perc, false, true);
         }
     }
@@ -1484,18 +1484,18 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                 else if (GetId() == 15407)
                 {
                     // Pain and Suffering: Rank 1
-                    if (Aura* pain = caster->GetAura(47580)) 
+                    if (Aura* pain = caster->GetAura(47580))
                     {
-                        if (Aura* swp = target->GetAura(589)) 
+                        if (Aura* swp = target->GetAura(589))
                         {
                             if (roll_chance_i(30))
                                 swp->RefreshDuration();
                         }
                     }
                     // Pain and Suffering: Rank 2
-                    if (Aura* pain = caster->GetAura(47581)) 
+                    if (Aura* pain = caster->GetAura(47581))
                     {
-                        if (Aura* swp = target->GetAura(589)) 
+                        if (Aura* swp = target->GetAura(589))
                         {
                             if (roll_chance_i(60))
                                 swp->RefreshDuration();
@@ -1673,7 +1673,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                     case 118: // Improved Polymorph
                     {
                         if (removeMode == AURA_REMOVE_BY_EXPIRE || removeMode == AURA_REMOVE_BY_CANCEL)
-                            break;                        
+                            break;
                         if (caster->HasAura(11210) && !target->HasAura(87515))
                         {
                             target->CastSpell(target, 83046, true);
@@ -1687,7 +1687,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         break;
                     }
                     case 1463: // Incanter's Absorption
-                    {                        
+                    {
                         if (removeMode == AURA_REMOVE_BY_EXPIRE || removeMode == AURA_REMOVE_BY_CANCEL)
                             break;
                         if (caster->HasAura(44394) || caster->HasAura(44395))
@@ -1886,7 +1886,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                 if (GetId() == 1784)
                     target->RemoveAurasWithFamily(SPELLFAMILY_ROGUE, 0x0000800, 0, 0, target->GetGUID());
                 else if (GetId() == 6770) // On-sap removal - blackjack talent
-                {    
+                {
                     if (caster->HasAura(79125)) // rank 2
                         caster->CastSpell(target, 79126, true);
                     else if (caster->HasAura(79123)) // rank 1

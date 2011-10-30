@@ -252,7 +252,7 @@ inline float GetSpellMaxRange(uint32 id, bool positive)
 
 inline bool IsSpellHaveEffect(SpellEntry const *spellInfo, SpellEffects effect)
 {
-    for (int i= 0; i < MAX_SPELL_EFFECTS; ++i)        
+    for (int i= 0; i < MAX_SPELL_EFFECTS; ++i)
         if (SpellEffects(spellInfo->GetSpellEffectIdByIndex(i)) == effect)
             return true;
     return false;
@@ -1151,14 +1151,14 @@ struct SpellScaling
 {
     uint8 playerLevel;
     const SpellEntry * spellEntry;
-    
+
     float avg[3];
     float min[3];
     float max[3];
     float pts[3];
-    
+
     int32 cast;
-    
+
     bool canScale;
     SpellScaling(uint8 playerLevel_, const SpellEntry * spellEntry_);
 };

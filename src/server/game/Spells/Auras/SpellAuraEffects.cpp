@@ -421,9 +421,9 @@ m_canBeRecalculated(true), m_spellmod(NULL), m_isPeriodic(false), m_periodicTime
     m_amount = CalculateAmount(caster);
 
     CalculateSpellMod();
-    
-    if (m_spellProto) 
-       return; 
+
+    if (m_spellProto)
+       return;
 }
 
 AuraEffect::~AuraEffect()
@@ -585,7 +585,7 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                         if (AuraEffect const* pAurEff = caster->GetAuraEffect(SPELL_AURA_ADD_PCT_MODIFIER, SPELLFAMILY_PRIEST, 0x400000, 0, 0, caster->GetGUID()))
                             amount *= int32((100.0f + pAurEff->GetAmount()) / 100.0f);
 
-                        // Focused Power                       
+                        // Focused Power
                         // Reuse variable, not sure if this code below can be moved before Twin Disciplines
                         DoneActualBenefit = float(amount);
                         DoneActualBenefit *= caster->GetTotalAuraMultiplier(SPELL_AURA_MOD_HEALING_DONE_PERCENT);
@@ -607,7 +607,7 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                         DoneActualBenefit *= caster->CalculateLevelPenalty(GetSpellProto());
 
                         amount += (int32)DoneActualBenefit;
-                        
+
                         // Arena - Dampening
                         if (AuraEffect const* pAurEff = caster->GetAuraEffect(74410, 0))
                             amount *= int32((100.0f + pAurEff->GetAmount()) / 100.0f);
@@ -816,7 +816,7 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                 const MountTypeEntry *type = sMountTypeStore.LookupEntry(GetMiscValueB());
                 if(!type)
                     return 0;
-                
+
                 uint32 spellId = 0;
                 uint32 plrskill = plr->GetSkillValue(SKILL_RIDING);
                 uint32 map = plr->GetMapId();
@@ -836,7 +836,7 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                     spellId = cap->spell;
                 }
                 return (int)spellId;
-            }  
+            }
             break;
         }
         case SPELL_AURA_MOD_RESISTANCE_EXCLUSIVE:
@@ -4300,7 +4300,7 @@ void AuraEffect::HandleAuraModRoot(AuraApplication const *aurApp, uint8 mode, bo
     Unit *target = aurApp->GetTarget();
 
     target->SetControlled(apply, UNIT_STAT_ROOT);
-    
+
     if (apply)
     {
         switch (GetId())
@@ -4465,7 +4465,7 @@ void AuraEffect::HandleAuraModIncreaseSpeed(AuraApplication const *aurApp, uint8
     Unit *target = aurApp->GetTarget();
 
     target->UpdateSpeed(MOVE_RUN, true);
-    
+
     if (apply)
     {
         switch (GetId())
@@ -4812,7 +4812,7 @@ void AuraEffect::HandleAuraModResistanceExclusive(AuraApplication const *aurApp,
         if (GetMiscValue() & int32(1<<x))
         {
             int32 amount = target->GetMaxPositiveAuraModifierByMiscMask(SPELL_AURA_MOD_RESISTANCE_EXCLUSIVE, 1<<x, this);
-            
+
             if (amount < modAmount )
             {
                 target->HandleStatModifier(UnitMods(UNIT_MOD_RESISTANCE_START + x), BASE_VALUE, float(modAmount - amount), apply);
@@ -5805,7 +5805,7 @@ void AuraEffect::HandleModDamagePercentDone(AuraApplication const *aurApp, uint8
     if (target->GetTypeId() == TYPEID_PLAYER)
         for (int i = SPELL_SCHOOL_HOLY; i < MAX_SPELL_SCHOOL; ++i)
             target->ApplyModSignedFloatValue(PLAYER_FIELD_MOD_DAMAGE_DONE_PCT+i,GetAmount()/100.0f,apply);
-     
+
     if (GetId() == 84963) //Inquisition
     {
         switch (GetBase()->GetUnitOwner()->GetPower(POWER_HOLY_POWER))
@@ -5821,7 +5821,7 @@ void AuraEffect::HandleModDamagePercentDone(AuraApplication const *aurApp, uint8
                 break;
         }
     target->SetPower(POWER_HOLY_POWER,0);
-     
+
     }
 }
 
@@ -6100,7 +6100,7 @@ void AuraEffect::HandleAuraDummy(AuraApplication const *aurApp, uint8 mode, bool
                     break;
                 case 63322: // Saronite Vapors
                 {
-                    int32 mana = int32(GetAmount() * pow(2.0f, GetBase()->GetStackAmount())); // mana restore - bp * 2^stackamount 
+                    int32 mana = int32(GetAmount() * pow(2.0f, GetBase()->GetStackAmount())); // mana restore - bp * 2^stackamount
                     int32 damage = mana * 2; // damage
 
                     caster->CastCustomSpell(target, 63337, &mana, NULL, NULL, true);
@@ -6600,7 +6600,7 @@ void AuraEffect::HandleAuraDummy(AuraApplication const *aurApp, uint8 mode, bool
                                 aur->SetDuration(GetBase()->GetDuration());
                              }
                     }
-                    else 
+                    else
                         target->RemoveAura(88611);
                     break;
                 }

@@ -488,10 +488,10 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                             return;
                         float distance = m_caster->GetDistance2d(unitTarget);
                         if (distance > radius)
-                            damage = 0; 
+                            damage = 0;
                         else
                             damage *= int32(pow(1.0f - distance / radius, 2));
-                        break; 
+                        break;
                     }
                     // Rocket Barrage, Goblin racial spell
                     case 69041:
@@ -527,7 +527,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                // Execute
                else if (m_spellInfo->Id ==5308)
                {
-               damage = uint32 (10 + m_caster->GetTotalAttackPowerValue(BASE_ATTACK)* 0.437*100/100);  
+               damage = uint32 (10 + m_caster->GetTotalAttackPowerValue(BASE_ATTACK)* 0.437*100/100);
                }
                // Heroic Strike
                else if (m_spellInfo->Id == 78)
@@ -612,10 +612,10 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                 break;
             }
             case SPELLFAMILY_PRIEST:
-            { 
+            {
               //Evangelism and Dark Evangelism
                 if (m_caster->HasAura(81659)) // Rank 1
-                { 
+                {
                     if (m_spellInfo->Id == 585)
                         m_caster->CastSpell(m_caster,81660,true);
                     else
@@ -629,8 +629,8 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                     if (m_spellInfo->Id == 585)
                         m_caster->CastSpell(m_caster,81661,true);
                     else
-                    { 
-                        if (m_spellInfo->Id == 15407)      // Dark Evangelism from Mind Flay 
+                    {
+                        if (m_spellInfo->Id == 15407)      // Dark Evangelism from Mind Flay
                             m_caster->CastSpell(m_caster,87118,true);
                     }
                 }
@@ -641,7 +641,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                     if (m_spellInfo->Id == 585 || m_spellInfo->Id == 14914)
                         m_caster->CastSpell(m_caster, 81660, true);
                 }
-                
+
                 if (m_caster->HasAura(81662)) //Rank 2
                 {
                     if (m_spellInfo->Id == 585 || m_spellInfo->Id == 14914)
@@ -653,8 +653,8 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                 {
                     switch(m_spellInfo->Id)
                     {
-                        case 585:    // Smite 
-                        case 73510:  // Mind Spike 
+                        case 585:    // Smite
+                        case 73510:  // Mind Spike
                             {
                                 m_caster->CastSpell(m_caster, 81209, true); // Chakra : Chastise
                                 break;
@@ -727,7 +727,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                 // Starfire
                 else if (m_spellInfo->SpellFamilyFlags[0] & 0x00000004)
                 {
-                    if (m_caster->ToPlayer()->HasAura(16913))   // Tallent from Balance spec, there is no other way how to check spec :S 
+                    if (m_caster->ToPlayer()->HasAura(16913))   // Tallent from Balance spec, there is no other way how to check spec :S
                     {
                         if (m_caster->HasAura(48517))
                         {
@@ -742,7 +742,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                 else if (m_spellInfo->SpellFamilyFlags[0] & 0x00000001)
                 {
                     if (m_caster->ToPlayer()->HasAura(16913))   // Tallent from Balance spec, there is no other way how to check spec :S
-                    {   
+                    {
                         if (m_caster->HasAura(48518))
                         {
                             m_caster->RemoveAurasDueToSpell(48518);
@@ -756,7 +756,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                         if (unitTarget->GetAuraEffect(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_DRUID, 0x00200000, 0, 0))
                             damage = int32(damage*(100.0f+aurEff->GetAmount())/100.0f);
                 }
-                else if (m_spellInfo->Id == 8921) // Moonfire 
+                else if (m_spellInfo->Id == 8921) // Moonfire
                 {
                     if (m_caster->HasAura(78784)) // Blessing of the Grove rank 1
                         damage = int32 (damage * 0.03f);
@@ -825,7 +825,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
             }
             case SPELLFAMILY_HUNTER:
             {   // Rapid Recuperation
-                if (m_caster->HasAura(3045))                     
+                if (m_caster->HasAura(3045))
                       if (m_caster->HasAura(53228))                // Rank 1
                           m_caster->CastSpell(m_caster,53230,true);
                     else
@@ -851,7 +851,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                     damage += count * int32(average * IN_MILLISECONDS) / m_caster->GetAttackTime(BASE_ATTACK);
                     break;
                 }
-                
+
                 if (m_spellInfo->Id == 53600) //Shield of  Righteous
                 {
                     switch(m_caster->GetPower(POWER_HOLY_POWER))
@@ -859,10 +859,10 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                         case 0:
                             damage = int32(damage * 1.16f);
                             break;
-                        case 1: 
+                        case 1:
                             damage = int32((damage * 1.16f) * 3);
                             break;
-                        case 2: 
+                        case 2:
                             damage = int32((damage * 1.16f) * 6);
                             break;
                     }
@@ -871,8 +871,8 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
              break;
             }
             case SPELLFAMILY_DEATHKNIGHT:
-            {   
-                // Ebon Plaguebringer 
+            {
+                // Ebon Plaguebringer
                   if(m_caster->HasAura(51099)) // Rank 1
                   {
                       if(m_spellInfo->Id == 45462 || m_spellInfo->Id == 45477 || m_spellInfo->Id == 45524)
@@ -881,11 +881,11 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
                   else
                   if(m_caster->HasAura(51160)) // Rank 2
                   {
-                      if(m_spellInfo->Id == 45462 || m_spellInfo->Id == 45477 || m_spellInfo->Id == 45524) 
+                      if(m_spellInfo->Id == 45462 || m_spellInfo->Id == 45477 || m_spellInfo->Id == 45524)
                       m_caster->CastSpell(unitTarget,65142,true);
                   }
-                
-               else 
+
+               else
 
                 // Blood Boil - bonus for diseased targets
                 if (m_spellInfo->SpellFamilyFlags[0] & 0x00040000)
@@ -1444,7 +1444,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                 m_caster->CastSpell(m_caster,51755,true);
             break;
         case SPELLFAMILY_PRIEST:
-        {   
+        {
             switch (m_spellInfo->Id)
             {
                 case 73325: // Leap of faith
@@ -1697,7 +1697,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                 return;
              }
              switch(m_spellInfo->Id)
-             {   
+             {
                  case 1126: // Mark of the Wild
                  {
                      if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -1718,7 +1718,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                              m_caster->CastSpell(unitTarget, 79060, true); // Mark of the Wild (Caster)
                          }
                          break;
-                     } 
+                     }
                  }
                  break;
              }
@@ -1735,7 +1735,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
             }
 
             switch(m_spellInfo->Id)
-            {   
+            {
                 case 19740: // Blessing of Might
                 {
                     if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -1756,7 +1756,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                             m_caster->CastSpell(unitTarget, 79101, true); // Blessing of Might (Caster)
                     }
                     break;
-                } 
+                }
                 case 20217: // Blessing of Kings
                 {
                     if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -1771,19 +1771,19 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                             if (Continue == false && player > 1)
                                 Continue = true;
                         }
-                        if (Continue == true)               
+                        if (Continue == true)
                             m_caster->CastSpell(unitTarget, 79063, true); // Blessing of Kings (Raid)
-                        else                                
+                        else
                             m_caster->CastSpell(unitTarget, 79062, true); // Blessing of Kings (Caster)
                     }
                     break;
-                } 
+                }
                 case 31789: // Righteous Defense (step 1)
                 {
                     // Clear targets for eff 1
                     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit)
                         ihit->effectMask &= ~(1<<1);
- 
+
                     // not empty (checked), copy
                     Unit::AttackerSet attackers = unitTarget->getAttackers();
 
@@ -1793,7 +1793,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                             attackers.erase(aItr++);
                         else
                             ++aItr;
- 
+
                     // selected from list 3
                     uint32 maxTargets = std::min<uint32>(3, attackers.size());
                     for (uint32 i = 0; i < maxTargets; ++i)
@@ -1803,7 +1803,7 @@ void Spell::EffectDummy(SpellEffectEntry const* effect)
                         AddUnitTarget(*aItr, 1);
                         attackers.erase(aItr);
                     }
- 
+
                     // now let next effect cast spell at each target.
                     return;
                 }
@@ -2097,7 +2097,7 @@ void Spell::EffectForceCast(SpellEffectEntry const* effect)
     }
 
     Unit * caster = GetTriggeredSpellCaster(spellInfo, m_caster, unitTarget);
- 
+
     caster->CastSpell(unitTarget, spellInfo, true, NULL, NULL, m_originalCasterGUID);
 }
 
@@ -2796,7 +2796,7 @@ void Spell::EffectHeal(SpellEffectEntry const* effect)
             case 32546: /* Binding Heal */
                m_caster->CastSpell(m_caster, 81208, true); /* Chakra: Serenity */
                break;
-               
+
             case 596: /* Prayer of Healing */
                m_caster->CastSpell(m_caster, 81206, true); /* Chakra: Sanctuary */
                break;
@@ -2925,15 +2925,15 @@ void Spell::SpellDamageHeal(SpellEffectEntry const* effect)
             int32 dmg;
             switch (m_caster->GetPower(POWER_HOLY_POWER))
             {
-                case 1: 
+                case 1:
                     dmg = int32(addhealth + 1*(m_caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY) * 0.85));
                     addhealth = dmg;
                     break;
-                case 2: 
+                case 2:
                     dmg = int32(addhealth + 2*(m_caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY) * 0.85));
                     addhealth = dmg;
                     break;
-                case 3: 
+                case 3:
                     dmg = int32(addhealth + 3*(m_caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY) * 0.85));
                     addhealth = dmg;
                     break;
@@ -3201,7 +3201,7 @@ void Spell::EffectPersistentAA(SpellEffectEntry const* effect)
         dynObj->GetMap()->Add(dynObj);
 
         if (Aura * aura = Aura::TryCreate(m_spellInfo, dynObj, caster, &m_spellValue->EffectBasePoints[0]))
-        {    
+        {
             m_spellAura = aura;
             m_spellAura->_RegisterForTargets();
         }
@@ -3737,7 +3737,7 @@ void Spell::EffectSummonType(SpellEffectEntry const* effect)
                         summon->SetDisplayId(displayId);
 
                         //summon->SendUpdateToPlayerm_originalCaster->ToPlayer();
-                       
+
                     }
                     break;
                 }
@@ -4056,7 +4056,7 @@ void Spell::EffectAddFarsight(SpellEffectEntry const* effect)
     }
     dynObj->SetDuration(duration);
     dynObj->SetUInt32Value(DYNAMICOBJECT_BYTES, 0x80000002);
-    
+
     dynObj->setActive(true);    //must before add to map to be put in world container
     dynObj->GetMap()->Add(dynObj); //grid will also be loaded
 
@@ -4172,7 +4172,7 @@ void Spell::EffectEnchantItemPerm(SpellEffectEntry const* effect)
         SpellItemEnchantmentEntry const *pEnchant = sSpellItemEnchantmentStore.LookupEntry(enchant_id);
         if (!pEnchant)
             return;
-        
+
         // item can be in trade slot and have owner diff. from caster
         Player* item_owner = itemTarget->GetOwner();
         if (!item_owner)
@@ -4460,11 +4460,11 @@ void Spell::EffectSummonPet(SpellEffectEntry const* effect)
     }
 
     uint32 petentry = effect->EffectMiscValue;
-    
+
     PetSlot slot = (PetSlot)effect->EffectBasePoints;
     if(petentry)
         slot = PET_SLOT_UNK_SLOT;
-    
+
     if (!owner)
     {
         SummonPropertiesEntry const *properties = sSummonPropertiesStore.LookupEntry(67);
@@ -4720,7 +4720,7 @@ void Spell::SpellDamageWeaponDmg(SpellEffectEntry const* effect)
             {
                 totalDamagePercentMod *= 1.36f;            //136% damage
             }
-            
+
             //Templar's Verdict
             if (m_spellInfo->Id == 85256)
             {
@@ -4744,7 +4744,7 @@ void Spell::SpellDamageWeaponDmg(SpellEffectEntry const* effect)
                 (m_caster->HasAura(63220)) ? totalDamagePercentMod *= 1.15f : 0 ; // Glyphe of Templar's Verdict
                  m_caster->SetPower(POWER_HOLY_POWER, 0);
             }
-                      
+
             // Seal of Command Unleashed
             else if (m_spellInfo->Id == 20467)
             {
@@ -4893,7 +4893,7 @@ void Spell::SpellDamageWeaponDmg(SpellEffectEntry const* effect)
                 break;
             }
             // Necrotic Strike
-            if (m_spellInfo->Id == 73975) 
+            if (m_spellInfo->Id == 73975)
             {
                 float ap = m_caster->GetTotalAttackPowerValue(BASE_ATTACK);
                 float heal = 0.75f * ap;
@@ -5172,7 +5172,7 @@ void Spell::EffectScriptEffect(SpellEffectEntry const* effect)
                                 unitTarget->CastSpell(unitTarget, SPELL_TELEPORT_FORTRESS, true);
                             else if ((pvpWG->getDefenderTeam()==TEAM_ALLIANCE) && (unitTarget->ToPlayer()->GetTeam() == HORDE))
                                 unitTarget->CastSpell(unitTarget, SPELL_TELEPORT_HORDE_CAMP, true);
-                    
+
                             if ((pvpWG->getDefenderTeam()!=TEAM_ALLIANCE) && (unitTarget->ToPlayer()->GetTeam() == HORDE))
                                 unitTarget->CastSpell(unitTarget, SPELL_TELEPORT_FORTRESS, true);
                             else if ((pvpWG->getDefenderTeam()!=TEAM_ALLIANCE) && (unitTarget->ToPlayer()->GetTeam() == ALLIANCE))
@@ -5365,7 +5365,7 @@ void Spell::EffectScriptEffect(SpellEffectEntry const* effect)
 
                     if (canFly && v_map == 571 && !unitTarget->ToPlayer()->HasSpell(54197))
                         canFly = false;
-                    
+
                     if(canFly && v_map == 0 && !unitTarget->ToPlayer()->HasSpell(90267))
                         canFly = false;
 
@@ -5413,7 +5413,7 @@ void Spell::EffectScriptEffect(SpellEffectEntry const* effect)
 
                     if (canFly && v_map == 571 && !unitTarget->ToPlayer()->HasSpell(54197))
                         canFly = false;
-                    
+
                     if(canFly && v_map == 0 && !unitTarget->ToPlayer()->HasSpell(90267))
                         canFly = false;
 
@@ -6098,8 +6098,8 @@ void Spell::EffectScriptEffect(SpellEffectEntry const* effect)
                         m_caster->CastSpell(m_caster,79463,true);
                     if (unitTarget->GetEntry() == 17252)          // Summoned Felguard
                         m_caster->CastSpell(m_caster,79462,true);
-                }     
-            }    
+                }
+            }
             break;
         }
         case SPELLFAMILY_PALADIN:
