@@ -770,7 +770,7 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     //when dying/logging out
     m_oldpetspell = 0;
     m_lastpetnumber = 0;
-    
+
     ////////////////////Rest System/////////////////////
 
     /*-------------Anti-Cheat--------------*/
@@ -831,7 +831,7 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
             m_Glyphs[i][g] = 0;
 
         m_talents[i] = new PlayerTalentMap();
-        
+
         m_branchSpec[i] = 0;
     }
 
@@ -845,7 +845,7 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
         m_baseRatingValue[i] = 0;
 
     m_spellPowerFromIntellect = 0;
-    
+
     m_baseSpellPower = 0;
     m_baseFeralAP = 0;
     m_baseManaRegen = 0;
@@ -1653,13 +1653,13 @@ void Player::Update(uint32 p_time)
     if (now > m_Last_tick)
         UpdateItemDuration(uint32(now - m_Last_tick));
 
-    if (now > m_Save_Time) 
-    { 
-        SaveToDB(); 
-        m_Save_Time = now + 360; 
+    if (now > m_Save_Time)
+    {
+        SaveToDB();
+        m_Save_Time = now + 360;
     }
 
-    // check every second    
+    // check every second
     if (now > m_Last_tick + 1)
         UpdateSoulboundTradeItems();
 
@@ -2057,7 +2057,7 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
             uint32 enchantId = 0x0000FFFF & (enchants >> enchantSlot*16);
             if (!enchantId)
                 continue;
-    
+
             enchant = sSpellItemEnchantmentStore.LookupEntry(enchantId);
             if (enchant)
                 break;
@@ -2089,7 +2089,7 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
 
     if (uint8(guid) != 0)
         *data << uint8(guid); // + 296
-    
+
     *data << fields[1].GetString();                       // name
     *data << uint32(fields[9].GetUInt32());               // map
     *data << uint32(petLevel);                            // pet level
@@ -2617,7 +2617,7 @@ void Player::RegenerateAll()
 
         if (getClass() == CLASS_HUNTER)
             Regenerate(POWER_FOCUS);
-        
+
         m_regenTimerCount -= 2000;
     }
 
@@ -2640,7 +2640,7 @@ void Player::Regenerate(Powers power)
 
     //powers now benefit from haste.
     float haste = (2 - GetFloatValue(UNIT_MOD_CAST_SPEED));
-    
+
     switch (power)
     {
         case POWER_MANA:
@@ -4631,15 +4631,15 @@ bool Player::resetTalents(bool no_cost)
     for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
     {
         TalentTreePrimarySpellsEntry const *talentInfo = sTalentTreePrimarySpellsStore.LookupEntry(i);
-        
+
         if (!talentInfo || talentInfo->TalentTabID != GetTalentBranchSpec(m_activeSpec))
             continue;
-        
+
         removeSpell(talentInfo->SpellID, true);
     }
-    
+
     m_branchSpec[m_activeSpec] = 0;
-    
+
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     _SaveTalents(trans);
     _SaveSpells(trans);
@@ -7008,7 +7008,7 @@ void Player::SetInHumanForm()
 {
     if(isInCombat())
         return;
-    
+
     uint32 newFlag = GetUInt32Value(UNIT_FIELD_FLAGS_2) & ~IN_WORGEN_FORM;
     SetUInt32Value(UNIT_FIELD_FLAGS_2, newFlag);
     m_ExtraFlags &= ~PLAYER_EXTRA_WORGEN_FORM;
@@ -7676,7 +7676,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
                 sLog->outDebug("Reactivate flight form %u", flightFormSpellId);
                 CastSpell(this, flightFormSpellId, true);
             }
-        }        
+        }
     }
 
     m_zoneUpdateId    = newZone;
@@ -7989,10 +7989,10 @@ void Player::ApplyReforgedStats(Item* item, bool apply)
             continue;
 
         int32 val = int32((proto->ItemStat[i].ItemStatValue * stats->Scaling1)*stats->Scaling2);
-        
+
         if(val == 0)
             return;
-            
+
         switch(stats->DestinationStat)
         {
             case ITEM_MOD_MANA:
@@ -8138,7 +8138,7 @@ void Player::ApplyReforgedStats(Item* item, bool apply)
             case ITEM_MOD_SPELL_DAMAGE_DONE:
                 break;
 
-        }   
+        }
         val = -val;
         switch(stats->SourceStat)
         {
@@ -8526,7 +8526,7 @@ void Player::_ApplyAuraBonuses(Player* player, uint32 spellid, uint32 TypeOfStat
     }
 
     realperc = perc;
-    
+
     switch (TypeOfStat)
     {
         case SPELL_MOD_MANA:
@@ -15891,7 +15891,7 @@ bool Player::CanCompleteQuest(uint32 quest_id)
                 return false;
 
             uint32 repFacId2 = qInfo->GetRepObjectiveFaction2();
-            if (repFacId2 && GetReputationMgr().GetReputation(repFacId) < qInfo->GetRepObjectiveValue2())
+            if (repFacId2 && GetReputationMgr().GetReputation(repFacId2) < qInfo->GetRepObjectiveValue2())
                 return false;
 
             return true;
@@ -16231,7 +16231,7 @@ void Player::RewardQuest(Quest const *pQuest, uint32 reward, Object* questGiver,
 
     // currencies reward
     for (uint32 i=0; i<QUEST_CURRENCY_COUNT; i++)
-    {    
+    {
         uint32 currId = pQuest->GetRewCurrencyId(i);
         uint32 currCount = pQuest->GetRewCurrencyCount(i);
         if(currId && currCount)
@@ -19106,7 +19106,7 @@ void Player::_LoadConquestPointsWeekCap(PreparedQueryResult result)
             uint16 source = fields[0].GetUInt16();
             if (source != CP_SOURCE_ARENA && source != CP_SOURCE_RATED_BG)
                 continue;
-            
+
             m_maxWeekRating[source] = fields[1].GetUInt16();
             m_conquestPointsWeekCap[source] = fields[2].GetUInt16();
 
@@ -19582,7 +19582,7 @@ void Player::SaveToDB()
         "death_expire_time, taxi_path, totalKills, todayKills, yesterdayKills, chosenTitle, "
         //45               46      47      48      49      50      51      52      53      54      55      56      57      58
         "watchedFaction, drunk, health, power1, power2, power3, power4, power5, power6, power7, power8, power9, power10, latency, "
-        //59            60            61            62            63         64            65               66    
+        //59            60            61            62            63         64            65               66
         "speccount, activespec, exploredZones, equipmentCache, ammoId, knownTitles, achievementPoints, actionBars, "
         //67                    68             69
         "grantableLevels, currentPetSlot, petSlotUsed) VALUES ("
@@ -20235,7 +20235,7 @@ void Player::_SaveStats(SQLTransaction& trans)
     for (int i = 0; i < MAX_SPELL_SCHOOL; ++i)
         ss << GetResistance(SpellSchools(i)) << ", "; // 19 - 20 - 21 - 22 - 23 - 24
     ss << GetFloatValue(PLAYER_BLOCK_PERCENTAGE) << ", " // 25
-       << GetFloatValue(PLAYER_DODGE_PERCENTAGE) << ", " // 26 
+       << GetFloatValue(PLAYER_DODGE_PERCENTAGE) << ", " // 26
        << GetFloatValue(PLAYER_PARRY_PERCENTAGE) << ", " // 27
        << GetFloatValue(PLAYER_CRIT_PERCENTAGE) << ", " // 28
        << GetFloatValue(PLAYER_RANGED_CRIT_PERCENTAGE) << ", " // 29
@@ -23321,14 +23321,14 @@ void Player::ResetCurrencyWeekCap()
     CharacterDatabase.PExecute("UPDATE character_cp_weekcap SET weekCap = '%u' WHERE `source`=0 AND `maxWeekRating` < 1500", PLAYER_DEFAULT_CONQUEST_POINTS_WEEK_CAP);
     CharacterDatabase.Execute("UPDATE character_cp_weekcap SET weekCap =3000 WHERE `source`=0 AND `maxWeekRating` > 3000");
     CharacterDatabase.Execute("UPDATE character_cp_weekcap SET maxWeekRating=0");
-    
+
     if (m_maxWeekRating[CP_SOURCE_ARENA] <= 1500)
         m_conquestPointsWeekCap[CP_SOURCE_ARENA] = PLAYER_DEFAULT_CONQUEST_POINTS_WEEK_CAP;
     else if (m_maxWeekRating[CP_SOURCE_ARENA] > 3000)
         m_conquestPointsWeekCap[CP_SOURCE_ARENA] = 3000;
     else
         m_conquestPointsWeekCap[CP_SOURCE_ARENA] = uint16(1.4326 * (1511.26 / (1 + 1639.28 / exp(0.00412 * m_maxWeekRating[CP_SOURCE_ARENA]))) + 857.15);
-    
+
     m_maxWeekRating[CP_SOURCE_ARENA] = 0; // player must win at least 1 arena for week to change m_conquestPointsWeekCap
 
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
@@ -25030,7 +25030,7 @@ void Player::LearnTalent(uint32 talentId, uint32 talentRank, bool one)
             for(uint32 i = 0; i < sTalentStore.GetNumRows(); i++)
             {
                 const TalentEntry * thisTalent = sTalentStore.LookupEntry(i);
-                if(thisTalent) 
+                if(thisTalent)
                 {
                     int thisrank = -1;
                     for(int j = 0; j < 5; j++)
@@ -25062,7 +25062,7 @@ void Player::LearnTalent(uint32 talentId, uint32 talentRank, bool one)
         if(pointInBranchSpec < 31)
             return;
     }
-    
+
     // prevent learn talent for different class (cheating)
     if ((getClassMask() & talentTabInfo->ClassMask) == 0)
         return;
@@ -25705,7 +25705,7 @@ void Player::DeleteEquipmentSet(uint64 setGuid)
 void Player::SetEmoteState(uint32 anim_id)
 {
     HandleEmoteCommand(anim_id); // Fall back
-    
+
     m_emote = anim_id;
 }
 
@@ -25951,10 +25951,10 @@ void Player::ActivateSpec(uint8 spec)
     for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
     {
         TalentTreePrimarySpellsEntry const *talentInfo = sTalentTreePrimarySpellsStore.LookupEntry(i);
-        
+
         if (!talentInfo || talentInfo->TalentTabID != GetTalentBranchSpec(m_activeSpec))
             continue;
-        
+
         removeSpell(talentInfo->SpellID, false);
     }
 
