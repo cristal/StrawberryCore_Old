@@ -52,7 +52,8 @@ class boss_theralion : public CreatureScript
                 uiEngulfingMagicTimer = 180000;
                 uiFabulousFlamesTimer = 160000;
                 uiTwilightBlastTimer = 3000;
-                uiDazzlingDestructionTimer = 2000;
+                uiDazzlingDestructionTimer = 3000;
+                uiDazzlingDestructionDelay = 4000;
             }
 
             void SetData(uint32 id,uint32 value)
@@ -72,17 +73,23 @@ class boss_theralion : public CreatureScript
                 }
             }
 
+            void JustSummoned(Creature * pSummoned)
+            {
+                switch(pSummoned->GetEntry())
+                {
+                    case NPC_DAZZLING_DESTRUCTION:
+                        uiDazzlingDestructionVector.push_back(pSummoned->GetGUID());
+                        DoCast(pSummoned,SPELL_DESTRUCTION_VISUAL);
+                        break;
+                    case NPC_THERALION_FLIGHT_TARGET_STALKER:
+                        DoCast(pSummoned,SPELL_TWILIGHT_BLAST);
+                        break;
+                }
+            }
+
             Creature * GetValiona()
             {
                 return me->GetCreature(*me,pInstance->GetData64(DATA_VALIONA));
-            }
-
-            void JustSummoned(Creature * pCreature)
-            {
-                if (pCreature->GetEntry() == NPC_THERALION_FLIGHT_TARGET_STALKER)
-                {
-                    DoCast(pCreature,SPELL_TWILIGHT_BLAST);
-                }
             }
 
             void AttackStart()
@@ -122,10 +129,8 @@ class boss_theralion : public CreatureScript
 
             void UpdateAI(const uint32 uiDiff)
             {
-                Creature * Valiona = GetValiona();
-
                 if (!UpdateVictim())
-                    return;
+					return;
 
                 switch (uiPhase)
                 {
@@ -144,22 +149,29 @@ class boss_theralion : public CreatureScript
                     case PHASE_TRANSITION:
                         if (uiDazzlingDestructionTimer <= uiDiff && uiDazzlingDestructionCount <= MAX_DAZZLIN_DESTRUCTION)
                         {
-                            Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
-                            me->CastSpell(Target->GetPositionX(),Target->GetPositionY(),Target->GetPositionZ(),SPELL_DAZZLING_DESTRUCTION_SUMMON,false);
+                            for(uint8 i = 0; i < 2; i++)
+                            {
+                                Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
+                                me->SummonCreature(NPC_DAZZLING_DESTRUCTION,Target->GetPositionX(),Target->GetPositionY(),Target->GetPositionZ());
+                            }
+                            uiDazzlingDestructionCount += 2;
                             uiDazzlingDestructionTimer = 2000;
-                            uiDazzlingDestructionCount++;
                         } else uiDazzlingDestructionTimer -= uiDiff;
+                        if(uiDazzlingDestructionDelay <= uiDiff)
+                        {
+                            for(uint8 i = 0; i <= 2; ++i)
+                            {
+                                me->CastSpell(ObjectAccessor::GetUnit(*me,uiDazzlingDestructionVector.back()),SPELL_DESTRUCTION_MISSILE,false);
+                                uiDazzlingDestructionVector.pop_back();
+                            }
+                            uiDazzlingDestructionDelay = 4000;
+                        } else uiDazzlingDestructionDelay -= uiDiff;
                         if (uiDazzlingDestructionCount == MAX_DAZZLIN_DESTRUCTION)
                         {
-                            std::list<uint64>::iterator itr;
-                            for (itr=summons.begin();itr!=summons.end();++itr)
-                            {
-                                if (Creature * Destruction = ObjectAccessor::GetCreature(*me,*itr))
-                                    DoCast(Destruction,SPELL_DAZZLING_DESTRUCTION_MISSILE);
-                            }
+                            uiPhase--;
+                            GetValiona()->AI()->DoAction(ACTION_VALIONA_TAKEOFF);
+                            DoAction(ACTION_THERALION_LAND);
                         }
-                        GetValiona()->AI()->DoAction(ACTION_VALIONA_TAKEOFF);
-                        DoAction(ACTION_THERALION_LAND);
                     case PHASE_AIR:
                         if (uiTwilightBlastTimer <= uiDiff)
                         {
@@ -194,6 +206,8 @@ class boss_theralion : public CreatureScript
             uint32 uiFabulousFlamesTimer;
             uint32 uiTwilightBlastTimer;
             uint32 uiDazzlingDestructionTimer;
+            uint32 uiDazzlingDestructionDelay;
+            std::vector<uint64> uiDazzlingDestructionVector;
         };
 
         CreatureAI* GetAI(Creature* pCreature) const
@@ -269,7 +283,7 @@ class boss_valiona : public CreatureScript
                 {
                     case PHASE_AIR:
                         if (!UpdateVictim())
-                   return;
+					    return;
 
                         if (uiBlackoutTimer <= uiDiff && uiBlackoutCount <= 2)
                         {
@@ -348,7 +362,7 @@ class spell_dazzling_destruction : public SpellScriptLoader
                 {
                     if ((*itr)->GetTypeId() == TYPEID_PLAYER)
                     {
-                        GetCaster()->CastSpell((*itr),SPELL_DESTRUCTION_PROCS,false);
+                        GetCaster()->CastSpell((*itr),SPELL_DESTRUCTION_PROCS,true);
                     }
                 }
             }
@@ -364,6 +378,40 @@ class spell_dazzling_destruction : public SpellScriptLoader
         {
             return new spell_dazzling_destructionSpellScript();
         }
+};
+
+class spell_theralion_dazzling_destruction_triggered : public SpellScriptLoader
+{
+    spell_theralion_dazzling_destruction_triggered() : SpellScriptLoader("spell_theralion_dazzling_destruction_triggered") { }
+
+    class spell_theralion_dazzling_destruction_triggeredSpellScript : public SpellScript
+    {
+        PrepareSpellScript(spell_theralion_dazzling_destruction_triggeredSpellScript);
+        uint32 trigger_spell[2];
+
+        void HandleShift()
+        {
+            trigger_spell[0] = GetSpellInfo()->EffectBasePoints[EFFECT_1];
+            GetCaster()->CastSpell(GetHitUnit(),trigger_spell[0],true);
+        }
+
+        void HandleProtBuff()
+        {
+            trigger_spell[1] = GetSpellInfo()->EffectBasePoints[EFFECT_2];
+            GetCaster()->CastSpell(GetHitUnit(),trigger_spell[1],true);
+        }
+
+        void Register()
+        {
+            OnHit += SpellHitFn(spell_theralion_dazzling_destruction_triggeredSpellScript::HandleShift);
+            AfterHit += SpellHitFn(spell_theralion_dazzling_destruction_triggeredSpellScript::HandleProtBuff);
+        }
+    };
+
+    SpellScript * GetSpellScript() const
+    {
+        return new spell_theralion_dazzling_destruction_triggeredSpellScript();
+    }
 };
 
 class spell_valiona_blackout : public SpellScriptLoader
@@ -405,6 +453,7 @@ class spell_valiona_blackout : public SpellScriptLoader
                 std::list<Unit*> Players;
                 std::list<Unit*>::iterator itr;
                 GetHitUnit()->GetPartyMemberInDist(Players,8.0f);
+                uint8 players_close = Players.size();
                 uint32 damage;
                 for(itr = Players.begin(); itr != Players.end(); ++itr)
                 {
