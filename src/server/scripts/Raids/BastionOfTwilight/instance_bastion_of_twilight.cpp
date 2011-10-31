@@ -39,29 +39,29 @@ public:
 
         void Initialize()
         {
-             for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
-                 uiEncounter[i] = NOT_STARTED;
+            for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
+                uiEncounter[i] = NOT_STARTED;
 
-             uiWyrmbreaker = 0;
-             uiValiona = 0;
-             uiTheralion = 0;
-             uiFeludius = 0;
-        uiIgnacious = 0;
-        uiArion = 0;
-        uiTerrastra = 0;
-        uiMonstrosity = 0;
-        uiChogall = 0;
-        uiSlateDrake = 0;
-        uiStormRider = 0;
-        uiNetherScion = 0;
-        uiProtoBehemoth = 0 ;
-        uiTimeWarden = 0;
-             uiCyclonWinds = 0;
-             uiInfernoRush = 0;
-             uiAscendantCouncilPhase = 1;
+            uiWyrmbreaker = 0;
+            uiValiona = 0;
+            uiTheralion = 0;
+            uiFeludius = 0;
+            uiIgnacious = 0;
+            uiArion = 0;
+            uiTerrastra = 0;
+            uiMonstrosity = 0;
+            uiChogall = 0;
+            uiSlateDrake = 0;
+            uiStormRider = 0;
+            uiNetherScion = 0;
+            uiProtoBehemoth = 0 ;
+            uiTimeWarden = 0;
+            uiCyclonWinds = 0;
+            uiInfernoRush = 0;
+            uiAscendantCouncilPhase = 1;
 
-             if (instance->IsHeroic())
-                 uiSinestra = 0;
+            if (instance->IsHeroic())
+                uiSinestra = 0;
         }
 
         bool IsEncounterInProgress() const
@@ -70,7 +70,7 @@ public:
                 if (uiEncounter[i] == IN_PROGRESS)
                     return true;
 
-             return false;
+            return false;
         }
 
         void OnCreatureCreate(Creature* pCreature, bool /*add*/)
@@ -85,142 +85,160 @@ public:
 
             switch (pCreature->GetEntry())
             {
-                case BOSS_WYRMBREAKER:
-                    uiWyrmbreaker = pCreature->GetGUID();
-                    if (Creature * SlateDrake = instance->GetCreature(GetData64(NPC_SLATE_DRAKE)))
+            case BOSS_WYRMBREAKER:
+                uiWyrmbreaker = pCreature->GetGUID();
+                if (Creature * SlateDrake = instance->GetCreature(GetData64(NPC_SLATE_DRAKE)))
+                {
+                    if (!SlateDrake->HasAura(SPELL_UNRESPONSIVE_DRAKE))
                     {
-                        if (!SlateDrake->HasAura(SPELL_UNRESPONSIVE_DRAKE))
-                        {
-                            SlateDrake->AddAura(SPELL_MALEVOLENT_STRIKES,pCreature);
-                        }
+                        SlateDrake->AddAura(SPELL_MALEVOLENT_STRIKES,pCreature);
                     }
-                    if (Creature * StormRider = instance->GetCreature(GetData64(NPC_STORM_RIDER)))
+                }
+                if (Creature * StormRider = instance->GetCreature(GetData64(NPC_STORM_RIDER)))
+                {
+                    if (!StormRider->HasAura(SPELL_UNRESPONSIVE_DRAKE))
                     {
-                        if (!StormRider->HasAura(SPELL_UNRESPONSIVE_DRAKE))
-                        {
-                            StormRider->AddAura(SPELL_SHADOW_WARPED,pCreature);
-                        }
+                        StormRider->AddAura(SPELL_SHADOW_WARPED,pCreature);
                     }
-                    if (Creature * NetherScion = instance->GetCreature(GetData64(NPC_NETHER_SCION)))
+                }
+                if (Creature * NetherScion = instance->GetCreature(GetData64(NPC_NETHER_SCION)))
+                {
+                    if (!NetherScion->HasAura(SPELL_UNRESPONSIVE_DRAKE))
                     {
-                        if (!NetherScion->HasAura(SPELL_UNRESPONSIVE_DRAKE))
-                        {
-                            NetherScion->AddAura(SPELL_FRENZIED_ASSAULT,pCreature);
-                        }
+                        NetherScion->AddAura(SPELL_FRENZIED_ASSAULT,pCreature);
                     }
-                    break;
-                case BOSS_VALIONA:
-                    uiValiona = pCreature->GetGUID();
-                    break;
-                case BOSS_THERALION:
-                    uiTheralion = pCreature->GetGUID();
-                    break;
-                case BOSS_FELUDIUS:
-                    uiFeludius = pCreature->GetGUID();
-                    break;
-                case BOSS_IGNACIOUS:
-                    uiIgnacious = pCreature->GetGUID();
-                    break;
-                case BOSS_ARION:
-                    uiArion = pCreature->GetGUID();
-                    break;
-                case BOSS_TERRASTRA:
-                    uiTerrastra = pCreature->GetGUID();
-                    break;
-                case BOSS_MONSTROSITY:
-                    uiMonstrosity = pCreature->GetGUID();
-                    break;
-                case BOSS_CHOGALL:
-                    uiChogall = pCreature->GetGUID();
-                    break;
-                case BOSS_SINESRTA:
-                    uiSinestra = pCreature->GetGUID();
-                    break;
-                case NPC_SLATE_DRAKE:
-                    if (uiRandomDragons[0] == RANDOM_DRAGON_SLATE_DRAKE || uiRandomDragons[1] == RANDOM_DRAGON_SLATE_DRAKE)
-                    {
-                        pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
-                        pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-                    }
-                    uiSlateDrake = pCreature->GetGUID();
-                    pCreature->SetReactState(REACT_PASSIVE);
+                }
+                break;
+            case BOSS_VALIONA:
+                uiValiona = pCreature->GetGUID();
+                break;
+            case BOSS_THERALION:
+                uiTheralion = pCreature->GetGUID();
+                break;
+            case BOSS_FELUDIUS:
+                uiFeludius = pCreature->GetGUID();
+                break;
+            case BOSS_IGNACIOUS:
+                uiIgnacious = pCreature->GetGUID();
+                break;
+            case BOSS_ARION:
+                uiArion = pCreature->GetGUID();
+                break;
+            case BOSS_TERRASTRA:
+                uiTerrastra = pCreature->GetGUID();
+                break;
+            case BOSS_MONSTROSITY:
+                uiMonstrosity = pCreature->GetGUID();
+                break;
+            case BOSS_CHOGALL:
+                uiChogall = pCreature->GetGUID();
+                break;
+            case BOSS_SINESRTA:
+                uiSinestra = pCreature->GetGUID();
+                break;
+            case NPC_SLATE_DRAKE:
+                if (uiRandomDragons[0] == RANDOM_DRAGON_SLATE_DRAKE || uiRandomDragons[1] == RANDOM_DRAGON_SLATE_DRAKE)
+                {
+                    pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
+                    pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+                }
+                uiSlateDrake = pCreature->GetGUID();
+                pCreature->SetReactState(REACT_PASSIVE);
+                pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                break;
+            case NPC_STORM_RIDER:
+                if (uiRandomDragons[0] == RANDOM_DRAGON_STORM_RIDER || uiRandomDragons[1] == RANDOM_DRAGON_STORM_RIDER)
+                {
+                    pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
                     pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-                    break;
-                case NPC_STORM_RIDER:
-                    if (uiRandomDragons[0] == RANDOM_DRAGON_STORM_RIDER || uiRandomDragons[1] == RANDOM_DRAGON_STORM_RIDER)
-                    {
-                        pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
-                        pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-                    }
-                    uiStormRider = pCreature->GetGUID();
-                    pCreature->SetReactState(REACT_PASSIVE);
-                    pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-                    break;
-                case NPC_NETHER_SCION:
-                    if (uiRandomDragons[0] == RANDOM_DRAGON_NETHER_SCION || uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
-                    {
-                        pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
-                        pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-                    }
-                    uiNetherScion = pCreature->GetGUID();
-                    pCreature->SetReactState(REACT_PASSIVE);
-                    pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-                    break;
-                case NPC_TIME_WARDEN:
-                    uiTimeWarden = pCreature->GetGUID();
-                    pCreature->SetReactState(REACT_PASSIVE);
+                }
+                uiStormRider = pCreature->GetGUID();
+                pCreature->SetReactState(REACT_PASSIVE);
+                pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+                break;
+            case NPC_NETHER_SCION:
+                if (uiRandomDragons[0] == RANDOM_DRAGON_NETHER_SCION || uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+                {
+                    pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
                     pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-                    pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-                case NPC_PROTO_BEHEMOTH:
-                    uiProtoBehemoth = pCreature->GetGUID();
-                    if (Unit * TimeWarden = instance->GetCreature(GetData64(NPC_TIME_WARDEN)))
+                }
+                uiNetherScion = pCreature->GetGUID();
+                pCreature->SetReactState(REACT_PASSIVE);
+                pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+                break;
+            case NPC_TIME_WARDEN:
+                uiTimeWarden = pCreature->GetGUID();
+                pCreature->SetReactState(REACT_PASSIVE);
+                pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+            case NPC_PROTO_BEHEMOTH:
+                uiProtoBehemoth = pCreature->GetGUID();
+                if (Unit * TimeWarden = instance->GetCreature(GetData64(NPC_TIME_WARDEN)))
+                {
+                    if (!TimeWarden->HasAura(SPELL_UNRESPONSIVE_DRAKE))
                     {
-                        if (!TimeWarden->HasAura(SPELL_UNRESPONSIVE_DRAKE))
-                        {
-                            TimeWarden->AddAura(SPELL_DANCING_FLAMES,pCreature);
-                        }
+                        TimeWarden->AddAura(SPELL_DANCING_FLAMES,pCreature);
                     }
-                    break;
-                case NPC_CYCLON_WIND:
-                    uiCyclonWinds = pCreature->GetGUID();
-                    break;
-                case NPC_INFERNO_RUSH:
-                    uiInfernoRush = pCreature->GetGUID();
-                    break;
+                }
+                break;
+            case NPC_CYCLON_WIND:
+                uiCyclonWinds = pCreature->GetGUID();
+                break;
+            case NPC_INFERNO_RUSH:
+                uiInfernoRush = pCreature->GetGUID();
+                break;
             }
         }
         void SetData64(uint32 id, uint64 data)
         {
             switch (id)
             {
-                case DATA_HB_VALIONA_THERALION:
-                    uiValionaTheralionHealth = data ;
-                    break;
+            case DATA_HB_VALIONA_THERALION:
+                uiValionaTheralionHealth = data ;
+                break;
             }
         }
         uint64 GetData64(uint32 identifier)
         {
             switch (identifier)
-                {
-                    case DATA_WYRMBREAKER:                  return uiWyrmbreaker;
-                    case DATA_VALIONA:                        return uiValiona;
-                    case DATA_THERALION:                    return uiTheralion;
-                    case DATA_FELUDIUS:                        return uiFeludius;
-                    case DATA_IGNACIOUS:                    return uiIgnacious;
-                    case DATA_ARION:                        return uiArion;
-                    case DATA_TERRASTRA:                    return uiTerrastra;
-                    case DATA_MONSTROSITY:                    return uiMonstrosity;
-                    case DATA_CHOGALL:                        return uiChogall;
-                    case DATA_SINESTRA:                     return uiSinestra;
-                    case DATA_HB_VALIONA_THERALION:         return uiValionaTheralionHealth;
-                    case NPC_SLATE_DRAKE:                    return uiSlateDrake;
-                    case NPC_STORM_RIDER:                    return uiStormRider;
-                    case NPC_NETHER_SCION:                    return uiNetherScion;
-                    case NPC_TIME_WARDEN:                    return uiTimeWarden;
-                    case NPC_PROTO_BEHEMOTH:                return uiProtoBehemoth;
-                    case NPC_CYCLON_WIND:                   return uiCyclonWinds;
-                    case NPC_INFERNO_RUSH:                  return uiInfernoRush;
-                }
+            {
+            case DATA_WYRMBREAKER:
+                return uiWyrmbreaker;
+            case DATA_VALIONA:
+                return uiValiona;
+            case DATA_THERALION:
+                return uiTheralion;
+            case DATA_FELUDIUS:
+                return uiFeludius;
+            case DATA_IGNACIOUS:
+                return uiIgnacious;
+            case DATA_ARION:
+                return uiArion;
+            case DATA_TERRASTRA:
+                return uiTerrastra;
+            case DATA_MONSTROSITY:
+                return uiMonstrosity;
+            case DATA_CHOGALL:
+                return uiChogall;
+            case DATA_SINESTRA:
+                return uiSinestra;
+            case DATA_HB_VALIONA_THERALION:
+                return uiValionaTheralionHealth;
+            case NPC_SLATE_DRAKE:
+                return uiSlateDrake;
+            case NPC_STORM_RIDER:
+                return uiStormRider;
+            case NPC_NETHER_SCION:
+                return uiNetherScion;
+            case NPC_TIME_WARDEN:
+                return uiTimeWarden;
+            case NPC_PROTO_BEHEMOTH:
+                return uiProtoBehemoth;
+            case NPC_CYCLON_WIND:
+                return uiCyclonWinds;
+            case NPC_INFERNO_RUSH:
+                return uiInfernoRush;
+            }
 
             return 0;
         }
@@ -229,21 +247,21 @@ public:
         {
             switch (type)
             {
-                case DATA_WYRMBREAKER_EVENT:
-                    uiEncounter[0] = data;
-                    break;
-                case DATA_VALIONA_THERALION_EVENT:
-                    uiEncounter[1] = data;
-                    break;
-                case DATA_COUNCIL_EVENT:
-                    uiEncounter[2] = data;
-                    break;
-                case DATA_CHOGALL_EVENT:
-                    uiEncounter[3] = data;
-                    break;
-                case DATA_SINESTRA_EVENT:
-                    uiEncounter[4] = data;
-                    break;
+            case DATA_WYRMBREAKER_EVENT:
+                uiEncounter[0] = data;
+                break;
+            case DATA_VALIONA_THERALION_EVENT:
+                uiEncounter[1] = data;
+                break;
+            case DATA_COUNCIL_EVENT:
+                uiEncounter[2] = data;
+                break;
+            case DATA_CHOGALL_EVENT:
+                uiEncounter[3] = data;
+                break;
+            case DATA_SINESTRA_EVENT:
+                uiEncounter[4] = data;
+                break;
             }
 
             if (data == DONE)
@@ -254,11 +272,16 @@ public:
         {
             switch (type)
             {
-                case DATA_WYRMBREAKER_EVENT:                return uiEncounter[0];
-                case DATA_VALIONA_THERALION_EVENT:            return uiEncounter[1];
-                case DATA_COUNCIL_EVENT:                    return uiEncounter[2];
-                case DATA_CHOGALL_EVENT:                    return uiEncounter[3];
-                case DATA_SINESTRA_EVENT:                   return uiEncounter[4];
+            case DATA_WYRMBREAKER_EVENT:
+                return uiEncounter[0];
+            case DATA_VALIONA_THERALION_EVENT:
+                return uiEncounter[1];
+            case DATA_COUNCIL_EVENT:
+                return uiEncounter[2];
+            case DATA_CHOGALL_EVENT:
+                return uiEncounter[3];
+            case DATA_SINESTRA_EVENT:
+                return uiEncounter[4];
             }
 
             return 0;
@@ -324,24 +347,24 @@ public:
                     {
                         switch (uiRandomDragons[0])
                         {
-                            case RANDOM_DRAGON_STORM_RIDER:
-                                uiRandomDragons[1] = rand() % 1 + 1;
-                                break;
-                            case RANDOM_DRAGON_NETHER_SCION:
-                                uiRandomDragons[1] = rand() % 1 + 2;
-                                if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+                        case RANDOM_DRAGON_STORM_RIDER:
+                            uiRandomDragons[1] = rand() % 1 + 1;
+                            break;
+                        case RANDOM_DRAGON_NETHER_SCION:
+                            uiRandomDragons[1] = rand() % 1 + 2;
+                            if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+                            {
+                                uiRandomNumber = rand() % 10 + 1;
+                                if (uiRandomNumber <= 5)
                                 {
-                                    uiRandomNumber = rand() % 10 + 1;
-                                    if (uiRandomNumber <= 5)
-                                    {
-                                        uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
-                                    }
-                                    else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;
+                                    uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
                                 }
-                                break;
-                            case RANDOM_DRAGON_SLATE_DRAKE:
-                                uiRandomDragons[1] = rand() % 1 + 2;
-                                break;
+                                else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;
+                            }
+                            break;
+                        case RANDOM_DRAGON_SLATE_DRAKE:
+                            uiRandomDragons[1] = rand() % 1 + 2;
+                            break;
                         }
                     }
                     if (!data7 == NULL)
@@ -354,7 +377,7 @@ public:
                     }
                     if (!data8 == 0)
                     {
-                   uiHalfusNormalTimer = data8;
+                        uiHalfusNormalTimer = data8;
                     }
                     else uiHalfusNormalTimer = 604800000;
                 }
@@ -415,23 +438,23 @@ public:
                 uiRandomDragons[0] = rand() % 3 +1;
                 switch (uiRandomDragons[0])
                 {
-                    case RANDOM_DRAGON_STORM_RIDER:
-                        uiRandomDragons[1] = rand() % 1 + 1;
-                        break;
-                    case RANDOM_DRAGON_NETHER_SCION:
-                        uiRandomDragons[1] = rand() % 1 + 2;
-                        if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+                case RANDOM_DRAGON_STORM_RIDER:
+                    uiRandomDragons[1] = rand() % 1 + 1;
+                    break;
+                case RANDOM_DRAGON_NETHER_SCION:
+                    uiRandomDragons[1] = rand() % 1 + 2;
+                    if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+                    {
+                        uiRandomNumber = rand() % 10 + 1;
+                        if (uiRandomNumber <= 5)
                         {
-                            uiRandomNumber = rand() % 10 + 1;
-                            if (uiRandomNumber <= 5)
-                            {
-                                uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
-                            } else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;
-                        }
-                        break;
-                    case RANDOM_DRAGON_SLATE_DRAKE:
-                        uiRandomDragons[1] = rand() % 1 + 2;
-                        break;
+                            uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
+                        } else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;
+                    }
+                    break;
+                case RANDOM_DRAGON_SLATE_DRAKE:
+                    uiRandomDragons[1] = rand() % 1 + 2;
+                    break;
                 }
                 uiRandomDragons[2] = rand() % 1 + 1;
             } else uiHalfusNormalTimer -= diff;
