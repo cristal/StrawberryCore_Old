@@ -1995,19 +1995,34 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
     }
 
     *data << uint8(playerBytes >> 24);                    // Hair color
+    sLog->outDetail("Hair Color: %i", uint8(playerBytes >> 24));
+
     *data << uint8(gender);                               // Gender
+    sLog->outDetail("Gender: %i", gender);
+
     *data << uint8(level);                                // Level
+    sLog->outDetail("Level: %i", level);
 
     *data << uint32(zone);                                // Zone id
+    sLog->outDetail("Zone: %i", zone);
+
     *data << uint32(petDisplayId);                        // Pet DisplayID
+    sLog->outDetail("Pet DisplayId: %i", petDisplayId);
 
     if (uint8(guid >> 8) != 0)
+    {
         *data << uint8(guid >> 8);
+        sLog->outDetail("Guid 1: %i", uint8(guid >> 8));
+    }
 
     *data << uint8(playerRace);                           // Race
+    sLog->outDetail("Race: %i", playerRace);
 
     if (uint8(guid >> 24) != 0)
+    {
         *data << uint8(guid >> 24);
+        sLog->outDetail("Guid 2: %i", uint8(guid >> 24));
+    }
 
     uint32 charFlags = 0;
     if (playerFlags & PLAYER_FLAGS_HIDE_HELM)
@@ -2029,10 +2044,16 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
         charFlags |= CHARACTER_FLAG_DECLINED;
 
     *data << uint32(charFlags);                           // character flags
+    sLog->outDetail("Character Flags: %i", charFlags);
 
     *data << uint32(petFamily);                           // Pet Family
+    sLog->outDetail("Pet Family: %i", petFamily);
+
     *data << uint8(playerBytes >> 16);                    // Hair style
+    sLog->outDetail("Hair Style %i", uint8(playerBytes >> 16));
+
     *data << uint8(0);                                    // character order id (used for char list positioning)
+    sLog->outDetail("Character Order Id: %i", 0);
 
     Tokens equipment(fields[19].GetString(), ' ');
     for (uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
@@ -2044,8 +2065,14 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
         if (!proto)
         {
             *data << uint32(0);
+            sLog->outDetail("Not exist: %i", 0);
+
             *data << uint32(0);
+            sLog->outDetail("Not exist: %i", 0);
+
             *data << uint8(0);
+            sLog->outDetail("Not exist: %i", 0);
+
             continue;
        }
 
@@ -2064,35 +2091,64 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
         }
 
         *data << uint32(db2Item ? db2Item->DisplayId : proto->DisplayInfoID);
+        sLog->outDetail("Item DisplayId: %i", uint32(db2Item ? db2Item->DisplayId : proto->DisplayInfoID));
+
         *data << uint32(enchant ? enchant->aura_id : 0);
+        sLog->outDetail("Aura Id: %i", uint32(enchant ? enchant->aura_id : 0));
+
         *data << uint8(proto->InventoryType);
+        sLog->outDetail("Inventory Type: %i", uint8(proto->InventoryType));
+
     }
 
     // Bags (not supported)
     for (uint32 i = 0; i < 4; ++i)
     {
         *data << uint32(0); // displayid
+        sLog->outDetail("Bags (displayid): %i", 0);
+
         *data << uint32(0); // enchant
+        sLog->outDetail("Bags (enchant): %i", 0);
+
         *data << uint8(0); // invtype
+        sLog->outDetail("Bags (invtype): %i", 0);
     }
 
     *data << uint8(playerBytes >> 8);                     // face
+    sLog->outDetail("Face: %i", uint8(playerBytes >> 8));
 
     if (uint8(guid >> 16) != 0)
+    {
         *data << uint8(guid >> 16); // + 298
+        sLog->outDetail("Guid 3: %i", uint8(guid >> 16));
+    }
 
     *data << uint8(playerClass);                          // class
+    sLog->outDetail("Class: %i", playerClass);
 
     *data << fields[10].GetFloat();                       // x
+    sLog->outDetail("X: %f", fields[10].GetFloat());
+
     *data << fields[11].GetFloat();                       // y
+    sLog->outDetail("Y: %f", fields[11].GetFloat());
+
     *data << fields[12].GetFloat();                       // z
+    sLog->outDetail("Z: %f", fields[12].GetFloat());
 
     if (uint8(guid) != 0)
+    {
         *data << uint8(guid); // + 296
+        sLog->outDetail("Guid 4: %i", uint8(guid));
+    }
 
     *data << fields[1].GetString();                       // name
+    sLog->outDetail("Name: %s", fields[1].GetString());
+
     *data << uint32(fields[9].GetUInt32());               // map
+    sLog->outDetail("Map: %i", fields[9].GetUInt32());
+
     *data << uint32(petLevel);                            // pet level
+    sLog->outDetail("Pet level: %i", petLevel);
 
     // character customize flags
     if (atLoginFlags & AT_LOGIN_CUSTOMIZE)
@@ -2106,7 +2162,10 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
 
     uint32 playerBytes2 = fields[6].GetUInt32();
     *data << uint8(playerBytes2 & 0xFF);                  // facial hair
+    sLog->outDetail("Facial Hair: %i", uint8(playerBytes2 & 0xFF));
+
     *data << uint8(playerBytes);                          // skin
+    sLog->outDetail("Skin: %i", uint8(playerBytes));
 
     return true;
 }

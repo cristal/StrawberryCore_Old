@@ -739,25 +739,18 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     // ToDo: vendorGuid
     data << uint8(0xEB);
 
-    data << uint8(0x00);
-    data << uint8(0x00);
-    data << uint8(0x00);
-    data << uint8(0x00);
-    data << uint8(0x00);
+    data << uint8(0);
+    data << uint8(0);
+    data << uint8(0);
+    data << uint8(0);
+    data << uint8(0);
 
     size_t countPos = data.wpos();
     data << uint32(count);
 
-    uint8 siteCount = 0;
+    data << uint8((count % 10) == 0 ? count / 10 : (count / 10) + 1);
 
-    if (count % 15 == 0)
-        siteCount = count / 15;
-    else
-        siteCount = (count / 15) + 1;
-
-    data << uint8(siteCount);
-
-    data << uint8(0x00);
+    data << uint8(0);
 
     float discountMod = _player->GetReputationPriceDiscount(vendor);
 

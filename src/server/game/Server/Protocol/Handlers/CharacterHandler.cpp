@@ -213,7 +213,7 @@ bool LoginQueryHolder::Initialize()
 
 void WorldSession::HandleCharEnum(QueryResult result)
 {
-    WorldPacket data(SMSG_CHAR_ENUM, 270);
+    WorldPacket data(SMSG_CHAR_ENUM, 300);
 
     uint32 num = 0;
 
