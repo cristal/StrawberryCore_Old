@@ -438,13 +438,13 @@ void ObjectMgr::LoadCreatureTemplates()
                                              "scale, rank, mindmg, maxdmg, dmgschool, attackpower, dmg_multiplier, baseattacktime, rangeattacktime, unit_class, unit_flags, "
     //                                             32         33        34           35             36             37             38          39           40              41           42
                                              "dynamicflags, family, trainer_id, trainer_type, trainer_spell, trainer_class, trainer_race, minrangedmg, maxrangedmg, rangedattackpower, type, "
-    //                                            43        44          45           46          47          48           49           50           51           52         53
+    //                                            43           44        45          46           47         48           49           50           51           52           53         54
                                              "type_flags, type_flags2, lootid, pickpocketloot, skinloot, resistance1, resistance2, resistance3, resistance4, resistance5, resistance6, spell1, "
-    //                                          54      55      56      57      58      59      60          61            62       63       64       65         66
+    //                                          55      56      57      58      59      60      61          62            63       64       65       66         67
                                              "spell2, spell3, spell4, spell5, spell6, spell7, spell8, PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, "
-    //                                             67           68           69          70          71          72          73          74
+    //                                             68           69           70          71          72          73          74          75
                                              "InhabitType, RacialLeader, questItem1, questItem2, questItem3, questItem4, questItem5, questItem6, "
-    //                                            75           76           77               78                79           80
+    //                                            76           77           78               79                80           81
                                              "movementId, RegenHealth, equipment_id, mechanic_immune_mask, flags_extra, ScriptName "
                                              "FROM creature_template;");
 
@@ -461,7 +461,8 @@ void ObjectMgr::LoadCreatureTemplates()
         Field *fields = result->Fetch();
 
         uint32 entry = fields[0].GetUInt32();
-
+		if (entry == 2043)
+			printf("EKLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         CreatureTemplate& creatureTemplate = CreatureTemplateStore[entry];
 
         creatureTemplate.Entry = entry;
