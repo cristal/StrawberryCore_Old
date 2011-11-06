@@ -461,8 +461,6 @@ void ObjectMgr::LoadCreatureTemplates()
         Field *fields = result->Fetch();
 
         uint32 entry = fields[0].GetUInt32();
-		if (entry == 2043)
-			printf("EKLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         CreatureTemplate& creatureTemplate = CreatureTemplateStore[entry];
 
         creatureTemplate.Entry = entry;
