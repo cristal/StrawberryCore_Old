@@ -73,7 +73,7 @@ DATAStorage <CharTitlesEntry>                        sCharTitlesStore(LookupForm
 DATAStorage <ChatChannelsEntry>                      sChatChannelsStore(LookupFormat(ChatChannelsEntryfmt));
 DATAStorage <ChrClassesEntry>                        sChrClassesStore(LookupFormat(ChrClassesEntryfmt));
 DATAStorage <ChrRacesEntry>                          sChrRacesStore(LookupFormat(ChrRacesEntryfmt));
-DATAStorage <ChrPowerTypesEntry>                     sChrPowerTypesStore(ChrClassesXPowerTypesfmt);
+DATAStorage <ChrPowerTypesEntry>                     sChrPowerTypesStore(LookupFormat(ChrClassesXPowerTypesfmt));
 DATAStorage <CinematicSequencesEntry>                sCinematicSequencesStore(LookupFormat(CinematicSequencesEntryfmt));
 DATAStorage <CreatureDisplayInfoEntry>               sCreatureDisplayInfoStore(LookupFormat(CreatureDisplayInfofmt));
 DATAStorage <CreatureFamilyEntry>                    sCreatureFamilyStore(LookupFormat(CreatureFamilyfmt));
@@ -143,7 +143,7 @@ DATAStorage <SoundEntriesEntry>                      sSoundEntriesStore(LookupFo
 DATAStorage <SpellItemEnchantmentEntry>              sSpellItemEnchantmentStore(LookupFormat(SpellItemEnchantmentfmt));
 DATAStorage <SpellItemEnchantmentConditionEntry>     sSpellItemEnchantmentConditionStore(LookupFormat(SpellItemEnchantmentConditionfmt));
 DATAStorage <SpellEntry>                             sSpellStore(LookupFormat(True_SpellEntryfmt));
-DATAStorage <SpellEntry_n>                           sTrueSpellStore(LookupFormat(SpellEntryfmt));
+DATAStorage <SpellEntry_n>                           sTrueSpellStore(LookupFormat(SpellEntryfmt)); // This will be added manually(Because of TrueSpellStore system)
 DATAStorage <SpellAuraOptionsEntry>                  sSpellAuraOptionsStore(LookupFormat(SpellAuraOptionsEntryfmt));
 DATAStorage <SpellAuraRestrictionsEntry>             sSpellAuraRestrictionsStore(LookupFormat(SpellAuraRestrictionsEntryfmt));
 DATAStorage <SpellCastingRequirementsEntry>          sSpellCastingRequirementsStore(LookupFormat(SpellCastingRequirementsEntryfmt));
@@ -234,6 +234,7 @@ static bool LoadData_assert_print(uint32 fsize, uint32 rsize, const std::string&
 }
 
 template<class T>
+
 inline void LoadDATA(uint32& availableDataLocales, StoreProblemList& errors, DATAStorage<T>& storage, std::string const& dataPath, std::string const& filename, std::string const* customFormat = NULL, std::string const* customIndexName = NULL)
 {
     // compatibility format and C++ structure sizes
@@ -276,14 +277,10 @@ inline void LoadDATA(uint32& availableDataLocales, StoreProblemList& errors, DAT
 }
 
 // Correspondence between format formats and their names/handlers
-/*FormatHandler formatTable[MAX_FORMAT_TYPES];
+FormatHandler formatTable[MAX_FORMAT_TYPES];
 char* formatEnumToFormat[LastFormatData];
-char const* formatEnumToName[LastFormatData];
 
-typedef UNORDERED_MAP< std::string, std::string> DataFormatsMap;
-DataFormatsMap DataFormats;
-
-bool LoadDATAFormats()
+void FormatTableHandler::LoadDATAFormatsFromDB()
 {
     uint32 oldMSTime = getMSTime();
 
@@ -294,7 +291,7 @@ bool LoadDATAFormats()
     {
         sLog->outString();
         sLog->outErrorDb(">> Failed to load data formats from the DB. Cannot continue.");
-        return false;
+        return;
     }
 
     uint32 count = 0;
@@ -305,49 +302,53 @@ bool LoadDATAFormats()
         std::string name   = fields[0].GetString();
         const char* format = fields[1].GetCString();
 
-        DataFormats[name] = format;
+        FormatTableContainer[name] = std::string(format);
+
         ++count;
     } while (result->NextRow());
 
-    sLog->outString();
     sLog->outString(">> Loaded %u data formats in %u ms.", count, GetMSTimeDiffToNow(oldMSTime));
-
-    return true;
+    sLog->outString();
 }
-*/
-template<class TT>
-static void DefineFormat(/*DATAFormats*/const char* enumId, const char* name, uint32& availableDataLocales, StoreProblemList& errlist, DATAStorage<TT>& storage, const std::string& dataPath, const std::string& filename)
+
+std::string FormatTableHandler::GetFormatTable(std::string name)
 {
-    /*formatEnumToName[enumId] = name;
-    DataFormatsMap::iterator itr = DataFormats.find(std::string(name));
-    if (itr != DataFormats.end())
+    if (!FormatTableContainer[name].empty())
+        return FormatTableContainer[name];
+    return "UNKNOWN";
+}
+
+template<class TT>
+static void DefineFormat(DATAFormats enumId, const char* name, uint32& availableDataLocales, StoreProblemList& errlist, DATAStorage<TT>& storage, const std::string& dataPath, const std::string& filename)
+{
+    std::string format = sFormatTableHandler->GetFormatTable(std::string(name));
+
+    if (format != "UNKNOWN")
     {
-        char *format = new char[itr->second.size() + 1];
-        std::strcpy (format, itr->second.c_str());
-        formatEnumToFormat[enumId] = format;
+        char *cformat;
+        cformat = new char[format.length() + 1];
+        strcpy(cformat, format.c_str());
+        formatEnumToFormat[enumId] = cformat;
         if(format == "")
             return;
 
         formatTable[enumId].name = name;
         formatTable[enumId].enumValue = enumId;
-        DATAStorage <TT> storage(format);
-        storage.SetFormat(format);*/
+        storage.SetFormat(format.c_str());
+
         LoadDATA(availableDataLocales, errlist, storage, dataPath, filename);
-    /*}
+        delete[] cformat;
+    }
     else
-    {
         sLog->outError("Format not found in the DB %s.", name);
-        char *format = "";
-        formatEnumToFormat[enumId] = format;
-    }*/
 }
 
 #define FORMAT( name, availableDataLocales, errlist, storage, dataPath, filename ) DefineFormat( name, #name , availableDataLocales, errlist, storage, dataPath, filename)
 
 void LoadDATAStores()
 {
+    sFormatTableHandler->LoadDATAFormatsFromDB();
     const std::string& dataPath = sWorld->GetDataPath();
-    //LoadDATAFormats();
 
     uint32 oldMSTime = getMSTime();
 
@@ -412,7 +413,7 @@ void LoadDATAStores()
     FORMAT(ChatChannelsEntryfmt, availableDataLocales,bad_dbc_files,sChatChannelsStore,             storesPath,"ChatChannels.dbc");
     FORMAT(ChrClassesEntryfmt, availableDataLocales,bad_dbc_files,sChrClassesStore,               storesPath,"ChrClasses.dbc");
     FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrRacesStore,                 storesPath,"ChrRaces.dbc");
-    FORMAT(ChrRacesEntryfmt, availableDataLocales,bad_dbc_files,sChrPowerTypesStore,                 storesPath,"ChrClassesXPowerTypes.dbc");
+    FORMAT(ChrClassesXPowerTypesfmt, availableDataLocales,bad_dbc_files,sChrPowerTypesStore,                 storesPath,"ChrClassesXPowerTypes.dbc");
     FORMAT(CinematicSequencesEntryfmt, availableDataLocales,bad_dbc_files,sCinematicSequencesStore,       storesPath,"CinematicSequences.dbc");
     FORMAT(CreatureDisplayInfofmt, availableDataLocales,bad_dbc_files,sCreatureDisplayInfoStore,      storesPath,"CreatureDisplayInfo.dbc");
     FORMAT(CreatureFamilyfmt, availableDataLocales,bad_dbc_files,sCreatureFamilyStore,           storesPath,"CreatureFamily.dbc");
@@ -541,6 +542,7 @@ void LoadDATAStores()
             sSpellEffectMap[spellEffect->EffectSpellId].effects[spellEffect->EffectIndex] = spellEffect;
     }
 
+    sSpellStore.SetFormat(sFormatTableHandler->GetFormatTable("True_SpellEntryfmt").c_str());
     sSpellStore.Clear();
     sSpellStore.nCount = sTrueSpellStore.nCount;
     sSpellStore.fieldCount = strlen(sSpellStore.fmt);
@@ -798,8 +800,6 @@ void LoadDATAStores()
 
     sLog->outString(">> Initialized %d data stores in %u ms", DATAFileCount, GetMSTimeDiffToNow(oldMSTime));
     sLog->outString();
-
-    //DataFormats.clear();
 }
 
 SimpleFactionsList const* GetFactionTeamList(uint32 faction)
