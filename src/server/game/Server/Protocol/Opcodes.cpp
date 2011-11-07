@@ -24,8 +24,6 @@
 
 // Correspondence between opcodes and their names
 OpcodeHandler opcodeTable[NUM_MSG_TYPES];
-OpcodeTableContainer opcodeTableMap;
-
 uint16 opcodesEnumToNumber[NUM_OPCODES];
 
 void OpcodeTableHandler::LoadOpcodesFromDB()
@@ -42,9 +40,9 @@ void OpcodeTableHandler::LoadOpcodesFromDB()
         Field *fields = result->Fetch();
 
         std::string OpcodeName = fields[0].GetString();
-        uint16 OpcodeValue     = fields[1].GetInt32();
+        uint16 OpcodeValue     = fields[1].GetInt16();
 
-        opcodeTableMap[OpcodeName] = OpcodeValue;
+        OpcodeTableContainer[OpcodeName] = OpcodeValue;
 
         count++;
     }
@@ -54,23 +52,20 @@ void OpcodeTableHandler::LoadOpcodesFromDB()
     sLog->outString();
 }
 
-uint16 OpcodeTableHandler::GetOpcodeTable(const char* name)
+int OpcodeTableHandler::GetOpcodeTable(const char* name)
 {
-    OpcodeTableContainer::iterator itr = opcodeTableMap.find(std::string(name));
-    if (itr != opcodeTableMap.end())
-        return itr->second;
-
-    return NULL;
+    if (OpcodeTableContainer[name])
+        return OpcodeTableContainer[name];
+    return -1;
 }
 
 static void DefineOpcode(Opcodes opcodeEnum, const char* name, SessionStatus status, PacketProcessing packetProcessing, void (WorldSession::*handler)(WorldPacket& recvPacket) )
 {
-    uint16 opcode = sOpcodeTableHandler->GetOpcodeTable(name);
+    int opcode = sOpcodeTableHandler->GetOpcodeTable(name);
 
     if (opcode > 0)
     {
         opcodesEnumToNumber[opcodeEnum] = opcode;
-
         opcodeTable[opcode].name = name;
         opcodeTable[opcode].status = status;
         opcodeTable[opcode].packetProcessing = packetProcessing;
