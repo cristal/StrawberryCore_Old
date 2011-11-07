@@ -1,0 +1,1 @@
+INSERT INTO `dataformats` VALUES (14480, "ChrClassesXPowerTypesfmt", "nii");
