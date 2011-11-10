@@ -264,16 +264,12 @@ int WorldSocket::open (void *a)
 
     // Send startup packet.
     WorldPacket packet(SMSG_AUTH_CHALLENGE, 37);
-    packet << uint32(0);
-    packet << uint32(0);
-    packet << uint32(0);
-    packet << uint32(0);
+    
+    for (uint32 i = 0; i < 8; i++)
+        packet << uint32(0);
+
     packet << m_Seed;
     packet << uint8(1);
-    packet << uint32(0);
-    packet << uint32(0);
-    packet << uint32(0);
-    packet << uint32(0);
 
     if (SendPacket(packet) == -1)
         return -1;
@@ -805,37 +801,34 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     BigNumber v, s, g, N, K;
     WorldPacket packet;
 
-    recvPacket.read_skip<uint8>();
-    recvPacket.read(digest, 5);
-    recvPacket >> clientBuild;
-    recvPacket.read(digest, 2);
-    recvPacket.read_skip<uint8>();
     recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 4);
+    recvPacket.read(digest, 1);
     recvPacket.read_skip<uint64>();
-    recvPacket.read_skip<uint8>();
-    recvPacket.read(digest, 2);
-    recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 4);
-    recvPacket >> clientSeed;
-    recvPacket.read(digest, 2);
     recvPacket.read_skip<uint32>();
     recvPacket.read(digest, 1);
     recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 1);
+    recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 7);
+    recvPacket >> clientBuild;
+    recvPacket.read(digest, 8);
+    recvPacket.read_skip<uint8>();
+    recvPacket.read_skip<uint8>();
+    recvPacket >> clientSeed;
+    recvPacket.read(digest, 2);
+
+    recvPacket >> m_addonSize;                            // addon data size
+
+    size_t addonInfoPos = recvPacket.rpos();
+    recvPacket.rpos(recvPacket.rpos() + m_addonSize);     // skip it
+
+    // Byte for bytemask
+    recvPacket.read_skip<uint8>();
+
+    // Always send the == 8 byte to skip some checks.
+    recvPacket.read_skip<uint8>();
 
     recvPacket >> accountName;
-
-    recvPacket >> m_addonSize;
-    uint8 * tableauAddon = new uint8[m_addonSize];
-    WorldPacket packetAddon;
-    for(uint32 i = 0; i < m_addonSize; i++)
-    {
-        uint8 ByteSize = 0;
-        recvPacket >> ByteSize;
-        tableauAddon[i] = ByteSize;
-        packetAddon << ByteSize;
-    }
-    delete tableauAddon;
    
     if (sWorld->IsClosed())
     {
@@ -1039,8 +1032,8 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
     m_Session->LoadGlobalAccountData();
     m_Session->LoadTutorialsData();
-    packetAddon.rpos(0);
-    m_Session->ReadAddonsInfo(packetAddon);
+    recvPacket.rpos(addonInfoPos);
+    m_Session->ReadAddonsInfo(recvPacket);
     
     // Sleep this Network thread for
     uint32 sleepTime = sWorld->getIntConfig(CONFIG_SESSION_ADD_DELAY);
