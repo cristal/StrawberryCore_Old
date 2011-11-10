@@ -676,6 +676,9 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     recv_data.read_skip<uint64>();
     recv_data.read_skip<uint8>();
 
+    // This only can fix 257.
+    vendorguid = ConvertToRealHighGuid(GUID_LOPART(vendorguid));
+
     // client expects count starting at 1, and we send vendorslot+1 to client already
     if (slot > 0)
         --slot;
@@ -783,7 +786,7 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 // 4.2.0.14480
                 data << uint32(buyCost);                      // BuyCost
                 data << uint32(0);                            // Unknown 4.2.0.14333
-                data << uint32(1);                            // Unknown 4.2.0.14333
+                data << uint32(item->maxcount);               // Maxcount
                 data << uint32(itemTemplate->MaxDurability);  // Durability
                 data << uint32(item->ExtendedCost);           // ExtendedCost
                 data << uint32(itemTemplate->BuyCount);       // BuyCount
