@@ -676,7 +676,17 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     recv_data.read_skip<uint64>();
     recv_data.read_skip<uint8>();
 
-    // This only can fix 257.
+    // Now the guids between 0-257 will work properly.
+    --vendorguid;
+    if (vendorguid != 256)
+    {
+        vendorguid = vendorguid/256;
+        if(vendorguid % 2 == 0)
+            ++vendorguid;
+        else
+            --vendorguid;
+    }
+
     vendorguid = ConvertToRealHighGuid(GUID_LOPART(vendorguid));
 
     // client expects count starting at 1, and we send vendorslot+1 to client already
@@ -740,12 +750,9 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     WorldPacket data(SMSG_LIST_INVENTORY, 1 + 6 + 4 + 1 + itemCount * 10 * 4);
 
     // ToDo: vendorGuid
-    data << uint8(0xEB);
+    data << uint32(0xEB);
 
-    data << uint8(0);
-    data << uint8(0);
-    data << uint8(0);
-    data << uint8(0);
+    data << uint8(vendorGuid);
     data << uint8(0);
 
     size_t countPos = data.wpos();
@@ -785,12 +792,12 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
 
                 // 4.2.0.14480
                 data << uint32(buyCost);                      // BuyCost
-                data << uint32(0);                            // Unknown 4.2.0.14333
+                data << uint32(0);                            // Unknown 4.2.0.14333 (It just can be 0 or 1 or ?? - Strange..)
                 data << uint32(item->maxcount);               // Maxcount
                 data << uint32(itemTemplate->MaxDurability);  // Durability
                 data << uint32(item->ExtendedCost);           // ExtendedCost
                 data << uint32(itemTemplate->BuyCount);       // BuyCount
-                data << uint32(leftInStock);                  // MaxCount
+                data << uint32(leftInStock);                  // Count of item list
                 data << uint32(vendorSlot + 1);               // client expects counting to start at 1
                 data << uint32(itemTemplate->DisplayInfoID);  // DisplayId
                 data << item->item;                           // ItemId
