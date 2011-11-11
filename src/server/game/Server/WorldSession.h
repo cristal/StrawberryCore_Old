@@ -411,7 +411,12 @@ class WorldSession
         uint64 GetRealGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
         uint64 GetRealGOGUID() { return realgoguid; }
         uint32 GetRealGOEntry() { return realgoentry; }
-        uint64 ConvertToRealHighGuid(uint64 guid) { return guid+17379390963331366912; }
+        uint64 ConvertToRealHighGuid(uint64 guid, uint32 entry)
+        {
+            uint64 coef = 0x1000000;
+            // 17379390962022744064 -> 0x1035892424704000000
+            return guid+17379390962022744064+coef*entry;
+        }
 
     public:                                                 // opcodes handlers
 

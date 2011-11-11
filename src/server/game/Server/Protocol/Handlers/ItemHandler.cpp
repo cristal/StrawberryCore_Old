@@ -668,26 +668,48 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_BUY_ITEM");
     uint64 vendorguid;
+    uint32 vendorentry;
+    uint32 entry; // Not always true like the vendorentry.
+    uint8 packetGuid;
+    uint32 byte1;
+    uint8 byte2;
     uint32 item, slot, count;
 
-    recv_data >> vendorguid;
+    recv_data >> byte1;
+    recv_data >> byte2;
+    recv_data.read_skip<uint8>();
+    recv_data.read_skip<uint8>();
+    recv_data >> packetGuid;
     recv_data.read_skip<uint8>();
     recv_data >> item >> slot >> count;
     recv_data.read_skip<uint64>();
     recv_data.read_skip<uint8>();
 
-    // Now the guids between 0-257 will work properly.
-    --vendorguid;
-    if (vendorguid != 256)
-    {
-        vendorguid = vendorguid/256;
-        if(vendorguid % 2 == 0)
-            ++vendorguid;
-        else
-            --vendorguid;
-    }
+    if(byte1 % 2 == 0)
+        ++byte1;
+    else
+        --byte1;
+    if(byte2 % 2 == 0)
+        ++byte2;
+    else
+        --byte2;
+    if(packetGuid % 2 == 0)
+        ++packetGuid;
+    else
+        --packetGuid;
 
-    vendorguid = ConvertToRealHighGuid(GUID_LOPART(vendorguid));
+    entry = byte1/256;
+
+    uint32 RealpacketGuid = packetGuid;
+
+    uint32 coef = (byte1-((entry*256)-1));
+    if (coef > 1)
+        RealpacketGuid += 65536*(coef-1);
+
+    vendorguid = ((byte2*256)+RealpacketGuid);
+
+    vendorentry = sObjectMgr->GetCreatureData(vendorguid)->id;
+    vendorguid = ConvertToRealHighGuid(vendorguid, vendorentry);
 
     // client expects count starting at 1, and we send vendorslot+1 to client already
     if (slot > 0)
@@ -750,9 +772,9 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
     WorldPacket data(SMSG_LIST_INVENTORY, 1 + 6 + 4 + 1 + itemCount * 10 * 4);
 
     // ToDo: vendorGuid
-    data << uint32(0xEB);
+    data << uint8(0xEB);
 
-    data << uint8(vendorGuid);
+    data << uint32(vendorGuid);
     data << uint8(0);
 
     size_t countPos = data.wpos();
