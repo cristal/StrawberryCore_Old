@@ -669,7 +669,7 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     sLog->outDebug("WORLD: Received CMSG_BUY_ITEM");
     uint64 vendorguid;
     uint32 vendorentry;
-    uint32 entry; // Not always true like the vendorentry.
+    uint32 entry; // Not always true.
     uint8 packetGuid;
     uint32 byte1;
     uint8 byte2;
