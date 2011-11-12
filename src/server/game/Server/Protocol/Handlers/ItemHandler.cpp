@@ -506,20 +506,19 @@ void WorldSession::HandleSellItemOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_SELL_ITEM");
     uint64 vendorguid;
-    uint64 itemguid;
-    uint8 packetGuid;
     uint32 byte1;
-    uint8 byte2;
+    uint8 byte2, packetGuid;
+    uint64 itemguid;
+    uint32 count;
 
     recv_data >> byte1;
     recv_data >> byte2;
     recv_data.read_skip<uint8>();
     recv_data.read_skip<uint8>();
     recv_data >> packetGuid;
-    recv_data >> itemguid;
-    recv_data.read_skip<uint32>();
 
-    uint32 count = 0; // Need to get count from packet..
+    recv_data >> itemguid;
+    recv_data >> count;
 
     if (!itemguid)
         return;
@@ -694,11 +693,13 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     uint8 byte2;
     uint32 item, slot, count;
 
+    // Guid
     recv_data >> byte1;
     recv_data >> byte2;
     recv_data.read_skip<uint8>();
     recv_data.read_skip<uint8>();
     recv_data >> packetGuid;
+
     recv_data.read_skip<uint8>();
     recv_data >> item >> slot >> count;
     recv_data.read_skip<uint64>();
