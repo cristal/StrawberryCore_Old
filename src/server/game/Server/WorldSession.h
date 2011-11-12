@@ -410,8 +410,6 @@ class WorldSession
         bool IsARecruiter() { return isRecruiter; }
         uint64 GetRealCharGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
         uint64 GetRealCreatureGUID(uint8 packetGuid, uint32 byte1, uint8 byte2);
-        uint64 GetRealGOGUID() { return realgoguid; }
-        uint32 GetRealGOEntry() { return realgoentry; }
         uint64 ConvertToRealHighGuid(uint64 guid, uint32 entry)
         {
             uint64 coef = 0x1000000;
@@ -1032,8 +1030,6 @@ class WorldSession
         AddonsList m_addonsList;
         uint32 recruiterId;
         bool isRecruiter;
-        uint64 realgoguid;
-        uint32 realgoentry;
         ACE_Based::LockedQueue<WorldPacket*, ACE_Thread_Mutex> _recvQueue;
 };
 #endif
