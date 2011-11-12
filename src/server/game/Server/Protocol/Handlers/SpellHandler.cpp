@@ -411,6 +411,20 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
             spellInfo = actualSpellInfo;
     }
 
+    if (GameObject* go = targets.GetGOTarget()) // Opening a gameobject
+    {
+        if (go->GetGoType() == GAMEOBJECT_TYPE_CHEST || go->GetGoType() == GAMEOBJECT_TYPE_FISHINGHOLE) // If it is a chest or fishing hole.
+        {
+            Chestentry = targets.GetGOTarget()->GetEntry();
+            Chestguid = targets.GetGOTargetGUID();
+            Chest = true;
+        }
+        else
+            Chest = false;
+    }
+    else
+        Chest = false;
+
     Spell* spell = new Spell(mover, spellInfo, TRIGGERED_NONE, 0, false);
     spell->m_cast_count = castCount;                       // set count of casts
     spell->m_glyphIndex = glyphIndex;

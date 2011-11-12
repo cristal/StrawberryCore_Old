@@ -187,6 +187,14 @@ void WorldSession::HandleGameObjectQueryOpcode(WorldPacket & recv_data)
     recv_data >> entryID;
     recv_data >> guid;
 
+    if (Chest == true)
+    {
+        entryID = Chestentry;
+        guid = Chestguid;
+        --guid;
+        Chest = false;
+    }
+
     const GameObjectTemplate *info = sObjectMgr->GetGameObjectTemplate(entryID);
     if (info)
     {

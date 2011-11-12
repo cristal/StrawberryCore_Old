@@ -410,6 +410,10 @@ class WorldSession
         bool IsARecruiter() { return isRecruiter; }
         uint64 GetRealCharGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
         uint64 GetRealCreatureGUID(uint8 packetGuid, uint32 byte1, uint8 byte2);
+        bool Chest;
+        uint64 Chestguid;
+        uint32 Chestentry;
+
         uint64 ConvertToRealHighGuid(uint64 guid, uint32 entry)
         {
             uint64 coef = 0x1000000;
