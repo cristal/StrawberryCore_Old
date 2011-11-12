@@ -9795,6 +9795,7 @@ void Player::SendLoot(uint64 guid, LootType loot_type)
             else
                 permission = ALL_PERMISSION;
         }
+        sLog->outDebug("Player::SendLoot Gameobject");
     }
     else if (IS_ITEM_GUID(guid))
     {
@@ -9832,6 +9833,7 @@ void Player::SendLoot(uint64 guid, LootType loot_type)
                     break;
             }
         }
+        sLog->outDebug("Player::SendLoot Item");
     }
     else if (IS_CORPSE_GUID(guid))                          // remove insignia
     {
@@ -9862,6 +9864,8 @@ void Player::SendLoot(uint64 guid, LootType loot_type)
             permission = NONE_PERMISSION;
         else
             permission = OWNER_PERMISSION;
+
+        sLog->outDebug("Player::SendLoot Corpse");
     }
     else
     {
@@ -9971,6 +9975,8 @@ void Player::SendLoot(uint64 guid, LootType loot_type)
                     permission = NONE_PERMISSION;
             }
         }
+
+        sLog->outDebug("Player::SendLoot Creature");
     }
 
     SetLootGUID(guid);
@@ -9985,6 +9991,8 @@ void Player::SendLoot(uint64 guid, LootType loot_type)
 
     // need know merged fishing/corpse loot type for achievements
     loot->loot_type = loot_type;
+
+    sLog->outDebug("LOOTING");
 
     WorldPacket data(SMSG_LOOT_RESPONSE, (9+50));           // we guess size
 
