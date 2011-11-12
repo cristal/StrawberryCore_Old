@@ -187,10 +187,6 @@ void WorldSession::HandleGameObjectQueryOpcode(WorldPacket & recv_data)
     recv_data >> entryID;
     recv_data >> guid;
 
-    entryID = GetRealGOEntry();
-    guid = GetRealGOGUID();
-    --guid;
-
     const GameObjectTemplate *info = sObjectMgr->GetGameObjectTemplate(entryID);
     if (info)
     {

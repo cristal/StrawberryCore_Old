@@ -713,7 +713,7 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     else
         return; // cheating
 
-    GetPlayer()->BuyItemFromVendorSlot(vendorguid,slot,item,count,NULL_BAG,NULL_SLOT);
+    GetPlayer()->BuyItemFromVendorSlot(vendorguid, slot, item, count, NULL_BAG, NULL_SLOT);
 }
 
 void WorldSession::HandleListInventoryOpcode(WorldPacket & recv_data)
@@ -1576,7 +1576,7 @@ uint64 WorldSession::GetRealCreatureGUID(uint8 packetGuid, uint32 byte1, uint8 b
 
     realguid = ((byte2*256)+RealpacketGuid);
 
-    realentry = sObjectMgr->GetCreatureData(realguid)->id;
+    realentry = sObjectMgr->GetCreatureData(uint32(realguid))->id;
     realguid = ConvertToRealHighGuid(realguid, realentry);
 
     return realguid;

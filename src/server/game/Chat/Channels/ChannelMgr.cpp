@@ -105,7 +105,7 @@ void ChannelMgr::LeftChannel(std::string name)
 
 void ChannelMgr::MakeNotOnPacket(WorldPacket *data, std::string name)
 {
-    data->Initialize(SMSG_CHANNEL_NOTIFY, (1+35));  // we guess size
-    (*data) << uint8(0x5);
+    data->Initialize(SMSG_CHANNEL_NOTIFY, (1 + 40));  // we guess size
+    (*data) << uint8(0x2);
     (*data) << name;
 }
