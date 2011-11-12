@@ -408,7 +408,8 @@ class WorldSession
         // Recruit-A-Friend Handling
         uint32 GetRecruiterId() { return recruiterId; }
         bool IsARecruiter() { return isRecruiter; }
-        uint64 GetRealGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
+        uint64 GetRealCharGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage);
+        uint64 GetRealCreatureGUID(uint8 packetGuid, uint32 byte1, uint8 byte2);
         uint64 GetRealGOGUID() { return realgoguid; }
         uint32 GetRealGOEntry() { return realgoentry; }
         uint64 ConvertToRealHighGuid(uint64 guid, uint32 entry)

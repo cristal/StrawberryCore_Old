@@ -794,7 +794,7 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
     recv_data.read_skip<uint16>();
     recv_data.read_skip<uint32>();
 
-    guid = GetRealGUID(packetGuid, byte, "Can't delete anything, sorry!");
+    guid = GetRealCharGUID(packetGuid, byte, "Can't delete anything, sorry!");
     if (guid == -1)
         return;
 
@@ -1293,7 +1293,7 @@ void WorldSession::HandleCharRenameOpcode(WorldPacket& recv_data)
     recv_data >> byte;
     recv_data >> newname;
 
-    guid = GetRealGUID(packetGuid, byte, "Can't change name, sorry!");
+    guid = GetRealCharGUID(packetGuid, byte, "Can't change name, sorry!");
     if (guid == -1)
         return;
 
@@ -2080,7 +2080,7 @@ void WorldSession::HandleCharFactionOrRaceChange(WorldPacket& recv_data)
     SendPacket(&data);
 }
 
-uint64 WorldSession::GetRealGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage)
+uint64 WorldSession::GetRealCharGUID(uint8 packetGuid, uint8 byte, std::string ErrorMessage)
 {
     uint64 guid;
     uint32 realguids[1000]; // Max 1000 characters for an account

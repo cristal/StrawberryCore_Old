@@ -505,13 +505,26 @@ void WorldSession::HandlePageQuerySkippedOpcode(WorldPacket & recv_data)
 void WorldSession::HandleSellItemOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_SELL_ITEM");
-    uint64 vendorguid, itemguid;
-    uint32 count;
+    uint64 vendorguid;
+    uint64 itemguid;
+    uint8 packetGuid;
+    uint32 byte1;
+    uint8 byte2;
 
-    recv_data >> vendorguid >> itemguid >> count;
+    recv_data >> byte1;
+    recv_data >> byte2;
+    recv_data.read_skip<uint8>();
+    recv_data.read_skip<uint8>();
+    recv_data >> packetGuid;
+    recv_data >> itemguid;
+    recv_data.read_skip<uint32>();
+
+    uint32 count = 0; // Need to get count from packet..
 
     if (!itemguid)
         return;
+
+    vendorguid = GetRealCreatureGUID(packetGuid, byte1, byte2);
 
     Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(vendorguid,UNIT_NPC_FLAG_VENDOR);
     if (!pCreature)
@@ -557,9 +570,7 @@ void WorldSession::HandleSellItemOpcode(WorldPacket & recv_data)
 
         // special case at auto sell (sell all)
         if (count == 0)
-        {
             count = pItem->GetCount();
-        }
         else
         {
             // prevent sell more items that exist in stack (possible only not from client)
@@ -668,8 +679,6 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_BUY_ITEM");
     uint64 vendorguid;
-    uint32 vendorentry;
-    uint32 entry; // Not always true.
     uint8 packetGuid;
     uint32 byte1;
     uint8 byte2;
@@ -685,31 +694,7 @@ void WorldSession::HandleBuyItemOpcode(WorldPacket & recv_data)
     recv_data.read_skip<uint64>();
     recv_data.read_skip<uint8>();
 
-    if(byte1 % 2 == 0)
-        ++byte1;
-    else
-        --byte1;
-    if(byte2 % 2 == 0)
-        ++byte2;
-    else
-        --byte2;
-    if(packetGuid % 2 == 0)
-        ++packetGuid;
-    else
-        --packetGuid;
-
-    entry = byte1/256;
-
-    uint32 RealpacketGuid = packetGuid;
-
-    uint32 coef = (byte1-((entry*256)-1));
-    if (coef > 1)
-        RealpacketGuid += 65536*(coef-1);
-
-    vendorguid = ((byte2*256)+RealpacketGuid);
-
-    vendorentry = sObjectMgr->GetCreatureData(vendorguid)->id;
-    vendorguid = ConvertToRealHighGuid(vendorguid, vendorentry);
+    vendorguid = GetRealCreatureGUID(packetGuid, byte1, byte2);
 
     // client expects count starting at 1, and we send vendorslot+1 to client already
     if (slot > 0)
@@ -1549,4 +1534,39 @@ void WorldSession::HandleReforgeItem(WorldPacket& recv_data)
     CharacterDatabase.CommitTransaction(trans);
     if(item->IsEquipped()) // Item must be equipped to get the new stats
         GetPlayer()->ApplyReforgedStats(item,true);
+}
+
+uint64 WorldSession::GetRealCreatureGUID(uint8 packetGuid, uint32 byte1, uint8 byte2)
+{
+    uint64 realguid;
+    uint32 realentry;
+    uint32 entry; // Not always true.
+
+    if(byte1 % 2 == 0)
+        ++byte1;
+    else
+        --byte1;
+    if(byte2 % 2 == 0)
+        ++byte2;
+    else
+        --byte2;
+    if(packetGuid % 2 == 0)
+        ++packetGuid;
+    else
+        --packetGuid;
+
+    entry = byte1/256;
+
+    uint32 RealpacketGuid = packetGuid;
+
+    uint32 coef = (byte1-((entry*256)-1));
+    if (coef > 1)
+        RealpacketGuid += 65536*(coef-1);
+
+    realguid = ((byte2*256)+RealpacketGuid);
+
+    realentry = sObjectMgr->GetCreatureData(realguid)->id;
+    realguid = ConvertToRealHighGuid(realguid, realentry);
+
+    return realguid;
 }
