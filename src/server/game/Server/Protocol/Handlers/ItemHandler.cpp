@@ -631,9 +631,19 @@ void WorldSession::HandleBuybackItem(WorldPacket & recv_data)
 {
     sLog->outDebug("WORLD: Received CMSG_BUYBACK_ITEM");
     uint64 vendorguid;
+    uint8 packetGuid;
+    uint32 byte1;
+    uint8 byte2;
     uint32 slot;
 
-    recv_data >> vendorguid >> slot;
+    recv_data >> byte1;
+    recv_data >> byte2;
+    recv_data.read_skip<uint8>();
+    recv_data.read_skip<uint8>();
+    recv_data >> packetGuid;
+    recv_data >> slot;
+
+    vendorguid = GetRealCreatureGUID(packetGuid, byte1, byte2);
 
     Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(vendorguid,UNIT_NPC_FLAG_VENDOR);
     if (!pCreature)
