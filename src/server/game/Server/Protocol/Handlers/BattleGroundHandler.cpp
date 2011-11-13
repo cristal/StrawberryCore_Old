@@ -78,17 +78,18 @@ void WorldSession::SendBattlegGroundList(uint64 guid, BattlegroundTypeId bgTypeI
 
 void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket & recv_data)
 {
-    uint64 guid;
     uint32 bgTypeId_;
-    uint32 instanceId;
-    uint8 joinAsGroup;
+    uint8 joinFlags;
     bool isPremade = false;
     Group * grp = NULL;
-
-    recv_data >> guid;                                      // battlemaster guid
-    recv_data >> bgTypeId_;                                 // battleground type id (DBC id)
-    recv_data >> instanceId;                                // instance id, 0 if First Available selected
-    recv_data >> joinAsGroup;                               // join as group
+    
+    // Packet size is 8 bytes, lots of unknown data
+    recv_data >> joinFlags;         // join flags
+    recv_data.read_skip<uint8>();   // unk
+    recv_data.read_skip<uint32>();  // BG id? somehow it's always 0
+    recv_data.read_skip<uint8>();   // unk
+    recv_data.read_skip<uint8>();   // unk
+    bool joinAsGroup = (joinFlags & 0x01); // Make flags enum?
 
     if (!sBattlemasterListStore.LookupEntry(bgTypeId_))
     {
@@ -104,7 +105,7 @@ void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket & recv_data)
 
     BattlegroundTypeId bgTypeId = BattlegroundTypeId(bgTypeId_);
 
-    sLog->outDebug("WORLD: Recvd CMSG_BATTLEMASTER_JOIN Message from (GUID: %u TypeId:%u)", GUID_LOPART(guid), GuidHigh2TypeId(GUID_HIPART(guid)));
+    sLog->outDebug("WORLD: Recvd CMSG_BATTLEMASTER_JOIN Message");
 
     // can do this, since it's battleground, not arena
     BattlegroundQueueTypeId bgQueueTypeId = BattlegroundMgr::BGQueueTypeId(bgTypeId, 0);
@@ -114,13 +115,9 @@ void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket & recv_data)
     if (_player->InBattleground())
         return;
 
-    // get bg instance or bg template if instance not found
-    Battleground *bg = NULL;
-    if (instanceId)
-        bg = sBattlegroundMgr->GetBattlegroundThroughClientInstance(instanceId, bgTypeId);
+    // As of 4.x you can not choose bg instance
+    Battleground* bg = sBattlegroundMgr->GetBattlegroundTemplate(bgTypeId);
 
-    if (!bg)
-        bg = sBattlegroundMgr->GetBattlegroundTemplate(bgTypeId);
     if (!bg)
         return;
 
