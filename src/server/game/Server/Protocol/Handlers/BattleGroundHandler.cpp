@@ -651,44 +651,23 @@ void WorldSession::HandleBattlemasterJoinArena(WorldPacket & recv_data)
     sLog->outDebug("WORLD: CMSG_BATTLEMASTER_JOIN_ARENA");
     //recv_data.hexlike();
 
-    uint64 guid;                                            // arena Battlemaster guid
-    uint8 arenaslot;                                        // 2v2, 3v3 or 5v5
-    uint8 asGroup;                                          // asGroup
-    uint8 isRated;                                          // isRated
+    uint8 arenaSlot;     // 2v2,3v3 or 5v5
     Group * grp = NULL;
 
-    recv_data >> guid >> arenaslot >> asGroup >> isRated;
+    recv_data >> arenaSlot;
 
     // ignore if we already in BG or BG queue
     if (_player->InBattleground())
         return;
 
-    Creature* unit = GetPlayer()->GetMap()->GetCreature(guid);
-    if (!unit)
+    uint8 arenaType = ArenaTeam::GetTypeBySlot(arenaSlot);
+    if (arenaType == 0xFF)
         return;
+        
+    sLog->outDebug("Battleground: arena team id %u, leader %s tries to queue for arena type %u", _player->GetArenaTeamId(arenaSlot), _player->GetName(), arenaType);
 
-    if (!unit->isBattleMaster())                             // it's not battle master
-        return;
-
-    uint8 arenatype = 0;
     uint32 arenaRating = 0;
     uint32 matchmakerRating = 0;
-
-    switch(arenaslot)
-    {
-        case 0:
-            arenatype = ARENA_TYPE_2v2;
-            break;
-        case 1:
-            arenatype = ARENA_TYPE_3v3;
-            break;
-        case 2:
-            arenatype = ARENA_TYPE_5v5;
-            break;
-        default:
-            sLog->outError("Unknown arena slot %u at HandleBattlemasterJoinArena()", arenaslot);
-            return;
-    }
 
     //check existance
     Battleground* bg = sBattlegroundMgr->GetBattlegroundTemplate(BATTLEGROUND_AA);
@@ -705,114 +684,76 @@ void WorldSession::HandleBattlemasterJoinArena(WorldPacket & recv_data)
     }
 
     BattlegroundTypeId bgTypeId = bg->GetTypeID();
-    BattlegroundQueueTypeId bgQueueTypeId = BattlegroundMgr::BGQueueTypeId(bgTypeId, arenatype);
+    BattlegroundQueueTypeId bgQueueTypeId = BattlegroundMgr::BGQueueTypeId(bgTypeId, arenaType);
     PvPDifficultyEntry const* bracketEntry = GetBattlegroundBracketByLevel(bg->GetMapId(), _player->getLevel());
     if (!bracketEntry)
         return;
 
     GroupJoinBattlegroundResult err = ERR_GROUP_JOIN_BATTLEGROUND_FAIL;
 
-    if (!asGroup)
-    {
-        // check if already in queue
-        if (_player->GetBattlegroundQueueIndex(bgQueueTypeId) < PLAYER_MAX_BATTLEGROUND_QUEUES)
-            //player is already in this queue
-            return;
-        // check if has free queue slots
-        if (!_player->HasFreeBattlegroundQueueId())
-            return;
-    }
-    else
-    {
-        grp = _player->GetGroup();
-        // no group found, error
-        if (!grp)
-            return;
-        if (grp->GetLeaderGUID() != _player->GetGUID())
-            return;
-        err = grp->CanJoinBattlegroundQueue(bg, bgQueueTypeId, arenatype, arenatype, (bool)isRated, arenaslot);
-    }
+    grp = _player->GetGroup();
+    // no group found, error
+    if (!grp)
+        return;
+    if (grp->GetLeaderGUID() != _player->GetGUID())
+        return;
+    err = grp->CanJoinBattlegroundQueue(bg, bgQueueTypeId, arenaType, arenaType, true, arenaSlot);
 
     uint32 ateamId = 0;
-
-    if (isRated)
+    
+    ateamId = _player->GetArenaTeamId(arenaSlot);
+    // check real arenateam existence only here (if it was moved to group->CanJoin .. () then we would ahve to get it twice)
+    ArenaTeam* at = sArenaTeamMgr->GetArenaTeamById(ateamId);
+    if (!at)
     {
-        ateamId = _player->GetArenaTeamId(arenaslot);
-        // check real arenateam existence only here (if it was moved to group->CanJoin .. () then we would ahve to get it twice)
-        ArenaTeam * at = sArenaTeamMgr->GetArenaTeamById(ateamId);
-        if (!at)
-        {
-            _player->GetSession()->SendNotInArenaTeamPacket(arenatype);
-            return;
-        }
-        // get the team rating for queueing
-        arenaRating = at->GetRating();
-        matchmakerRating = at->GetAverageMMR(grp);
-        // the arenateam id must match for everyone in the group
-
-        if (arenaRating <= 0)
-            arenaRating = 1;
+        _player->GetSession()->SendNotInArenaTeamPacket(arenaType);
+        return;
     }
+    
+    // get the team rating for queueing
+    arenaRating = at->GetRating();
+    matchmakerRating = at->GetAverageMMR(grp);
+    // the arenateam id must match for everyone in the group
 
-    BattlegroundQueue &bgQueue = sBattlegroundMgr->m_BattlegroundQueues[bgQueueTypeId];
-    if (asGroup)
-    {
+    if (arenaRating <= 0)
+        arenaRating = 1;
+
+        BattlegroundQueue &bgQueue = sBattlegroundMgr->m_BattlegroundQueues[bgQueueTypeId];
         uint32 avgTime = 0;
 
         if (err > 0)
+    {
+        sLog->outDebug("Battleground: arena join as group start");
+        sLog->outDebug("Battleground: arena team id %u, leader %s queued with matchmaker rating %u for type %u", _player->GetArenaTeamId(arenaSlot), _player->GetName(), matchmakerRating, arenaType);
+        bg->SetRated(true);
+
+        GroupQueueInfo* ginfo = bgQueue.AddGroup(_player, grp, bgTypeId, bracketEntry, arenaType, true, false, arenaRating, matchmakerRating, ateamId);
+        avgTime = bgQueue.GetAverageQueueWaitTime(ginfo, bracketEntry->GetBracketId());
+    }
+    for (GroupReference* itr = grp->GetFirstMember(); itr != NULL; itr = itr->next())
+    {
+        Player* member = itr->getSource();
+        if (!member)
+            continue;
+            
+        WorldPacket data;
+        
+        if (err <= 0)
         {
-            sLog->outDebug("Battleground: arena join as group start");
-            if (isRated)
-            {
-                sLog->outDebug("Battleground: arena team id %u, leader %s queued with matchmaker rating %u for type %u", _player->GetArenaTeamId(arenaslot), _player->GetName(), matchmakerRating, arenatype);
-                bg->SetRated(true);
-            }
-            else
-                bg->SetRated(false);
-
-            GroupQueueInfo * ginfo = bgQueue.AddGroup(_player, grp, bgTypeId, bracketEntry, arenatype, isRated, false, arenaRating, matchmakerRating, ateamId);
-            avgTime = bgQueue.GetAverageQueueWaitTime(ginfo, bracketEntry->GetBracketId());
-        }
-
-        for (GroupReference *itr = grp->GetFirstMember(); itr != NULL; itr = itr->next())
-        {
-            Player *member = itr->getSource();
-            if (!member)
-                continue;
-
-            WorldPacket data;
-
-            if (err <= 0)
-            {
-                sBattlegroundMgr->BuildGroupJoinedBattlegroundPacket(&data, err);
-                member->GetSession()->SendPacket(&data);
-                continue;
-            }
-
-            // add to queue
-            uint32 queueSlot = member->AddBattlegroundQueueId(bgQueueTypeId);
-
-            // send status packet (in queue)
-            sBattlegroundMgr->BuildBattlegroundStatusPacket(&data, bg, queueSlot, STATUS_WAIT_QUEUE, avgTime, 0, arenatype);
-            member->GetSession()->SendPacket(&data);
             sBattlegroundMgr->BuildGroupJoinedBattlegroundPacket(&data, err);
             member->GetSession()->SendPacket(&data);
-            sLog->outDebug("Battleground: player joined queue for arena as group bg queue type %u bg type %u: GUID %u, NAME %s", bgQueueTypeId, bgTypeId, member->GetGUIDLow(), member->GetName());
+            continue;
         }
-    }
-    else
-    {
-        GroupQueueInfo * ginfo = bgQueue.AddGroup(_player, NULL, bgTypeId, bracketEntry, arenatype, isRated, false, arenaRating, matchmakerRating, ateamId);
-        uint32 avgTime = bgQueue.GetAverageQueueWaitTime(ginfo, bracketEntry->GetBracketId());
-        uint32 queueSlot = _player->AddBattlegroundQueueId(bgQueueTypeId);
-
-        WorldPacket data;
+        // add to queue
+        uint32 queueSlot = member->AddBattlegroundQueueId(bgQueueTypeId);
         // send status packet (in queue)
-        sBattlegroundMgr->BuildBattlegroundStatusPacket(&data, bg, queueSlot, STATUS_WAIT_QUEUE, avgTime, 0, arenatype);
-        SendPacket(&data);
-        sLog->outDebug("Battleground: player joined queue for arena, skirmish, bg queue type %u bg type %u: GUID %u, NAME %s", bgQueueTypeId, bgTypeId, _player->GetGUIDLow(), _player->GetName());
+        sBattlegroundMgr->BuildBattlegroundStatusPacket(&data, bg, queueSlot, STATUS_WAIT_QUEUE, avgTime, 0, arenaType);
+        member->GetSession()->SendPacket(&data);
+        sBattlegroundMgr->BuildGroupJoinedBattlegroundPacket(&data, err);
+        member->GetSession()->SendPacket(&data);
+        sLog->outDebug("Battleground: player joined queue for arena as group bg queue type %u bg type %u: GUID %u, NAME %s", bgQueueTypeId, bgTypeId, member->GetGUIDLow(), member->GetName());
     }
-    sBattlegroundMgr->ScheduleQueueUpdate(matchmakerRating, arenatype, bgQueueTypeId, bgTypeId, bracketEntry->GetBracketId());
+    sBattlegroundMgr->ScheduleQueueUpdate(matchmakerRating, arenaType, bgQueueTypeId, bgTypeId, bracketEntry->GetBracketId());
 }
 
 void WorldSession::HandleReportPvPAFK(WorldPacket & recv_data)

@@ -524,7 +524,7 @@ void ArenaTeam::BroadcastEvent(ArenaTeamEvents event, uint64 guid, uint8 strCoun
 
 uint8 ArenaTeam::GetSlotByType(uint32 type)
 {
-    switch(type)
+    switch (type)
     {
         case ARENA_TEAM_2v2: return 0;
         case ARENA_TEAM_3v3: return 1;
@@ -533,6 +533,20 @@ uint8 ArenaTeam::GetSlotByType(uint32 type)
             break;
     }
     sLog->outError("FATAL: Unknown arena team type %u for some arena team", type);
+    return 0xFF;
+}
+
+uint8 ArenaTeam::GetTypeBySlot(uint32 slot)
+{
+    switch (slot)
+    {
+        case 0: return ARENA_TEAM_CHARTER_2v2_TYPE;
+        case 1: return ARENA_TEAM_CHARTER_3v3_TYPE;
+        case 2: return ARENA_TEAM_CHARTER_5v5_TYPE;
+        default:
+            break;
+    }
+    sLog->outError("FATAL: Unknown arena team slot %u for some arena team", slot);
     return 0xFF;
 }
 

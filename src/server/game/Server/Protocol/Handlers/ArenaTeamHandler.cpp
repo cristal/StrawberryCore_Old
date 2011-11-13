@@ -31,27 +31,55 @@
 #include "SocialMgr.h"
 #include "ArenaTeamMgr.h"
 
-void WorldSession::HandleArenaTeamCreate(WorldPacket & recv_data)
+void WorldSession::HandleArenaTeamCreateOpcode(WorldPacket & recvData)
 {
     sLog->outDebug("CMSG_ARENA_TEAM_CREATE");
-
-    uint32 type, icon, iconcolor, border, bordercolor, background;
+    
+    uint32 icon, backgroundColor, borderColor, iconColor, border, slot;
     std::string name;
-
-    recv_data >> background >> icon >> iconcolor >> border >> bordercolor;
-    recv_data >> type;
-    recv_data >> name;
-
-    ArenaTeam* at = new ArenaTeam;
-    if (!at->Create(GUID_LOPART(_player->GetGUID()), type, name, background, icon, iconcolor, border, bordercolor))
+    
+    recvData >> icon;
+    recvData >> backgroundColor;
+    recvData >> borderColor;
+    recvData >> iconColor;
+    recvData >> border;
+    recvData >> slot;
+    recvData >> name;
+    
+    // Perform checks    
+    if (_player->getLevel() < 80) // TODO: Make config for this
+        return;
+    
+    if (_player->GetArenaTeamId(slot))
     {
-        sLog->outError("ArenaTeamHandler: arena team create failed.");
-        delete at;
+        SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, name, "", ERR_ALREADY_IN_ARENA_TEAM);
+        return;
+    }
+    
+    if (sArenaTeamMgr->GetArenaTeamByName(name))
+    {
+        SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, name, "", ERR_ARENA_TEAM_NAME_EXISTS_S);
+        return;
+    }
+    
+    if (sObjectMgr->IsReservedName(name) || !ObjectMgr::IsValidCharterName(name))
+    {
+        SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, name, "", ERR_ARENA_TEAM_NAME_INVALID);
+        return;
+    }
+    
+    // Create arena team
+    ArenaTeam* arenaTeam = new ArenaTeam();
+
+    if (!arenaTeam->Create(_player->GetGUID(), ArenaTeam::GetTypeBySlot(slot), name, backgroundColor, icon, iconColor, border, borderColor))
+    {
+        delete arenaTeam;
         return;
     }
 
-    // register team and add captain
-    sArenaTeamMgr->AddArenaTeam(at);
+    // Register arena team
+    sArenaTeamMgr->AddArenaTeam(arenaTeam);
+    sLog->outDebug("PetitonsHandler: Arena team (guid: %u) added to ObjectMgr", arenaTeam->GetId());
 }
 
 void WorldSession::HandleInspectArenaTeamsOpcode(WorldPacket & recvData)
@@ -107,17 +135,15 @@ void WorldSession::HandleArenaTeamInviteOpcode(WorldPacket & recvData)
     uint32 arenaTeamId;                                     // arena team id
     std::string invitedName;
 
-    Player* player = NULL;
-
     recvData >> arenaTeamId >> invitedName;
 
-    if (!invitedName.empty())
-    {
-        if (!normalizePlayerName(invitedName))
-            return;
-
-        player = sObjectAccessor->FindPlayerByName(invitedName.c_str());
-    }
+    if (invitedName.empty())
+        return;
+    
+    if (!normalizePlayerName(invitedName))
+        return;
+    
+    Player* player = sObjectAccessor->FindPlayerByName(invitedName.c_str());
 
     if (!player)
     {
@@ -125,7 +151,7 @@ void WorldSession::HandleArenaTeamInviteOpcode(WorldPacket & recvData)
         return;
     }
 
-    if (player->getLevel() < sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
+    if (player->getLevel() < 80) //sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
     {
         SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, "", player->GetName(), ERR_ARENA_TEAM_TARGET_TOO_LOW_S);
         return;
