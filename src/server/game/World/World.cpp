@@ -1959,25 +1959,17 @@ void World::LoadCharacterCheck()
 
     for (int i = 0; i < signed(count); ++i)
         if (const GCharacters* CharsForCount = GetCharactersForCheck(i))
-            if (CharsForCount->guid > 257 && CharsForCount->guid < 512)
+            if ((CharsForCount->guid > 255 && CharsForCount->guid < 512) || CharsForCount->guid == 1 || CharsForCount->guid == 254)
             {
                 PairList[Number] = CharsForCount->guid-256; // It will be +256...
                 ++Number;
-            }
-            else
-            {
-                if (CharsForCount->guid == 1 || CharsForCount->guid == 254)
-                {
-                    PairList[Number] = CharsForCount->guid-256; // It will be +256...
-                    ++Number;
-                }
             }
 
     int coef = LastGUID/256;
     if (coef > 0)
         for (int i = 1; i < coef+1; ++i)
         {
-            int First = (i*256);
+            int First = i*256;
             if (ExistGUID(First) == true)
             {
                 PairList[Number] = First-256;
@@ -2002,6 +1994,8 @@ void World::LoadCharacterCheck()
         {
             oldguid = PairList[i]+256;
             ++newguid;
+            while ((newguid > 255 && newguid < 512) || newguid == 1 || newguid == 254)
+                ++newguid;
             std::string tablename;
             std::string columnname;
             for (int ii = 0; ii < 64; ++ii)

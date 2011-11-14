@@ -978,7 +978,7 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo, uint32 acco
 
     if (accountId)
     {
-        if (guidlow == 1 || guidlow == 254) // There will be no packet sending for these guids!
+        while ((guidlow > 255 && guidlow < 512) || guidlow == 1 || guidlow == 254) // There will be no packet sending for these guids!
             ++guidlow;
 
         if (guidlow != 1 && guidlow != 254)
