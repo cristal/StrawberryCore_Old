@@ -15455,8 +15455,8 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
 {
     GossipMenu& gossipMenu = PlayerTalkClass->GetGossipMenu();
 
-    if (gossipListId >= gossipMenu.GetMenuItemCount())
-        return;
+    /*if (gossipListId >= gossipMenu.GetMenuItemCount())
+        return;*/
 
     // if not same, then something funky is going on
     if (menuId != gossipMenu.GetMenuId())

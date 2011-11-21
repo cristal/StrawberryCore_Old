@@ -767,7 +767,6 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
 
     WorldPacket data(SMSG_LIST_INVENTORY, 1 + 6 + 4 + 1 + itemCount * 10 * 4);
 
-    // ToDo: vendorGuid
     data << uint8(0xEB);
 
     data << uint32(vendorGuid);
