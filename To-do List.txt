@@ -1,3 +1,22 @@
 ##########################################################
 #############  Strawberry Project To-do List #############
 ##########################################################
+
+##### Opcodes #####
+1) Need to fix all of the opcodes which aren't working on the core.
+
+Some informations:
+
+About CMSG_GOSSIP_HELLO:
+------------------------
+If a npc's npcflag is 1 or 1+X then the client will send this packet.
+If the client sends this packet then the client will not send CMSG_ITEM_INVENTORY.
+Without that opcode, SMSG_ITEM_INVENTORY will not work for the npc which 
+has the npcflag as 1 or 1+X. That means we can't talk to that npc or if we can, 
+some of the options on the list will not work.
+
+About CMSG_ITEM_INVENTORY:
+------------------------
+If a npc is a vendor or something like that and has not the npcflag(1) then 
+the client will not send CMSG_GOSSIP_HELLO but we will be able to see the window.
+Without that opcode, we can't see the image of the npc(on the left corner).
