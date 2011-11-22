@@ -76,6 +76,8 @@ void WorldSession::HandleGroupInviteOpcode(WorldPacket & recv_data)
     // cheating
     if (!normalizePlayerName(membername))
     {
+        // TO DO:  If the name from packet is a npc name then the error of SendPartyResult must change as ERR_BAD_PLAYER_NAME_S.
+        // Need to make a check process.
         SendPartyResult(PARTY_OP_INVITE, membername, ERR_BAD_PLAYER_NAME_S);
         return;
     }
