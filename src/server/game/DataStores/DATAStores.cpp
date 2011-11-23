@@ -284,7 +284,7 @@ void FormatTableHandler::LoadDATAFormatsFromDB()
 {
     uint32 oldMSTime = getMSTime();
 
-    uint16 build = 14480;
+    uint16 build = 15005;
     QueryResult result = WorldDatabase.PQuery("SELECT name, format FROM dataformats WHERE `version`=%u", build);
 
     if (!result)
