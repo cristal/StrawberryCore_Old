@@ -217,9 +217,8 @@ void WorldSession::HandleCharEnum(QueryResult result)
 
     uint32 num = 0;
 
-    data << uint8(0x80); // 0 causes the client to free memory of charlist
-    data << uint32(0); // unk loop counter
-    data << uint32(0); // number of characters
+    data << uint8(0); // unk loop counter
+    data << uint32(0x800); // number of characters
 
     if (result)
     {
@@ -303,7 +302,6 @@ void WorldSession::HandleCharEnum(QueryResult result)
 
         if (curPos != 0)
             data << curRes;
-
 
         data.append(buffer);
         data.put<uint32>(5, guidsVect.size());
