@@ -2253,6 +2253,10 @@ void Spell::EffectTriggerSpell(SpellEffectEntry const* effect)
         // Coldflame
         case 33801:
             return; // just make the core stfu
+        // Inferno Rush
+        case 87645:
+            m_caster->GetAI()->DoAction(7);
+            return;
     }
 
     // normal case
@@ -2795,6 +2799,7 @@ void Spell::EffectHeal(SpellEffectEntry const* effect)
             case  2061: /* Flash Heal */
             case 32546: /* Binding Heal */
                m_caster->CastSpell(m_caster, 81208, true); /* Chakra: Serenity */
+               sLog->outDebug("Handling chakra");
                break;
 
             case 596: /* Prayer of Healing */
@@ -2802,6 +2807,8 @@ void Spell::EffectHeal(SpellEffectEntry const* effect)
                break;
         }
     }
+
+    sLog->outError("handling a heal");
 }
 
 void Spell::SpellDamageHeal(SpellEffectEntry const* effect)

@@ -1964,6 +1964,10 @@ void AuraEffect::HandlePeriodicTriggerSpellAuraTick(Unit* target, Unit* caster) 
                     caster->CastSpell(target, triggerSpellId, false);
                 return;
             }
+            // Inferno Leap
+            case 87645:
+                caster->CastSpell(caster,88579,true,NULL,this);
+                break;
         }
     }
 

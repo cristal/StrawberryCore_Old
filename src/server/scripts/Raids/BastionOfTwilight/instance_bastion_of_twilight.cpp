@@ -57,7 +57,6 @@ public:
             uiProtoBehemoth = 0 ;
             uiTimeWarden = 0;
             uiCyclonWinds = 0;
-            uiInfernoRush = 0;
             uiAscendantCouncilPhase = 1;
 
             if (instance->IsHeroic())
@@ -184,20 +183,9 @@ public:
             case NPC_CYCLON_WIND:
                 uiCyclonWinds = pCreature->GetGUID();
                 break;
-            case NPC_INFERNO_RUSH:
-                uiInfernoRush = pCreature->GetGUID();
-                break;
             }
         }
-        void SetData64(uint32 id, uint64 data)
-        {
-            switch (id)
-            {
-            case DATA_HB_VALIONA_THERALION:
-                uiValionaTheralionHealth = data ;
-                break;
-            }
-        }
+
         uint64 GetData64(uint32 identifier)
         {
             switch (identifier)
@@ -222,8 +210,6 @@ public:
                 return uiChogall;
             case DATA_SINESTRA:
                 return uiSinestra;
-            case DATA_HB_VALIONA_THERALION:
-                return uiValionaTheralionHealth;
             case NPC_SLATE_DRAKE:
                 return uiSlateDrake;
             case NPC_STORM_RIDER:
@@ -236,8 +222,6 @@ public:
                 return uiProtoBehemoth;
             case NPC_CYCLON_WIND:
                 return uiCyclonWinds;
-            case NPC_INFERNO_RUSH:
-                return uiInfernoRush;
             }
 
             return 0;
@@ -294,7 +278,7 @@ public:
             std::string str_data;
 
             std::ostringstream saveStream;
-            saveStream << "P S " << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3] << " " << uiEncounter[4] << " " << uiRandomDragons[0] << " " << uiRandomDragons[1] << " " << uiRandomDragons[2] << " " << uiHalfusNormalTimer;
+            saveStream << "B T " << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3] << " " << uiEncounter[4] << " " << uiRandomDragons[0] << " " << uiRandomDragons[1] << " " << uiRandomDragons[2];
 
             str_data = saveStream.str();
 
@@ -315,12 +299,11 @@ public:
             char dataHead1, dataHead2;
             uint16 data0, data1, data2, data3, data4;
             uint8 data5, data6, data7;
-            uint64 data8;
 
             std::istringstream loadStream(in);
-            loadStream >> dataHead1 >> dataHead2 >> data0 >> data1 >> data2 >> data3 >> data4 >> data5 >> data6 >> data7 >> data8;
+            loadStream >> dataHead1 >> dataHead2 >> data0 >> data1 >> data2 >> data3 >> data4 >> data5 >> data6 >> data7;
 
-            if (dataHead1 == 'P' && dataHead2 == 'S')
+            if (dataHead1 == 'B' && dataHead2 == 'T')
             {
                 uiEncounter[0] = data0;
                 uiEncounter[1] = data1;
@@ -375,11 +358,6 @@ public:
                     {
                         uiRandomDragons[2] = rand() % 1 + 1;
                     }
-                    if (!data8 == 0)
-                    {
-                        uiHalfusNormalTimer = data8;
-                    }
-                    else uiHalfusNormalTimer = 604800000;
                 }
 
             }
@@ -431,35 +409,6 @@ public:
             }
         }
 
-        void Update(uint32 diff)
-        {
-            if (uiHalfusNormalTimer <= diff)
-            {
-                uiRandomDragons[0] = rand() % 3 +1;
-                switch (uiRandomDragons[0])
-                {
-                case RANDOM_DRAGON_STORM_RIDER:
-                    uiRandomDragons[1] = rand() % 1 + 1;
-                    break;
-                case RANDOM_DRAGON_NETHER_SCION:
-                    uiRandomDragons[1] = rand() % 1 + 2;
-                    if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
-                    {
-                        uiRandomNumber = rand() % 10 + 1;
-                        if (uiRandomNumber <= 5)
-                        {
-                            uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
-                        } else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;
-                    }
-                    break;
-                case RANDOM_DRAGON_SLATE_DRAKE:
-                    uiRandomDragons[1] = rand() % 1 + 2;
-                    break;
-                }
-                uiRandomDragons[2] = rand() % 1 + 1;
-            } else uiHalfusNormalTimer -= diff;
-        }
-
     private:
         uint64 uiWyrmbreaker;
         uint64 uiValiona;
@@ -476,7 +425,6 @@ public:
         uint64 uiNetherScion;
         uint64 uiProtoBehemoth;
         uint64 uiTimeWarden;
-        uint64 uiValionaTheralionHealth;
         uint64 uiCyclonWinds;
         uint64 uiInfernoRush;
         uint32 uiRandomDragons[3];

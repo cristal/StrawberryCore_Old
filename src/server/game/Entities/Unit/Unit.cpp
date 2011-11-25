@@ -8894,6 +8894,13 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                         target = victim;
                         break;
                     }
+                    // Mastery: Hand of Light
+                    case 76672:
+                    {
+                        basepoints0 = (auraSpellInfo->EffectBasePoints[EFFECT_1] / 100) * victim->ToPlayer()->GetMasteryPoints();
+                        trigger_spell_id = 96172;
+                        break;
+                    }
                     default:
                         // Illumination
                         if (auraSpellInfo->SpellIconID == 241)

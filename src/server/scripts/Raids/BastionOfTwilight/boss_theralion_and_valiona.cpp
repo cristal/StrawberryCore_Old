@@ -65,7 +65,7 @@ public:
             }
         }
 
-        uint32 GeData(uint32 id)
+        uint32 GetData(uint32 id)
         {
             switch (id)
             {
@@ -169,7 +169,7 @@ public:
                     }
                     uiDazzlingDestructionDelay = 4000;
                 } else uiDazzlingDestructionDelay -= uiDiff;
-                if (uiDazzlingDestructionCount == MAX_DAZZLIN_DESTRUCTION)
+                if (uiDazzlingDestructionVector.size() == 0)
                 {
                     uiPhase--;
                     GetValiona()->AI()->DoAction(ACTION_VALIONA_TAKEOFF);
@@ -248,8 +248,8 @@ public:
 
         void AttackStart()
         {
-            GetTheralion()->AI()->SetData(DATA_PHASE,PHASE_AIR);
             GetTheralion()->AI()->DoAction(ACTION_THERALION_TAKEOFF);
+            GetTheralion()->AI()->SetData(DATA_PHASE,PHASE_AIR);
         }
 
         void DoAction(const uint32 action)
@@ -280,8 +280,7 @@ public:
 
         void UpdateAI(const uint32 uiDiff)
         {
-            Creature * pTheralion = GetTheralion();
-            uiTheralionPhase = pTheralion->AI()->GetData(DATA_PHASE);
+            uiTheralionPhase = GetTheralion()->AI()->GetData(DATA_PHASE);
             switch (uiTheralionPhase)
             {
             case PHASE_AIR:
@@ -301,7 +300,7 @@ public:
                 } else uiDevouringFlamesTimer -= uiDiff;
                 DoMeleeAttackIfReady();
             case PHASE_GROUND:
-                if (pTheralion->AI()->GetData(DATA_ENGULFING_COUNT) == 2)
+                if (GetTheralion()->AI()->GetData(DATA_ENGULFING_COUNT) == 2)
                 {
                     DoCast(SPELL_DEEP_BREATH);
                 }
@@ -392,15 +391,22 @@ class spell_theralion_dazzling_destruction_triggered : public SpellScriptLoader
         PrepareSpellScript(spell_theralion_dazzling_destruction_triggeredSpellScript);
         uint32 trigger_spell[2];
 
+        bool Load()
+        {
+            for(uint8 i = 0; i < 2; i++)
+            {
+                trigger_spell[i] = GetSpellInfo()->EffectBasePoints[i+1];
+            }
+            return true;
+        }
+
         void HandleShift()
         {
-            trigger_spell[0] = GetSpellInfo()->EffectBasePoints[EFFECT_1];
             GetCaster()->CastSpell(GetHitUnit(),trigger_spell[0],true);
         }
 
         void HandleProtBuff()
         {
-            trigger_spell[1] = GetSpellInfo()->EffectBasePoints[EFFECT_2];
             GetCaster()->CastSpell(GetHitUnit(),trigger_spell[1],true);
         }
 
@@ -417,7 +423,7 @@ class spell_theralion_dazzling_destruction_triggered : public SpellScriptLoader
     }
 };
 
-class spell_valiona_blackout : public SpellScriptLoader
+/*class spell_valiona_blackout : public SpellScriptLoader
 {
 public:
     spell_valiona_blackout() : SpellScriptLoader("spell_valiona_blackout") { }
@@ -475,7 +481,7 @@ public:
     {
         return new spell_valiona_blackoutSpellScript();
     }
-};
+};*/
 
 void AddSC_boss_theralion_and_valiona()
 {
