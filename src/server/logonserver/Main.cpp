@@ -42,6 +42,7 @@
 
 #ifdef _WIN32
 #include "ServiceWin32.h"
+#include "MySQLThreading.h"
 char serviceName[] = "StrawberryAuth";
 char serviceLongName[] = "StrawberryAuth service";
 char serviceDescription[] = "Cataclysm Server";
