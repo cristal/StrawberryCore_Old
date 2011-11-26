@@ -222,7 +222,7 @@ class spell_ignacious_inferno_ping : public SpellScriptLoader
             return true;
         }
 
-        void HandleDummy()
+        void HandleDummy(SpellEffIndex /*effIndex*/)
         {
             pCaster->GetAI()->DoAction(ACTION_IGNACIOUS_SUMMON_RUSH);
             pCaster->CastSpell(pCaster->GetPositionX(),pCaster->GetPositionY(),pCaster->GetPositionZ(),SPELL_INFERNO_LEAP_KNOCK,true);

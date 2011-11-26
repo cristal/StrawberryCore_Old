@@ -74,6 +74,7 @@ public:
             case DATA_ENGULFING_COUNT:
                 return uiEngulfingMagicCount;
             }
+            return -1;
         }
 
         void JustSummoned(Creature * pSummoned)
