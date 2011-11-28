@@ -2134,9 +2134,317 @@ void SpellMgr::LoadSpellStats()
         sse.value5          = fields[14].GetFloat();
         sse.percent5        = fields[15].GetFloat();
 
+        if (spell)
+        {
+            SpellEntry* spellInfo = (SpellEntry*)sSpellStore.LookupEntry(spellid);
+            for (int i = 0; i < MAX_SPELL_EFFECTS; ++i)
+            {
+                spellInfo->EffectApplyAuraName[i] = spellInfo->OldEffectApplyAuraName[i];
+                if (spellInfo)
+                    switch(spellInfo->EffectApplyAuraName[i])
+                    {
+                    case SPELL_AURA_MOD_STAT:
+                        switch (spellInfo->EffectMiscValue[i])
+                        {
+                        case 0: // SPELL_MOD_STRENGTH
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_STRENGTH, NULL, NULL, NULL, NULL);
+                            break;
+                        case 1: // SPELL_MOD_AGILITY
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_AGILITY, NULL, NULL, NULL, NULL);
+                            break;
+                        case 2: // SPELL_MOD_STAMINA
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_STAMINA, NULL, NULL, NULL, NULL);
+                            break;
+                        case 3: // SPELL_MOD_INTELLECT
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_INTELLECT, NULL, NULL, NULL, NULL);
+                            break;
+                        case 4: // SPELL_MOD_SPIRIT
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPIRIT, NULL, NULL, NULL, NULL);
+                            break;
+                        }
+                        break;
+                    case SPELL_AURA_MOD_INCREASE_ENERGY_PERCENT: // SPELL_MOD_MANA
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_MANA, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_INCREASE_ENERGY: // SPELL_MOD_MANA
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_MANA, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_INCREASE_HEALTH_PERCENT: // SPELL_MOD_HEALTH
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HEALTH, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_INCREASE_HEALTH: // SPELL_MOD_HEALTH
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HEALTH, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_INCREASE_HEALTH_2: // SPELL_MOD_HEALTH
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HEALTH, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_RATING:
+                        switch (spellInfo->EffectMiscValue[i])
+                        {
+                        case 2: // SPELL_MOD_DEFENSE_SKILL_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_DEFENSE_SKILL_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 4: // SPELL_MOD_DODGE_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_DODGE_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 8: // SPELL_MOD_PARRY_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_PARRY_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 16: // SPELL_MOD_BLOCK_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_BLOCK_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 64: // SPELL_MOD_HIT_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HIT_RANGED_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 96: // SPELL_MOD_HIT_MELEE_RATING and SPELL_MOD_HIT_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_HIT_MELEE_RATING, SPELL_MOD_HIT_RANGED_RATING, NULL, NULL, NULL);
+                            break;
+                        case 128: // SPELL_MOD_HIT_SPELL_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HIT_SPELL_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 224: // SPELL_MOD_HIT_RATING (SPELL_MOD_HIT_MELEE_RATING, SPELL_MOD_HIT_RANGED_RATING and SPELL_MOD_HIT_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HIT_MELEE_RATING, SPELL_MOD_HIT_RANGED_RATING, SPELL_MOD_HIT_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 256: // SPELL_MOD_CRIT_MELEE_RATING and SPELL_MOD_CRIT_SPELL_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_CRIT_MELEE_RATING, SPELL_MOD_CRIT_SPELL_RATING, NULL, NULL, NULL);
+                            break;
+                        case 512: // SPELL_MOD_CRIT_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_CRIT_RANGED_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 768: // SPELL_MOD_CRIT_MELEE_RATING and SPELL_MOD_CRIT_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_CRIT_MELEE_RATING, SPELL_MOD_CRIT_RANGED_RATING, NULL, NULL, NULL);
+                            break;
+                        case 1024: // SPELL_MOD_CRIT_SPELL_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_CRIT_SPELL_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 1280: // SPELL_MOD_CRIT_MELEE_RATING and SPELL_MOD_CRIT_SPELL_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_CRIT_MELEE_RATING, SPELL_MOD_CRIT_SPELL_RATING, NULL, NULL, NULL);
+                            break;
+                        case 1792: // SPELL_MOD_CRIT_RATING (SPELL_MOD_CRIT_MELEE_RATING, SPELL_MOD_CRIT_RANGED_RATING and SPELL_MOD_CRIT_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_CRIT_MELEE_RATING, SPELL_MOD_CRIT_RANGED_RATING, SPELL_MOD_CRIT_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 114688: // SPELL_MOD_RESILIENCE_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_RESILIENCE_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 131072: // SPELL_MOD_HASTE_MELEE_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HASTE_MELEE_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 524288: // SPELL_MOD_HASTE_MELEE_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HASTE_MELEE_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 917504: // SPELL_MOD_HASTE_RATING (SPELL_MOD_HASTE_MELEE_RATING, SPELL_MOD_HASTE_RANGED_RATING and SPELL_MOD_HASTE_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HASTE_MELEE_RATING, SPELL_MOD_HASTE_RANGED_RATING, SPELL_MOD_HASTE_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 8388608: // SPELL_MOD_EXPERTISE_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXPERTISE_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 16777216: // SPELL_MOD_ARMOR_PENETRATION_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_ARMOR_PENETRATION_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        case 33554432: // SPELL_MOD_MASTERY_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_MASTERY_RATING, NULL, NULL, NULL, NULL);
+                            break;
+                        }
+                        break;
+                    case SPELL_AURA_MOD_SPELL_POWER_PCT: // SPELL_MOD_SPELL_POWER
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPELL_POWER, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_ATTACK_POWER: // SPELL_MOD_ATTACK_POWER (SPELL_MOD_ATTACK_POWER_POS_AND_NEG and SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG)
+                        AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_ATTACK_POWER_POS_AND_NEG, SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_RANGED_ATTACK_POWER_VERSUS: // SPELL_MOD_ATTACK_POWER (SPELL_MOD_ATTACK_POWER_POS_AND_NEG and SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG)
+                        AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_ATTACK_POWER_POS_AND_NEG, SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR: // SPELL_MOD_ATTACK_POWER (SPELL_MOD_ATTACK_POWER_POS_AND_NEG and SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG)
+                        AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_ATTACK_POWER_POS_AND_NEG, SPELL_MOD_ATTACK_POWER_RANGED_POS_AND_NEG, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_RANGED_ATTACK_POWER: // SPELL_MOD_RANGED_ATTACK_POWER
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_RANGED_ATTACK_POWER, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_RANGED_ATTACK_POWER_ATTACKER_BONUS: // SPELL_MOD_RANGED_ATTACK_POWER
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_RANGED_ATTACK_POWER, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_RANGED_ATTACK_POWER_PCT: // SPELL_MOD_RANGED_ATTACK_POWER
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_RANGED_ATTACK_POWER, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_HEALTH_REGEN_PERCENT: // SPELL_MOD_HEALTH_REGEN
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HEALTH_REGEN, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_POWER_REGEN: // SPELL_MOD_MANA_REGENERATION
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_MANA_REGENERATION, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_TARGET_RESISTANCE: // SPELL_MOD_SPELL_PENETRATION
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPELL_PENETRATION, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_DAMAGE_DONE: // SPELL_MOD_SPELL_DAMAGE_DONE
+                        if (spellInfo->EffectMiscValue[i] == 126)
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPELL_DAMAGE_DONE, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_HEALING_DONE: // SPELL_MOD_SPELL_HEALING_DONE
+                        if (spellInfo->EffectMiscValue[i] == 126)
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPELL_HEALING_DONE, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_SHIELD_BLOCKVALUE: // SPELL_MOD_BLOCK_VALUE
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_BLOCK_VALUE, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_SCHOOL_CRIT_DMG_TAKEN: //Not sure from EffectMiscValue! SPELL_MOD_CRIT_TAKEN_SPELL_RATING 
+                        AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_CRIT_TAKEN_SPELL_RATING, NULL, NULL, NULL, NULL);
+                        break;
+                    case SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN:
+                        switch (spellInfo->EffectMiscValue[i])
+                        {
+                        case 1: // SPELL_MOD_HIT_TAKEN_MELEE_RATING and SPELL_MOD_HIT_TAKEN_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, NULL, NULL, NULL);
+                            break;
+                        case 2: // Holy damage taken,
+                            break;
+                        case 4: // Fire damage taken
+                            break;
+                        case 8: // Nature damage taken
+                            break;
+                        case 16: // Frost damage taken
+                            break;
+                        case 20: // Fire and Frost damage taken
+                            break;
+                        case 28: // Fire - Forst - Nature damage taken
+                            break;
+                        case 32: // Shadow damage taken
+                            break;
+                        case 36: // Fire and Shadow damage taken
+                            break;
+                        case 64: // Arcane damage taken
+                            break;
+                        case 72: // Arcane and Nature damage taken
+                            break;
+                        case 84: // Fire - Forst - Arcane damage taken
+                            break;
+                        case 96: // Arcane - Shadow damage taken
+                            break;
+                        case 122: // Arcane - Frost - Holy - Nature - Shadow damage taken
+                            break;
+                        case 124: // SPELL_MOD_HIT_TAKEN_MELEE_RATING and SPELL_MOD_HIT_TAKEN_RANGED_RATING
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, NULL, NULL, NULL);
+                            break;
+                        case 126: // SPELL_MOD_HIT_TAKEN_RATING (SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING and SPELL_MOD_HIT_TAKEN_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, SPELL_MOD_HIT_TAKEN_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 127: // SPELL_MOD_HIT_TAKEN_RATING (SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING and SPELL_MOD_HIT_TAKEN_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, SPELL_MOD_HIT_TAKEN_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 43391: // SPELL_MOD_HIT_TAKEN_RATING (SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING and SPELL_MOD_HIT_TAKEN_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, SPELL_MOD_HIT_TAKEN_SPELL_RATING, NULL, NULL);
+                            break;
+                        case 4294967295:  // SPELL_MOD_HIT_TAKEN_RATING (SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING and SPELL_MOD_HIT_TAKEN_SPELL_RATING)
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_HIT_TAKEN_MELEE_RATING, SPELL_MOD_HIT_TAKEN_RANGED_RATING, SPELL_MOD_HIT_TAKEN_SPELL_RATING, NULL, NULL);
+                            break;
+                        }
+                        break;
+                    case SPELL_AURA_MOD_RESISTANCE:
+                        switch (spellInfo->EffectMiscValue[i])
+                        {
+                        case 1: // SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL, NULL);
+                            break;
+                        case 2: // SPELL_MOD_HOLY_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_HOLY_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 9: // SPELL_MOD_NATURE_RESISTANCE resistance and SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_NATURE_RESISTANCE, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL);
+                            break;
+                        case 4: // SPELL_MOD_FIRE_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_FIRE_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 8: // SPELL_MOD_NATURE_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_NATURE_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 16: // SPELL_MOD_FROST_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_FROST_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 20: // SPELL_MOD_FIRE_RESISTANCE and SPELL_MOD_FROST_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_FIRE_RESISTANCE, SPELL_MOD_FROST_RESISTANCE, NULL, NULL, NULL);
+                            break;
+                        case 28: // SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_NATURE_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_FIRE_RESISTANCE, SPELL_MOD_FROST_RESISTANCE, SPELL_MOD_NATURE_RESISTANCE, NULL, NULL);
+                            break;
+                        case 32: // SPELL_MOD_SHADOW_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SHADOW_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 64: // SPELL_MOD_ARCANE_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_ARCANE_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 96: // SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 2, SPELL_MOD_ARCANE_RESISTANCE, SPELL_MOD_SHADOW_RESISTANCE, NULL, NULL, NULL);
+                            break;
+                        case 112: // SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 3, SPELL_MOD_ARCANE_RESISTANCE, SPELL_MOD_FROST_RESISTANCE, SPELL_MOD_SHADOW_RESISTANCE, NULL, NULL);
+                            break;
+                        case 116: // SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 4, SPELL_MOD_ARCANE_RESISTANCE, SPELL_MOD_FIRE_RESISTANCE, SPELL_MOD_FROST_RESISTANCE, SPELL_MOD_SHADOW_RESISTANCE, NULL);
+                            break;
+                        case 124: // SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_NATURE_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 5, SPELL_MOD_ARCANE_RESISTANCE, SPELL_MOD_FIRE_RESISTANCE, SPELL_MOD_FROST_RESISTANCE, SPELL_MOD_NATURE_RESISTANCE, SPELL_MOD_SHADOW_RESISTANCE);
+                            break;
+                        case 126: // SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_HOLY_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE - SPELL_MOD_NATURE_RESISTANCE - SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_EXTRA_ARMOR
+                            break;
+                        case 127: // SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_HOLY_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE - SPELL_MOD_NATURE_RESISTANCE - SPELL_MOD_ARCANE_RESISTANCE - SPELL_MOD_EXTRA_ARMOR
+                            break;
+                        case 41736: // SPELL_MOD_NATURE_RESISTANCE resistance
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_NATURE_RESISTANCE, NULL, NULL, NULL, NULL);
+                            break;
+                        case 114689: // SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL, NULL);
+                            break;
+                        case 114814: // SPELL_MOD_FIRE_RESISTANCE - SPELL_MOD_FROST_RESISTANCE - SPELL_MOD_HOLY_RESISTANCE - SPELL_MOD_SHADOW_RESISTANCE - SPELL_MOD_NATURE_RESISTANCE - SPELL_MOD_ARCANE_RESISTANCE
+                            break;
+                        case 917505: // SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL, NULL);
+                            break;
+                        case 33554433: // SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL, NULL);
+                            break;
+                        case 4287498113: // SPELL_MOD_EXTRA_ARMOR
+                            AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_EXTRA_ARMOR, NULL, NULL, NULL, NULL);
+                            break;
+                        }
+                        break;
+                        case SPELL_AURA_MOD_TOTAL_STAT_PERCENTAGE:
+                        {
+                            switch (spellInfo->EffectMiscValueB[i])
+                            {
+                            case 1: // SPELL_MOD_STRENGTH
+                                AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_STRENGTH, NULL, NULL, NULL, NULL);
+                                break;
+                            case 2: // SPELL_MOD_AGILITY
+                                AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_AGILITY, NULL, NULL, NULL, NULL);
+                                break;
+                            case 4: // SPELL_MOD_STAMINA
+                                AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_STAMINA, NULL, NULL, NULL, NULL);
+                                break;
+                            case 8: // SPELL_MOD_INTELLECT
+                                AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_INTELLECT, NULL, NULL, NULL, NULL);
+                                break;
+                            case 15: // SPELL_MOD_STRENGTH - SPELL_MOD_AGILITY - SPELL_MOD_STAMINA - SPELL_MOD_INTELLECT
+                                AuraEffectCheck(fields, spellInfo, i, 4, SPELL_MOD_STRENGTH, SPELL_MOD_AGILITY, SPELL_MOD_STAMINA, SPELL_MOD_INTELLECT, NULL);
+                                break;
+                            case 16: // SPELL_MOD_SPIRIT
+                                AuraEffectCheck(fields, spellInfo, i, 1, SPELL_MOD_SPIRIT, NULL, NULL, NULL, NULL);
+                                break;
+                            case 4294967295: // SPELL_MOD_STRENGTH - SPELL_MOD_AGILITY - SPELL_MOD_STAMINA - SPELL_MOD_INTELLECT - SPELL_MOD_SPIRIT
+                                AuraEffectCheck(fields, spellInfo, i, 5, SPELL_MOD_STRENGTH, SPELL_MOD_AGILITY, SPELL_MOD_STAMINA, SPELL_MOD_INTELLECT, SPELL_MOD_SPIRIT);
+                                break;
+                            case 4294967279: // SPELL_MOD_STRENGTH - SPELL_MOD_AGILITY - SPELL_MOD_STAMINA - SPELL_MOD_INTELLECT
+                                AuraEffectCheck(fields, spellInfo, i, 4, SPELL_MOD_STRENGTH, SPELL_MOD_AGILITY, SPELL_MOD_STAMINA, SPELL_MOD_INTELLECT, NULL);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+            }
+        }
+
         mSpellStatsMap[spellid] = sse;
 
-       if (sse.percent1 == 0 && sse.value1 == 0)
+        if (sse.percent1 == 0 && sse.value1 == 0)
         {
             sLog->outErrorDb("Spell %u listed in `spell_stats` has not any value1 or percent1", spellid);
             continue;
