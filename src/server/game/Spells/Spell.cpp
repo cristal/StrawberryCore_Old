@@ -2976,7 +2976,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
         m_castItemGUID = 0;
 
     m_targets = *targets;
-	printf("1\n");
+
     if (!m_targets.GetUnitTargetGUID() && m_spellInfo->GetTargets() & TARGET_FLAG_UNIT)
     {
         Unit* target = NULL;
@@ -2993,7 +2993,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
             finish(false);
             return;
         }
-    }printf("2\n");
+    }
     if (Player* plrCaster = m_caster->GetCharmerOrOwnerPlayerOrPlayerItself())
     {
         //check for special spell conditions
@@ -3006,7 +3006,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
                 finish(false);
                 return;
             }
-    }printf("3\n");
+    }
     if (!m_targets.HasSrc() && m_spellInfo->GetTargets() & TARGET_FLAG_SOURCE_LOCATION)
         m_targets.SetSrc(*m_caster);
 
@@ -3030,7 +3030,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
             return;
         }
     }
-	printf("4\n");
+
     // Fill aura scaling information
     if (m_caster->IsControlledByPlayer() && !IsPassiveSpell(m_spellInfo->Id) && m_spellInfo->GetSpellLevel() && !IsChanneledSpell(m_spellInfo) && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING))
     {
@@ -3068,13 +3068,13 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
         finish(false);
         return;
     }
-	printf("5\n");
+
     if (sDisableMgr->IsDisabledFor(DISABLE_TYPE_SPELL, m_spellInfo->Id, m_caster))
     {
         SendCastResult(SPELL_FAILED_SPELL_UNAVAILABLE);
         finish(false);
         return;
-    }printf("6\n");
+    }
     LoadScripts();
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -3088,7 +3088,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
     if ((_triggeredCastFlags & TRIGGERED_IGNORE_COMBO_POINTS) || m_CastItem || !m_caster->m_movedPlayer)
         m_needComboPoints = false;
 
-    SpellCastResult result = CheckCast(true);printf("RESULT : %u\n", result);
+    SpellCastResult result = CheckCast(true);
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
         if (triggeredByAura && !triggeredByAura->GetBase()->IsPassive())
@@ -3098,10 +3098,10 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
         }
         SendCastResult(result);
 
-        finish(false);printf("aa\n");
+        finish(false);
         return;
     }
-	printf("7\n");
+
     // Prepare data for triggers
     prepareDataForTriggerSystem(triggeredByAura);
 
@@ -3117,10 +3117,10 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
     if ((IsChanneledSpell(m_spellInfo) || m_casttime) && m_caster->GetTypeId() == TYPEID_PLAYER && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT && !m_caster->CanCastWhileWalking(m_spellInfo))
     {
         SendCastResult(SPELL_FAILED_MOVING);
-        finish(false);printf("aaa\n");
+        finish(false);
         return;
     }
-	printf("8\n");
+
     // set timer base at cast time
     ReSetTimer();
 

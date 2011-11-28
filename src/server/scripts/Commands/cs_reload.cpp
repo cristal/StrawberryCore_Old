@@ -895,17 +895,17 @@ public:
 
     static bool HandleReloadSpellStatsCommand(ChatHandler* handler, const char* /*args*/)
     {
-        if (sWorld->getBoolConfig(CONFIG_SPELL_STAT_SYSTEM))
-        {
+        //if (World::m_bool_configs[CONFIG_SPELL_STAT_SYSTEM])
+        //{
             sLog->outString("Re-Loading Spell Stats...");
             sSpellMgr->LoadSpellStats();
             handler->SendGlobalGMSysMessage("DB table `spell_stats` reloaded.");
-        }
+        /*}
         else 
         {
             sLog->outString("Spell Stat System is disabled!");
             return false;
-        }
+        }*/
 
         return true;
     }
