@@ -93,7 +93,7 @@ enum PartyOperation
     PARTY_OP_SWAP = 4
 };
 
-enum PartyResult // 4.2.0a 14480
+enum PartyResult
 {
     ERR_PARTY_RESULT_OK                     = 0,
     ERR_BAD_PLAYER_NAME_S                   = 1,
@@ -130,7 +130,7 @@ enum PartyResult // 4.2.0a 14480
     ERR_RAID_DISALLOWED_BY_CROSS_REALM      = 34,
 };
 
-enum ChatRestrictionType // 4.2.0a 14480
+enum ChatRestrictionType
 {
     ERR_CHAT_RESTRICTED = 0,
     ERR_CHAT_THROTTLED  = 1,
