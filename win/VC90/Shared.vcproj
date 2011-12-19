@@ -721,6 +721,10 @@
 				RelativePath="..\..\src\server\shared\Packets\ByteBuffer.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\server\shared\Packets\ByteBuffer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Threading"

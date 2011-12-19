@@ -160,6 +160,9 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\server\shared\Common.cpp" />
+    <ClCompile Include="..\..\src\server\shared\Packets\ByteBuffer.cpp">
+      <Filter>Packets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\server\shared\Collision\BoundingIntervalHierarchy.h">

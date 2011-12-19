@@ -2027,7 +2027,7 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
     uint32 playerBytes2 = fields[6].GetUInt32();
     *data << uint8(playerBytes2 & 0xFF);                  // facial hair
     *data << uint8(playerBytes);                          // skin
-    *data << uint8(plrClass);                             // class
+    *data << uint8(playerClass);                             // class
     *data << uint32(petFamily);                           // Pet Family
 
     uint32 charFlags = 0;
@@ -2070,7 +2070,7 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
     //if (uint8(GuildGuid >> 16))
     //    *data << uint8(GuildGuid^1 >> 16);
 
-    *data << uint8(plrRace);                              // Race
+    *data << uint8(playerRace);                              // Race
     *data << uint8(playerBytes >> 24);                    // Hair color
 
     //if (uint8(GuildGuid >> 48))
@@ -21922,7 +21922,7 @@ bool Player::BuyItemFromVendorSlot(uint64 vendorguid, uint32 vendorslot, uint32 
 
     if ((bag == NULL_BAG && slot == NULL_SLOT) || IsInventoryPos(bag, slot))
     {
-        if (!_StoreOrEquipNewItem(vendorslot, item, count, bag, slot, price, pProto, pCreature, crItem, true))
+        if (!_StoreOrEquipNewItem(vendorslot, item, count, bag, slot, (price >> 32), pProto, pCreature, crItem, true))
             return false;
     }
     else if (IsEquipmentPos(bag, slot))

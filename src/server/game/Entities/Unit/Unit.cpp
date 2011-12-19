@@ -1239,7 +1239,7 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage *damageInfo, int32 dama
             // Spell weapon based damage CAN BE crit & blocked at same time
             if (blocked)
             {
-                damageInfo->blocked = damage * 0.3f;
+                damageInfo->blocked = int32(damage * 0.3f);
                 // double blocked amount if block is critical
                 if (victim->isBlockCritical())
                     damageInfo->blocked += damageInfo->blocked;
@@ -8897,7 +8897,7 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                     // Mastery: Hand of Light
                     case 76672:
                     {
-                        basepoints0 = (auraSpellInfo->EffectBasePoints[EFFECT_1] / 100) * victim->ToPlayer()->GetMasteryPoints();
+                        basepoints0 = int32((auraSpellInfo->EffectBasePoints[EFFECT_1] / 100) * victim->ToPlayer()->GetMasteryPoints());
                         trigger_spell_id = 96172;
                         break;
                     }
@@ -18051,26 +18051,26 @@ void Unit::BuildMovementPacket(ByteBuffer *data) const
             sLog->outError("Unit (GUID: " UI64FMTD ", entry: %u) does not have MOVEMENTFLAG_ROOT but is in vehicle (ID: %u)!", 
             GetGUID(), GetEntry(), pVehicle->GetVehicleInfo()->m_ID);
 
-    data->writeBits(GetUnitMovementFlags(), 30);
-    data->writeBits(m_movementInfo.flags2, 12);
+    data->WriteBits(GetUnitMovementFlags(), 30);
+    data->WriteBits(m_movementInfo.flags2, 12);
 
     // field mask
-    if (data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_ONTRANSPORT))
+    if (data->WriteBit(GetUnitMovementFlags() & MOVEMENTFLAG_ONTRANSPORT))
     {
-        data->writeBit(m_movementInfo.flags2 & MOVEMENTFLAG2_INTERPOLATED_MOVEMENT);
-        data->writeBit(0); // Flag for time3. Not implemented.
+        data->WriteBit(m_movementInfo.flags2 & MOVEMENTFLAG2_INTERPOLATED_MOVEMENT);
+        data->WriteBit(0); // Flag for time3. Not implemented.
     }
 
-    data->writeBit((GetUnitMovementFlags() & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) 
+    data->WriteBit((GetUnitMovementFlags() & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) 
                    || (m_movementInfo.flags2 & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING));
 
-    if (data->writeBit(m_movementInfo.flags2 & MOVEMENTFLAG2_INTERPOLATED_TURNING))
-        data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_FALLING_SLOW);
+    if (data->WriteBit(m_movementInfo.flags2 & MOVEMENTFLAG2_INTERPOLATED_TURNING))
+        data->WriteBit(GetUnitMovementFlags() & MOVEMENTFLAG_FALLING_SLOW);
 
-    /*data->writeBit(GetUnitMovementFlags() & MOVEMENTFLAG_SPLINE_ELEVATION);*/
+    /*data->WriteBit(GetUnitMovementFlags() & MOVEMENTFLAG_SPLINE_ELEVATION);*/
 
     // has spline data
-    data->writeBit(0);
+    data->WriteBit(0);
 
     *data << uint64(GetGUID()); // added in 4.2.0
     *data << uint32(getMSTime());            // time

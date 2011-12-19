@@ -161,6 +161,7 @@
     <ClCompile Include="..\..\src\server\shared\Database\PreparedStatement.cpp" />
     <ClCompile Include="..\..\src\server\shared\Database\QueryHolder.cpp" />
     <ClCompile Include="..\..\src\server\shared\Database\QueryResult.cpp" />
+    <ClCompile Include="..\..\src\server\shared\Packets\ByteBuffer.cpp" />
     <ClCompile Include="..\..\src\server\shared\PrecompiledHeaders\sharedPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\src\server\shared\PrecompiledHeaders\sharedPCH.h</PrecompiledHeaderFile>

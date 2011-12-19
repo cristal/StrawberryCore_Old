@@ -258,18 +258,18 @@ void WorldSession::HandleCharEnum(QueryResult result)
             {
                 switch(i)
                 {
-                    //loginflags: case 14: data.writeBit(1); break;
-                    case 11: data.writeBit(Guid0 ? 1 : 0); break;
-                    case 12: data.writeBit(Guid1 ? 1 : 0); break;
-                    case 9: data.writeBit(Guid2 ? 1 : 0); break;
-                    case 8: data.writeBit(Guid3 ? 1 : 0); break;
+                    //loginflags: case 14: data.WriteBit(1); break;
+                    case 11: data.WriteBit(Guid0 ? 1 : 0); break;
+                    case 12: data.WriteBit(Guid1 ? 1 : 0); break;
+                    case 9: data.WriteBit(Guid2 ? 1 : 0); break;
+                    case 8: data.WriteBit(Guid3 ? 1 : 0); break;
                     default:
-                        data.writeBit(0);
+                        data.WriteBit(0);
                         break;
                 }
             }
         }
-        data.flushBits();
+        data.FlushBits();
         data.append(buffer);
         data.put<uint32>(1, guidsVect.size());
     }
@@ -839,33 +839,25 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)
 
     m_playerLoading = true;
     uint64 playerGuid = 0;
-    uint8 byte;
 
     sLog->outStaticDebug("WORLD: Recvd Player Logon Message");
 
-    uint32 mask = recv_data.readBits(8);
-    uint8 bytes[8];
+    BitStream mask = recv_data.ReadBitStream(8);
 
-    if (mask[6])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[0])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[4])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[1])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[2])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[5])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[7])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
-    if (mask[3])
-        playerGuid |= uint64(recv_data >> byte ^ 1);
+    ByteBuffer bytes(8, true);
 
-    playerGuid = playerGuid - 1;
+    if (mask[6]) bytes[5] = recv_data.ReadUInt8() ^ 1;
+    if (mask[0]) bytes[0] = recv_data.ReadUInt8() ^ 1;
+    if (mask[4]) bytes[3] = recv_data.ReadUInt8() ^ 1;
+    if (mask[1]) bytes[4] = recv_data.ReadUInt8() ^ 1;
+    if (mask[2]) bytes[7] = recv_data.ReadUInt8() ^ 1;
+    if (mask[5]) bytes[2] = recv_data.ReadUInt8() ^ 1;
+    if (mask[7]) bytes[6] = recv_data.ReadUInt8() ^ 1;
+    if (mask[3]) bytes[1] = recv_data.ReadUInt8() ^ 1;
 
-    sLog->outDebug("GUID: %u", playerGuid);
+    playerGuid = BitConverter::ToUInt64(bytes);
+
+    sLog->outDebug("Character (Guid: %u) logging in", playerGuid);
 
     if (!CharCanLogin(GUID_LOPART(playerGuid)))
     {

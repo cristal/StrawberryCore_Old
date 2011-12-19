@@ -68,7 +68,7 @@ class WorldPacket : public ByteBuffer
 
         void ReadByteMask(uint8& b)
         {
-            b = readBit() ? 1 : 0;
+            b = ReadBit() ? 1 : 0;
         }
         void ReadByteSeq(uint8& b)
         {
@@ -78,7 +78,7 @@ class WorldPacket : public ByteBuffer
 
         void WriteByteMask(uint8 b)
         {
-            writeBit(b);
+            WriteBit(b);
         }
         void WriteByteSeq(uint8 b)
         {

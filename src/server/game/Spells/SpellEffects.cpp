@@ -2919,7 +2919,7 @@ void Spell::SpellDamageHeal(SpellEffectEntry const* effect)
         {
             if (!damage) // no heal when unleashing Seal of Insight
                 return;
-            addhealth = (caster->GetTotalAttackPowerValue(BASE_ATTACK) + caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY)) * damage / 100;
+            addhealth = int32((caster->GetTotalAttackPowerValue(BASE_ATTACK) + caster->SpellBaseHealingBonus(SPELL_SCHOOL_MASK_HOLY)) * damage / 100);
         }
         else
             addhealth = caster->SpellHealingBonus(unitTarget, m_spellInfo, addhealth, HEAL);
