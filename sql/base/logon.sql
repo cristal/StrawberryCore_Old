@@ -148,7 +148,7 @@ CREATE TABLE `realmlist` (
 -- ----------------------------
 -- Records of realmlist
 -- ----------------------------
-INSERT INTO realmlist VALUES ('1', 'Testing', '127.0.0.1', '8085', '0', '0', '1', '0', '0', '28', '14480');
+INSERT INTO realmlist VALUES ('1', 'Strawberry 4.3.0a', '127.0.0.1', '8085', '0', '0', '1', '0', '0', '0', '15050');
 
 -- ----------------------------
 -- Table structure for `uptime`

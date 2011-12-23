@@ -83,7 +83,7 @@
 
 #define ZONE_UPDATE_INTERVAL (1*IN_MILLISECONDS)
 
-#define PLAYER_SKILL_INDEX(x)       (PLAYER_SKILL_INFO_1_1 + ((x)*3))
+#define PLAYER_SKILL_INDEX(x)       (PLAYER_SKILL_LINEID_0 + ((x)*3))
 #define PLAYER_SKILL_VALUE_INDEX(x) (PLAYER_SKILL_INDEX(x)+1)
 #define PLAYER_SKILL_BONUS_INDEX(x) (PLAYER_SKILL_INDEX(x)+2)
 
@@ -1059,7 +1059,7 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo, uint32 acco
     SetUInt32Value(PLAYER_CHOSEN_TITLE, 0);
 
     SetUInt32Value(PLAYER_FIELD_KILLS, 0);
-    SetUInt32Value(PLAYER_FIELD_LIFETIME_HONORABLE_KILLS, 0);
+    SetUInt32Value(PLAYER_FIELD_LIFETIME_HONORBALE_KILLS, 0);
     //SetUInt32Value(PLAYER_FIELD_TODAY_CONTRIBUTION, 0);
     //SetUInt32Value(PLAYER_FIELD_YESTERDAY_CONTRIBUTION, 0);
 
@@ -7437,7 +7437,7 @@ bool Player::RewardHonor(Unit *uVictim, uint32 groupsize, int32 honor, bool pvpt
             // count the number of playerkills in one day
             ApplyModUInt32Value(PLAYER_FIELD_KILLS, 1, true);
             // and those in a lifetime
-            ApplyModUInt32Value(PLAYER_FIELD_LIFETIME_HONORABLE_KILLS, 1, true);
+            ApplyModUInt32Value(PLAYER_FIELD_LIFETIME_HONORBALE_KILLS, 1, true);
             UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_EARN_HONORABLE_KILL);
             UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_HK_CLASS, pVictim->getClass());
             UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_HK_RACE, pVictim->getRace());
@@ -17888,7 +17888,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
             SetArenaTeamInfoField(arena_slot, ArenaTeamInfoType(j), 0);
     }
 
-    SetUInt32Value(PLAYER_FIELD_LIFETIME_HONORABLE_KILLS, fields[39].GetUInt32()); // totalKills
+    SetUInt32Value(PLAYER_FIELD_LIFETIME_HONORBALE_KILLS, fields[39].GetUInt32()); // totalKills
     SetUInt16Value(PLAYER_FIELD_KILLS, 0, fields[40].GetUInt16()); // todayKills
     SetUInt16Value(PLAYER_FIELD_KILLS, 1, fields[41].GetUInt16()); // yesterdayKills
 
@@ -19699,7 +19699,7 @@ void Player::SaveToDB()
 
     ss << m_taxi.SaveTaxiDestinationsToString() << "', "; // 40
 
-    ss << GetUInt32Value(PLAYER_FIELD_LIFETIME_HONORABLE_KILLS) << ", "; // 41
+    ss << GetUInt32Value(PLAYER_FIELD_LIFETIME_HONORBALE_KILLS) << ", "; // 41
 
     ss << GetUInt16Value(PLAYER_FIELD_KILLS, 0) << ", "; // 42
 
@@ -21061,7 +21061,7 @@ void Player::AddSpellMod(SpellModifier* mod, bool apply)
 {
     sLog->outDebug("Player::AddSpellMod %d", mod->spellId);
     bool isFlat = mod->type == SPELLMOD_FLAT;
-    Opcodes Opcode = (isFlat) ? SMSG_SET_FLAT_SPELL_MODIFIER : SMSG_SET_PCT_SPELL_MODIFIER;
+    Opcodes Opcode = (isFlat) ? (Opcodes)SMSG_SET_FLAT_SPELL_MODIFIER : (Opcodes)SMSG_SET_PCT_SPELL_MODIFIER;
 
     WorldPacket data(Opcode);
     data << uint32(1); //number of spell mod to add

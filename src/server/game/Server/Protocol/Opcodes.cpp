@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
- *
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,7 +22,7 @@
 
 // Correspondence between opcodes and their names
 OpcodeHandler opcodeTable[NUM_MSG_TYPES];
-uint16 opcodesEnumToNumber[NUM_OPCODES];
+uint16 opcodesEnumToNumber[MAX_OPCODE_VALUE];
 
 void OpcodeTableHandler::LoadOpcodesFromDB()
 {
@@ -52,28 +50,25 @@ void OpcodeTableHandler::LoadOpcodesFromDB()
     sLog->outString();
 }
 
-int OpcodeTableHandler::GetOpcodeTable(const char* name)
+int16 OpcodeTableHandler::GetOpcodeTable(const char* name)
 {
     if (OpcodeTableContainer[name])
         return OpcodeTableContainer[name];
+
     return -1;
 }
 
 static void DefineOpcode(Opcodes opcodeEnum, const char* name, SessionStatus status, PacketProcessing packetProcessing, void (WorldSession::*handler)(WorldPacket& recvPacket) )
 {
-    int opcode = sOpcodeTableHandler->GetOpcodeTable(name);
-
-    if (opcode > 0)
+    if (int16 opcode = sOpcodeTableHandler->GetOpcodeTable(name))
     {
-        opcodesEnumToNumber[opcodeEnum] = opcode;
-        opcodeTable[opcode].name = name;
-        opcodeTable[opcode].status = status;
+        opcodesEnumToNumber[opcodeEnum]      = opcode;
+        opcodeTable[opcode].name             = name;
+        opcodeTable[opcode].status           = status;
         opcodeTable[opcode].packetProcessing = packetProcessing;
-        opcodeTable[opcode].handler = handler;
-        opcodeTable[opcode].opcodeEnum = opcodeEnum;
+        opcodeTable[opcode].handler          = handler;
+        opcodeTable[opcode].opcodeEnum       = opcodeEnum;
     }
-    else
-        sLog->outError("SOE: No valid value for %s", name); // Should be removed later. One opcode have the value 0
 }
 
 #define OPCODE( name, status, packetProcessing, handler ) DefineOpcode( name, #name, status, packetProcessing, handler )
@@ -82,14 +77,12 @@ void InitOpcodeTable()
 {
     for(uint16 i = 0; i < NUM_MSG_TYPES; ++i)
     {
-        opcodeTable[i].name = "UNKNOWN";
-        opcodeTable[i].status = STATUS_NEVER;
+        opcodeTable[i].name             = "UNKNOWN";
+        opcodeTable[i].status           = STATUS_NEVER;
         opcodeTable[i].packetProcessing = PROCESS_INPLACE;
-        opcodeTable[i].handler = &WorldSession::HandleNULL;
+        opcodeTable[i].handler          = &WorldSession::HandleNULL;
     }
 
-    OPCODE( CMSG_WORLD_TELEPORT,                          STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleWorldTeleportOpcode       );
-    OPCODE( CMSG_TELEPORT_TO_UNIT,                        STATUS_LOGGEDIN, PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
     OPCODE( SMSG_CHECK_FOR_BOTS,                          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_FORCEACTIONSHOW,                         STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_PETGODMODE,                              STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );

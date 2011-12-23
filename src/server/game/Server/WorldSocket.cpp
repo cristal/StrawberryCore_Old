@@ -262,19 +262,12 @@ int WorldSocket::open (void *a)
 
     SendAuthConnection();
 
-    // Send startup packet.
     WorldPacket packet(SMSG_AUTH_CHALLENGE, 37);
-   
-    packet << uint32(3);
+    for (uint32 i = 0; i < 8; i++)
+        packet << uint32(0);
+
     packet << m_Seed;
-    packet << uint32(2);
-    packet << uint32(6);
-    packet << uint32(5);
-    packet << uint32(1);
-    packet << uint32(7);
-    packet << uint32(4);
     packet << uint8(1);
-    packet << uint32(0);
 
     if (SendPacket(packet) == -1)
         return -1;
@@ -725,7 +718,6 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
         switch(opcodeEnum)
         {
             case MSG_CHECK_CONNECTION:
-                sScriptMgr->OnPacketReceive(this, WorldPacket(*new_pct));
                 return HandleAuthConnection(*new_pct);
             case CMSG_PING:
                 return HandlePing (*new_pct);
@@ -799,31 +791,33 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     BigNumber v, s, g, N, K;
     WorldPacket packet;
 
-    recvPacket.read_skip<uint8>();
-    recvPacket.read(digest, 1);
-    recvPacket.read_skip<uint32>();
-    recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 5);
-    recvPacket.read_skip<uint8>();
-    recvPacket >> clientBuild;
-    recvPacket.read(digest, 4);
     recvPacket.read_skip<uint32>();
     recvPacket.read(digest, 1);
-    recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 1);
-    recvPacket >> clientSeed;
-    recvPacket.read_skip<uint8>();
-    recvPacket.read(digest, 4);
     recvPacket.read_skip<uint64>();
-    recvPacket.read(digest, 4);
+    recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 1);
+    recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 1);
+    recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 7);
+    recvPacket >> clientBuild;
+    recvPacket.read(digest, 8);
+    recvPacket.read_skip<uint8>();
+    recvPacket.read_skip<uint8>();
+    recvPacket >> clientSeed;
+    recvPacket.read(digest, 2);
 
-    recvPacket >> accountName;
-
-    // Addon data
-    recvPacket >> m_addonSize;
+    recvPacket >> m_addonSize;                            // addon data size
 
     size_t addonInfoPos = recvPacket.rpos();
-    recvPacket.rpos(recvPacket.rpos() + m_addonSize);  
+    recvPacket.rpos(recvPacket.rpos() + m_addonSize);     // skip it
+
+    recvPacket.read_skip<uint8>();
+    recvPacket.read_skip<uint8>();
+
+    recvPacket.FlushBits();
+
+    recvPacket >> accountName; 
    
     if (sWorld->IsClosed())
     {

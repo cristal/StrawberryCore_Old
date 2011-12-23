@@ -823,7 +823,7 @@ void WorldSession::HandleWorldLoginOpcode(WorldPacket& recv_data)
 {
     sLog->outDebug("WORLD: Recvd World Login Message");
 
-    recv_data.read_skip<uint8>();    // byte mask
+    recv_data.read_skip<uint8>();     // byte mask
     recv_data.read_skip<uint32>();    // mapid
 
     sLog->outDebug("Receiving of the Login Message is done.");
@@ -846,14 +846,14 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)
 
     ByteBuffer bytes(8, true);
 
-    if (mask[6]) bytes[5] = recv_data.ReadUInt8() ^ 1;
+    if (mask[3]) bytes[4] = recv_data.ReadUInt8() ^ 1;
+    if (mask[7]) bytes[1] = recv_data.ReadUInt8() ^ 1;
+    if (mask[4]) bytes[7] = recv_data.ReadUInt8() ^ 1;
+    if (mask[6]) bytes[2] = recv_data.ReadUInt8() ^ 1;
+    if (mask[5]) bytes[6] = recv_data.ReadUInt8() ^ 1;
+    if (mask[1]) bytes[5] = recv_data.ReadUInt8() ^ 1;
+    if (mask[2]) bytes[3] = recv_data.ReadUInt8() ^ 1;
     if (mask[0]) bytes[0] = recv_data.ReadUInt8() ^ 1;
-    if (mask[4]) bytes[3] = recv_data.ReadUInt8() ^ 1;
-    if (mask[1]) bytes[4] = recv_data.ReadUInt8() ^ 1;
-    if (mask[2]) bytes[7] = recv_data.ReadUInt8() ^ 1;
-    if (mask[5]) bytes[2] = recv_data.ReadUInt8() ^ 1;
-    if (mask[7]) bytes[6] = recv_data.ReadUInt8() ^ 1;
-    if (mask[3]) bytes[1] = recv_data.ReadUInt8() ^ 1;
 
     playerGuid = BitConverter::ToUInt64(bytes);
 

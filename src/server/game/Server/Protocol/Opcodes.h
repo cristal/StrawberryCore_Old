@@ -20,23 +20,8 @@
 #define _OPCODES_H
 
 #include "Common.h"
-
-// Note: this include need for be sure have full definition of class WorldSession
-//       if this class definition not complete then VS for x64 release use different size for
-//       struct OpcodeHandler in this header and Opcode.cpp and get totally wrong data from
-//       table opcodeTable in source when Opcode.h included but WorldSession.h not included
 #include "WorldSession.h"
 #include <map>
-
-class OpcodeTableHandler
-{
-public:
-    void LoadOpcodesFromDB();
-    int GetOpcodeTable(const char* name);
-    std::map<std::string, int> OpcodeTableContainer;
-};
-
-#define sOpcodeTableHandler ACE_Singleton<OpcodeTableHandler, ACE_Null_Mutex>::instance()
 
 enum Opcodes
 {
@@ -1209,7 +1194,7 @@ enum Opcodes
     SMSG_WHOIS,
     SMSG_WORLD_STATE_UI_TIMER_UPDATE,
     SMSG_ZONE_UNDER_ATTACK,
-    NUM_OPCODES
+    MAX_OPCODE_VALUE
 };
 
 #define NUM_MSG_TYPES 0xFFFF
@@ -1246,7 +1231,7 @@ struct OpcodeHandler
 };
 
 extern OpcodeHandler opcodeTable[NUM_MSG_TYPES];
-extern uint16 opcodesEnumToNumber[NUM_OPCODES];
+extern uint16 opcodesEnumToNumber[MAX_OPCODE_VALUE];
 
 // Lookup opcode name for human understandable logging
 inline const char* LookupOpcodeName(uint16 id)
@@ -1266,5 +1251,15 @@ inline uint16 LookupOpcodeNumber(Opcodes enumValue)
 {
     return opcodesEnumToNumber[enumValue];
 }
+
+class OpcodeTableHandler
+{
+    public:
+        void LoadOpcodesFromDB();
+        int16 GetOpcodeTable(const char* name);
+        std::map<std::string, int16> OpcodeTableContainer;
+};
+
+#define sOpcodeTableHandler ACE_Singleton<OpcodeTableHandler, ACE_Null_Mutex>::instance()
 
 #endif
