@@ -7900,9 +7900,8 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
 
                 if (pPet && pPet->getVictim() && damage && procSpell)
                 {
-                    uint32 procDmg = damage / 2;
-                    pPet->SendSpellNonMeleeDamageLog(pPet->getVictim(), procSpell->Id, procDmg, GetSpellSchoolMask(procSpell), 0, 0, false, 0, false);
-                    pPet->DealDamage(pPet->getVictim(), procDmg, NULL, SPELL_DIRECT_DAMAGE, GetSpellSchoolMask(procSpell), procSpell, true);
+                    pPet->SendSpellNonMeleeDamageLog(pPet->getVictim(), procSpell->Id, damage, GetSpellSchoolMask(procSpell), 0, 0, false, 0, false);
+                    pPet->DealDamage(pPet->getVictim(), damage, NULL, SPELL_DIRECT_DAMAGE, GetSpellSchoolMask(procSpell), procSpell, true);
                     break;
                 }
                 else
@@ -8438,7 +8437,7 @@ bool Unit::HandleAuraProc(Unit* victim, uint32 damage, Aura* triggeredByAura, Sp
                     Player* plr = ToPlayer();
                     if (plr->getClass() != CLASS_DEATH_KNIGHT)
                         return false;
-                    RuneType rune = ToPlayer()->GetLastUsedRune();
+                    //RuneType rune = ToPlayer()->GetLastUsedRune();
                     // can't proc from death rune use
                     /*if (rune == RUNE_DEATH)
                         return false;*/
