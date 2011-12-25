@@ -2070,9 +2070,9 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
         case SPELLFAMILY_DEATHKNIGHT:
             if (GetSpellSpecific(GetSpellProto()) == SPELL_SPECIFIC_PRESENCE)
             {
-                AuraEffect *bloodPresenceAura=0;  // healing by damage done
-                AuraEffect *frostPresenceAura=0;  // increased health
-                AuraEffect *unholyPresenceAura=0; // increased movement speed, faster rune recovery
+                AuraEffect *bloodPresenceAura = 0;  // increased health
+                AuraEffect *frostPresenceAura = 0;  // increased damage and rune power generation
+                AuraEffect *unholyPresenceAura = 0; // increased movement speed, faster rune recovery
 
                 // Improved Presences
                 Unit::AuraEffectList const& vDummyAuras = target->GetAuraEffectsByType(SPELL_AURA_DUMMY);
@@ -2081,22 +2081,22 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                     switch((*itr)->GetId())
                     {
                         // Improved Blood Presence
-                        case 50365:
-                        case 50371:
+                        case 50365: // Rank 1
+                        case 50371: // Rank 2
                         {
                             bloodPresenceAura = (*itr);
                             break;
                         }
                         // Improved Frost Presence
-                        case 50384:
-                        case 50385:
+                        case 50384: // Rank 1
+                        case 50385: // Rank 2
                         {
                             frostPresenceAura = (*itr);
                             break;
                         }
                         // Improved Unholy Presence
-                        case 50391:
-                        case 50392:
+                        case 50391: // Rank 1
+                        case 50392: // Rank 2
                         {
                             unholyPresenceAura = (*itr);
                             break;
@@ -2108,20 +2108,20 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                 if (apply)
                 {
                     // Blood Presence bonus
-                    if (presence == 48266)
-                        target->CastSpell(target, 63611, true);
-                    else if (bloodPresenceAura)
-                    {
-                        int32 basePoints1 = bloodPresenceAura->GetAmount();
-                        target->CastCustomSpell(target, 63611, NULL, &basePoints1, NULL, true, 0, bloodPresenceAura);
-                    }
-                    // Frost Presence bonus
                     if (presence == 48263)
                         target->CastSpell(target, 61261, true);
+                    else if (bloodPresenceAura)
+                    {
+                        int32 basePoints0 = bloodPresenceAura->GetAmount();
+                        target->CastCustomSpell(target, 61261, &basePoints0, NULL, NULL, true, 0, bloodPresenceAura);
+                    }
+                    // Frost Presence bonus
+                    if (presence == 48266)
+                        target->CastSpell(target, 63611, true);
                     else if (frostPresenceAura)
                     {
-                        int32 basePoints0 = frostPresenceAura->GetAmount();
-                        target->CastCustomSpell(target, 61261, &basePoints0, NULL, NULL, true, 0, frostPresenceAura);
+                        int32 basePoints1 = frostPresenceAura->GetAmount();
+                        target->CastCustomSpell(target, 63611, NULL, &basePoints1, NULL, true, 0, frostPresenceAura);
                     }
                     // Unholy Presence bonus
                     if (presence == 48265)
