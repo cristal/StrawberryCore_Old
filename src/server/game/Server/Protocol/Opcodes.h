@@ -1256,8 +1256,8 @@ class OpcodeTableHandler
 {
     public:
         void LoadOpcodesFromDB();
-        int16 GetOpcodeTable(const char* name);
-        std::map<std::string, int16> OpcodeTableContainer;
+        int GetOpcodeTable(const char* name);
+        std::map<std::string, int> OpcodeTableContainer;
 };
 
 #define sOpcodeTableHandler ACE_Singleton<OpcodeTableHandler, ACE_Null_Mutex>::instance()

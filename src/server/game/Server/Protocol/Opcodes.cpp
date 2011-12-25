@@ -50,7 +50,7 @@ void OpcodeTableHandler::LoadOpcodesFromDB()
     sLog->outString();
 }
 
-int16 OpcodeTableHandler::GetOpcodeTable(const char* name)
+int OpcodeTableHandler::GetOpcodeTable(const char* name)
 {
     if (OpcodeTableContainer[name])
         return OpcodeTableContainer[name];
@@ -60,7 +60,9 @@ int16 OpcodeTableHandler::GetOpcodeTable(const char* name)
 
 static void DefineOpcode(Opcodes opcodeEnum, const char* name, SessionStatus status, PacketProcessing packetProcessing, void (WorldSession::*handler)(WorldPacket& recvPacket) )
 {
-    if (int16 opcode = sOpcodeTableHandler->GetOpcodeTable(name))
+    int opcode = sOpcodeTableHandler->GetOpcodeTable(name);
+
+    if (opcode > 0)
     {
         opcodesEnumToNumber[opcodeEnum]      = opcode;
         opcodeTable[opcode].name             = name;
@@ -69,6 +71,8 @@ static void DefineOpcode(Opcodes opcodeEnum, const char* name, SessionStatus sta
         opcodeTable[opcode].handler          = handler;
         opcodeTable[opcode].opcodeEnum       = opcodeEnum;
     }
+    else
+        sLog->outError("SOE: No valid value for %s", name); // Should be removed later. One opcode have the value 0
 }
 
 #define OPCODE( name, status, packetProcessing, handler ) DefineOpcode( name, #name, status, packetProcessing, handler )
@@ -1092,7 +1096,7 @@ void InitOpcodeTable()
     OPCODE( CMSG_PET_LEARN_TALENT,                        STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandlePetLearnTalent            );
     OPCODE( CMSG_PET_UNLEARN_TALENTS,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleNULL                     );
     OPCODE( SMSG_SET_PHASE_SHIFT,                         STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
-    OPCODE( SMSG_ALL_ACHIEVEMENT_DATA,                    STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
+    //OPCODE( SMSG_ALL_ACHIEVEMENT_DATA,                    STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_HEALTH_UPDATE,                           STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( SMSG_POWER_UPDATE,                            STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::HandleServerSide               );
     OPCODE( CMSG_GAMEOBJ_REPORT_USE,                      STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleGameobjectReportUse       );
