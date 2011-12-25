@@ -211,13 +211,19 @@ bool LoginQueryHolder::Initialize()
     return res;
 }
 
+struct charEnumInfo
+{
+    uint8 nameLenghts;
+    bool firstLogin;
+};
+
 void WorldSession::HandleCharEnum(QueryResult result)
 {
-    WorldPacket data(SMSG_CHAR_ENUM, 300);
+    WorldPacket data(SMSG_CHAR_ENUM, 270);
+    data.WriteBits(result ? (*result).GetRowCount() : 0 , 17);
 
-    data << uint8(0x80); // 0 causes the client to free memory of charlist
-    data << uint32(0);   // unk loop counter
-    data << uint32(0);   // number of characters
+    std::vector<charEnumInfo> charInfoList;
+    charInfoList.resize(result ? (*result).GetRowCount() : 0);
 
     if (result)
     {
@@ -225,11 +231,17 @@ void WorldSession::HandleCharEnum(QueryResult result)
         std::vector<Guids> guidsVect;
         ByteBuffer buffer;
         _allowedCharsToLogin.clear();
-
+        int charCount = 0;
         do
         {
             uint32 GuidLow = (*result)[0].GetUInt32();
             uint64 GuildGuid = (*result)[13].GetUInt32();//TODO: store as uin64
+
+            charEnumInfo charInfo = charEnumInfo();
+            charInfo.nameLenghts =  (*result)[1].GetString().size();
+            charInfo.firstLogin = (*result)[15].GetUInt32() & AT_LOGIN_FIRST ? true : false;
+            charInfoList[charCount] = charInfo;
+            charCount++;
 
             guidsVect.push_back(std::make_pair(GuidLow, GuildGuid));
 
@@ -244,6 +256,7 @@ void WorldSession::HandleCharEnum(QueryResult result)
         }
         while (result->NextRow());
 
+        int counter = 0;
         for (std::vector<Guids>::iterator itr = guidsVect.begin(); itr != guidsVect.end(); ++itr)
         {
             uint32 GuidLow = (*itr).first;
@@ -254,28 +267,57 @@ void WorldSession::HandleCharEnum(QueryResult result)
             uint8 Guid2 = uint8(GuidLow >> 16);
             uint8 Guid3 = uint8(GuidLow >> 24);
 
-            for (uint8 i = 0; i < 17; ++i)
+            // On envoye pas le guild guid, high guid == 0 pour les joueurs
+            for (uint8 i = 0; i < 18; ++i) 
             {
                 switch(i)
                 {
-                    //loginflags: case 14: data.WriteBit(1); break;
-                    case 11: data.WriteBit(Guid0 ? 1 : 0); break;
-                    case 12: data.WriteBit(Guid1 ? 1 : 0); break;
-                    case 9: data.WriteBit(Guid2 ? 1 : 0); break;
-                    case 8: data.WriteBit(Guid3 ? 1 : 0); break;
+                    // guidlow[0]
+                    case 10:
+                        data.WriteBit(Guid0 ? 1 : 0);
+                        break;
+                    // guidlow[1]
+                    case 12:
+                        data.WriteBit(Guid1 ? 1 : 0);
+                        break;
+                    // guidlow[2]
+                    case 1:
+                        data.WriteBit(Guid2 ? 1 : 0);
+                        break;
+                    // guidlow[3]
+                    case 11:
+                        data.WriteBit(Guid3 ? 1 : 0);
+                        break;
+                    case 8:
+                        data.WriteBits(charInfoList[counter].nameLenghts, 7);
+                        break;
+                    case 13:
+                        data.WriteBit(charInfoList[counter].firstLogin ? 1 : 0);
+                        break;
                     default:
                         data.WriteBit(0);
                         break;
                 }
             }
+
+            counter++;
         }
+        data.WriteBits(0x0, 23); // unk counter 4.3
+        data.WriteBit(1);
+
         data.FlushBits();
         data.append(buffer);
-        data.put<uint32>(1, guidsVect.size());
+    }
+    else
+    {
+        data.WriteBits(0x0, 23);
+        data.WriteBit(1);
+        data.FlushBits();
     }
 
     SendPacket(&data);
 }
+
 
 void WorldSession::HandleCharEnumOpcode(WorldPacket & /*recv_data*/)
 {
@@ -914,9 +956,16 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
     SendAccountDataTimes(PER_CHARACTER_CACHE_MASK);
 
     data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 6);         // added in 2.2.0
-    data << uint8(2);                                       // unknown value
+    /*data << uint8(2);                                       // unknown value
     data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
-    data << uint32(0);                                      // unk 4.2.0
+    data << uint32(0);                                      // unk 4.2.0*/
+    // 4.3 struct
+    data << uint32(0x29);
+    data << uint8(0x02);
+    data << uint8(0x1C);
+    data << uint8(0x02);
+    data << uint16(0x00);
+    data << uint8(0xA0);
     SendPacket(&data);
 
     // Send MOTD

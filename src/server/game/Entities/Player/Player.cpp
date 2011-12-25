@@ -1969,7 +1969,7 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
 
     Field *fields = result->Fetch();
 
-    uint32 guid = fields[0].GetUInt32();
+    uint32 GuidLow = fields[0].GetUInt32();
     uint8 playerRace = fields[2].GetUInt8();
     uint8 playerClass = fields[3].GetUInt8();
     uint8 gender = fields[4].GetUInt8();
@@ -1981,6 +1981,11 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
     uint32 petDisplayId = 0;
     uint32 petLevel   = 0;
     uint32 petFamily  = 0;
+    uint8 Guid0 = uint8(GuidLow);
+    uint8 Guid1 = uint8(GuidLow >> 8);
+    uint8 Guid2 = uint8(GuidLow >> 16);
+    uint8 Guid3 = uint8(GuidLow >> 24);
+
     // show pet at selection character in character list only for non-ghost character
     if (result && !(playerFlags & PLAYER_FLAGS_GHOST) && (playerClass == CLASS_WARLOCK || playerClass == CLASS_HUNTER || playerClass == CLASS_DEATH_KNIGHT))
     {
@@ -1994,41 +1999,77 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
         }
     }
 
-    *data << fields[1].GetString();                       // name
-    *data << uint8(playerBytes >> 8);                     // face
-    *data << uint32(fields[9].GetUInt32());               // map
+    Tokens equipment(fields[19].GetString(), ' ');
+    for (uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
+    {
+        uint32 visualbase = slot * 2;
+        uint32 itemId = GetUInt32ValueFromArray(equipment, visualbase);
+        ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+        ItemEntry const *db2Item = sItemStore.LookupEntry(itemId); // Use Item.db2.DisplayID for Char Enum
+        if (!proto || !db2Item)
+        {
+            *data << uint8(0);
+            *data << uint32(0);
+            *data << uint32(0);
+            continue;
+        }
 
-    uint8 Guid0 = uint8(guid);
-    uint8 Guid1 = uint8(guid >> 8);
-    uint8 Guid2 = uint8(guid >> 16);
-    uint8 Guid3 = uint8(guid >> 24);
+        SpellItemEnchantmentEntry const *enchant = NULL;
+        uint32 enchants = GetUInt32ValueFromArray(equipment, visualbase + 1);
+        for (uint8 enchantSlot = PERM_ENCHANTMENT_SLOT; enchantSlot <= TEMP_ENCHANTMENT_SLOT; ++enchantSlot)
+        {
+            // values stored in 2 uint16
+            uint32 enchantId = 0x0000FFFF & (enchants >> enchantSlot*16);
+            if (!enchantId)
+                continue;
+
+            enchant = sSpellItemEnchantmentStore.LookupEntry(enchantId);
+            if (enchant)
+                break;
+        }
+        
+        *data << uint8(proto->InventoryType);
+        *data << uint32(db2Item->DisplayId);
+        *data << uint32(enchant ? enchant->aura_id : 0);
+    }
+
+    // Bags (not supported) TODO: implement
+    for (uint32 i = 0; i < 4; ++i)
+    {
+        *data << uint8(0); // invtype
+        *data << uint32(0); // displayid
+        *data << uint32(0); // enchant
+    }// f
+
+    uint32 playerBytes2 = fields[6].GetUInt32();
+    *data << uint8(playerBytes >> 8);                     // face
+    *data << uint32(petDisplayId);                        // Pet DisplayID
+
+
+    *data << uint8(gender);                               // Gender
+    *data << uint8(level);                                // Level
+    *data << uint32(petLevel);                            // pet level
+    *data << uint32(zone);                                // Zone id
+    *data << fields[11].GetFloat();                       // y
+    *data << uint32(petFamily);                           // Pet Family
+    *data << uint8(playerBytes >> 16);                    // Hair style
 
     if (Guid1)
         *data << uint8(Guid1^1);
 
-    //if (uint8(GuildGuid))
-    //    *data << uint8(GuildGuid^1);
-
-    *data << fields[10].GetFloat();                       // x
-    *data << fields[11].GetFloat();                       // y
-    *data << fields[12].GetFloat();                       // z
+    data->append(fields[1].GetString().c_str(), fields[1].GetString().size());
 
     if (Guid0)
         *data << uint8(Guid0^1);
 
-    *data << uint32(zone);                                // Zone id
-    *data << uint32(petLevel);                            // pet level
+    *data << uint8(playerRace);                              // Race
+    *data << uint8(0);                                       // char order id
+    *data << fields[12].GetFloat();                          // z
+    *data << uint32(fields[9].GetUInt32());                  // map
+    *data << uint8(playerBytes >> 24);                      // Hair color
 
     if (Guid3)
         *data << uint8(Guid3^1);
-
-    //*data << uint8(2);                  // unk, bit 14
-
-    uint32 playerBytes2 = fields[6].GetUInt32();
-    *data << uint8(playerBytes2 & 0xFF);                  // facial hair
-    *data << uint8(playerBytes);                          // skin
-    *data << uint8(playerClass);                             // class
-    *data << uint32(petFamily);                           // Pet Family
 
     uint32 charFlags = 0;
     if (playerFlags & PLAYER_FLAGS_HIDE_HELM)
@@ -2054,91 +2095,29 @@ bool Player::BuildEnumData(QueryResult result, ByteBuffer* data)
     else
         charFlags |= CHARACTER_FLAG_DECLINED;
 
+    charFlags |= CHARACTER_FLAG_UNK28;
+    charFlags |= CHARACTER_FLAG_UNK29;
+
     *data << uint32(charFlags);                          // character flags
-
-    if (Guid2)
-        *data << uint8(Guid2^1);
-
-    *data << uint32(petDisplayId);                        // Pet DisplayID
-
-    //if (uint8(GuildGuid >> 56))
-    //    *data << uint8(GuildGuid^1 >> 56);
-
-    *data << uint8(level);                                // Level
-    *data << uint8(playerBytes >> 16);                    // Hair style
-
-    //if (uint8(GuildGuid >> 16))
-    //    *data << uint8(GuildGuid^1 >> 16);
-
-    *data << uint8(playerRace);                              // Race
-    *data << uint8(playerBytes >> 24);                    // Hair color
-
-    //if (uint8(GuildGuid >> 48))
-    //    *data << uint8(GuildGuid^1 >> 48);
-
-    *data << uint8(gender);                               // Gender
-
-    //if (uint8(GuildGuid >> 24))
-    //    *data << uint8(GuildGuid^1 >> 24);
-
-    *data << uint8(0);                                    // character order id (used for char list positioning) TODO: implement
-
-    Tokens equipment(fields[19].GetString(), ' ');
-    for (uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
-    {
-        uint32 visualbase = slot * 2;
-        uint32 itemId = GetUInt32ValueFromArray(equipment, visualbase);
-        ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-        ItemEntry const *db2Item = sItemStore.LookupEntry(itemId); // Use Item.db2.DisplayID for Char Enum
-        if (!proto || !db2Item)
-        {
-            *data << uint32(0);
-            *data << uint8(0);
-            *data << uint32(0);
-            continue;
-        }
-
-        SpellItemEnchantmentEntry const *enchant = NULL;
-        uint32 enchants = GetUInt32ValueFromArray(equipment, visualbase + 1);
-        for (uint8 enchantSlot = PERM_ENCHANTMENT_SLOT; enchantSlot <= TEMP_ENCHANTMENT_SLOT; ++enchantSlot)
-        {
-            // values stored in 2 uint16
-            uint32 enchantId = 0x0000FFFF & (enchants >> enchantSlot*16);
-            if (!enchantId)
-                continue;
-
-            enchant = sSpellItemEnchantmentStore.LookupEntry(enchantId);
-            if (enchant)
-                break;
-        }
-        *data << uint32(enchant ? enchant->aura_id : 0);
-        *data << uint8(proto->InventoryType);
-        *data << uint32(db2Item->DisplayId);
-    }
-
-    // Bags (not supported) TODO: implement
-    for (uint32 i = 0; i < 4; ++i)
-    {
-        *data << uint32(0); // enchant
-        *data << uint8(0);  // invtype
-        *data << uint32(0); // displayid
-    }
+    *data << uint8(playerBytes);                         // skin
 
     // character customize flags
     if (atLoginFlags & AT_LOGIN_CUSTOMIZE)
         *data << uint32(CHAR_CUSTOMIZE_FLAG_CUSTOMIZE);
-
     else if (atLoginFlags & AT_LOGIN_CHANGE_FACTION)
         *data << uint32(CHAR_CUSTOMIZE_FLAG_FACTION);
-
     else if (atLoginFlags & AT_LOGIN_CHANGE_RACE)
         *data << uint32(CHAR_CUSTOMIZE_FLAG_RACE);
-
     else
         *data << uint32(CHAR_CUSTOMIZE_FLAG_NONE);
 
-    //if (uint8(GuildGuid >> 8))
-    //    *data << uint8(GuildGuid^1 >> 8);
+    *data << fields[10].GetFloat();                       // x
+    *data << uint8(playerBytes2 & 0xFF);                  // facial hair
+
+    if (Guid2)
+        *data << uint8(Guid2^1);
+
+    *data << uint8(playerClass);                          // class
 
     return true;
 }
