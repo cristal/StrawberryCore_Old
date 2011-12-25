@@ -15340,7 +15340,13 @@ void Player::RewardGuildReputation(float RewRepValue, Creature* cr) // Creature 
 
                         if (Item *pItem = member->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD)) // If the player equipped the tabard
                             if (pItem->GetEntry() == 5976 || pItem->GetEntry() == 69209 || pItem->GetEntry() == 69210)
+                            {
                                 member->SetReputation(1168, newrewrepvalue);
+                                // SaveToDB
+                                SQLTransaction trans = CharacterDatabase.BeginTransaction();
+                                m_reputationMgr.SaveToDB(trans);
+                                CharacterDatabase.CommitTransaction(trans);
+                            }
                     }
                 }
             }
