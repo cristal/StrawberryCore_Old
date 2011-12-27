@@ -501,14 +501,14 @@ class ByteBuffer
             return s;
         }
 
-        bool ReadBoolean()
+        bool ReadBool()
         {
             uint8 b = 0;
             (*this) >> b;
             return b > 0 ? true : false;
         }
 
-        float ReadSingle()
+        float ReadFloat()
         {
             float f = 0;
             (*this) >> f;
