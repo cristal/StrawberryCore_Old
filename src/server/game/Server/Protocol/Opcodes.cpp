@@ -88,23 +88,27 @@ void InitOpcodeTable()
     }
 
     // Authentication
-    OPCODE(MSG_WOW_CONNECTION,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleEarlyProccess   );
-    OPCODE(SMSG_AUTH_CHALLENGE,           STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
-    OPCODE(CMSG_AUTH_SESSION,             STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleEarlyProccess   );
-    OPCODE(SMSG_AUTH_RESPONSE,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
+    OPCODE(MSG_WOW_CONNECTION,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleEarlyProccess      );
+    OPCODE(SMSG_AUTH_CHALLENGE,           STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
+    OPCODE(CMSG_AUTH_SESSION,             STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleEarlyProccess      );
+    OPCODE(SMSG_AUTH_RESPONSE,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
 
     // Realmlist
-    OPCODE(CMSG_REALM_SPLIT_STATE,        STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleRealmSplitOpcode);
-    OPCODE(SMSG_REALM_SPLIT_MSG,          STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
+    OPCODE(CMSG_REALM_SPLIT_STATE,        STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleRealmSplitOpcode   );
+    OPCODE(SMSG_REALM_SPLIT_MSG,          STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
 
     // Characterlist
-    OPCODE(CMSG_REQUEST_CHARACTER_ENUM,   STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharEnumOpcode  );
-    OPCODE(SMSG_CHAR_ENUM,                STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
-    OPCODE(CMSG_REQUEST_CHARACTER_CREATE, STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharCreateOpcode);
-    OPCODE(SMSG_CHAR_CREATE,              STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
-    OPCODE(CMSG_REQUEST_CHARACTER_DELETE, STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharDeleteOpcode);
-    OPCODE(SMSG_CHAR_DELETE,              STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
+    OPCODE(CMSG_REQUEST_CHARACTER_ENUM,   STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharEnumOpcode     );
+    OPCODE(SMSG_CHAR_ENUM,                STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
+    OPCODE(CMSG_REQUEST_CHARACTER_CREATE, STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharCreateOpcode   );
+    OPCODE(SMSG_CHAR_CREATE,              STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
+    OPCODE(CMSG_REQUEST_CHARACTER_DELETE, STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleCharDeleteOpcode   );
+    OPCODE(SMSG_CHAR_DELETE,              STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
+
+    // World enter
+    OPCODE(CMSG_PLAYER_LOGIN,             STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandlePlayerLoginOpcode  );
+    OPCODE(CMSG_LOADING_SCREEN_NOTIFY,    STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleLoadingScreenNotify);
 
     // World
-    OPCODE(SMSG_UPDATE_OBJECT,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide      );
+    OPCODE(SMSG_UPDATE_OBJECT,            STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleServerSide         );
 };

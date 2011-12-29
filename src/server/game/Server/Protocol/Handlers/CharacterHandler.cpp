@@ -855,14 +855,12 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
     SendPacket(&data);
 }
 
-void WorldSession::HandleWorldLoginOpcode(WorldPacket& recv_data)
+void WorldSession::HandleLoadingScreenNotify(WorldPacket& recv_data)
 {
-    sLog->outDebug("WORLD: Recvd World Login Message");
+    sLog->outDebug("WORLD: Received Loading Screen Notify");
 
     recv_data.read_skip<uint8>();     // byte mask
     recv_data.read_skip<uint32>();    // mapid
-
-    sLog->outDebug("Receiving of the Login Message is done.");
 }
 
 void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)

@@ -433,7 +433,7 @@ class WorldSession
         void HandleCharCreateOpcode(WorldPacket& recvPacket);
         void HandleCharCreateCallback(PreparedQueryResult result, CharacterCreateInfo* createInfo);
         void HandlePlayerLoginOpcode(WorldPacket& recvPacket);
-        void HandleWorldLoginOpcode(WorldPacket& recvPacket);
+        void HandleLoadingScreenNotify(WorldPacket& recvPacket);
         void HandleCharEnum(QueryResult result);
         void HandlePlayerLogin(LoginQueryHolder * holder);
         void HandleCharFactionOrRaceChange(WorldPacket& recv_data);
