@@ -25,6 +25,97 @@
 
 enum Opcodes
 {
+    // Authentication
+    MSG_WOW_CONNECTION,
+    SMSG_AUTH_CHALLENGE,
+    CMSG_AUTH_SESSION,
+    SMSG_AUTH_RESPONSE,
+
+    // Realmlist
+    CMSG_REALM_SPLIT_STATE,
+    SMSG_REALM_SPLIT_MSG,
+
+    // Characterlist
+    CMSG_REQUEST_CHARACTER_ENUM,
+    SMSG_CHAR_ENUM,
+    CMSG_REQUEST_CHARACTER_CREATE,
+    SMSG_CHAR_CREATE,
+    CMSG_REQUEST_CHARACTER_DELETE,
+    SMSG_CHAR_DELETE,
+
+    // World
+    SMSG_UPDATE_OBJECT,
+
+    MAX_OPCODE_VALUE
+};
+
+#define NUM_MSG_TYPES 0xFFFF
+
+extern void InitOpcodeTable();
+
+/// Player state
+enum SessionStatus
+{
+    STATUS_AUTHED = 0,                                      // Player authenticated (_player == NULL, m_playerRecentlyLogout = false or will be reset before handler call, m_GUID have garbage)
+    STATUS_LOGGEDIN,                                        // Player in game (_player != NULL, m_GUID == _player->GetGUID(), inWorld())
+    STATUS_TRANSFER,                                        // Player transferring to another map (_player != NULL, m_GUID == _player->GetGUID(), !inWorld())
+    STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT,                    // _player!= NULL or _player == NULL && m_playerRecentlyLogout, m_GUID store last _player guid)
+    STATUS_NEVER,                                           // Opcode not accepted from client (deprecated or server side only)
+    STATUS_UNHANDLED,                                       // Opcode not handled yet
+};
+
+enum PacketProcessing
+{
+    PROCESS_INPLACE      = 0,                               //process packet whenever we receive it - mostly for non-handled or non-implemented packets
+    PROCESS_THREADUNSAFE = 2,                               //packet is not thread-safe - process it in World::UpdateSessions()
+    PROCESS_THREADSAFE   = 3                                //packet is thread-safe - process it in Map::Update()
+};
+
+class WorldPacket;
+
+struct OpcodeHandler
+{
+    char const* name;
+    SessionStatus status;
+    PacketProcessing packetProcessing;
+    void (WorldSession::*handler)(WorldPacket& recvPacket);
+    Opcodes opcodeEnum;
+};
+
+extern OpcodeHandler opcodeTable[NUM_MSG_TYPES];
+extern uint16 opcodesEnumToNumber[MAX_OPCODE_VALUE];
+
+// Lookup opcode name for human understandable logging
+inline const char* LookupOpcodeName(uint16 id)
+{
+    if (id >= NUM_MSG_TYPES)
+        return "Received unknown opcode, it's more than max!";
+
+    return opcodeTable[id].name;
+}
+
+inline Opcodes LookupOpcodeEnum(uint16 OpcodeValue)
+{
+    return opcodeTable[OpcodeValue].opcodeEnum;
+}
+
+inline uint16 LookupOpcodeNumber(Opcodes enumValue)
+{
+    return opcodesEnumToNumber[enumValue];
+}
+
+class OpcodeTableHandler
+{
+    public:
+        void LoadOpcodesFromDB();
+        int GetOpcodeTable(const char* name);
+        std::map<std::string, int> OpcodeTableContainer;
+};
+
+#define sOpcodeTableHandler ACE_Singleton<OpcodeTableHandler, ACE_Null_Mutex>::instance()
+
+enum Opcodes_OLD
+{
     CMSG_ACCEPT_LEVEL_GRANT,
     CMSG_ACCEPT_TRADE,
     CMSG_ACTIVATETAXI,
@@ -55,7 +146,6 @@ enum Opcodes
     CMSG_AUCTION_PLACE_BID,
     CMSG_AUCTION_REMOVE_ITEM,
     CMSG_AUCTION_SELL_ITEM,
-    CMSG_AUTH_SESSION,
     CMSG_AUTH_SRP6_BEGIN,
     CMSG_AUTH_SRP6_PROOF,
     CMSG_AUTH_SRP6_RECODE,
@@ -137,10 +227,7 @@ enum Opcodes
     CMSG_CHANNEL_VOICE_OFF,
     CMSG_CHANNEL_VOICE_ON,
     CMSG_CHARACTER_POINT_CHEAT,
-    CMSG_CHAR_CREATE,
     CMSG_CHAR_CUSTOMIZE,
-    CMSG_CHAR_DELETE,
-    CMSG_CHAR_ENUM,
     CMSG_CHAR_FACTION_CHANGE,
     CMSG_CHAR_RACE_CHANGE,
     CMSG_CHAR_RENAME,
@@ -394,7 +481,6 @@ enum Opcodes
     CMSG_QUEST_QUERY,
     CMSG_READY_FOR_ACCOUNT_DATA_TIMES,
     CMSG_READ_ITEM,
-    CMSG_REALM_SPLIT,
     CMSG_RECLAIM_CORPSE,
     CMSG_REDIRECTION_AUTH_PROOF,
     CMSG_REFORGE,
@@ -499,7 +585,6 @@ enum Opcodes
     MSG_AUCTION_HELLO,
     MSG_CHANNEL_START,
     MSG_CHANNEL_UPDATE,
-    MSG_CHECK_CONNECTION,
     MSG_CORPSE_QUERY,
     MSG_DELAY_GHOST_TELEPORT,
     MSG_GM_ACCOUNT_ONLINE,
@@ -636,8 +721,6 @@ enum Opcodes
     SMSG_AURACASTLOG,
     SMSG_AURA_UPDATE,
     SMSG_AURA_UPDATE_ALL,
-    SMSG_AUTH_CHALLENGE,
-    SMSG_AUTH_RESPONSE,
     SMSG_AUTH_SRP6_RESPONSE,
     SMSG_AVAILABLE_VOICE_CHANNEL,
     SMSG_BARBER_SHOP_RESULT,
@@ -696,10 +779,7 @@ enum Opcodes
     SMSG_CHARACTER_LOGIN_FAILED,
     SMSG_CHARACTER_PROFILE,
     SMSG_CHARACTER_PROFILE_REALM_CONNECTED,
-    SMSG_CHAR_CREATE,
     SMSG_CHAR_CUSTOMIZE,
-    SMSG_CHAR_DELETE,
-    SMSG_CHAR_ENUM,
     SMSG_CHAR_FACTION_CHANGE,
     SMSG_CHAR_RENAME,
     SMSG_CHAT_PLAYER_AMBIGUOUS,
@@ -1037,7 +1117,6 @@ enum Opcodes
     SMSG_RAID_READY_CHECK_ERROR,
     SMSG_READ_ITEM_FAILED,
     SMSG_READ_ITEM_OK,
-    SMSG_REALM_SPLIT,
     SMSG_REAL_GROUP_UPDATE,
     SMSG_RECEIVED_MAIL,
     SMSG_REDIRECT_CLIENT,
@@ -1175,7 +1254,6 @@ enum Opcodes
     SMSG_UPDATE_ITEM_ENCHANTMENTS,
     SMSG_UPDATE_LAST_INSTANCE,
     SMSG_UPDATE_LFG_LIST,
-    SMSG_UPDATE_OBJECT,
     SMSG_UPDATE_WORLD_STATE,
     SMSG_USERLIST_ADD,
     SMSG_USERLIST_REMOVE,
@@ -1194,72 +1272,6 @@ enum Opcodes
     SMSG_WHOIS,
     SMSG_WORLD_STATE_UI_TIMER_UPDATE,
     SMSG_ZONE_UNDER_ATTACK,
-    MAX_OPCODE_VALUE
 };
-
-#define NUM_MSG_TYPES 0xFFFF
-
-extern void InitOpcodeTable();
-
-/// Player state
-enum SessionStatus
-{
-    STATUS_AUTHED = 0,                                      // Player authenticated (_player == NULL, m_playerRecentlyLogout = false or will be reset before handler call, m_GUID have garbage)
-    STATUS_LOGGEDIN,                                        // Player in game (_player != NULL, m_GUID == _player->GetGUID(), inWorld())
-    STATUS_TRANSFER,                                        // Player transferring to another map (_player != NULL, m_GUID == _player->GetGUID(), !inWorld())
-    STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT,                    // _player!= NULL or _player == NULL && m_playerRecentlyLogout, m_GUID store last _player guid)
-    STATUS_NEVER,                                           // Opcode not accepted from client (deprecated or server side only)
-    STATUS_UNHANDLED,                                       // Opcode not handled yet
-};
-
-enum PacketProcessing
-{
-    PROCESS_INPLACE      = 0,                               //process packet whenever we receive it - mostly for non-handled or non-implemented packets
-    PROCESS_THREADUNSAFE = 2,                               //packet is not thread-safe - process it in World::UpdateSessions()
-    PROCESS_THREADSAFE   = 3                                //packet is thread-safe - process it in Map::Update()
-};
-
-class WorldPacket;
-
-struct OpcodeHandler
-{
-    char const* name;
-    SessionStatus status;
-    PacketProcessing packetProcessing;
-    void (WorldSession::*handler)(WorldPacket& recvPacket);
-    Opcodes opcodeEnum;
-};
-
-extern OpcodeHandler opcodeTable[NUM_MSG_TYPES];
-extern uint16 opcodesEnumToNumber[MAX_OPCODE_VALUE];
-
-// Lookup opcode name for human understandable logging
-inline const char* LookupOpcodeName(uint16 id)
-{
-    if (id >= NUM_MSG_TYPES)
-        return "Received unknown opcode, it's more than max!";
-
-    return opcodeTable[id].name;
-}
-
-inline Opcodes LookupOpcodeEnum(uint16 OpcodeValue)
-{
-    return opcodeTable[OpcodeValue].opcodeEnum;
-}
-
-inline uint16 LookupOpcodeNumber(Opcodes enumValue)
-{
-    return opcodesEnumToNumber[enumValue];
-}
-
-class OpcodeTableHandler
-{
-    public:
-        void LoadOpcodesFromDB();
-        int GetOpcodeTable(const char* name);
-        std::map<std::string, int> OpcodeTableContainer;
-};
-
-#define sOpcodeTableHandler ACE_Singleton<OpcodeTableHandler, ACE_Null_Mutex>::instance()
 
 #endif

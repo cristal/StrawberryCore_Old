@@ -1413,13 +1413,13 @@ void WorldSession::HandleComplainOpcode(WorldPacket & recv_data)
 
 void WorldSession::HandleRealmSplitOpcode(WorldPacket & recv_data)
 {
-    sLog->outDebug("CMSG_REALM_SPLIT");
+    sLog->outDebug("CMSG_REALM_SPLIT_STATE");
 
     uint32 unk;
     std::string split_date = "01/01/01";
     recv_data >> unk;
 
-    WorldPacket data(SMSG_REALM_SPLIT, 4+4+split_date.size()+1);
+    WorldPacket data(SMSG_REALM_SPLIT_MSG, 4+4+split_date.size()+1);
     data << unk;
     data << uint32(0x00000000);                             // realm split state
     // split states:

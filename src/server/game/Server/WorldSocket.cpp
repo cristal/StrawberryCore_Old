@@ -717,7 +717,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
         Opcodes opcodeEnum = LookupOpcodeEnum(opcode);
         switch(opcodeEnum)
         {
-            case MSG_CHECK_CONNECTION:
+            case MSG_WOW_CONNECTION:
                 return HandleAuthConnection(*new_pct);
             case CMSG_PING:
                 return HandlePing (*new_pct);
