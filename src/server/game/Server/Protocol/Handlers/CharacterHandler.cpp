@@ -793,15 +793,9 @@ void WorldSession::HandleCharCreateCallback(PreparedQueryResult result, Characte
 void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
 {
     uint64 guid = 0;
-    uint8 packetGuid, byte;
 
     sLog->outStaticDebug("WORLD: Received Player Delete Message");
-    recv_data >> packetGuid;
-    recv_data >> byte;
-    recv_data.read_skip<uint16>();
-    recv_data.read_skip<uint32>();
-
-    guid = GetRealCharGUID(packetGuid, byte, "Can't delete anything, sorry!");
+    recv_data >> guid;
     if (guid == -1)
         return;
 
