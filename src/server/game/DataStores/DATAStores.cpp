@@ -706,7 +706,7 @@ void LoadDATAStores()
                     if (sInfo->Effect[j] == SPELL_EFFECT_SEND_TAXI)
                         spellPaths.insert(uint32(sInfo->EffectMiscValue[j]));
 
-        ASSERT(((sTaxiNodesStore.GetNumRows() - 1) / 32) < TaxiMaskSize && "TaxiMaskSize needs to be increased");
+        //ASSERT(((sTaxiNodesStore.GetNumRows() - 1) / 32) < TaxiMaskSize && "TaxiMaskSize needs to be increased");
         memset(sTaxiNodesMask,0,sizeof(sTaxiNodesMask));
         memset(sOldContinentsNodesMask,0,sizeof(sOldContinentsNodesMask));
         memset(sHordeTaxiNodesMask,0,sizeof(sHordeTaxiNodesMask));
@@ -787,12 +787,11 @@ void LoadDATAStores()
     }
 
     // Check loaded DATA files proper version
-    if (//!sAreaStore.LookupEntry(5839)              ||       // last area (areaflag) added in 4.2.0a (14480)
-        !sCharTitlesStore.LookupEntry(279)         ||       // last char title added in 4.2.0a (14480)
-        !sGemPropertiesStore.LookupEntry(1860)     ||       // last gem property added in 4.2.0a (14480)
-        !sItemExtendedCostStore.LookupEntry(3652)  ||       // last item extended cost added in 4.2.0a (14480)
-        !sMapStore.LookupEntry(968)                ||       // last map added in 4.2.0a (14480)
-        !sSpellStore.LookupEntry(102129)            )       // last added spell in 4.2.0a (14480)
+    if (!sAreaStore.LookupEntry(5995)              ||       // last area (areaflag) added in 4.3.0a (15050)
+        !sCharTitlesStore.LookupEntry(287)         ||       // last char title added in 4.3.0a (15050)
+        !sGemPropertiesStore.LookupEntry(2250)     ||       // last gem property added in 4.3.0a (15050)
+        !sMapStore.LookupEntry(980)                ||       // last map added in 4.3.0a (15050)
+        !sSpellStore.LookupEntry(110966)            )       // last added spell in 4.3.0a (15050)
     {
         sLog->outError("\nYou have outdated DATA files. Please extract correct versions from current using client.");
         exit(1);

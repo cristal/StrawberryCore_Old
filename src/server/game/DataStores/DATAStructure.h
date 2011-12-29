@@ -1604,6 +1604,7 @@ struct SoundEntriesEntry
     //unk                                                   // 31       4.0.0
     //unk                                                   // 32       4.0.0
     //unk                                                   // 33       4.0.0
+    //unk                                                   // 34       4.3.0
 };
 
 #define MAX_SPELL_EFFECTS 3
@@ -1762,6 +1763,7 @@ struct SpellPowerEntry
     uint32    manaPerSecond;                                // 4         m_manaPerSecond
     //uint32  PowerDisplayId;                               // 5         m_powerDisplayID - id from PowerDisplay.dbc, new in 3.1
     //uint32  unk1;                                         // 6         4.0.0
+    //unk                                                   // 7 - 4.3.0
 };
 
 // SpellReagents.dbc
@@ -2500,6 +2502,8 @@ struct WorldMapAreaEntry
     //int32   dungeonMap_id;                                // 9 pointer to DungeonMap.dbc (owerride x1,x2,y1,y2 coordinates)
     //uint32  someMapID;                                    // 10
     //uint32   unk1;                                        // 11 4.0.0
+    //uint32 unk2;                                          // 12 - 4.3.0
+    //uint32 unk4;                                          // 13 - 4.3.0
 };
 
 #define MAX_WORLD_MAP_OVERLAY_AREA_IDX 4
