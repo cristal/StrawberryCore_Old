@@ -330,7 +330,7 @@ class WorldSession
         // Account Data
         AccountData *GetAccountData(AccountDataType type) { return &m_accountData[type]; }
         void SetAccountData(AccountDataType type, time_t time_, std::string data);
-        void SendAccountDataTimes(uint32 mask);
+        void SendAccountDataInitialized(uint32 mask);
         void LoadGlobalAccountData();
         void LoadAccountData(PreparedQueryResult result, uint32 mask);
 

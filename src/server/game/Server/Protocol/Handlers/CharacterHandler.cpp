@@ -945,7 +945,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
 
     // load player specific part before send times
     LoadAccountData(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADACCOUNTDATA), PER_CHARACTER_CACHE_MASK);
-    SendAccountDataTimes(PER_CHARACTER_CACHE_MASK);
+    SendAccountDataInitialized(PER_CHARACTER_CACHE_MASK);
 
     data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 6);         // added in 2.2.0
     /*data << uint8(2);                                       // unknown value

@@ -787,7 +787,7 @@ void LoadDATAStores()
     }
 
     // Check loaded DATA files proper version
-    if (!sAreaStore.LookupEntry(5995)              ||       // last area (areaflag) added in 4.3.0a (15050)
+    if (!sAreaStore.LookupEntry(4713)              ||       // last area (areaflag) added in 4.3.0a (15050)
         !sCharTitlesStore.LookupEntry(287)         ||       // last char title added in 4.3.0a (15050)
         !sGemPropertiesStore.LookupEntry(2250)     ||       // last gem property added in 4.3.0a (15050)
         !sMapStore.LookupEntry(980)                ||       // last map added in 4.3.0a (15050)

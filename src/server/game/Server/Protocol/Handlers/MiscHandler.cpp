@@ -1726,7 +1726,7 @@ void WorldSession::HandleReadyForAccountDataTimes(WorldPacket& /*recv_data*/)
     // empty opcode
     sLog->outDebug("WORLD: CMSG_READY_FOR_ACCOUNT_DATA_TIMES");
 
-    SendAccountDataTimes(GLOBAL_CACHE_MASK);
+    SendAccountDataInitialized(GLOBAL_CACHE_MASK);
 }
 
 void WorldSession::SendSetPhaseShift(uint32 PhaseShift, uint32 MapID, bool withoutmap)

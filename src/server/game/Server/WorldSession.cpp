@@ -683,15 +683,17 @@ void WorldSession::SetAccountData(AccountDataType type, time_t time_, std::strin
     m_accountData[type].Data = data;
 }
 
-void WorldSession::SendAccountDataTimes(uint32 mask)
+void WorldSession::SendAccountDataInitialized(uint32 mask)
 {
-    WorldPacket data(SMSG_ACCOUNT_DATA_TIMES, 4 + 1 + 4 + 8 * 4); // changed in WotLK
-    data << uint32(time(NULL));                             // unix time of something
-    data << uint8(1);
-    data << uint32(mask);                                   // type mask
+    WorldPacket data(SMSG_ACCOUNT_DATA_INITIALIZED, 4 + 1 + 4 + 8 * 4);
+    data << uint32(0);      // Unix timestamp
+    data << uint8(1);       // Always 0x01
+    data << uint32(mask);   // type mask
+
     for (uint32 i = 0; i < NUM_ACCOUNT_DATA_TYPES; ++i)
         if (mask & (1 << i))
-            data << uint32(GetAccountData(AccountDataType(i))->Time);// also unix time
+            data << uint32(GetAccountData(AccountDataType(i))->Time);
+
     SendPacket(&data);
 }
 
