@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2012 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,6 +73,9 @@ enum Opcodes
     SMSG_GAME_OBJECT_STATS,
     CMSG_NAME_CACHE,
     SMSG_NAME_CACHE,
+
+    // Compressed
+    SMSG_COMPRESSED_UPDATE_OBJECT,
 
     MAX_OPCODE_VALUE
 };
@@ -821,7 +824,6 @@ enum Opcodes_OLD
     SMSG_COMPLAIN_RESULT,
     SMSG_COMPRESSED_CHAR_ENUM,
     SMSG_COMPRESSED_MOVES,
-    SMSG_COMPRESSED_UPDATE_OBJECT,
     SMSG_COMSAT_CONNECT_FAIL,
     SMSG_COMSAT_DISCONNECT,
     SMSG_COMSAT_RECONNECT_TRY,

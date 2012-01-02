@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2012 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
  *

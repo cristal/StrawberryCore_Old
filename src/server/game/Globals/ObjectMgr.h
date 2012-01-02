@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 Trinity <http://www.trinitycore.org/>
  *
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *

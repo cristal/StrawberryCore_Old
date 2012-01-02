@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 Trinity <http://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
+ * Copyright (C) 2010-2012 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ enum OBJECT_UPDATE_FLAGS
     UPDATEFLAG_UNK1         = 0x0400,
     UPDATEFLAG_UNK2         = 0x0800,
     UPDATEFLAG_UNK3         = 0x1000,
-    //UPDATEFLAG_UNK          = 0x2000, // 4.20
+    UPDATEFLAG_UNK4         = 0x2000,
 };
 
 class UpdateData
